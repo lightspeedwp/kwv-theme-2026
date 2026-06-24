@@ -7,17 +7,15 @@ The KWV block theme — a WordPress Full Site Editing (FSE) + WooCommerce theme.
 
 ---
 
-## ⚠️ This theme is still Ollie under the hood
+## State: re-skinned to KWV
 
-Scaffolded from the **Ollie** theme and **not yet re-skinned to KWV**:
+Scaffolded from the **Ollie** theme and **fully re-skinned to KWV**. Ollie identity, namespace, text domain, slugs, CSS classes, and demo patterns have all been removed:
 
-- `style.css` header → `Theme Name: Ollie`; `functions.php` → `namespace Ollie`, text domain `ollie`.
-- `theme.json` → Ollie's default tokens (Mona Sans, purple `#5344F4`).
-- `README.md` is Ollie's; `screenshot.png` is Ollie's.
+- `style.css` → `Theme Name: KWV 2026`, author LightSpeed, `Text Domain: kwv`, `Version: 1.0.0`.
+- `functions.php` / `inc/` → PHP namespace `Kwv`, text domain `kwv`, block-style handles `kwv-block-*`.
+- `theme.json` → real KWV tokens from Figma (gold brand ramp `brand-500 #B29143`, Jost + Figtree fonts, numeric token scales). Schema `wp/6.9`.
 
-Re-skinning is **in-scope** build work (identity strings, namespace/text-domain, palette/typography via the extractor pipeline, pruning Ollie patterns/variations to KWV's set). Until then, **do not treat current `theme.json` tokens as the KWV brand** — see [`../../../DESIGN.md`](../../../DESIGN.md).
-
-Housekeeping: there are stray duplicates (`LICENSE copy`) — clean these up when touching the area, don't add more.
+The current `theme.json` **is** the KWV design system — see [`../../../DESIGN.md`](../../../DESIGN.md). Remaining work: rebuild deleted pattern references (footer + template patterns), WooCommerce styling, and the in-scope patterns/blocks listed in DESIGN.md §9.
 
 ---
 
@@ -25,17 +23,16 @@ Housekeeping: there are stray duplicates (`LICENSE copy`) — clean these up whe
 
 ```
 kwv-theme-2026/
-├── theme.json            # Global Styles + settings (design tokens). Generated from Figma.
-├── style.css             # Theme header + CSS reset/base. ⚠️ still says "Ollie".
-├── functions.php         # Setup, block styles, pattern categories. ⚠️ "Ollie" namespace.
+├── theme.json            # Global Styles + settings (KWV design tokens). Generated from Figma. Schema wp/6.9.
+├── style.css             # Theme header (KWV 2026) + CSS reset/base.
+├── functions.php         # Setup, block styles, pattern categories. PHP namespace `Kwv`, text domain `kwv`.
 ├── inc/woocommerce.php    # WooCommerce-specific theme functions.
 ├── templates/            # Page/post/Woo templates (.html).
-├── parts/                # Template parts: header, footer, shop header, mini-cart, product-card.
-├── patterns/             # ~116 block patterns (.php). Mostly Ollie — prune to KWV's set.
-├── styles/               # Style variations + colors/ + typography/ + blocks/.
-│   └── (no dark.json yet — DESIGN.md §7 expects one)
+├── parts/                # Template parts: header, footer (empty placeholder), sidebar, product-card, add-to-cart parts.
+├── patterns/             # ~20 block patterns (.php): headers, post loops, team, WooCommerce set.
+├── styles/               # Style variations (none currently; no dark.json — see DESIGN.md §4.3, §8).
 └── assets/
-    ├── fonts/            # WOFF2 (currently Mona Sans).
+    ├── fonts/            # Self-hosted WOFF2: jost/ (headings), figtree/ (body).
     └── styles/           # Per-block CSS, lazy-enqueued by filename (core-*.css → core/*).
 ```
 
@@ -44,13 +41,13 @@ kwv-theme-2026/
 ## Conventions
 
 ### theme.json & tokens
-- `theme.json` is **generated from Figma** by the `.agents/skills` extractors — don't hand-edit token values; re-extract. See DESIGN.md §3.
-- Three colour layers stay separate: `settings.color.palette` (raw values) → `settings.custom.color` (semantic tokens, *what files reference*) → `styles/dark.json` (dark mirror). The semantic + dark layers don't exist yet; introduce them via the extractors + `theme-color-token-enforcer`.
-- Schema target moving to `6.9` per the typography extractor; current file is `version: 3` / trunk schema. Reconcile during extraction.
+- `theme.json` is **generated from Figma** by the `.agents/skills` extractors — don't hand-edit token values; re-extract. See DESIGN.md §2.
+- Colour is referenced **directly by palette slug** (`var:preset|color|brand-500`, `…|contrast`, `…|neutral-700`). The optional semantic-token layer (`settings.custom.color`) + `styles/dark.json` mirror is **not adopted** — only introduce it (via `theme-color-token-enforcer`) if dark mode / semantic indirection is approved. See DESIGN.md §4.3.
+- Schema is `https://schemas.wp.org/wp/6.9/theme.json`, `version: 3`. Tokens use **numeric slugs** (`100`/`200`/…), not named sizes.
 
 ### Authored files (patterns / templates / parts / styles)
-- Reference **semantic tokens only**: `var:custom|color|…`, `var:preset|spacing|…`, `var:preset|font-size|…`, `var:custom|font-weight|…`.
-- **No** raw `#hex` / `rgb()` / font-family / raw font-weight literals. In raw `css` strings use `var(--wp--custom--…)` / `var(--wp--preset--…)`.
+- Reference **preset tokens by numeric slug**: `var:preset|color|<slug>`, `var:preset|spacing|<slug>`, `var:preset|font-size|<slug>`, `var:preset|font-family|heading|body`, `var:custom|font-weight|…`, `var:custom|line-height|…`.
+- **No** raw `#hex` / `rgb()` / font-family / raw font-weight literals. In raw `css` strings use `var(--wp--preset--…)` / `var(--wp--custom--…)`.
 - Semantic HTML `tagName`s; correct heading hierarchy; keep templates/parts lean (no inline styles).
 
 ### PHP (`functions.php`, `inc/`, `patterns/*.php`)
@@ -59,8 +56,8 @@ kwv-theme-2026/
 - Block styles are registered in `functions.php`; per-block CSS in `assets/styles/<core-block>.css` is auto-enqueued only when the block is used (don't break that filename→block convention).
 
 ### Patterns
-- Register categories in `functions.php`. Use the `pattern-extractor` skill to turn Figma sections into patterns.
-- Build only patterns on the DESIGN.md §8 / PRD list. The bundled Ollie patterns are reference, not deliverables.
+- Register categories in `functions.php` (now `kwv/*`). Use the `pattern-extractor` skill to turn Figma sections into patterns.
+- Build only patterns on the DESIGN.md §9 / PRD list. Some templates still embed `wp:pattern` slugs whose patterns were deleted in the de-Ollie cleanup (footer + template patterns) — rebuild these as KWV patterns; `footer.html` is an intentional empty placeholder.
 
 ---
 
@@ -74,7 +71,7 @@ composer run wpcs:scan    # WordPress Coding Standards
 composer run wpcs:fix     # auto-fix
 ```
 
-Recommended skill passes: `block-theme-audit` (before milestones), `themejson-completion` (coverage gaps), `theme-orphaned-refs` (after token changes), `theme-color-token-enforcer` (semantic + dark parity).
+Recommended skill passes: `block-theme-audit` (before milestones), `themejson-completion` (coverage gaps), `theme-orphaned-refs` (after token changes), `theme-color-token-enforcer` (only if the semantic-token/dark layer is adopted — see DESIGN.md §4.3).
 
 ---
 
@@ -82,4 +79,4 @@ Recommended skill passes: `block-theme-audit` (before milestones), `themejson-co
 
 **Do:** prefer `theme.json` over PHP for styling; keep diffs small; update `CHANGELOG.md`; validate JSON against the WP schema; keep RTL-safe logical properties.
 
-**Don't:** add Webpack/Vite/Docker/Storybook or npm/Composer deps without justification; leave `{{PLACEHOLDER}}` tokens in shipped files; ship Ollie branding; build out-of-scope templates/patterns (→ Change-Control Register).
+**Don't:** add Webpack/Vite/Docker/Storybook or npm/Composer deps without justification; leave `{{PLACEHOLDER}}` tokens in shipped files; reintroduce Ollie naming/branding or named-size token slugs; build out-of-scope templates/patterns (→ Change-Control Register).

@@ -1053,6 +1053,16 @@
 			"area": "header"
 		},
 		{
+			"name": "header-dark",
+			"title": "Header (Dark)",
+			"area": "header"
+		},
+		{
+			"name": "header-transparent",
+			"title": "Header (Transparent)",
+			"area": "header"
+		},
+		{
 			"name": "footer",
 			"title": "Footer",
 			"area": "footer"

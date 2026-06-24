@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added (Team post type)
+- Registered a `kwv_team` custom post type (`inc/team.php`, loaded from `functions.php`): public, REST-enabled, archive at `/team`, `dashicons-groups` menu icon. A team member uses the **title** for their name, the **featured image** for their photo, and the **content** for their short bio.
+- Added a `kwv_team_role` post meta field for the member's **role** — REST-exposed, `sanitize_text_field`, `edit_posts` auth — with a nonce-protected, capability-checked **Role** meta box in the editor sidebar.
+- Removed the static `kwv/team-members` pattern (`patterns/team-members.php`) — superseded by the Team post type; it had hardcoded members and no template referenced it.
+- Note: this CPT may be out of Estimate 3168 scope → flag for the Change-Control Register.
+
+### Added (header & footer patterns)
+- Built three KWV header patterns from the supplied designs, each with logo (`site-logo`), an empty navigation block (menu to be assigned in the editor), and account + cart icons, in a three-child `space-between` flex so the nav centres; inner content group is `alignwide`:
+  - `kwv/header-light` — white background **+ gold (`brand-500`) promo bar** ("15% Off All Wine Orders Of R500+ | Use Code: PINOTAGE100"); wired to `parts/header.html` for shop/category/product.
+  - `kwv/header-dark` — `contrast` background, base text, `brand-500` icons → new `parts/header-dark.html`.
+  - `kwv/header-transparent` — no background, base text, for templates with heroes behind the header → new `parts/header-transparent.html`.
+- Built `kwv/footer` pattern (replaces the empty footer placeholder): `contrast` background, logo, outline SHOP NOW / CONTACT buttons, four link columns (Corporate Links, Featured Brands, Noteworthy, Contact Us) with supplied labels, centred "PLEASE DRINK RESPONSIBLY" notice, divider, and a dynamic-year copyright line. Wired to `parts/footer.html`.
+- Registered `header-dark` and `header-transparent` template parts (area `header`) in `theme.json`.
+- All values reference numeric preset tokens; orphaned-reference scan remains at 0.
+
 ### Changed (buttons)
 - Restyled the button element and `core/button` **outline** variation in `theme.json` to the KWV button spec:
   - Both use the custom button spacing tokens (`var:custom|spacing|button|paddingVertical/-Horizontal`), `0` radius, uppercase text, base size (`font-size|200`), medium weight (`custom|font-weight|medium`), and a `1px` base border.

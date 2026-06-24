@@ -196,6 +196,11 @@ function template_part_areas( array $areas ) {
 add_filter( 'default_wp_template_part_areas', __NAMESPACE__ . '\template_part_areas' );
 
 /**
+ * Load the Team post type.
+ */
+require_once get_template_directory() . '/inc/team.php';
+
+/**
  * Load WooCommerce specific functions.
  */
 require_once get_template_directory() . '/inc/woocommerce.php';
