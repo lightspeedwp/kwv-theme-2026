@@ -20,12 +20,12 @@
 				<div class="wp-block-group">
 				<!-- wp:group {"metadata":{"name":"Post Meta"},"style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"constrained"}} -->
 					<div class="wp-block-group">
-					<!-- wp:post-terms {"term":"category","style":{"elements":{"link":{"color":{"text":"var:preset|color|brand-500"}}},"typography":{"fontStyle":"normal","fontWeight":"500"}},"fontSize":"small"} /-->
-					<!-- wp:post-title {"isLink":true,"fontSize":"x-large"} /-->
-					<!-- wp:group {"style":{"spacing":{"blockGap":"10px"},"typography":{"fontStyle":"normal","fontWeight":"500"}},"textColor":"secondary","fontSize":"small","layout":{"type":"flex","flexWrap":"wrap"}} -->
+					<!-- wp:post-terms {"term":"category","style":{"elements":{"link":{"color":{"text":"var:preset|color|brand-500"}}},"typography":{"fontStyle":"normal","fontWeight":"500"}},"fontSize":"300"} /-->
+					<!-- wp:post-title {"isLink":true,"fontSize":"600"} /-->
+					<!-- wp:group {"style":{"spacing":{"blockGap":"10px"},"typography":{"fontStyle":"normal","fontWeight":"500"}},"textColor":"neutral-700","fontSize":"300","layout":{"type":"flex","flexWrap":"wrap"}} -->
 						<div class="wp-block-group has-neutral-700-color has-text-color has-300-font-size" style="font-style:normal;font-weight:500">
 						<!-- wp:post-author {"showBio":false} /-->
-						<!-- wp:paragraph {"textColor":"secondary"} -->
+						<!-- wp:paragraph {"textColor":"neutral-700"} -->
 							<p class="has-neutral-700-color has-text-color"><?php esc_html_e( '·', 'kwv' ); ?></p>
 						<!-- /wp:paragraph -->
 						<!-- wp:post-date /-->
@@ -35,7 +35,7 @@
 				<!-- /wp:group -->
 				<!-- wp:post-featured-image {"isLink":true,"style":{"border":{"radius":"5px"},"spacing":{"margin":{"top":"var:preset|spacing|40"}}}} /-->
 				<!-- wp:post-content /-->
-				<!-- wp:separator {"className":"is-style-separator-thin","style":{"spacing":{"margin":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50"}}},"backgroundColor":"border-light"} -->
+				<!-- wp:separator {"className":"is-style-separator-thin","style":{"spacing":{"margin":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50"}}},"backgroundColor":"neutral-300"} -->
 					<hr class="wp-block-separator has-text-color has-neutral-300-color has-alpha-channel-opacity has-neutral-300-background-color has-background is-style-separator-thin" style="margin-top:var(--wp--preset--spacing--50);margin-bottom:var(--wp--preset--spacing--50)"/>
 				<!-- /wp:separator -->
 				</div>

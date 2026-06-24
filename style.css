@@ -199,15 +199,15 @@ body:not(.wp-admin) header:has(>.is-position-sticky) {
 /* Mobile helper classes */
 
 @media (max-width: 781px) {
-	.ollie-hide-on-mobile {
+	.kwv-hide-on-mobile {
 		display: none;
 	}
 
-	.ollie-unstick-mobile {
+	.kwv-unstick-mobile {
 		position: static;
 	}
 
-	header:has(>.ollie-unstick-mobile) {
+	header:has(>.kwv-unstick-mobile) {
 		position: static;
 	}
 }

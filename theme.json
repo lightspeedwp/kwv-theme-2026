@@ -199,7 +199,9 @@
 				"black": 900
 			},
 			"lineHeight": {
+				"snug": "1.125",
 				"heading": "1.25",
+				"button": "1.35",	
 				"body": "1.5"
 			},
 			"spacing": {
@@ -207,9 +209,6 @@
 					"paddingHorizontal": "clamp(24px, calc(21.18px + 0.75vw), 32px)",
 					"paddingVertical": "clamp(14px, calc(12.59px + 0.38vw), 18px)"
 				}
-			},
-			"layout": {
-				"fullWidth": "1920px"
 			}
 		},
 		"layout": {
@@ -1018,7 +1017,6 @@
 			"title": "Page (Full Width, No Title)",
 			"postTypes": [
 				"page",
-				"ollie_pattern",
 				"post"
 			]
 		},

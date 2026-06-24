@@ -5,6 +5,6 @@
 	margin-top: 0;
 }
 
-.ollie-avatar-row > figure:not(:first-child) {
+.kwv-avatar-row > figure:not(:first-child) {
 	margin-left: -10px !important;
 }

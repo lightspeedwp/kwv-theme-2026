@@ -30,6 +30,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - New `screenshot.png` (1200×900) generated from the KWV logo.
 - Theme-wide rename: text domain `'ollie'` → `'kwv'` (all PHP), and pattern/category slug prefix `ollie/` → `kwv/` across `functions.php`, patterns, templates, and parts (cross-references kept consistent). Removed a stale `"theme":"ollie"` template-part attribute.
 - Renamed internal function `unregister_ollie_woocommerce_patterns` → `unregister_kwv_woocommerce_patterns`.
+- Fixed legacy bare block-attribute slugs (uncaught by the `var:`/`--wp--` orphan scan) across patterns/parts/templates: `backgroundColor`/`textColor`/`overlayColor` (`tertiary→neutral-200`, `secondary→neutral-700`, `main→contrast`, `primary→brand-500`, etc.) and `fontSize` (`small→300`, `x-small→100`, `base→200`, `medium→400`, `large→500`, `x-large→600`) — 134 fixes, restoring consistency with the already-remapped `has-*` classes.
+- Full `ollie-*` → `kwv-*` CSS utility-class rename (style.css, assets/styles, woo patterns) — 60 replacements; removed Ollie-specific `ollieCustomClasses` block metadata.
+- Removed legacy `ollie_pattern` post type from `customTemplates`; updated orphan `package-lock.json` name.
+
+### Removed (cleanup)
+- Deleted Ollie-branded patterns: `footer-dark`, `footer-light`, `single-testimonial`, `pricing-table`, `pricing-table-3-column`, `pricing-table-with-testimonials` (KWV patterns to be built fresh). `parts/footer.html` reset to an empty footer placeholder.
+- Deleted stray `LICENSE copy` file.
+- Genericised Ollie placeholder copy in `parts/sidebar.html`.
 
 ### Notes
 - The theme is currently scaffolded on the **Ollie** base theme and not yet re-skinned to KWV.

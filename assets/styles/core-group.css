@@ -14,39 +14,39 @@
 
 /* Improvements for row group */
 @media (max-width: 781px) {
-	.ollie-row-stack {
+	.kwv-row-stack {
 		flex-direction: column;
 		align-items: flex-start !important;
 	}
 
-	.ollie-row-stack > * {
+	.kwv-row-stack > * {
 		flex-basis: 100% !important;
 	}
 
-	.ollie-flex-start {
+	.kwv-flex-start {
 		align-items: flex-start !important;
 	}
 
-	.ollie-justify-start {
+	.kwv-justify-start {
 		justify-content: flex-start !important;
 	}
 }
 
-.ollie-row-stack > .wp-block-buttons,
-.ollie-no-shrink {
+.kwv-row-stack > .wp-block-buttons,
+.kwv-no-shrink {
 	flex-shrink: 0;
 }
 
-.wp-block-group.ollie-sticky-top {
+.wp-block-group.kwv-sticky-top {
 	top: calc(20px + var(--wp-admin--admin-bar--position-offset, 0px))
 }
 
 /* Helper class to swap order on mobile */
 @media (max-width: 781px) {
-	.ollie-swap-order {
+	.kwv-swap-order {
 		flex-direction: column-reverse;
 	}
-	.ollie-row-reverse {
+	.kwv-row-reverse {
 		flex-direction: row-reverse;
 	}
 }

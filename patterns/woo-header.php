@@ -13,9 +13,9 @@
 ?>
 <!-- wp:group {"metadata":{"name":"Header"},"align":"full","style":{"spacing":{"blockGap":"0"}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull">
-	<!-- wp:group {"metadata":{"name":"CTA Bar"},"align":"full","style":{"spacing":{"padding":{"right":"var:preset|spacing|20","left":"var:preset|spacing|20","top":"1rem","bottom":"1rem"}}},"backgroundColor":"main","textColor":"main-accent","layout":{"type":"constrained"}} -->
+	<!-- wp:group {"metadata":{"name":"CTA Bar"},"align":"full","style":{"spacing":{"padding":{"right":"var:preset|spacing|20","left":"var:preset|spacing|20","top":"1rem","bottom":"1rem"}}},"backgroundColor":"contrast","textColor":"neutral-300","layout":{"type":"constrained"}} -->
 	<div class="wp-block-group alignfull has-neutral-300-color has-contrast-background-color has-text-color has-background" style="padding-top:1rem;padding-right:var(--wp--preset--spacing--20);padding-bottom:1rem;padding-left:var(--wp--preset--spacing--20)">
-		<!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"fontSize":"x-small","layout":{"type":"flex","justifyContent":"center"}} -->
+		<!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"fontSize":"100","layout":{"type":"flex","justifyContent":"center"}} -->
 		<div class="wp-block-group alignwide has-100-font-size">
 			<!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"500"},"elements":{"link":{"color":{"text":"var:preset|color|base"}}}},"textColor":"base"} -->
 			<p class="has-base-color has-text-color has-link-color" style="font-style:normal;font-weight:500"><?php esc_html_e( 'Save 25% off during our Winter Sale! Use code SELLWISE25', 'kwv' ); ?></p>
@@ -33,7 +33,7 @@
 			<div class="wp-block-group">
 				<!-- wp:site-title {"level":0} /-->
 
-				<!-- wp:navigation {"openSubmenusOnClick":true,"metadata":{"ignoredHookedBlocks":["woocommerce/customer-account"]},"style":{"spacing":{"blockGap":"var:preset|spacing|20"},"layout":{"selfStretch":"fit","flexSize":null}},"fontSize":"small"} /-->
+				<!-- wp:navigation {"openSubmenusOnClick":true,"metadata":{"ignoredHookedBlocks":["woocommerce/customer-account"]},"style":{"spacing":{"blockGap":"var:preset|spacing|20"},"layout":{"selfStretch":"fit","flexSize":null}},"fontSize":"300"} /-->
 			</div>
 			<!-- /wp:group -->
 
@@ -53,9 +53,9 @@
 	<div class="wp-block-group alignfull has-base-background-color has-background has-link-color" style="border-bottom-color:var(--wp--preset--color--neutral-300);border-bottom-width:1px;padding-top:12px;padding-right:var(--wp--preset--spacing--20);padding-bottom:12px;padding-left:var(--wp--preset--spacing--20)">
 		<!-- wp:group {"align":"wide","layout":{"type":"flex","justifyContent":"space-between"}} -->
 		<div class="wp-block-group alignwide">
-			<!-- wp:navigation {"openSubmenusOnClick":true,"metadata":{"ignoredHookedBlocks":["woocommerce/customer-account"]},"style":{"spacing":{"blockGap":"var:preset|spacing|20"},"layout":{"selfStretch":"fit","flexSize":null}},"fontSize":"x-small"} /-->
+			<!-- wp:navigation {"openSubmenusOnClick":true,"metadata":{"ignoredHookedBlocks":["woocommerce/customer-account"]},"style":{"spacing":{"blockGap":"var:preset|spacing|20"},"layout":{"selfStretch":"fit","flexSize":null}},"fontSize":"100"} /-->
 
-			<!-- wp:search {"label":"Search","showLabel":false,"placeholder":"Search products…","width":100,"widthUnit":"%","buttonText":"Search","buttonUseIcon":true,"query":{"post_type":"product"},"fontSize":"x-small","namespace":"woocommerce/product-search"} /-->
+			<!-- wp:search {"label":"Search","showLabel":false,"placeholder":"Search products…","width":100,"widthUnit":"%","buttonText":"Search","buttonUseIcon":true,"query":{"post_type":"product"},"fontSize":"100","namespace":"woocommerce/product-search"} /-->
 		</div>
 		<!-- /wp:group -->
 	</div>
