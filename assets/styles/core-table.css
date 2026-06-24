@@ -4,28 +4,28 @@
 .wp-block-table table {
 	background: var(--wp--preset--color--base);
 	border-radius: 5px;
-	border: solid 1px var(--wp--preset--color--border-light);
-	font-size: var(--wp--preset--font-size--x-small);
+	border: solid 1px var(--wp--preset--color--neutral-300);
+	font-size: var(--wp--preset--font-size--100);
 }
 .wp-block-table.is-style-stripes {
 	border-bottom: none;
 }
 
 .wp-block-table.is-style-stripes tbody tr:nth-child(odd) {
-	background-color: var(--wp--preset--color--tertiary);
+	background-color: var(--wp--preset--color--neutral-200);
 }
 
 .wp-block-table td, 
 .wp-block-table th,
 .wp-block-table thead {
 	border: none;
-	border-bottom: solid 1px color-mix(in srgb, var(--wp--preset--color--border-light) 50%, var(--wp--preset--color--base) 5%);
+	border-bottom: solid 1px color-mix(in srgb, var(--wp--preset--color--neutral-300) 50%, var(--wp--preset--color--base) 5%);
 }
 
 .wp-block-table th,
 .wp-block-table tfoot {
 	text-align: left;
-	background-color: color-mix(in srgb, var(--wp--preset--color--tertiary) 75%, var(--wp--preset--color--base) 5%);
+	background-color: color-mix(in srgb, var(--wp--preset--color--neutral-200) 75%, var(--wp--preset--color--base) 5%);
 }
 
 .wp-block-table td, 
@@ -34,7 +34,7 @@
 }
 
 .wp-block-table tfoot {
-	border-top: solid 1px var(--wp--preset--color--border-light);
+	border-top: solid 1px var(--wp--preset--color--neutral-300);
 }
 
 .wp-block-table tfoot td {

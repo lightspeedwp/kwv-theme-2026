@@ -1,14 +1,14 @@
 <?php
 /**
- * This file adds functions to the Ollie WordPress theme.
+ * This file adds functions to the KWV WordPress theme.
  *
- * @package ollie
- * @author  Mike McAlister
+ * @package kwv
+ * @author  LightSpeed
  * @license GNU General Public License v2 or later
- * @link    https://olliewp.com
+ * @link    https://kwv.co.za
  */
 
-namespace Ollie;
+namespace Kwv;
 
 /**
  * Set up theme defaults and register various WordPress features.
@@ -40,46 +40,46 @@ function register_block_styles() {
 
 	$block_styles = array(
 		'core/list'         => array(
-			'list-check'        => __( 'Check', 'ollie' ),
-			'list-check-circle' => __( 'Check Circle', 'ollie' ),
-			'list-boxed'        => __( 'Boxed', 'ollie' ),
+			'list-check'        => __( 'Check', 'kwv' ),
+			'list-check-circle' => __( 'Check Circle', 'kwv' ),
+			'list-boxed'        => __( 'Boxed', 'kwv' ),
 		),
 		'core/code'         => array(
-			'dark-code' => __( 'Dark', 'ollie' ),
+			'dark-code' => __( 'Dark', 'kwv' ),
 		),
 		'core/cover'        => array(
-			'blur-image-less' => __( 'Blur Image Less', 'ollie' ),
-			'blur-image-more' => __( 'Blur Image More', 'ollie' ),
-			'rounded-cover'   => __( 'Rounded', 'ollie' ),
+			'blur-image-less' => __( 'Blur Image Less', 'kwv' ),
+			'blur-image-more' => __( 'Blur Image More', 'kwv' ),
+			'rounded-cover'   => __( 'Rounded', 'kwv' ),
 		),
 		'core/column'       => array(
-			'column-box-shadow' => __( 'Box Shadow', 'ollie' ),
+			'column-box-shadow' => __( 'Box Shadow', 'kwv' ),
 		),
 		'core/post-excerpt' => array(
-			'excerpt-truncate-2' => __( 'Truncate 2 Lines', 'ollie' ),
-			'excerpt-truncate-3' => __( 'Truncate 3 Lines', 'ollie' ),
-			'excerpt-truncate-4' => __( 'Truncate 4 Lines', 'ollie' ),
+			'excerpt-truncate-2' => __( 'Truncate 2 Lines', 'kwv' ),
+			'excerpt-truncate-3' => __( 'Truncate 3 Lines', 'kwv' ),
+			'excerpt-truncate-4' => __( 'Truncate 4 Lines', 'kwv' ),
 		),
 		'core/group'        => array(
-			'column-box-shadow' => __( 'Box Shadow', 'ollie' ),
-			'background-blur'   => __( 'Background Blur', 'ollie' ),
+			'column-box-shadow' => __( 'Box Shadow', 'kwv' ),
+			'background-blur'   => __( 'Background Blur', 'kwv' ),
 		),
 		'core/separator'    => array(
-			'separator-dotted' => __( 'Dotted', 'ollie' ),
-			'separator-thin'   => __( 'Thin', 'ollie' ),
+			'separator-dotted' => __( 'Dotted', 'kwv' ),
+			'separator-thin'   => __( 'Thin', 'kwv' ),
 		),
 		'core/image'        => array(
-			'rounded-full' => __( 'Rounded Full', 'ollie' ),
-			'media-boxed'  => __( 'Boxed', 'ollie' ),
+			'rounded-full' => __( 'Rounded Full', 'kwv' ),
+			'media-boxed'  => __( 'Boxed', 'kwv' ),
 		),
 		'core/preformatted' => array(
-			'preformatted-dark' => __( 'Dark Style', 'ollie' ),
+			'preformatted-dark' => __( 'Dark Style', 'kwv' ),
 		),
 		'core/post-terms'   => array(
-			'term-button' => __( 'Button Style', 'ollie' ),
+			'term-button' => __( 'Button Style', 'kwv' ),
 		),
 		'core/video'        => array(
-			'media-boxed' => __( 'Boxed', 'ollie' ),
+			'media-boxed' => __( 'Boxed', 'kwv' ),
 		),
 	);
 
@@ -115,7 +115,7 @@ function enqueue_custom_block_styles() {
 		wp_enqueue_block_style(
 			$block_name,
 			array(
-				'handle' => "ollie-block-{$filename}",
+				'handle' => "kwv-block-{$filename}",
 				'src'    => get_theme_file_uri( "assets/styles/{$filename}.css" ),
 				'path'   => get_theme_file_path( "assets/styles/{$filename}.css" ),
 			)
@@ -131,32 +131,32 @@ add_action( 'init', __NAMESPACE__ . '\enqueue_custom_block_styles' );
 function pattern_categories() {
 
 	$block_pattern_categories = array(
-		'ollie/card'           => array(
-			'label' => __( 'Cards', 'ollie' ),
+		'kwv/card'           => array(
+			'label' => __( 'Cards', 'kwv' ),
 		),
-		'ollie/call-to-action' => array(
-			'label' => __( 'Call To Action', 'ollie' ),
+		'kwv/call-to-action' => array(
+			'label' => __( 'Call To Action', 'kwv' ),
 		),
-		'ollie/features'       => array(
-			'label' => __( 'Features', 'ollie' ),
+		'kwv/features'       => array(
+			'label' => __( 'Features', 'kwv' ),
 		),
-		'ollie/hero'           => array(
-			'label' => __( 'Hero', 'ollie' ),
+		'kwv/hero'           => array(
+			'label' => __( 'Hero', 'kwv' ),
 		),
-		'ollie/pages'          => array(
-			'label' => __( 'Pages', 'ollie' ),
+		'kwv/pages'          => array(
+			'label' => __( 'Pages', 'kwv' ),
 		),
-		'ollie/posts'          => array(
-			'label' => __( 'Posts', 'ollie' ),
+		'kwv/posts'          => array(
+			'label' => __( 'Posts', 'kwv' ),
 		),
-		'ollie/pricing'        => array(
-			'label' => __( 'Pricing', 'ollie' ),
+		'kwv/pricing'        => array(
+			'label' => __( 'Pricing', 'kwv' ),
 		),
-		'ollie/testimonial'    => array(
-			'label' => __( 'Testimonials', 'ollie' ),
+		'kwv/testimonial'    => array(
+			'label' => __( 'Testimonials', 'kwv' ),
 		),
-		'ollie/menu'    => array(
-			'label' => __( 'Menu', 'ollie' ),
+		'kwv/menu'    => array(
+			'label' => __( 'Menu', 'kwv' ),
 		)
 	);
 
@@ -186,8 +186,8 @@ function template_part_areas( array $areas ) {
 	$areas[] = array(
 		'area'        => 'sidebar',
 		'area_tag'    => 'section',
-		'label'       => __( 'Sidebar', 'ollie' ),
-		'description' => __( 'The Sidebar template defines a page area that can be found on the Page (With Sidebar) template.', 'ollie' ),
+		'label'       => __( 'Sidebar', 'kwv' ),
+		'description' => __( 'The Sidebar template defines a page area that can be found on the Page (With Sidebar) template.', 'kwv' ),
 		'icon'        => 'sidebar',
 	);
 

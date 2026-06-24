@@ -1,16 +1,16 @@
 <?php
 /**
  * Title: Product Card 1
- * Slug: ollie/woo-product-card
+ * Slug: kwv/woo-product-card
  * Description: Product card with hover add to cart button in pill overlay
- * Categories: ollie/card, ollie/product-card
+ * Categories: kwv/card, kwv/product-card
  * Keywords: product,  card,  image,  text,  button,  woocommerce
  * Block Types: core/query/woocommerce/product-query 
  * Inserter: false
  * Viewport Width: 600
  */
 ?>
-<!-- wp:group {"metadata":{"name":"Product Card"},"className":"ollie-product-button-hover","style":{"spacing":{"blockGap":"var:preset|spacing|small"}},"layout":{"type":"constrained"},"ollieCustomClasses":["ollie-product-button-hover"]} -->
+<!-- wp:group {"metadata":{"name":"Product Card"},"className":"ollie-product-button-hover","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"constrained"},"ollieCustomClasses":["ollie-product-button-hover"]} -->
 	<div class="wp-block-group ollie-product-button-hover">
 	<!-- wp:group {"metadata":{"name":"Product Image"},"className":"ollie-product-button-hover-image","layout":{"type":"constrained"},"ollieCustomClasses":["ollie-product-button-hover-image"]} -->
 		<div class="wp-block-group ollie-product-button-hover-image">

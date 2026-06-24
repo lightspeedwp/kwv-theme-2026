@@ -6,14 +6,14 @@
 .entry-content ol li,
 .wp-block-post-content ul li,
 .wp-block-post-content ol li {
-	margin-bottom: var(--wp--preset--spacing--small);
+	margin-bottom: var(--wp--preset--spacing--20);
 }
 
 .entry-content ul ul,
 .entry-content ol ul,
 .wp-block-post-content ul ul,
 .wp-block-post-content ol ul {
-	margin-top: var(--wp--preset--spacing--small);
+	margin-top: var(--wp--preset--spacing--20);
 }
 
 /* Remove paddings */
@@ -42,7 +42,7 @@ ul.is-style-list-check-circle ul {
 ul.is-style-list-check li,
 ul.is-style-list-check-circle li {
 	position: relative;
-	padding-left: calc(var(--wp--preset--spacing--medium) + .5rem);
+	padding-left: calc(var(--wp--preset--spacing--30) + .5rem);
 }
 
 ul.is-style-list-check li:before,
@@ -54,19 +54,19 @@ ul.is-style-list-check-circle li:before {
 }
 
 ul.is-style-list-check-circle li:before {
-	background: var(--wp--preset--color--main);
+	background: var(--wp--preset--color--contrast);
 	color: var(--wp--preset--color--base);
 	border-radius: 100px;
 	height: 1.5rem;
 	width: 1.5rem;
 	line-height: 1.5rem;
 	text-align: center;
-	font-size: var(--wp--preset--font-size--base);
+	font-size: var(--wp--preset--font-size--200);
 	transform: scale(.8);
 }
 
 ul.is-style-list-check-circle li {
-	padding-left: calc(var(--wp--preset--spacing--medium) + .5rem);
+	padding-left: calc(var(--wp--preset--spacing--30) + .5rem);
 }
 
 @media (max-width: 781px) {
@@ -75,7 +75,7 @@ ul.is-style-list-check-circle li {
 	}
 
 	ul.is-style-list-check-circle li {
-		padding-left: calc(var(--wp--preset--spacing--medium) + .8rem);
+		padding-left: calc(var(--wp--preset--spacing--30) + .8rem);
 	}
 }
 
@@ -84,8 +84,8 @@ ul.is-style-list-boxed,
 ol.is-style-list-boxed,
 ul.is-style-list-boxed.wp-block,
 ol.is-style-list-boxed.wp-block {
-	background: var(--wp--preset--color--tertiary);
-	padding: var(--wp--preset--spacing--medium) var(--wp--preset--spacing--large);
+	background: var(--wp--preset--color--neutral-200);
+	padding: var(--wp--preset--spacing--30) var(--wp--preset--spacing--40);
 	border-radius: 5px;
 }
 

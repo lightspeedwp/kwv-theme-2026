@@ -8,7 +8,7 @@
 }
 
 *:not(.wp-block-code) > code {
-	background-color: var(--wp--preset--color--tertiary);
+	background-color: var(--wp--preset--color--neutral-200);
 	font-weight: var(--wp--custom--font-weight--medium);;
 	padding: 3px 8px;
 	position: relative;
@@ -17,6 +17,6 @@
 
 .is-style-dark-code,
 .editor-styles-wrapper .wp-block-code.is-style-dark-code {
-	background-color: var(--wp--preset--color--main);
+	background-color: var(--wp--preset--color--contrast);
 	color: var(--wp--preset--color--base);
 }

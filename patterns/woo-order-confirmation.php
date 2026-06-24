@@ -1,9 +1,9 @@
 <?php
 /**
  * Title: WooCommerce Order Confirmation
- * Slug: ollie/woo-order-confirmation
+ * Slug: kwv/woo-order-confirmation
  * Description: The order confirmation page for WooCommerce.
- * Categories: ollie/woocommerce
+ * Categories: kwv/woocommerce
  * Keywords: order, confirmation, woocommerce
  * Template Types: order-confirmation
  * Inserter: false
@@ -11,11 +11,11 @@
  */
 ?>
 <!-- wp:template-part {"slug":"header","tagName":"header","className":"site-header"} /-->
-<!-- wp:group {"metadata":{"name":"Archive Header"},"align":"full","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|medium","bottom":"var:preset|spacing|medium"}}},"backgroundColor":"tertiary","layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignfull has-tertiary-background-color has-background" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--medium);padding-bottom:var(--wp--preset--spacing--medium)">
+<!-- wp:group {"metadata":{"name":"Archive Header"},"align":"full","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|30","bottom":"var:preset|spacing|30"}}},"backgroundColor":"tertiary","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull has-neutral-200-background-color has-background" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30)">
 	<!-- wp:columns {"verticalAlignment":"bottom","isStackedOnMobile":false,"metadata":{"name":"Header Columns"},"align":"wide"} -->
 		<div class="wp-block-columns alignwide are-vertically-aligned-bottom is-not-stacked-on-mobile">
-		<!-- wp:column {"verticalAlignment":"bottom","metadata":{"name":"Title Column"},"style":{"spacing":{"blockGap":"var:preset|spacing|small"}}} -->
+		<!-- wp:column {"verticalAlignment":"bottom","metadata":{"name":"Title Column"},"style":{"spacing":{"blockGap":"var:preset|spacing|20"}}} -->
 			<div class="wp-block-column is-vertically-aligned-bottom">
 			<!-- wp:woocommerce/order-confirmation-status {"fontSize":"small"} /-->
 			</div>
@@ -25,7 +25,7 @@
 			<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"right"}} -->
 				<div class="wp-block-buttons">
 				<!-- wp:button {"className":"is-style-button-light","fontSize":"x-small","icon":"arrow-left","iconPositionLeft":true} -->
-					<div class="wp-block-button is-style-button-light"><a class="wp-block-button__link has-x-small-font-size has-custom-font-size wp-element-button">Return to Store</a></div>
+					<div class="wp-block-button is-style-button-light"><a class="wp-block-button__link has-100-font-size has-custom-font-size wp-element-button">Return to Store</a></div>
 				<!-- /wp:button -->
 				</div>
 			<!-- /wp:buttons -->
@@ -35,18 +35,18 @@
 	<!-- /wp:columns -->
 	</div>
 <!-- /wp:group -->
-<!-- wp:group {"metadata":{"name":"Main Content"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|x-large","bottom":"var:preset|spacing|x-large"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained"}} -->
-	<div class="wp-block-group" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--x-large);padding-bottom:var(--wp--preset--spacing--x-large)">
+<!-- wp:group {"metadata":{"name":"Main Content"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained"}} -->
+	<div class="wp-block-group" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--50)">
 	<!-- wp:group {"metadata":{"name":"Confirmation Wrap"},"align":"wide","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained"}} -->
 		<div class="wp-block-group alignwide" style="margin-top:0;margin-bottom:0">
 		<!-- wp:woocommerce/page-content-wrapper {"page":"cart"} -->
-			<!-- wp:group {"metadata":{"name":"Store Notices Container"},"align":"wide","style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|large"}}},"layout":{"type":"constrained"}} -->
-				<div class="wp-block-group alignwide" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--large)">
+			<!-- wp:group {"metadata":{"name":"Store Notices Container"},"align":"wide","style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|40"}}},"layout":{"type":"constrained"}} -->
+				<div class="wp-block-group alignwide" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--40)">
 				<!-- wp:woocommerce/store-notices /-->
 				</div>
 			<!-- /wp:group -->
-			<!-- wp:group {"lock":{"remove":true},"metadata":{"name":"Confirmation Content"},"align":"wide","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"blockGap":"var:preset|spacing|large"}},"backgroundColor":"base","fontSize":"small","layout":{"type":"constrained","justifyContent":"left"}} -->
-				<div class="wp-block-group alignwide has-base-background-color has-background has-small-font-size" style="margin-top:0;margin-bottom:0">
+			<!-- wp:group {"lock":{"remove":true},"metadata":{"name":"Confirmation Content"},"align":"wide","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"blockGap":"var:preset|spacing|40"}},"backgroundColor":"base","fontSize":"small","layout":{"type":"constrained","justifyContent":"left"}} -->
+				<div class="wp-block-group alignwide has-base-background-color has-background has-300-font-size" style="margin-top:0;margin-bottom:0">
 				<!-- wp:woocommerce/order-confirmation-summary /-->
 				<!-- wp:woocommerce/order-confirmation-totals-wrapper {"align":"wide"} -->
 					<!-- wp:heading {"style":{"typography":{"fontSize":"24px"}}} -->

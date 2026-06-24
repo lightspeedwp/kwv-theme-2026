@@ -1,14 +1,14 @@
 <?php
 /**
- * WooCommerce specific functions for the Ollie theme.
+ * WooCommerce specific functions for the KWV theme.
  *
- * @package ollie
- * @author  Mike McAlister
+ * @package kwv
+ * @author  LightSpeed
  * @license GNU General Public License v2 or later
- * @link    https://olliewp.com
+ * @link    https://kwv.co.za
  */
 
-namespace Ollie;
+namespace Kwv;
 
 /**
  * Check once if WooCommerce is active, then register the appropriate hooks.
@@ -24,7 +24,7 @@ if ( class_exists( 'WooCommerce' ) ) {
 
 	// WooCommerce is not active.
 	add_filter( 'get_block_templates', __NAMESPACE__ . '\filter_woocommerce_templates', 10, 3 );
-	add_action( 'init', __NAMESPACE__ . '\unregister_ollie_woocommerce_patterns', 999 );
+	add_action( 'init', __NAMESPACE__ . '\unregister_kwv_woocommerce_patterns', 999 );
 
 }
 
@@ -74,12 +74,12 @@ function filter_woocommerce_templates( $query_result, $query, $template_type ) {
 /**
  * Unregister theme WooCommerce patterns when WooCommerce is not active.
  */
-function unregister_ollie_woocommerce_patterns() {
+function unregister_kwv_woocommerce_patterns() {
 	$registry = \WP_Block_Patterns_Registry::get_instance();
 	$patterns = $registry->get_all_registered();
 
 	foreach ( $patterns as $pattern ) {
-		if ( strpos( $pattern['name'], 'ollie/woo-' ) === 0 ) {
+		if ( strpos( $pattern['name'], 'kwv/woo-' ) === 0 ) {
 			unregister_block_pattern( $pattern['name'] );
 		}
 	}

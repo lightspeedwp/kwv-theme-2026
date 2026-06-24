@@ -1,16 +1,16 @@
 <?php
 /**
  * Title: Product Card 2
- * Slug: ollie/woo-product-card-2
+ * Slug: kwv/woo-product-card-2
  * Description: Simple centered product card with add to cart button
- * Categories: ollie/card, ollie/product-card
+ * Categories: kwv/card, kwv/product-card
  * Keywords: product,  card,  image,  text,  button,  woocommerce
  * Block Types: 
  * Inserter: false
  * Viewport Width: 600
  */
 ?>
-<!-- wp:group {"metadata":{"name":"Product Card"},"className":"","style":{"spacing":{"blockGap":"var:preset|spacing|small"}},"layout":{"type":"constrained"}} -->
+<!-- wp:group {"metadata":{"name":"Product Card"},"className":"","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"constrained"}} -->
 	<div class="wp-block-group">
 	<!-- wp:woocommerce/product-image {"showSaleBadge":false,"imageSizing":"thumbnail","isDescendentOfQueryLoop":true,"style":{"border":{"radius":{"topLeft":"10px","topRight":"10px","bottomLeft":"10px","bottomRight":"10px"}}}} -->
 		<!-- wp:group {"style":{"dimensions":{"minHeight":"100%"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","verticalAlignment":"space-between"}} -->
@@ -25,6 +25,6 @@
 		<!-- wp:woocommerce/product-price {"isDescendentOfQueryLoop":true,"textAlign":"center","textColor":"secondary","fontSize":"small","style":{"typography":{"fontStyle":"normal"}}} /-->
 		</div>
 	<!-- /wp:group -->
-	<!-- wp:woocommerce/product-button {"isDescendentOfQueryLoop":true,"className":"is-style-fill","backgroundColor":"tertiary","textColor":"main","style":{"elements":{"link":{"color":{"text":"var:preset|color|main"}}}}} /-->
+	<!-- wp:woocommerce/product-button {"isDescendentOfQueryLoop":true,"className":"is-style-fill","backgroundColor":"tertiary","textColor":"main","style":{"elements":{"link":{"color":{"text":"var:preset|color|contrast"}}}}} /-->
 	</div>
 <!-- /wp:group -->

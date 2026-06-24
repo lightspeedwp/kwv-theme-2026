@@ -1,19 +1,19 @@
 /*
-Theme Name: Ollie
-Theme URI: olliewp.com
-Author: Mike McAlister
-Author URI: mikemcalister.com
-Description: Launch a blazing-fast, pixel-perfect website with the Ollie WordPress block theme! Ollie features over 50 beautiful pattern designs, 7 full-page pattern layouts, and a fully-customizable design system with Global Styles. Ollie integrates seamlessly with all of the powerful new WordPress editor features, giving you the most lightweight and powerful website builder on the planet — no expensive page builder plugin required! ✶ Full demo: https://demo.olliewp.com ✶
-Tags: blog, portfolio, entertainment, grid-layout, one-column, two-columns, three-columns, four-columns, block-patterns, block-styles, custom-logo, custom-menu, editor-style, featured-images, full-site-editing, full-width-template, rtl-language-support, style-variations, template-editing, theme-options, translation-ready, wide-blocks
-Tested up to: 6.7.1
+Theme Name: KWV 2026
+Theme URI: https://kwv.co.za
+Author: LightSpeed
+Author URI: https://lightspeedwp.agency
+Description: The KWV 2026 WordPress block theme — a WooCommerce-ready Full Site Editing theme for KWV, a South African wine and spirits brand. Built on a Figma-driven design system with KWV brand colours, typography, and spacing tokens.
+Tags: e-commerce, block-patterns, block-styles, custom-logo, custom-menu, editor-style, featured-images, full-site-editing, full-width-template, rtl-language-support, template-editing, translation-ready, wide-blocks
+Tested up to: 6.9
 Requires PHP: 7.3
-Version: 1.6.0
+Version: 1.0.0
 License: GNU General Public License v3 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Text Domain: ollie
+Text Domain: kwv
 
-Ollie WordPress Theme, (C) 2026 Mike McAlister.
-Ollie is distributed under the terms of the GNU GPL.
+KWV 2026 WordPress Theme, (C) 2026 KWV / LightSpeed.
+KWV 2026 is distributed under the terms of the GNU GPL.
 */
 
 /* CSS Reset
@@ -45,12 +45,12 @@ ol:where(:not([class*="wp-block"])),
 ol:where(.wp-block-list),
 ul:where(:not([class*="wp-block"])),
 ul:where(.wp-block-list) {
-	padding-inline-start: var(--wp--preset--spacing--medium);
+	padding-inline-start: var(--wp--preset--spacing--30);
 }
 
 div[class*="wp-block-"] figcaption {
-	color: var(--wp--preset--color--secondary);
-	font-size: var(--wp--preset--font-size--x-small);
+	color: var(--wp--preset--color--neutral-700);
+	font-size: var(--wp--preset--font-size--100);
 	margin-bottom: 0;
 	margin-top: 20px;
 	text-align: center;
@@ -94,11 +94,11 @@ select,
 textarea,
 .wp-block-post-comments-form input:not([type="submit"]):not([type="checkbox"]):not([type="radio"]),
 .wp-block-post-comments-form textarea {
-	color: var(--wp--preset--color--main);
+	color: var(--wp--preset--color--contrast);
 	border-radius: 5px;
-	border: solid 1px color-mix(in srgb, var(--wp--preset--color--tertiary) 100%, var(--wp--preset--color--main) 20%);
+	border: solid 1px color-mix(in srgb, var(--wp--preset--color--neutral-200) 100%, var(--wp--preset--color--contrast) 20%);
 	padding: .5em 1em;
-	font-size: var(--wp--preset--font-size--small);
+	font-size: var(--wp--preset--font-size--300);
 	background-color: #fff;
 	box-shadow: 
 		0 1px 2px rgba(0, 0, 0, 0.02),
@@ -108,7 +108,7 @@ textarea,
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
-	outline-color: var(--wp--preset--color--main);
+	outline-color: var(--wp--preset--color--contrast);
 	outline-offset: 1px;
 }
 
@@ -133,8 +133,8 @@ label {
 }
 
 ::placeholder {
-	color: var(--wp--preset--color--secondary);
-	font-size: var(--wp--preset--font-size--small);
+	color: var(--wp--preset--color--neutral-700);
+	font-size: var(--wp--preset--font-size--300);
 	opacity: 0.75;
 }
 
@@ -147,7 +147,7 @@ a.more-link {
 
 /* Inline code */
 *:not(.wp-block-code) > code {
-	background-color: var(--wp--preset--color--tertiary);
+	background-color: var(--wp--preset--color--neutral-200);
 	padding: 3px 5px;
 	position: relative;
 	border-radius: 3px;
@@ -218,28 +218,28 @@ body:not(.wp-admin) header:has(>.is-position-sticky) {
 .wp-block-table table {
 	background: var(--wp--preset--color--base);
 	border-radius: 5px;
-	border: solid 1px var(--wp--preset--color--border-light);
-	font-size: var(--wp--preset--font-size--x-small);
+	border: solid 1px var(--wp--preset--color--neutral-300);
+	font-size: var(--wp--preset--font-size--100);
 }
 .wp-block-table.is-style-stripes {
 	border-bottom: none;
 }
 
 .wp-block-table.is-style-stripes tbody tr:nth-child(odd) {
-	background-color: var(--wp--preset--color--tertiary);
+	background-color: var(--wp--preset--color--neutral-200);
 }
 
 .wp-block-table td, 
 .wp-block-table th,
 .wp-block-table thead {
 	border: none;
-	border-bottom: solid 1px color-mix(in srgb, var(--wp--preset--color--border-light) 50%, var(--wp--preset--color--base) 5%);
+	border-bottom: solid 1px color-mix(in srgb, var(--wp--preset--color--neutral-300) 50%, var(--wp--preset--color--base) 5%);
 }
 
 .wp-block-table th,
 .wp-block-table tfoot {
 	text-align: left;
-	background-color: color-mix(in srgb, var(--wp--preset--color--tertiary) 75%, var(--wp--preset--color--base) 5%);
+	background-color: color-mix(in srgb, var(--wp--preset--color--neutral-200) 75%, var(--wp--preset--color--base) 5%);
 }
 
 .wp-block-table td, 
@@ -248,7 +248,7 @@ body:not(.wp-admin) header:has(>.is-position-sticky) {
 }
 
 .wp-block-table tfoot {
-	border-top: solid 1px var(--wp--preset--color--border-light);
+	border-top: solid 1px var(--wp--preset--color--neutral-300);
 }
 
 .wp-block-table tfoot td {

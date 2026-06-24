@@ -7,11 +7,11 @@
 
 .wp-block-pullquote.alignleft,
 .wp-block-pullquote.alignright {
-	padding-bottom: var(--wp--preset--spacing--medium);
+	padding-bottom: var(--wp--preset--spacing--30);
 }
 
 .wp-block-pullquote p {
-	margin-block-start: var(--wp--preset--spacing--medium);
+	margin-block-start: var(--wp--preset--spacing--30);
 }
 
 .wp-block-pullquote cite {
