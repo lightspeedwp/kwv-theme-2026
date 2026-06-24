@@ -1,14 +1,10 @@
 /* Button - Outline Style
---------------------------------------------- */
+---------------------------------------------
+The "outline" button variation is now defined in theme.json under
+styles.blocks.core/button.variations.outline (token-driven: 1px base
+border, contrast background, base text, with colours swapping on hover).
+Shared button styling (custom spacing, no radius, uppercase, base size,
+medium weight) is inherited from the button element in theme.json.
 
-.wp-block-button.is-style-outline .wp-block-button__link {
-	border: none;
-	background-color: transparent;
-	outline: 2px solid currentColor;
-	outline-offset: -3.5px;
-}
-
-.wp-block-button.is-style-outline .wp-block-button__link:hover {
-	color: currentColor;
-	outline-color: currentColor;
-}
+The previous `border: none` + `outline: 2px solid currentColor` rules were
+removed here because they conflicted with that token-driven border. */

@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed (buttons)
+- Restyled the button element and `core/button` **outline** variation in `theme.json` to the KWV button spec:
+  - Both use the custom button spacing tokens (`var:custom|spacing|button|paddingVertical/-Horizontal`), `0` radius, uppercase text, base size (`font-size|200`), medium weight (`custom|font-weight|medium`), and a `1px` base border.
+  - **Default** — base text, transparent background; background → contrast on hover.
+  - **Outline** — base text + base border, contrast background; on hover text → contrast and background → base (border stays base).
+- Removed the conflicting hardcoded `border: none` + `outline: 2px solid currentColor` rules from `assets/styles/core-button.css`; the outline style is now token-driven in `theme.json`.
+
 ### Added
 - Agent documentation: theme-level `AGENTS.md`, project `DESIGN.md`, `CONTRIBUTING.md`, and root `AGENTS.md`/`CLAUDE.md`.
 

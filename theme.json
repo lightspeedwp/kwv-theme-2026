@@ -191,7 +191,7 @@
 				"thin": 100,
 				"extra-light": 200,
 				"light": 300,
-				"regular": 425,
+				"regular": 400,
 				"medium": 500,
 				"semi-bold": 600,
 				"bold": 700,
@@ -584,6 +584,22 @@
 	},
 	"styles": {
 		"blocks": {
+			"core/button": {
+				"variations": {
+					"outline": {
+						"color": {
+							"background": "var:preset|color|contrast",
+							"text": "var:preset|color|base"
+						},
+						":hover": {
+							"color": {
+								"background": "var:preset|color|base",
+								"text": "var:preset|color|contrast"
+							}
+						}
+					}
+				}
+			},
 			"core/code": {
 				"border": {
 					"radius": "5px",
@@ -924,29 +940,30 @@
 		"elements": {
 			"button": {
 				"border": {
-					"radius": "5px",
-					"width": "0"
+					"radius": "0",
+					"width": "1px",
+					"color": "var:preset|color|base"
 				},
 				"color": {
-					"background": "var:preset|color|contrast",
+					"background": "transparent",
 					"text": "var:preset|color|base"
 				},
 				"spacing": {
 					"padding": {
-						"top": ".6em",
-						"right": "1em",
-						"bottom": ".6em",
-						"left": "1em"
+						"top": "var:custom|spacing|button|paddingVertical",
+						"right": "var:custom|spacing|button|paddingHorizontal",
+						"bottom": "var:custom|spacing|button|paddingVertical",
+						"left": "var:custom|spacing|button|paddingHorizontal"
 					}
 				},
 				"typography": {
 					"fontSize": "var:preset|font-size|200",
-					"fontWeight": "500"
+					"fontWeight": "var:custom|font-weight|medium",
+					"textTransform": "uppercase"
 				},
 				":hover": {
 					"color": {
-						"background": "var:preset|color|contrast",
-						"text": "var:preset|color|base"
+						"background": "var:preset|color|contrast"
 					}
 				}
 			},
