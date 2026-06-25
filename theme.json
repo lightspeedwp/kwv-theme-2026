@@ -965,7 +965,8 @@
 					"color": {
 						"background": "var:preset|color|contrast"
 					}
-				}
+				},
+				"css": "& transition: all 0.3s ease-in-out; & svg { transition: all 0.3s ease-in-out; }"
 			},
 			"h1": {
 				"typography": {

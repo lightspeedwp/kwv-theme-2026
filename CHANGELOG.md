@@ -7,10 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added (About page)
+- Added `patterns/template-page-full.php` (`kwv/template-page-full`, `Inserter: false`) — the page-body pattern the **Page (Full Width, No Title)** template (`templates/page-no-title.html`) referenced but that no pattern declared, so the template rendered nothing. It composes the `header` template part, a full-width `main` with `core/post-content`, and the `footer` template part. (The sibling refs `kwv/template-page-centered`, `kwv/template-post-centered` and the 404/search/sidebar variants are still dangling — separate work.)
+
+### Fixed (Team Member Card hover)
+- Moved the **entire overlay reveal animation** (resting state, transition, hover + keyboard `:focus-within`) into `assets/styles/core-group.css`, leaving `team-member-card.json` as a clean, editor-applicable structural variation (card/media/overlay layout + background only). WordPress's block-style-variation CSS compiler drops the `&:`-prefixed hover rule authored in the section JSON; with the resting state in JSON but the hover override gone, the overlay's delayed `visibility` switch never flipped early, so it sat invisible for ~300ms and then snapped in. With both states now plain CSS keyed to the stable `.is-style-team-member-card` class, the overlay **fades in and slides up** (`opacity` + `transform: translateY(24px → 0)`, 300ms `ease`) and `visibility` switches immediately on reveal. Keyboard focus reveals the bio too; `prefers-reduced-motion` disables the slide and transition.
+
 ### Added (Team post type)
 - Registered a `kwv_team` custom post type (`inc/team.php`, loaded from `functions.php`): public, REST-enabled, archive at `/team`, `dashicons-groups` menu icon. A team member uses the **title** for their name, the **featured image** for their photo, and the **content** for their short bio.
 - Added a `kwv_team_role` post meta field for the member's **role** — REST-exposed, `sanitize_text_field`, `edit_posts` auth — with a nonce-protected, capability-checked **Role** meta box in the editor sidebar.
 - Removed the static `kwv/team-members` pattern (`patterns/team-members.php`) — superseded by the Team post type; it had hardcoded members and no template referenced it.
+- Added the `kwv/team-member-card` pattern (`patterns/team-member-card.php`): a `kwv_team` query-loop grid. Each card shows the featured image, the title (name, uppercase Jost) and the role; role is bound to the `kwv_team_role` meta via the **core/post-meta** Block Bindings source. On hover/focus an **80% `contrast` overlay dissolves in (opacity, 300ms `ease-in`)** over the photo to reveal the member's bio (`post-excerpt`).
+- Added the `team-member-card` **section style** (`styles/sections/cards/team-member-card.json`, `blockTypes: core/group`): carries the overlay positioning + the hover/focus dissolve transition. Overlay colour uses `color-mix(… var(--wp--preset--color--contrast) 80% …)`; honours `prefers-reduced-motion`.
 - Note: this CPT may be out of Estimate 3168 scope → flag for the Change-Control Register.
 
 ### Added (header & footer patterns)

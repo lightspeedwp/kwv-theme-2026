@@ -1,0 +1,10 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Team Member Card",
+	"slug": "team-member-card",
+	"blockTypes": [ "core/group" ],
+	"styles": {
+		"css": "&{position:relative;overflow:hidden}& .team-member-card__media{position:relative;overflow:hidden}& .team-member-card__media .wp-block-post-featured-image{margin:0}& .team-member-card__media img{display:block;object-fit:cover}& .team-member-card__overlay{position:absolute;inset:0;background-color:color-mix(in srgb, var(--wp--preset--color--contrast) 70%, transparent);overflow-y:auto}"
+	}
+}

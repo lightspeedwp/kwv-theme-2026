@@ -50,3 +50,41 @@
 		flex-direction: row-reverse;
 	}
 }
+
+/**
+ * Team Member Card — bio overlay reveal animation.
+ *
+ * Structure (card/media/overlay layout + background) lives in the section
+ * style styles/sections/cards/team-member-card.json so it can be applied to a
+ * Group in the editor. The reveal *animation* lives here as plain CSS because
+ * WordPress's block-style-variation compiler drops the `&:hover`/`&:focus-within`
+ * rules from that JSON, which left the overlay snapping in instead of fading.
+ *
+ * The `.is-style-team-member-card` class is on every card; this selector also
+ * out-specifies the `:where()`-wrapped section-style base rule.
+ *
+ * Resting state: hidden, faded out, nudged down. Visibility switches with a
+ * delay so it doesn't cut the opacity/transform fade short on the way out.
+ */
+.is-style-team-member-card .team-member-card__overlay {
+	opacity: 0;
+	visibility: hidden;
+	transform: translateY(24px);
+	transition: opacity 300ms ease, transform 300ms ease, visibility 0s linear 300ms;
+}
+
+/* Reveal: fade in and slide up. Visibility flips immediately so the animation is seen. */
+.is-style-team-member-card:hover .team-member-card__overlay,
+.is-style-team-member-card:focus-within .team-member-card__overlay {
+	opacity: 1;
+	visibility: visible;
+	transform: translateY(0);
+	transition: opacity 300ms ease, transform 300ms ease, visibility 0s linear 0s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.is-style-team-member-card .team-member-card__overlay {
+		transform: none;
+		transition-duration: 1ms;
+	}
+}
