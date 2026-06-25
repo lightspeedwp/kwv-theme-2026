@@ -101,7 +101,7 @@
 				{
 					"name": "Brand 100",
 					"slug": "brand-100",
-					"color": "#F7F3E4"
+					"color": "#F7F5F2"
 				},
 				{
 					"name": "Brand 200",
@@ -213,7 +213,7 @@
 		},
 		"layout": {
 			"contentSize": "800px",
-			"wideSize": "1440px"
+			"wideSize": "1520px"
 		},
 		"shadow": {
 			"defaultPresets": false,
@@ -1014,18 +1014,18 @@
 			}
 		},
 		"spacing": {
-			"blockGap": "var:preset|spacing|30",
+			"blockGap": "var:preset|spacing|60",
 			"padding": {
 				"top": "0",
-				"right": "var:preset|spacing|30",
+				"right": "var:preset|spacing|20",
 				"bottom": "0",
-				"left": "var:preset|spacing|30"
+				"left": "var:preset|spacing|20"
 			}
 		},
 		"typography": {
 			"fontFamily": "var:preset|font-family|body",
-			"fontSize": "var:preset|font-size|200",
-			"fontWeight": "430",
+			"fontSize": "var:preset|font-size|300",
+			"fontWeight": "var:custom|font-weight|regular",
 			"lineHeight": "var:custom|line-height|body"
 		}
 	},

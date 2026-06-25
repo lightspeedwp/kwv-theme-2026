@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added (page section styles)
+- Added three section styles under `styles/sections/` (`blockTypes: core/group`), all referencing numeric preset tokens:
+  - `light-page-section` — `base` background, `contrast` text; padding `50` top/bottom, `20` left/right; `blockGap` `40` between items.
+  - `dark-page-section` — same spacing as light, colours inverted (`contrast` background, `base` text).
+  - `section-header` — padding-left `30`, padding-bottom `10`, 1px solid `brand-500` bottom border.
+  - `tinted-page-section` — same spacing as light/dark; `brand-100` background, `contrast` text.
+  - `inner-page-section` — padding-left `30` only.
+- All section styles (the five above + `cards/team-member-card`) set `margin.top: 0`.
+
 ### Added (About page)
 - Added `patterns/template-page-full.php` (`kwv/template-page-full`, `Inserter: false`) — the page-body pattern the **Page (Full Width, No Title)** template (`templates/page-no-title.html`) referenced but that no pattern declared, so the template rendered nothing. It composes the `header` template part, a full-width `main` with `core/post-content`, and the `footer` template part. (The sibling refs `kwv/template-page-centered`, `kwv/template-post-centered` and the 404/search/sidebar variants are still dangling — separate work.)
 

@@ -1,0 +1,25 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Section Header",
+	"slug": "section-header",
+	"blockTypes": [ "core/group" ],
+	"styles": {
+		"border": {
+			"bottom": {
+				"color": "var:preset|color|brand-500",
+				"style": "solid",
+				"width": "1px"
+			}
+		},
+		"spacing": {
+			"margin": {
+				"top": "0"
+			},
+			"padding": {
+				"bottom": "var:preset|spacing|10",
+				"left": "var:preset|spacing|30"
+			}
+		}
+	}
+}
