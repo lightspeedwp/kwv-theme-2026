@@ -1,0 +1,21 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Header — Promo Bar",
+	"slug": "header-promo-bar",
+	"blockTypes": [ "core/group" ],
+	"styles": {
+		"color": {
+			"background": "var:preset|color|brand-500",
+			"text": "var:preset|color|base"
+		},
+		"spacing": {
+			"padding": {
+				"top": "var:preset|spacing|10",
+				"right": "var:preset|spacing|20",
+				"bottom": "var:preset|spacing|10",
+				"left": "var:preset|spacing|20"
+			}
+		}
+	}
+}

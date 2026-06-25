@@ -1,0 +1,15 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Blog Card",
+	"slug": "blog-card",
+	"blockTypes": [ "core/group" ],
+	"styles": {
+		"spacing": {
+			"margin": {
+				"top": "0"
+			}
+		},
+		"css": "&{position:relative}& .blog-card__media{position:relative;overflow:hidden;border-radius:16px}& .blog-card__media .wp-block-post-featured-image{margin:0}& .blog-card__media img{display:block;width:100%;object-fit:cover}"
+	}
+}

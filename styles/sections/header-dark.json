@@ -1,0 +1,28 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Header — Dark",
+	"slug": "header-dark",
+	"blockTypes": [ "core/group" ],
+	"styles": {
+		"color": {
+			"background": "var:preset|color|contrast",
+			"text": "var:preset|color|base"
+		},
+		"spacing": {
+			"padding": {
+				"top": "var:preset|spacing|20",
+				"right": "var:preset|spacing|20",
+				"bottom": "var:preset|spacing|20",
+				"left": "var:preset|spacing|20"
+			}
+		},
+		"elements": {
+			"link": {
+				"color": {
+					"text": "var:preset|color|base"
+				}
+			}
+		}
+	}
+}

@@ -7,6 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added (homepage / front-page template)
+- Added `templates/front-page.html` — the KWV homepage built from the Figma desktop design (node `99:307`): full-bleed hero cover (heading + CTA), centred "Discover Our Globally Acclaimed Portfolio" intro, three brand sliders (Wine / Spirits / Agency), an "Our Legacy" full-bleed cover CTA, a "Latest News" post query loop, and a newsletter section. Wraps the existing `header` and `footer` template parts.
+- Brand sliders use the **Carousel Block** plugin (`cb/carousel-v2` + `cb/slide-v2`); slides are linked brand images (Wine → `/product-category/wine/`, Spirits & Agency → `/product-category/spirits/`) pulled from the media library by attachment ID. Slider nav/pagination left at plugin defaults (to be styled later).
+- Added `patterns/blog-card.php` (`kwv/blog-card`) — a post card (featured image with `is-style-image-hover-zoom` + title) used inside the Latest News `core/post-template`.
+- Added `styles/sections/cards/blog-card.json` — the `is-style-blog-card` section style (rounded, clipped media well) accompanying the blog-card pattern.
+- Newsletter section uses an empty `gravityforms/form` block (form to be assigned later).
+- Section headings reuse the existing `is-style-section-header` gold-underline style; all spacing/type reference numeric preset tokens.
+- The front page uses the `header-transparent` template part so the nav overlays the hero.
+
+### Changed (transparent header overlay)
+- `styles/sections/header-transparent.json` now positions the header group out of flow (`position:absolute; z-index:100; inset-block-start:0; inset-inline:0`) via its `css` so the transparent nav overlays the section beneath it (its wrapping `<header>` collapses, letting the hero start at the page top). Applies everywhere the `is-style-header-transparent` style / `header-transparent` part is used. White text + links were already set.
+
+### Added (header & footer section styles)
+- Extracted the inline section styling on the header and footer patterns into reusable section styles under `styles/sections/` (`blockTypes: core/group`), all referencing numeric preset tokens:
+  - `header-dark` — `contrast` background, `base` text + links, `20` padding all sides.
+  - `header-transparent` — `base` text + links, `20` padding all sides, no background (sits over heroes).
+  - `header-promo-bar` — `brand-500` background, `base` text, `10`/`20` padding.
+  - `header-row` — `base` background, `contrast` text + links, `20` padding, 1px solid `neutral-300` bottom border.
+  - `site-footer` — `contrast` background, `base` text, `neutral-400` links, `80`/`40`/`20` padding, `blockGap` `60`.
+- Applied each via `is-style-*` className on the wrapping group in `patterns/header-dark.php`, `patterns/header-transparent.php`, `patterns/header-light.php` (promo bar + header row), and `patterns/footer.php`, removing the now-redundant inline `style`/`backgroundColor`/`textColor`/`border` attributes. Layout attributes (`align`, `layout`, the outer light-header `blockGap:0`) stay inline as they're structural, not reusable theme styling.
+
+### Changed (Image Hover Zoom block style)
+- Generalised the cover-only hover-zoom variation in `styles/blocks/cover/image-hover-zoom.json` to also cover **Image**, **Featured Image** and **WooCommerce Product Image** (`blockTypes`: `core/cover`, `core/image`, `core/post-featured-image`, `woocommerce/product-image`). Renamed slug/title `ati-cover-hover-zoom`/"ATI Cover Hover Zoom" → `image-hover-zoom`/"Image Hover Zoom" (no references existed) and dropped the leftover "ATI" branding.
+- The selector now targets the cover background image (`.wp-block-cover__image-background`) **plus** the direct-child media of the other blocks (`> img`, `> a > img`) so deeply-nested content images aren't caught. Each selector is authored as its own single-`&` rule because WordPress's `process_blocks_custom_css()` does `explode('&', …)` — comma-grouped `&`-prefixed selectors in one rule get mis-parsed as root CSS and break.
+
 ### Added (page section styles)
 - Added three section styles under `styles/sections/` (`blockTypes: core/group`), all referencing numeric preset tokens:
   - `light-page-section` — `base` background, `contrast` text; padding `50` top/bottom, `20` left/right; `blockGap` `40` between items.

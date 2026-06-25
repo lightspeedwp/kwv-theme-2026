@@ -1,0 +1,16 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Image Hover Zoom",
+	"slug": "image-hover-zoom",
+	"blockTypes": [
+		"core/cover",
+		"core/image",
+		"core/post-featured-image",
+		"woocommerce/product-image"
+	],
+	"description": "Image scales slightly on hover",
+	"styles": {
+		"css": "&{overflow: hidden;} & .wp-block-cover__image-background{transition: transform 300ms ease;} & > img{transition: transform 300ms ease;} & > a > img{transition: transform 300ms ease;} &:hover .wp-block-cover__image-background{transform: scale(1.05);} &:hover > img{transform: scale(1.05);} &:hover > a > img{transform: scale(1.05);}"
+	}
+}
