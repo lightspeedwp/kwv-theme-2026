@@ -1,0 +1,11 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Mega Menu Nav",
+	"slug": "mega-menu-nav",
+	"blockTypes": [ "core/navigation" ],
+	"description": "Fold-out category nav used inside the Shop mega menu. This variation carries the resting appearance — vertical first column, label typography, row dividers and the side-pointing caret. The co-planar column layout and the :hover/:first-child reveal live in assets/styles/ollie-mega-menu.css, because WordPress wraps a block style's css in :root :where() (zero specificity, so it can't out-rank core's submenu positioning) and strips :hover / :first-child out of the css field entirely.",
+	"styles": {
+		"css": "&{position:relative;flex:0 0 auto;font-size:var(--wp--preset--font-size--200);transition:all 0.25s ease;} & .wp-block-navigation__container{flex-direction:column;align-items:stretch;gap:0;width:13.75rem;} & .wp-block-navigation-item{display:flex;align-items:center;justify-content:flex-start;flex-wrap:wrap;border-bottom:1px solid var(--wp--preset--color--neutral-300);} & .wp-block-navigation-item__content{display:flex;align-items:center;justify-content:flex-start;flex:1 1 auto;width:auto;margin:0;padding:var(--wp--preset--spacing--20) 0 !important;font-family:var(--wp--preset--font-family--body);font-size:var(--wp--preset--font-size--200) !important;line-height:var(--wp--custom--line-height--snug);font-weight:var(--wp--custom--font-weight--regular) !important;letter-spacing:0 !important;text-transform:none !important;text-decoration:none !important;color:var(--wp--preset--color--contrast);} & .wp-block-navigation-item__content::after{content:none;} & .wp-block-navigation__submenu-icon{margin:0 0 0 auto;padding:0;transform:rotate(-90deg) !important;} & .wp-block-navigation__submenu-icon svg{transform:none !important;} & .wp-block-navigation__submenu-container .wp-block-navigation-item__content{padding:var(--wp--preset--spacing--20) 0 !important;}"
+	}
+}

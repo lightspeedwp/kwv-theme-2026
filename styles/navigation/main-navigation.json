@@ -1,0 +1,11 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Main Navigation",
+	"slug": "main-navigation",
+	"blockTypes": [ "core/navigation" ],
+	"description": "KWV header nav resting state: uppercase top-level links, font-size 300, medium weight, centred. Scoped (child combinator at the container level) to the nav's own top-level row so it never bleeds into a nested mega-menu nav. !important is required because WordPress wraps a block style's css in :root :where() (zero specificity), which would otherwise tie with core/Ollie. The brand-300 sliding underline (::after + :hover) lives in assets/styles/core-navigation.css — the css field mangles content:\"\", strips :hover, and drops all-but-one of a comma-separated selector list.",
+	"styles": {
+		"css": "& .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__responsive-container-content > .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content{position:relative !important;display:inline-flex !important;justify-content:center !important;text-transform:uppercase !important;font-size:var(--wp--preset--font-size--300) !important;font-weight:var(--wp--custom--font-weight--medium) !important;letter-spacing:1% !important;margin-inline-end:-1px !important;text-decoration:none !important;transition:letter-spacing 0.3s ease;}"
+	}
+}

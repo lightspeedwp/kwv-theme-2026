@@ -17,7 +17,7 @@
 	<div class="wp-block-group alignwide">
 		<!-- wp:site-logo {"width":96} /-->
 
-		<!-- wp:navigation {"openSubmenusOnClick":true,"icon":"menu","metadata":{"ignoredHookedBlocks":["woocommerce/customer-account"]},"style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"fontSize":"300","layout":{"type":"flex","justifyContent":"center"}} /-->
+		<!-- wp:navigation {"openSubmenusOnClick":true,"className":"is-style-main-navigation","icon":"menu","metadata":{"ignoredHookedBlocks":["woocommerce/customer-account"]},"style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"fontSize":"300","layout":{"type":"flex","justifyContent":"center"}} /-->
 
 		<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"textColor":"brand-500","layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
 		<div class="wp-block-group has-brand-500-color has-text-color">

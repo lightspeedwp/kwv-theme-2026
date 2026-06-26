@@ -1,0 +1,260 @@
+/**
+ * KWV mega menu — fold-out category columns.
+ *
+ * Styles the markup emitted by inc/mega-menu.php (the [kwv_mega_menu] shortcode)
+ * inside an Ollie Menu Designer dropdown. Loaded only when an ollie/mega-menu
+ * block is present (see Kwv\MegaMenu\register_assets()).
+ *
+ * Tokens are referenced by preset slug — no hand-invented values.
+ */
+
+/* Full-width white dropdown panel (the Ollie container holds our menu). */
+.wp-block-ollie-mega-menu__menu-container:has(.kwv-mega-menu) {
+	background-color: var(--wp--preset--color--base);
+}
+
+/* The dropdown panel content: columns on the left, search on the right. */
+.kwv-mega-menu-wrap {
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: flex-start;
+	gap: var(--wp--preset--spacing--40);
+	max-width: var(--wp--style--global--wide-size, 1280px);
+	margin-inline: auto;
+	padding-block: var(--wp--preset--spacing--40);
+	padding-inline: var(--wp--preset--spacing--30);
+}
+
+/* Columns 1–3 wrapper (the interactive region). */
+.kwv-mega-menu {
+	display: flex;
+	flex-wrap: nowrap;
+	gap: var(--wp--preset--spacing--40);
+	flex: 1 1 auto;
+}
+
+/* Each column is a fixed-ish slot so the layout doesn't jump as columns reveal. */
+.kwv-mega-menu__col {
+	flex: 0 0 auto;
+	min-width: 13.75rem;
+}
+
+/* The child / grandchild columns stack their (per-parent / per-child) lists in a
+   single grid cell so the inactive ones can stay in the layout and fade out
+   instead of snapping via display:none. */
+.kwv-mega-menu__children,
+.kwv-mega-menu__grandchildren {
+	display: grid;
+}
+
+.kwv-mega-menu__children > .kwv-mega-menu__list,
+.kwv-mega-menu__grandchildren > .kwv-mega-menu__list {
+	grid-area: 1 / 1;
+	transition: opacity 250ms ease, transform 250ms ease, visibility 250ms ease;
+}
+
+/* Interactivity toggles the `hidden` attribute; override the UA display:none so
+   the fold-out can transition (fade + gentle side slide). */
+.kwv-mega-menu__children > .kwv-mega-menu__list[hidden],
+.kwv-mega-menu__grandchildren > .kwv-mega-menu__list[hidden] {
+	display: grid;
+	opacity: 0;
+	visibility: hidden;
+	transform: translateX(-1rem);
+	pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.kwv-mega-menu__children > .kwv-mega-menu__list,
+	.kwv-mega-menu__grandchildren > .kwv-mega-menu__list {
+		transition: none;
+		transform: none;
+	}
+}
+
+.kwv-mega-menu__list,
+.kwv-mega-menu__parents {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+/* Scope colour to the dropdown container so it beats the (white) nav link
+   colour inherited from the transparent header. */
+.wp-block-ollie-mega-menu__menu-container .kwv-mega-menu__link {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--wp--preset--spacing--20);
+	padding-block: var(--wp--preset--spacing--20);
+	font-family: var(--wp--preset--font-family--body);
+	font-size: var(--wp--preset--font-size--200);
+	line-height: var(--wp--custom--line-height--snug);
+	color: var(--wp--preset--color--contrast);
+	text-decoration: none;
+	transition: color 0.25s ease;
+}
+
+.wp-block-ollie-mega-menu__menu-container .kwv-mega-menu__link:hover,
+.wp-block-ollie-mega-menu__menu-container .kwv-mega-menu__link:focus-visible,
+.wp-block-ollie-mega-menu__menu-container .kwv-mega-menu__row.is-active > .kwv-mega-menu__link {
+	color: var(--wp--preset--color--brand-600);
+}
+
+/* Right-pointing chevron indicating "expands to the side". */
+.kwv-mega-menu__chevron {
+	flex: 0 0 auto;
+	width: 0.4rem;
+	height: 0.4rem;
+	border-top: 1.5px solid currentColor;
+	border-right: 1.5px solid currentColor;
+	transform: rotate(45deg);
+}
+
+/* Search column sits to the far right, wider than the category columns. */
+.kwv-mega-menu-wrap .wp-block-search {
+	flex: 0 0 auto;
+	width: clamp(16rem, 24vw, 25rem);
+	margin-left: auto;
+}
+
+/* Responsive safeguard: allow the columns to wrap rather than overflow on
+   narrow viewports (the Ollie plugin handles the collapsed mobile menu). */
+@media (max-width: 781px) {
+	.kwv-mega-menu-wrap {
+		flex-wrap: wrap;
+		gap: var(--wp--preset--spacing--30);
+	}
+
+	.kwv-mega-menu {
+		flex-wrap: wrap;
+		width: 100%;
+	}
+
+	.kwv-mega-menu__col {
+		min-width: 10rem;
+		flex: 1 1 auto;
+	}
+
+	.kwv-mega-menu-wrap .wp-block-search {
+		width: 100%;
+		margin-left: 0;
+	}
+}
+
+/* ===========================================================================
+   Native nav variant — shop-mega-menu-nav
+
+   The same look as the dynamic menu, but built from core/navigation submenu
+   blocks (editor-editable). The nav block's own styling lives in the
+   "Mega Menu Nav" block style variation (styles/navigation/mega-menu-nav.json).
+   What stays here is the surrounding layout: the white panel, the wrapper
+   group that lays out columns + search, and the search column. Tokens by
+   preset slug.
+   ========================================================================= */
+
+.wp-block-ollie-mega-menu__menu-container:has(.kwv-mega-menu-nav-wrap) {
+	background-color: var(--wp--preset--color--base);
+}
+
+.kwv-mega-menu-nav-wrap {
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: flex-start;
+	gap: var(--wp--preset--spacing--40);
+	max-width: var(--wp--style--global--wide-size, 1280px);
+	margin-inline: auto;
+	padding-block: var(--wp--preset--spacing--40);
+	padding-inline: var(--wp--preset--spacing--30);
+	/* Reserve height for the absolutely-positioned flyout columns. */
+	min-block-size: 18rem;
+}
+
+/* The nav block's resting appearance — vertical column, label typography, row
+   dividers, side-pointing caret — lives in the "Mega Menu Nav" block style
+   variation (styles/navigation/mega-menu-nav.json, applied via
+   `is-style-mega-menu-nav`).
+
+   What stays here is everything the block style's `css` field can't carry:
+   (1) the co-planar column LAYOUT, which has to out-specify core's submenu
+   positioning — impossible from a variation, whose selectors WordPress wraps in
+   `:root :where()` (zero specificity); and (2) the interactive :hover / pre-open
+   states, since WordPress strips :hover and :first-child out of the css field
+   during sanitisation. These plain selectors keep their natural specificity and
+   win against core. */
+
+/* Items are position:static so their submenu columns anchor to the panel
+   (co-planar, all aligned to the top), not to each parent row. */
+.is-style-mega-menu-nav .wp-block-navigation-item.has-child {
+	position: static;
+}
+
+/* Submenu flyouts → co-planar columns to the right, flat (strip the default
+   card: border, radius, min-width, shadow, background). Hidden until hover or
+   pre-open; visibility/opacity are driven below. */
+.is-style-mega-menu-nav .wp-block-navigation-item.has-child > .wp-block-navigation__submenu-container {
+	display: block;
+	top: 0;
+	left: 100%;
+	width: 13.75rem;
+	min-width: 13.75rem !important;
+	/* Core collapses closed submenus to height:0/overflow:hidden (JS-driven open);
+	   we drive visibility ourselves, so keep them at natural height. */
+	height: auto !important;
+	overflow: visible !important;
+	margin: 0;
+	/* Indent the column content (visual gap from the previous column) while the
+	   container itself stays flush — keeps the hover area contiguous. */
+	padding: 0 0 0 var(--wp--preset--spacing--40);
+	border: 0 !important;
+	border-radius: 0;
+	background: transparent;
+	box-shadow: none;
+	visibility: hidden;
+	opacity: 0;
+	transition: opacity 250ms ease, visibility 250ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.is-style-mega-menu-nav .wp-block-navigation__submenu-container {
+		transition: none;
+	}
+}
+
+.is-style-mega-menu-nav .wp-block-navigation-item:hover,
+.is-style-mega-menu-nav .wp-block-navigation-item:focus-within {
+	border-bottom-color: var(--wp--preset--color--brand-500);
+}
+
+.is-style-mega-menu-nav .wp-block-navigation-item:hover > .wp-block-navigation-item__content,
+.is-style-mega-menu-nav .wp-block-navigation-item:focus-within > .wp-block-navigation-item__content {
+	color: var(--wp--preset--color--brand-600);
+	text-decoration: none !important;
+}
+
+/* Reveal a column when its parent row is hovered/focused. */
+.is-style-mega-menu-nav .wp-block-navigation-item:hover > .wp-block-navigation__submenu-container,
+.is-style-mega-menu-nav .wp-block-navigation-item:focus-within > .wp-block-navigation__submenu-container {
+	visibility: visible;
+	opacity: 1;
+}
+
+/* Pre-open the first parent's column by default. Lives here (not in the block
+   style) because WordPress also strips :first-child out of the css field. */
+.is-style-mega-menu-nav .wp-block-navigation__container > .wp-block-navigation-item:first-child > .wp-block-navigation__submenu-container {
+	visibility: visible;
+	opacity: 1;
+}
+
+/* Hide the pre-opened first column once another parent is the one being hovered. */
+.is-style-mega-menu-nav .wp-block-navigation__container:hover > .wp-block-navigation-item:first-child:not(:hover):not(:focus-within) > .wp-block-navigation__submenu-container {
+	visibility: hidden;
+	opacity: 0;
+}
+
+/* Search sits to the far right. */
+.kwv-mega-menu-nav-wrap .wp-block-search {
+	flex: 0 0 auto;
+	width: clamp(16rem, 24vw, 25rem);
+	margin-left: auto;
+}

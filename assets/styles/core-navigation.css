@@ -1,36 +1,20 @@
-
-
-/* Top-level header nav links — KWV interaction
+/* Top-level header nav links — KWV interaction.
    ---------------------------------------------
-   Resting: uppercase, 1px tracking, font-size 300, medium (500).
-   Hover/focus: tracking opens to 3px, weight eases to regular (400),
-   and a 2px brand-500 line slides out from the middle, 3px under the text.
+   The resting state (uppercase, font-size 300, medium, centred) lives in the
+   "Main Navigation" block style variation (styles/navigation/main-navigation.json,
+   applied via `is-style-main-navigation`), which scopes it to the main nav's own
+   top-level row so it no longer bleeds into the nested Shop mega-menu nav.
 
-   Styling lands on the link element itself (`.wp-block-navigation-item__content`)
-   so it works whether the menu renders as real navigation links or as the
-   Page List fallback (which has no inner __label span). Two top-level
-   structures are covered: direct nav-link items and Page List items (the
-   extra `.wp-block-page-list` wrapper). Submenu links are deeper and excluded.
-   The trailing letter-spacing is trimmed (negative margin) so the glyph
-   cluster stays centred and the box doesn't push siblings on hover. */
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content,
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-page-list > .wp-block-navigation-item > .wp-block-navigation-item__content {
-	position: relative;
-	display: inline-flex;
-	justify-content: center;
-	text-transform: uppercase;
-	font-size: var(--wp--preset--font-size--300);
-	font-weight: var(--wp--custom--font-weight--medium);
-	letter-spacing: 1%;
-	/* trim the trailing letter-spacing so the cluster stays centred */
-	margin-inline-end: -1px;
-	text-decoration: none;
-	transition: letter-spacing 0.3s ease;
-}
+   The brand-300 sliding underline lives here, not in the block style, because the
+   variation's `css` field mangles `content:""` and strips the `:hover`
+   pseudo-class during sanitisation. These selectors mirror the block style's
+   scoping (child combinator at the container level) so they stay off the nested
+   nav too. The ::after is anchored by the `position:relative` the block style
+   sets on the link. */
 
-/* The sliding line: hidden by default, scaled from the centre on hover */
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content::after,
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-page-list > .wp-block-navigation-item > .wp-block-navigation-item__content::after {
+/* The sliding line: hidden by default, scaled from the centre on hover/focus. */
+.is-style-main-navigation .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__responsive-container-content > .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content::after,
+.is-style-main-navigation .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__responsive-container-content > .wp-block-navigation__container > .wp-block-page-list > .wp-block-navigation-item > .wp-block-navigation-item__content::after {
 	content: "";
 	position: absolute;
 	inset-inline: 0;
@@ -42,65 +26,18 @@
 	transition: transform 0.3s ease-in-out;
 }
 
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content:hover::after,
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content:focus-visible::after,
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-page-list > .wp-block-navigation-item > .wp-block-navigation-item__content:hover::after,
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-page-list > .wp-block-navigation-item > .wp-block-navigation-item__content:focus-visible::after {
+.is-style-main-navigation .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__responsive-container-content > .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content:hover::after,
+.is-style-main-navigation .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__responsive-container-content > .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content:focus-visible::after,
+.is-style-main-navigation .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__responsive-container-content > .wp-block-navigation__container > .wp-block-page-list > .wp-block-navigation-item > .wp-block-navigation-item__content:hover::after,
+.is-style-main-navigation .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__responsive-container-content > .wp-block-navigation__container > .wp-block-page-list > .wp-block-navigation-item > .wp-block-navigation-item__content:focus-visible::after {
 	transform: scaleX(1);
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content,
-	.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content::after,
-	.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-page-list > .wp-block-navigation-item > .wp-block-navigation-item__content,
-	.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-page-list > .wp-block-navigation-item > .wp-block-navigation-item__content::after {
+	.is-style-main-navigation .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__responsive-container-content > .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content::after,
+	.is-style-main-navigation .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__responsive-container-content > .wp-block-navigation__container > .wp-block-page-list > .wp-block-navigation-item > .wp-block-navigation-item__content::after {
 		transition: none;
 	}
-}
-
-/* Drop nav */
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container {
-	border: none !important;
-	font-size: var(--wp--preset--font-size--300);
-	line-height: var(--wp--custom--line-height--snug);
-	border-radius: 5px;
-	min-width: 225px !important;
-	margin-left: calc(var(--wp--preset--spacing--30) * -1);
-	padding: 0;
-	z-index: 20 !important;
-	border-radius: 5px;
-	box-shadow: var(--wp--preset--shadow--300);
-}
-
-/* Drop nav submenu */
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__submenu-container .wp-block-navigation__submenu-container {
-	margin-left: 0;
-	top: 0 !important;
-	left: 100%;
-}
-
-.wp-block-navigation__responsive-container:not(.is-menu-open) :where(.wp-block-navigation__submenu-container) li:first-child {
-	padding-top: var(--wp--preset--spacing--20);
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
-}
-
-/* Add padding to bottom of drop menu */
-.wp-block-navigation__responsive-container:not(.is-menu-open) :where(.wp-block-navigation__submenu-container) li:last-child {
-	padding-bottom: var(--wp--preset--spacing--20);
-	border-bottom-left-radius: 5px;
-	border-bottom-right-radius: 5px;
-}
-
-/* Add margin to sub menu icon */
-.wp-block-navigation__responsive-container:not(.is-menu-open) .has-child .wp-block-navigation__submenu-container .wp-block-navigation__submenu-icon {
-	margin-right: var(--wp--preset--spacing--20);
-}
-
-/* Drop nav link padding */
-.wp-block-navigation__responsive-container:not(.is-menu-open) :where(.wp-block-navigation__submenu-container) a,
-.wp-block-navigation__responsive-container:not(.is-menu-open) :where(.wp-block-navigation__submenu-container) .wp-block-navigation-submenu__toggle {
-	padding: var(--wp--preset--spacing--20) var(--wp--preset--spacing--30) !important;
 }
 
 /* Mobile Navigation

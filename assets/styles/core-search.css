@@ -1,0 +1,61 @@
+/**
+ * KWV Search block style (is-style-kwv-megamenu-search).
+ *
+ * Underline-only search field with a leading magnifier icon, matching the KWV
+ * mega-menu design. Applied to a core/search block (button inside, icon button).
+ * Registered in inc/mega-menu.php; auto-enqueued for core/search via the theme's
+ * block-style loader.
+ */
+
+.wp-block-search.is-style-kwv-megamenu-search {
+	margin: 0;
+}
+
+.wp-block-search.is-style-kwv-megamenu-search .wp-block-search__inside-wrapper {
+	/* row-reverse puts the icon button before the input, per the design. */
+	flex-direction: row-reverse;
+	align-items: center;
+	gap: var(--wp--preset--spacing--10);
+	background: transparent;
+	border: 0;
+	border-bottom: 1px solid var(--wp--preset--color--neutral-400);
+	border-radius: 0;
+	padding: 0;
+	padding-block: var(--wp--preset--spacing--10);
+}
+
+.wp-block-search.is-style-kwv-megamenu-search .wp-block-search__input {
+	background: transparent;
+	border: 0;
+	border-radius: 0;
+	/* Suppress the theme's global input drop-shadow, which otherwise reads as a
+	   faint second hairline above the underline. */
+	box-shadow: none;
+	padding: 0;
+	font-family: var(--wp--preset--font-family--body);
+	font-size: var(--wp--preset--font-size--100);
+	color: var(--wp--preset--color--contrast);
+}
+
+.wp-block-search.is-style-kwv-megamenu-search .wp-block-search__input:focus {
+	outline: none;
+}
+
+.wp-block-search.is-style-kwv-megamenu-search .wp-block-search__input::placeholder {
+	color: var(--wp--preset--color--neutral-500);
+	opacity: 1;
+}
+
+.wp-block-search.is-style-kwv-megamenu-search .wp-block-search__button {
+	background: transparent;
+	border: 0;
+	padding: 0;
+	margin: 0;
+	color: var(--wp--preset--color--contrast);
+}
+
+.wp-block-search.is-style-kwv-megamenu-search .wp-block-search__button svg {
+	width: 1.25rem;
+	height: 1.25rem;
+	fill: currentColor;
+}
