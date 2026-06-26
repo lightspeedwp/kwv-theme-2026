@@ -1,9 +1,61 @@
-/* Desktop Navigation
---------------------------------------------- */
 
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container .current-menu-item > a,
-.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container .has-child button:hover {
-	text-decoration: underline;
+
+/* Top-level header nav links — KWV interaction
+   ---------------------------------------------
+   Resting: uppercase, 1px tracking, font-size 300, medium (500).
+   Hover/focus: tracking opens to 3px, weight eases to regular (400),
+   and a 2px brand-500 line slides out from the middle, 3px under the text.
+
+   Styling lands on the link element itself (`.wp-block-navigation-item__content`)
+   so it works whether the menu renders as real navigation links or as the
+   Page List fallback (which has no inner __label span). Two top-level
+   structures are covered: direct nav-link items and Page List items (the
+   extra `.wp-block-page-list` wrapper). Submenu links are deeper and excluded.
+   The trailing letter-spacing is trimmed (negative margin) so the glyph
+   cluster stays centred and the box doesn't push siblings on hover. */
+.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content,
+.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-page-list > .wp-block-navigation-item > .wp-block-navigation-item__content {
+	position: relative;
+	display: inline-flex;
+	justify-content: center;
+	text-transform: uppercase;
+	font-size: var(--wp--preset--font-size--300);
+	font-weight: var(--wp--custom--font-weight--medium);
+	letter-spacing: 1%;
+	/* trim the trailing letter-spacing so the cluster stays centred */
+	margin-inline-end: -1px;
+	text-decoration: none;
+	transition: letter-spacing 0.3s ease;
+}
+
+/* The sliding line: hidden by default, scaled from the centre on hover */
+.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content::after,
+.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-page-list > .wp-block-navigation-item > .wp-block-navigation-item__content::after {
+	content: "";
+	position: absolute;
+	inset-inline: 0;
+	bottom: -1px;
+	height: 1px;
+	background-color: var(--wp--preset--color--brand-300);
+	transform: scaleX(0);
+	transform-origin: center;
+	transition: transform 0.3s ease-in-out;
+}
+
+.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content:hover::after,
+.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content:focus-visible::after,
+.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-page-list > .wp-block-navigation-item > .wp-block-navigation-item__content:hover::after,
+.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-page-list > .wp-block-navigation-item > .wp-block-navigation-item__content:focus-visible::after {
+	transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content,
+	.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content::after,
+	.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-page-list > .wp-block-navigation-item > .wp-block-navigation-item__content,
+	.wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-page-list > .wp-block-navigation-item > .wp-block-navigation-item__content::after {
+		transition: none;
+	}
 }
 
 /* Drop nav */

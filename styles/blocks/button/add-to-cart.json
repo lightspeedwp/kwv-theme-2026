@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Add to Cart",
+	"slug": "add-to-cart",
+	"blockTypes": [ "core/button", "woocommerce/add-to-cart-with-options" ],
+	"description": "Solid black add-to-cart button: uppercase heading font, gold hover.",
+	"styles": {
+		"color": {
+			"background": "var:preset|color|contrast !important",
+			"text": "var:preset|color|base !important"
+		},
+		"typography": {
+			"fontFamily": "var:preset|font-family|heading",
+			"fontSize": "var:preset|font-size|200",
+			"fontWeight": "600",
+			"textTransform": "uppercase",
+			"letterSpacing": "0.02em"
+		},
+		":hover": {
+			"color": {
+				"background": "var:preset|color|brand-500",
+				"text": "var:preset|color|contrast"
+			}
+		},
+		":focus": {
+			"color": {
+				"background": "var:preset|color|brand-500",
+				"text": "var:preset|color|contrast"
+			}
+		}
+	}
+}

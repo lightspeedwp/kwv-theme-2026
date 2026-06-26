@@ -1,78 +1,173 @@
-<!-- wp:template-part {"slug":"header-transparent","tagName":"header"} /-->
+<!-- wp:cover {"url":"http://localhost:8901/wp-content/uploads/2026/06/home-hero-image-full.png","id":145,"dimRatio":20,"overlayColor":"contrast","isUserOverlayColor":true,"focalPoint":{"x":0.3,"y":0.5},"minHeight":720,"minHeightUnit":"px","contentPosition":"top center","sizeSlug":"full","align":"full","className":"is-style-default","style":{"spacing":{"padding":{"top":"var:preset|spacing|0","right":"var:preset|spacing|0","bottom":"var:preset|spacing|0","left":"var:preset|spacing|0"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-cover alignfull has-custom-content-position is-position-top-center is-style-default"
+	style="padding-top:var(--wp--preset--spacing--0);padding-right:var(--wp--preset--spacing--0);padding-bottom:var(--wp--preset--spacing--0);padding-left:var(--wp--preset--spacing--0);min-height:720px">
+	<img class="wp-block-cover__image-background wp-image-145 size-full" alt=""
+		src="http://localhost:8901/wp-content/uploads/2026/06/home-hero-image-full.png" style="object-position:30% 50%"
+		data-object-fit="cover" data-object-position="30% 50%" /><span aria-hidden="true"
+		class="wp-block-cover__background has-contrast-background-color has-background-dim-20 has-background-dim"></span>
+	<div class="wp-block-cover__inner-container">
+		<!-- wp:group {"metadata":{"name":"Header Transparent","patternName":"kwv/header-transparent","description":"Transparent header with logo, navigation, account and cart — sits over large hero sections.","categories":["header"]},"align":"full","className":"is-style-header-transparent","style":{"border":{"bottom":{"color":"var:preset|color|brand-200","width":"1px"},"top":{},"right":{},"left":{}}},"layout":{"type":"constrained"}} -->
+		<div class="wp-block-group alignfull is-style-header-transparent"
+			style="border-bottom-color:var(--wp--preset--color--brand-200);border-bottom-width:1px">
+			<!-- wp:group {"align":"wide","style":{"elements":{"link":{"color":{"text":"var:preset|color|base"}}}},"textColor":"base","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between","verticalAlignment":"center"}} -->
+			<div class="wp-block-group alignwide has-base-color has-text-color has-link-color">
+				<!-- wp:site-logo {"width":96,"shouldSyncIcon":true} /-->
 
-<!-- wp:group {"tagName":"main","metadata":{"name":"Homepage"},"align":"full","style":{"spacing":{"blockGap":"var:preset|spacing|70","padding":{"bottom":"var:preset|spacing|90"}}},"layout":{"type":"constrained"}} -->
-<main class="wp-block-group alignfull" style="padding-bottom:var(--wp--preset--spacing--90)">
+				<!-- wp:navigation {"ref":4,"submenuVisibility":"click","icon":"menu","metadata":{"ignoredHookedBlocks":["woocommerce/customer-account"]},"style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"fontSize":"300","layout":{"type":"flex","justifyContent":"center"}} /-->
 
-	<!-- wp:cover {"url":"http://localhost:8901/wp-content/uploads/2026/06/home-hero-image.png","id":103,"dimRatio":30,"overlayColor":"contrast","isUserOverlayColor":true,"minHeight":620,"minHeightUnit":"px","contentPosition":"center left","align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|70","right":"var:preset|spacing|30","bottom":"var:preset|spacing|70","left":"var:preset|spacing|30"}}},"layout":{"type":"constrained"}} -->
-	<div class="wp-block-cover alignfull has-custom-content-position is-position-center-left" style="padding-top:var(--wp--preset--spacing--70);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--70);padding-left:var(--wp--preset--spacing--30);min-height:620px"><span aria-hidden="true" class="wp-block-cover__background has-contrast-background-color has-background-dim-30 has-background-dim"></span><img class="wp-block-cover__image-background wp-image-103" alt="" src="http://localhost:8901/wp-content/uploads/2026/06/home-hero-image.png" data-object-fit="cover"/><div class="wp-block-cover__inner-container">
-		<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"constrained","contentSize":"720px","justifyContent":"left"}} -->
-		<div class="wp-block-group">
-			<!-- wp:heading {"level":1,"textColor":"base","fontFamily":"heading","fontSize":"700","style":{"typography":{"fontWeight":"var:custom|font-weight|bold","lineHeight":"var:custom|line-height|heading","textTransform":"uppercase"}}} -->
-			<h1 class="wp-block-heading has-base-color has-text-color has-heading-font-family has-700-font-size" style="font-weight:var(--wp--custom--font-weight--bold);line-height:var(--wp--custom--line-height--heading);text-transform:uppercase">HOME OF THE WORLD&#8217;S MOST AWARDED BRANDY</h1>
+				<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
+				<div class="wp-block-group">
+					<!-- wp:woocommerce/customer-account {"displayStyle":"icon_only","textColor":"base","style":{"elements":{"link":{"color":{"text":"var:preset|color|base"}}}}} /-->
+
+					<!-- wp:woocommerce/mini-cart /-->
+				</div>
+				<!-- /wp:group -->
+			</div>
+			<!-- /wp:group -->
+		</div>
+		<!-- /wp:group -->
+
+		<!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|70","padding":{"top":"12em"}}},"layout":{"type":"constrained","justifyContent":"left"}} -->
+		<div class="wp-block-group alignwide" style="padding-top:12em">
+			<!-- wp:heading {"level":1,"style":{"typography":{"fontWeight":"var:custom|font-weight|bold","lineHeight":"var:custom|line-height|heading","textTransform":"uppercase"}},"textColor":"base","fontSize":"700","fontFamily":"heading"} -->
+			<h1 class="wp-block-heading has-base-color has-text-color has-heading-font-family has-700-font-size"
+				style="font-weight:var(--wp--custom--font-weight--bold);line-height:var(--wp--custom--line-height--heading);text-transform:uppercase">
+				HOME OF THE WORLD’S MOST AWARDED BRANDY</h1>
 			<!-- /wp:heading -->
+
 			<!-- wp:buttons -->
-			<div class="wp-block-buttons">
-				<!-- wp:button -->
-				<div class="wp-block-button"><a class="wp-block-button__link wp-element-button">LEARN MORE</a></div>
+			<div class="wp-block-buttons"><!-- wp:button {"className":"is-style-fill"} -->
+				<div class="wp-block-button is-style-fill"><a class="wp-block-button__link wp-element-button">Learn
+						more</a></div>
 				<!-- /wp:button -->
 			</div>
 			<!-- /wp:buttons -->
 		</div>
 		<!-- /wp:group -->
-	</div></div>
-	<!-- /wp:cover -->
 
-	<!-- wp:heading {"textAlign":"center","align":"wide","fontFamily":"heading","fontSize":"400","style":{"typography":{"fontWeight":"var:custom|font-weight|medium","textTransform":"uppercase","letterSpacing":"2px","lineHeight":"var:custom|line-height|heading"}}} -->
-	<h2 class="wp-block-heading alignwide has-text-align-center has-heading-font-family has-400-font-size" style="font-weight:var(--wp--custom--font-weight--medium);letter-spacing:2px;text-transform:uppercase">Discover Our Globally Acclaimed Portfolio</h2>
+		<!-- wp:columns {"verticalAlignment":"bottom","align":"wide"} -->
+		<div class="wp-block-columns alignwide are-vertically-aligned-bottom">
+			<!-- wp:column {"verticalAlignment":"bottom","width":"50%"} -->
+			<div class="wp-block-column is-vertically-aligned-bottom" style="flex-basis:50%"></div>
+			<!-- /wp:column -->
+
+			<!-- wp:column {"verticalAlignment":"bottom","width":"50%"} -->
+			<div class="wp-block-column is-vertically-aligned-bottom" style="flex-basis:50%"></div>
+			<!-- /wp:column -->
+		</div>
+		<!-- /wp:columns -->
+	</div>
+</div>
+<!-- /wp:cover -->
+
+<!-- wp:group {"tagName":"main","metadata":{"name":"Homepage"},"align":"full","style":{"spacing":{"blockGap":"var:preset|spacing|70","padding":{"bottom":"var:preset|spacing|90","top":"var:preset|spacing|40"},"margin":{"top":"var:preset|spacing|0","bottom":"var:preset|spacing|0"}}},"layout":{"type":"constrained"}} -->
+<main class="wp-block-group alignfull"
+	style="margin-top:var(--wp--preset--spacing--0);margin-bottom:var(--wp--preset--spacing--0);padding-top:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--90)">
+	<!-- wp:heading {"align":"wide","className":"has-text-align-center","style":{"typography":{"fontWeight":"var:custom|font-weight|medium","textTransform":"uppercase","letterSpacing":"2px","lineHeight":"var:custom|line-height|heading"}},"fontSize":"400","fontFamily":"heading"} -->
+	<h2 class="wp-block-heading alignwide has-text-align-center has-heading-font-family has-400-font-size"
+		style="font-weight:var(--wp--custom--font-weight--medium);letter-spacing:2px;line-height:var(--wp--custom--line-height--heading);text-transform:uppercase">
+		Discover Our Globally Acclaimed Portfolio</h2>
 	<!-- /wp:heading -->
 
 	<!-- wp:group {"tagName":"section","metadata":{"name":"Wine Brands"},"align":"full","style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"constrained"}} -->
 	<section class="wp-block-group alignfull">
 		<!-- wp:group {"metadata":{"name":"Section Header"},"align":"wide","className":"is-style-section-header","layout":{"type":"constrained"}} -->
 		<div class="wp-block-group alignwide is-style-section-header">
-			<!-- wp:heading {"fontFamily":"heading","fontSize":"400","style":{"typography":{"fontWeight":"var:custom|font-weight|medium","textTransform":"uppercase","letterSpacing":"1px"}}} -->
-			<h2 class="wp-block-heading has-heading-font-family has-400-font-size" style="font-weight:var(--wp--custom--font-weight--medium);letter-spacing:1px;text-transform:uppercase">Wine Brands</h2>
+			<!-- wp:heading {"align":"wide","style":{"typography":{"textTransform":"uppercase"}},"fontFamily":"heading"} -->
+			<h2 class="wp-block-heading alignwide has-heading-font-family" style="text-transform:uppercase">Wine Brands
+			</h2>
 			<!-- /wp:heading -->
 		</div>
 		<!-- /wp:group -->
-		<!-- wp:cb/carousel-v2 {"slidesPerView":5,"slidesPerGroup":1,"spaceBetween":16,"speed":500,"navigation":true,"pagination":true,"loop":true,"breakpoints":[{"width":1024,"slidesPerView":2,"slidesPerGroup":1}],"align":"full"} -->
-		<div class="wp-block-cb-carousel-v2 alignfull cb-carousel-block" data-cb-slides-per-view="2" data-cb-slides-per-group="1" data-cb-space-between="16" data-cb-speed="500" data-cb-navigation="true" data-cb-pagination="true" data-cb-loop="true" data-cb-breakpoints="{&quot;1024&quot;:{&quot;slidesPerView&quot;:5,&quot;slidesPerGroup&quot;:1}}"><div class="swiper"><div class="cb-wrapper swiper-wrapper">
-			<!-- wp:cb/slide-v2 -->
-			<div class="wp-block-cb-slide-v2 cb-slide swiper-slide"><!-- wp:image {"id":119,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
-			<figure class="wp-block-image size-large has-custom-border"><a href="http://localhost:8901/product-category/wine/"><img src="http://localhost:8901/wp-content/uploads/2026/06/KWV-mentors-1-wine.png" alt="KWV Mentors" class="wp-image-119" style="border-radius:8px"/></a></figure>
-			<!-- /wp:image --></div>
-			<!-- /wp:cb/slide-v2 -->
-			<!-- wp:cb/slide-v2 -->
-			<div class="wp-block-cb-slide-v2 cb-slide swiper-slide"><!-- wp:image {"id":118,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
-			<figure class="wp-block-image size-large has-custom-border"><a href="http://localhost:8901/product-category/wine/"><img src="http://localhost:8901/wp-content/uploads/2026/06/Kwv-Calssic-Collection-wine.png" alt="KWV Classic Collection" class="wp-image-118" style="border-radius:8px"/></a></figure>
-			<!-- /wp:image --></div>
-			<!-- /wp:cb/slide-v2 -->
-			<!-- wp:cb/slide-v2 -->
-			<div class="wp-block-cb-slide-v2 cb-slide swiper-slide"><!-- wp:image {"id":117,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
-			<figure class="wp-block-image size-large has-custom-border"><a href="http://localhost:8901/product-category/wine/"><img src="http://localhost:8901/wp-content/uploads/2026/06/Cafe-Culture-wine.png" alt="Cafe Culture" class="wp-image-117" style="border-radius:8px"/></a></figure>
-			<!-- /wp:image --></div>
-			<!-- /wp:cb/slide-v2 -->
-			<!-- wp:cb/slide-v2 -->
-			<div class="wp-block-cb-slide-v2 cb-slide swiper-slide"><!-- wp:image {"id":116,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
-			<figure class="wp-block-image size-large has-custom-border"><a href="http://localhost:8901/product-category/wine/"><img src="http://localhost:8901/wp-content/uploads/2026/06/Annabelle-wine.png" alt="Annabelle" class="wp-image-116" style="border-radius:8px"/></a></figure>
-			<!-- /wp:image --></div>
-			<!-- /wp:cb/slide-v2 -->
-			<!-- wp:cb/slide-v2 -->
-			<div class="wp-block-cb-slide-v2 cb-slide swiper-slide"><!-- wp:image {"id":115,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
-			<figure class="wp-block-image size-large has-custom-border"><a href="http://localhost:8901/product-category/wine/"><img src="http://localhost:8901/wp-content/uploads/2026/06/Pearly-Bay-wine.png" alt="Pearly Bay" class="wp-image-115" style="border-radius:8px"/></a></figure>
-			<!-- /wp:image --></div>
-			<!-- /wp:cb/slide-v2 -->
-			<!-- wp:cb/slide-v2 -->
-			<div class="wp-block-cb-slide-v2 cb-slide swiper-slide"><!-- wp:image {"id":114,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
-			<figure class="wp-block-image size-large has-custom-border"><a href="http://localhost:8901/product-category/wine/"><img src="http://localhost:8901/wp-content/uploads/2026/06/KWV-mentors-2-wine.png" alt="KWV Mentors" class="wp-image-114" style="border-radius:8px"/></a></figure>
-			<!-- /wp:image --></div>
-			<!-- /wp:cb/slide-v2 -->
-			<!-- wp:cb/slide-v2 -->
-			<div class="wp-block-cb-slide-v2 cb-slide swiper-slide"><!-- wp:image {"id":113,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
-			<figure class="wp-block-image size-large has-custom-border"><a href="http://localhost:8901/product-category/wine/"><img src="http://localhost:8901/wp-content/uploads/2026/06/Laborie-wine.png" alt="Laborie" class="wp-image-113" style="border-radius:8px"/></a></figure>
-			<!-- /wp:image --></div>
-			<!-- /wp:cb/slide-v2 -->
-		</div></div><div class="cb-pagination swiper-pagination"></div><div class="cb-button-prev swiper-button-prev"></div><div class="cb-button-next swiper-button-next"></div></div>
+
+		<!-- wp:cb/carousel-v2 {"slidesPerView":5,"spaceBetween":20,"speed":500,"pagination":false,"loop":true,"breakpoints":[{"width":1024,"slidesPerView":2,"slidesPerGroup":1}],"resizeObserver":true,"observer":true,"align":"full"} -->
+		<div class="wp-block-cb-carousel-v2 alignfull cb-carousel-block" data-cb-slides-per-view="2"
+			data-cb-slides-per-group="1" data-cb-space-between="20" data-cb-speed="500" data-cb-navigation="true"
+			data-cb-loop="true" data-cb-resize-observer="true" data-cb-observer="true"
+			data-cb-breakpoints="{&quot;1024&quot;:{&quot;slidesPerView&quot;:5,&quot;slidesPerGroup&quot;:1}}">
+			<div class="swiper">
+				<div class="cb-wrapper swiper-wrapper"><!-- wp:cb/slide-v2 -->
+					<div class="wp-block-cb-slide-v2 cb-slide swiper-slide">
+						<!-- wp:image {"id":119,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
+						<figure class="wp-block-image size-large has-custom-border"><a
+								href="http://localhost:8901/product-category/wine/"><img
+									src="http://localhost:8901/wp-content/uploads/2026/06/KWV-mentors-1-wine.png"
+									alt="KWV Mentors" class="wp-image-119" style="border-radius:8px" /></a></figure>
+						<!-- /wp:image -->
+					</div>
+					<!-- /wp:cb/slide-v2 -->
+
+					<!-- wp:cb/slide-v2 -->
+					<div class="wp-block-cb-slide-v2 cb-slide swiper-slide">
+						<!-- wp:image {"id":118,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
+						<figure class="wp-block-image size-large has-custom-border"><a
+								href="http://localhost:8901/product-category/wine/"><img
+									src="http://localhost:8901/wp-content/uploads/2026/06/Kwv-Calssic-Collection-wine.png"
+									alt="KWV Classic Collection" class="wp-image-118" style="border-radius:8px" /></a>
+						</figure>
+						<!-- /wp:image -->
+					</div>
+					<!-- /wp:cb/slide-v2 -->
+
+					<!-- wp:cb/slide-v2 -->
+					<div class="wp-block-cb-slide-v2 cb-slide swiper-slide">
+						<!-- wp:image {"id":117,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
+						<figure class="wp-block-image size-large has-custom-border"><a
+								href="http://localhost:8901/product-category/wine/"><img
+									src="http://localhost:8901/wp-content/uploads/2026/06/Cafe-Culture-wine.png"
+									alt="Cafe Culture" class="wp-image-117" style="border-radius:8px" /></a></figure>
+						<!-- /wp:image -->
+					</div>
+					<!-- /wp:cb/slide-v2 -->
+
+					<!-- wp:cb/slide-v2 -->
+					<div class="wp-block-cb-slide-v2 cb-slide swiper-slide">
+						<!-- wp:image {"id":116,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
+						<figure class="wp-block-image size-large has-custom-border"><a
+								href="http://localhost:8901/product-category/wine/"><img
+									src="http://localhost:8901/wp-content/uploads/2026/06/Annabelle-wine.png"
+									alt="Annabelle" class="wp-image-116" style="border-radius:8px" /></a></figure>
+						<!-- /wp:image -->
+					</div>
+					<!-- /wp:cb/slide-v2 -->
+
+					<!-- wp:cb/slide-v2 -->
+					<div class="wp-block-cb-slide-v2 cb-slide swiper-slide">
+						<!-- wp:image {"id":115,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
+						<figure class="wp-block-image size-large has-custom-border"><a
+								href="http://localhost:8901/product-category/wine/"><img
+									src="http://localhost:8901/wp-content/uploads/2026/06/Pearly-Bay-wine.png"
+									alt="Pearly Bay" class="wp-image-115" style="border-radius:8px" /></a></figure>
+						<!-- /wp:image -->
+					</div>
+					<!-- /wp:cb/slide-v2 -->
+
+					<!-- wp:cb/slide-v2 -->
+					<div class="wp-block-cb-slide-v2 cb-slide swiper-slide">
+						<!-- wp:image {"id":114,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
+						<figure class="wp-block-image size-large has-custom-border"><a
+								href="http://localhost:8901/product-category/wine/"><img
+									src="http://localhost:8901/wp-content/uploads/2026/06/KWV-mentors-2-wine.png"
+									alt="KWV Mentors" class="wp-image-114" style="border-radius:8px" /></a></figure>
+						<!-- /wp:image -->
+					</div>
+					<!-- /wp:cb/slide-v2 -->
+
+					<!-- wp:cb/slide-v2 -->
+					<div class="wp-block-cb-slide-v2 cb-slide swiper-slide">
+						<!-- wp:image {"id":113,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
+						<figure class="wp-block-image size-large has-custom-border"><a
+								href="http://localhost:8901/product-category/wine/"><img
+									src="http://localhost:8901/wp-content/uploads/2026/06/Laborie-wine.png"
+									alt="Laborie" class="wp-image-113" style="border-radius:8px" /></a></figure>
+						<!-- /wp:image -->
+					</div>
+					<!-- /wp:cb/slide-v2 -->
+				</div>
+			</div>
+			<div class="cb-button-prev swiper-button-prev"></div>
+			<div class="cb-button-next swiper-button-next"></div>
+		</div>
 		<!-- /wp:cb/carousel-v2 -->
 	</section>
 	<!-- /wp:group -->
@@ -81,49 +176,101 @@
 	<section class="wp-block-group alignfull">
 		<!-- wp:group {"metadata":{"name":"Section Header"},"align":"wide","className":"is-style-section-header","layout":{"type":"constrained"}} -->
 		<div class="wp-block-group alignwide is-style-section-header">
-			<!-- wp:heading {"fontFamily":"heading","fontSize":"400","style":{"typography":{"fontWeight":"var:custom|font-weight|medium","textTransform":"uppercase","letterSpacing":"1px"}}} -->
-			<h2 class="wp-block-heading has-heading-font-family has-400-font-size" style="font-weight:var(--wp--custom--font-weight--medium);letter-spacing:1px;text-transform:uppercase">Spirits Brands</h2>
+			<!-- wp:heading {"align":"wide","style":{"typography":{"textTransform":"uppercase"}},"fontFamily":"heading"} -->
+			<h2 class="wp-block-heading alignwide has-heading-font-family" style="text-transform:uppercase">Spirits
+				Brands</h2>
 			<!-- /wp:heading -->
 		</div>
 		<!-- /wp:group -->
-		<!-- wp:cb/carousel-v2 {"slidesPerView":5,"slidesPerGroup":1,"spaceBetween":16,"speed":500,"navigation":true,"pagination":true,"loop":true,"breakpoints":[{"width":1024,"slidesPerView":2,"slidesPerGroup":1}],"align":"full"} -->
-		<div class="wp-block-cb-carousel-v2 alignfull cb-carousel-block" data-cb-slides-per-view="2" data-cb-slides-per-group="1" data-cb-space-between="16" data-cb-speed="500" data-cb-navigation="true" data-cb-pagination="true" data-cb-loop="true" data-cb-breakpoints="{&quot;1024&quot;:{&quot;slidesPerView&quot;:5,&quot;slidesPerGroup&quot;:1}}"><div class="swiper"><div class="cb-wrapper swiper-wrapper">
-			<!-- wp:cb/slide-v2 -->
-			<div class="wp-block-cb-slide-v2 cb-slide swiper-slide"><!-- wp:image {"id":134,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
-			<figure class="wp-block-image size-large has-custom-border"><a href="http://localhost:8901/product-category/spirits/"><img src="http://localhost:8901/wp-content/uploads/2026/06/KWV-spirits.png" alt="KWV" class="wp-image-134" style="border-radius:8px"/></a></figure>
-			<!-- /wp:image --></div>
-			<!-- /wp:cb/slide-v2 -->
-			<!-- wp:cb/slide-v2 -->
-			<div class="wp-block-cb-slide-v2 cb-slide swiper-slide"><!-- wp:image {"id":133,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
-			<figure class="wp-block-image size-large has-custom-border"><a href="http://localhost:8901/product-category/spirits/"><img src="http://localhost:8901/wp-content/uploads/2026/06/Cruxland-spirits.png" alt="Cruxland" class="wp-image-133" style="border-radius:8px"/></a></figure>
-			<!-- /wp:image --></div>
-			<!-- /wp:cb/slide-v2 -->
-			<!-- wp:cb/slide-v2 -->
-			<div class="wp-block-cb-slide-v2 cb-slide swiper-slide"><!-- wp:image {"id":132,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
-			<figure class="wp-block-image size-large has-custom-border"><a href="http://localhost:8901/product-category/spirits/"><img src="http://localhost:8901/wp-content/uploads/2026/06/Wild-Africa-spirits.png" alt="Wild Africa" class="wp-image-132" style="border-radius:8px"/></a></figure>
-			<!-- /wp:image --></div>
-			<!-- /wp:cb/slide-v2 -->
-			<!-- wp:cb/slide-v2 -->
-			<div class="wp-block-cb-slide-v2 cb-slide swiper-slide"><!-- wp:image {"id":131,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
-			<figure class="wp-block-image size-large has-custom-border"><a href="http://localhost:8901/product-category/spirits/"><img src="http://localhost:8901/wp-content/uploads/2026/06/Red-Heart-spirits.png" alt="Red Heart" class="wp-image-131" style="border-radius:8px"/></a></figure>
-			<!-- /wp:image --></div>
-			<!-- /wp:cb/slide-v2 -->
-			<!-- wp:cb/slide-v2 -->
-			<div class="wp-block-cb-slide-v2 cb-slide swiper-slide"><!-- wp:image {"id":130,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
-			<figure class="wp-block-image size-large has-custom-border"><a href="http://localhost:8901/product-category/spirits/"><img src="http://localhost:8901/wp-content/uploads/2026/06/Ponchos-spirits.png" alt="Ponchos" class="wp-image-130" style="border-radius:8px"/></a></figure>
-			<!-- /wp:image --></div>
-			<!-- /wp:cb/slide-v2 -->
-			<!-- wp:cb/slide-v2 -->
-			<div class="wp-block-cb-slide-v2 cb-slide swiper-slide"><!-- wp:image {"id":112,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
-			<figure class="wp-block-image size-large has-custom-border"><a href="http://localhost:8901/product-category/spirits/"><img src="http://localhost:8901/wp-content/uploads/2026/06/Carvo-spirits.png" alt="Carvo" class="wp-image-112" style="border-radius:8px"/></a></figure>
-			<!-- /wp:image --></div>
-			<!-- /wp:cb/slide-v2 -->
-			<!-- wp:cb/slide-v2 -->
-			<div class="wp-block-cb-slide-v2 cb-slide swiper-slide"><!-- wp:image {"id":111,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
-			<figure class="wp-block-image size-large has-custom-border"><a href="http://localhost:8901/product-category/spirits/"><img src="http://localhost:8901/wp-content/uploads/2026/06/KWV-2-spirits.png" alt="KWV" class="wp-image-111" style="border-radius:8px"/></a></figure>
-			<!-- /wp:image --></div>
-			<!-- /wp:cb/slide-v2 -->
-		</div></div><div class="cb-pagination swiper-pagination"></div><div class="cb-button-prev swiper-button-prev"></div><div class="cb-button-next swiper-button-next"></div></div>
+
+		<!-- wp:cb/carousel-v2 {"slidesPerView":5,"spaceBetween":20,"speed":500,"loop":true,"breakpoints":[{"width":1024,"slidesPerView":2,"slidesPerGroup":1}],"align":"full"} -->
+		<div class="wp-block-cb-carousel-v2 alignfull cb-carousel-block" data-cb-slides-per-view="2"
+			data-cb-slides-per-group="1" data-cb-space-between="20" data-cb-speed="500" data-cb-navigation="true"
+			data-cb-pagination="true" data-cb-loop="true"
+			data-cb-breakpoints="{&quot;1024&quot;:{&quot;slidesPerView&quot;:5,&quot;slidesPerGroup&quot;:1}}">
+			<div class="swiper">
+				<div class="cb-wrapper swiper-wrapper"><!-- wp:cb/slide-v2 -->
+					<div class="wp-block-cb-slide-v2 cb-slide swiper-slide">
+						<!-- wp:image {"id":134,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
+						<figure class="wp-block-image size-large has-custom-border"><a
+								href="http://localhost:8901/product-category/spirits/"><img
+									src="http://localhost:8901/wp-content/uploads/2026/06/KWV-spirits.png" alt="KWV"
+									class="wp-image-134" style="border-radius:8px" /></a></figure>
+						<!-- /wp:image -->
+					</div>
+					<!-- /wp:cb/slide-v2 -->
+
+					<!-- wp:cb/slide-v2 -->
+					<div class="wp-block-cb-slide-v2 cb-slide swiper-slide">
+						<!-- wp:image {"id":133,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
+						<figure class="wp-block-image size-large has-custom-border"><a
+								href="http://localhost:8901/product-category/spirits/"><img
+									src="http://localhost:8901/wp-content/uploads/2026/06/Cruxland-spirits.png"
+									alt="Cruxland" class="wp-image-133" style="border-radius:8px" /></a></figure>
+						<!-- /wp:image -->
+					</div>
+					<!-- /wp:cb/slide-v2 -->
+
+					<!-- wp:cb/slide-v2 -->
+					<div class="wp-block-cb-slide-v2 cb-slide swiper-slide">
+						<!-- wp:image {"id":132,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
+						<figure class="wp-block-image size-large has-custom-border"><a
+								href="http://localhost:8901/product-category/spirits/"><img
+									src="http://localhost:8901/wp-content/uploads/2026/06/Wild-Africa-spirits.png"
+									alt="Wild Africa" class="wp-image-132" style="border-radius:8px" /></a></figure>
+						<!-- /wp:image -->
+					</div>
+					<!-- /wp:cb/slide-v2 -->
+
+					<!-- wp:cb/slide-v2 -->
+					<div class="wp-block-cb-slide-v2 cb-slide swiper-slide">
+						<!-- wp:image {"id":131,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
+						<figure class="wp-block-image size-large has-custom-border"><a
+								href="http://localhost:8901/product-category/spirits/"><img
+									src="http://localhost:8901/wp-content/uploads/2026/06/Red-Heart-spirits.png"
+									alt="Red Heart" class="wp-image-131" style="border-radius:8px" /></a></figure>
+						<!-- /wp:image -->
+					</div>
+					<!-- /wp:cb/slide-v2 -->
+
+					<!-- wp:cb/slide-v2 -->
+					<div class="wp-block-cb-slide-v2 cb-slide swiper-slide">
+						<!-- wp:image {"id":130,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
+						<figure class="wp-block-image size-large has-custom-border"><a
+								href="http://localhost:8901/product-category/spirits/"><img
+									src="http://localhost:8901/wp-content/uploads/2026/06/Ponchos-spirits.png"
+									alt="Ponchos" class="wp-image-130" style="border-radius:8px" /></a></figure>
+						<!-- /wp:image -->
+					</div>
+					<!-- /wp:cb/slide-v2 -->
+
+					<!-- wp:cb/slide-v2 -->
+					<div class="wp-block-cb-slide-v2 cb-slide swiper-slide">
+						<!-- wp:image {"id":112,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
+						<figure class="wp-block-image size-large has-custom-border"><a
+								href="http://localhost:8901/product-category/spirits/"><img
+									src="http://localhost:8901/wp-content/uploads/2026/06/Carvo-spirits.png" alt="Carvo"
+									class="wp-image-112" style="border-radius:8px" /></a></figure>
+						<!-- /wp:image -->
+					</div>
+					<!-- /wp:cb/slide-v2 -->
+
+					<!-- wp:cb/slide-v2 -->
+					<div class="wp-block-cb-slide-v2 cb-slide swiper-slide">
+						<!-- wp:image {"id":111,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
+						<figure class="wp-block-image size-large has-custom-border"><a
+								href="http://localhost:8901/product-category/spirits/"><img
+									src="http://localhost:8901/wp-content/uploads/2026/06/KWV-2-spirits.png" alt="KWV"
+									class="wp-image-111" style="border-radius:8px" /></a></figure>
+						<!-- /wp:image -->
+					</div>
+					<!-- /wp:cb/slide-v2 -->
+				</div>
+			</div>
+			<div class="cb-pagination swiper-pagination"></div>
+			<div class="cb-button-prev swiper-button-prev"></div>
+			<div class="cb-button-next swiper-button-next"></div>
+		</div>
 		<!-- /wp:cb/carousel-v2 -->
 	</section>
 	<!-- /wp:group -->
@@ -132,49 +279,102 @@
 	<section class="wp-block-group alignfull">
 		<!-- wp:group {"metadata":{"name":"Section Header"},"align":"wide","className":"is-style-section-header","layout":{"type":"constrained"}} -->
 		<div class="wp-block-group alignwide is-style-section-header">
-			<!-- wp:heading {"fontFamily":"heading","fontSize":"400","style":{"typography":{"fontWeight":"var:custom|font-weight|medium","textTransform":"uppercase","letterSpacing":"1px"}}} -->
-			<h2 class="wp-block-heading has-heading-font-family has-400-font-size" style="font-weight:var(--wp--custom--font-weight--medium);letter-spacing:1px;text-transform:uppercase">Agency Brands</h2>
+			<!-- wp:heading {"align":"wide","style":{"typography":{"textTransform":"uppercase"}},"fontFamily":"heading"} -->
+			<h2 class="wp-block-heading alignwide has-heading-font-family" style="text-transform:uppercase">Agency
+				Brands</h2>
 			<!-- /wp:heading -->
 		</div>
 		<!-- /wp:group -->
-		<!-- wp:cb/carousel-v2 {"slidesPerView":5,"slidesPerGroup":1,"spaceBetween":16,"speed":500,"navigation":true,"pagination":true,"loop":true,"breakpoints":[{"width":1024,"slidesPerView":2,"slidesPerGroup":1}],"align":"full"} -->
-		<div class="wp-block-cb-carousel-v2 alignfull cb-carousel-block" data-cb-slides-per-view="2" data-cb-slides-per-group="1" data-cb-space-between="16" data-cb-speed="500" data-cb-navigation="true" data-cb-pagination="true" data-cb-loop="true" data-cb-breakpoints="{&quot;1024&quot;:{&quot;slidesPerView&quot;:5,&quot;slidesPerGroup&quot;:1}}"><div class="swiper"><div class="cb-wrapper swiper-wrapper">
-			<!-- wp:cb/slide-v2 -->
-			<div class="wp-block-cb-slide-v2 cb-slide swiper-slide"><!-- wp:image {"id":110,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
-			<figure class="wp-block-image size-large has-custom-border"><a href="http://localhost:8901/product-category/spirits/"><img src="http://localhost:8901/wp-content/uploads/2026/06/Paddy-agency.png" alt="Paddy" class="wp-image-110" style="border-radius:8px"/></a></figure>
-			<!-- /wp:image --></div>
-			<!-- /wp:cb/slide-v2 -->
-			<!-- wp:cb/slide-v2 -->
-			<div class="wp-block-cb-slide-v2 cb-slide swiper-slide"><!-- wp:image {"id":109,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
-			<figure class="wp-block-image size-large has-custom-border"><a href="http://localhost:8901/product-category/spirits/"><img src="http://localhost:8901/wp-content/uploads/2026/06/Early-Times-agency.png" alt="Early Times" class="wp-image-109" style="border-radius:8px"/></a></figure>
-			<!-- /wp:image --></div>
-			<!-- /wp:cb/slide-v2 -->
-			<!-- wp:cb/slide-v2 -->
-			<div class="wp-block-cb-slide-v2 cb-slide swiper-slide"><!-- wp:image {"id":108,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
-			<figure class="wp-block-image size-large has-custom-border"><a href="http://localhost:8901/product-category/spirits/"><img src="http://localhost:8901/wp-content/uploads/2026/06/Patrón-1-agency.png" alt="Patrón" class="wp-image-108" style="border-radius:8px"/></a></figure>
-			<!-- /wp:image --></div>
-			<!-- /wp:cb/slide-v2 -->
-			<!-- wp:cb/slide-v2 -->
-			<div class="wp-block-cb-slide-v2 cb-slide swiper-slide"><!-- wp:image {"id":107,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
-			<figure class="wp-block-image size-large has-custom-border"><a href="http://localhost:8901/product-category/spirits/"><img src="http://localhost:8901/wp-content/uploads/2026/06/Grey-Goose-Original-1-agency.png" alt="Grey Goose Original" class="wp-image-107" style="border-radius:8px"/></a></figure>
-			<!-- /wp:image --></div>
-			<!-- /wp:cb/slide-v2 -->
-			<!-- wp:cb/slide-v2 -->
-			<div class="wp-block-cb-slide-v2 cb-slide swiper-slide"><!-- wp:image {"id":106,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
-			<figure class="wp-block-image size-large has-custom-border"><a href="http://localhost:8901/product-category/spirits/"><img src="http://localhost:8901/wp-content/uploads/2026/06/Dussé-1-agency.png" alt="D&#8217;ussé" class="wp-image-106" style="border-radius:8px"/></a></figure>
-			<!-- /wp:image --></div>
-			<!-- /wp:cb/slide-v2 -->
-			<!-- wp:cb/slide-v2 -->
-			<div class="wp-block-cb-slide-v2 cb-slide swiper-slide"><!-- wp:image {"id":105,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
-			<figure class="wp-block-image size-large has-custom-border"><a href="http://localhost:8901/product-category/spirits/"><img src="http://localhost:8901/wp-content/uploads/2026/06/Bacardi-agency.png" alt="Bacardi" class="wp-image-105" style="border-radius:8px"/></a></figure>
-			<!-- /wp:image --></div>
-			<!-- /wp:cb/slide-v2 -->
-			<!-- wp:cb/slide-v2 -->
-			<div class="wp-block-cb-slide-v2 cb-slide swiper-slide"><!-- wp:image {"id":104,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
-			<figure class="wp-block-image size-large has-custom-border"><a href="http://localhost:8901/product-category/spirits/"><img src="http://localhost:8901/wp-content/uploads/2026/06/Grey-Goose-agency.png" alt="Grey Goose" class="wp-image-104" style="border-radius:8px"/></a></figure>
-			<!-- /wp:image --></div>
-			<!-- /wp:cb/slide-v2 -->
-		</div></div><div class="cb-pagination swiper-pagination"></div><div class="cb-button-prev swiper-button-prev"></div><div class="cb-button-next swiper-button-next"></div></div>
+
+		<!-- wp:cb/carousel-v2 {"slidesPerView":5,"spaceBetween":20,"speed":500,"loop":true,"breakpoints":[{"width":1024,"slidesPerView":2,"slidesPerGroup":1}],"align":"full"} -->
+		<div class="wp-block-cb-carousel-v2 alignfull cb-carousel-block" data-cb-slides-per-view="2"
+			data-cb-slides-per-group="1" data-cb-space-between="20" data-cb-speed="500" data-cb-navigation="true"
+			data-cb-pagination="true" data-cb-loop="true"
+			data-cb-breakpoints="{&quot;1024&quot;:{&quot;slidesPerView&quot;:5,&quot;slidesPerGroup&quot;:1}}">
+			<div class="swiper">
+				<div class="cb-wrapper swiper-wrapper"><!-- wp:cb/slide-v2 -->
+					<div class="wp-block-cb-slide-v2 cb-slide swiper-slide">
+						<!-- wp:image {"id":110,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
+						<figure class="wp-block-image size-large has-custom-border"><a
+								href="http://localhost:8901/product-category/spirits/"><img
+									src="http://localhost:8901/wp-content/uploads/2026/06/Paddy-agency.png" alt="Paddy"
+									class="wp-image-110" style="border-radius:8px" /></a></figure>
+						<!-- /wp:image -->
+					</div>
+					<!-- /wp:cb/slide-v2 -->
+
+					<!-- wp:cb/slide-v2 -->
+					<div class="wp-block-cb-slide-v2 cb-slide swiper-slide">
+						<!-- wp:image {"id":109,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
+						<figure class="wp-block-image size-large has-custom-border"><a
+								href="http://localhost:8901/product-category/spirits/"><img
+									src="http://localhost:8901/wp-content/uploads/2026/06/Early-Times-agency.png"
+									alt="Early Times" class="wp-image-109" style="border-radius:8px" /></a></figure>
+						<!-- /wp:image -->
+					</div>
+					<!-- /wp:cb/slide-v2 -->
+
+					<!-- wp:cb/slide-v2 -->
+					<div class="wp-block-cb-slide-v2 cb-slide swiper-slide">
+						<!-- wp:image {"id":108,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
+						<figure class="wp-block-image size-large has-custom-border"><a
+								href="http://localhost:8901/product-category/spirits/"><img
+									src="http://localhost:8901/wp-content/uploads/2026/06/Patrón-1-agency.png"
+									alt="Patrón" class="wp-image-108" style="border-radius:8px" /></a></figure>
+						<!-- /wp:image -->
+					</div>
+					<!-- /wp:cb/slide-v2 -->
+
+					<!-- wp:cb/slide-v2 -->
+					<div class="wp-block-cb-slide-v2 cb-slide swiper-slide">
+						<!-- wp:image {"id":107,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
+						<figure class="wp-block-image size-large has-custom-border"><a
+								href="http://localhost:8901/product-category/spirits/"><img
+									src="http://localhost:8901/wp-content/uploads/2026/06/Grey-Goose-Original-1-agency.png"
+									alt="Grey Goose Original" class="wp-image-107" style="border-radius:8px" /></a>
+						</figure>
+						<!-- /wp:image -->
+					</div>
+					<!-- /wp:cb/slide-v2 -->
+
+					<!-- wp:cb/slide-v2 -->
+					<div class="wp-block-cb-slide-v2 cb-slide swiper-slide">
+						<!-- wp:image {"id":106,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
+						<figure class="wp-block-image size-large has-custom-border"><a
+								href="http://localhost:8901/product-category/spirits/"><img
+									src="http://localhost:8901/wp-content/uploads/2026/06/Dussé-1-agency.png"
+									alt="D’ussé" class="wp-image-106" style="border-radius:8px" /></a></figure>
+						<!-- /wp:image -->
+					</div>
+					<!-- /wp:cb/slide-v2 -->
+
+					<!-- wp:cb/slide-v2 -->
+					<div class="wp-block-cb-slide-v2 cb-slide swiper-slide">
+						<!-- wp:image {"id":105,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
+						<figure class="wp-block-image size-large has-custom-border"><a
+								href="http://localhost:8901/product-category/spirits/"><img
+									src="http://localhost:8901/wp-content/uploads/2026/06/Bacardi-agency.png"
+									alt="Bacardi" class="wp-image-105" style="border-radius:8px" /></a></figure>
+						<!-- /wp:image -->
+					</div>
+					<!-- /wp:cb/slide-v2 -->
+
+					<!-- wp:cb/slide-v2 -->
+					<div class="wp-block-cb-slide-v2 cb-slide swiper-slide">
+						<!-- wp:image {"id":104,"sizeSlug":"large","linkDestination":"custom","style":{"border":{"radius":"8px"}}} -->
+						<figure class="wp-block-image size-large has-custom-border"><a
+								href="http://localhost:8901/product-category/spirits/"><img
+									src="http://localhost:8901/wp-content/uploads/2026/06/Grey-Goose-agency.png"
+									alt="Grey Goose" class="wp-image-104" style="border-radius:8px" /></a></figure>
+						<!-- /wp:image -->
+					</div>
+					<!-- /wp:cb/slide-v2 -->
+				</div>
+			</div>
+			<div class="cb-pagination swiper-pagination"></div>
+			<div class="cb-button-prev swiper-button-prev"></div>
+			<div class="cb-button-next swiper-button-next"></div>
+		</div>
 		<!-- /wp:cb/carousel-v2 -->
 	</section>
 	<!-- /wp:group -->
@@ -183,61 +383,95 @@
 	<section class="wp-block-group alignfull">
 		<!-- wp:group {"metadata":{"name":"Section Header"},"align":"wide","className":"is-style-section-header","layout":{"type":"constrained"}} -->
 		<div class="wp-block-group alignwide is-style-section-header">
-			<!-- wp:heading {"fontFamily":"heading","fontSize":"400","style":{"typography":{"fontWeight":"var:custom|font-weight|medium","textTransform":"uppercase","letterSpacing":"1px"}}} -->
-			<h2 class="wp-block-heading has-heading-font-family has-400-font-size" style="font-weight:var(--wp--custom--font-weight--medium);letter-spacing:1px;text-transform:uppercase">Our Legacy</h2>
+			<!-- wp:heading {"align":"wide","style":{"typography":{"textTransform":"uppercase"}}} -->
+			<h2 class="wp-block-heading alignwide" style="text-transform:uppercase">Our Legacy</h2>
 			<!-- /wp:heading -->
 		</div>
 		<!-- /wp:group -->
-		<!-- wp:cover {"url":"http://localhost:8901/wp-content/uploads/2026/06/home-cta-image.png","id":102,"dimRatio":40,"overlayColor":"contrast","isUserOverlayColor":true,"minHeight":530,"minHeightUnit":"px","contentPosition":"center left","align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","right":"var:preset|spacing|30","bottom":"var:preset|spacing|60","left":"var:preset|spacing|30"}}},"layout":{"type":"constrained"}} -->
-		<div class="wp-block-cover alignfull has-custom-content-position is-position-center-left" style="padding-top:var(--wp--preset--spacing--60);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--60);padding-left:var(--wp--preset--spacing--30);min-height:530px"><span aria-hidden="true" class="wp-block-cover__background has-contrast-background-color has-background-dim-40 has-background-dim"></span><img class="wp-block-cover__image-background wp-image-102" alt="" src="http://localhost:8901/wp-content/uploads/2026/06/home-cta-image.png" data-object-fit="cover"/><div class="wp-block-cover__inner-container">
-			<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"constrained","contentSize":"640px","justifyContent":"left"}} -->
-			<div class="wp-block-group">
-				<!-- wp:heading {"level":3,"textColor":"base","fontFamily":"heading","fontSize":"600","style":{"typography":{"fontWeight":"var:custom|font-weight|bold","lineHeight":"var:custom|line-height|heading","textTransform":"uppercase"}}} -->
-				<h3 class="wp-block-heading has-base-color has-text-color has-heading-font-family has-600-font-size" style="font-weight:var(--wp--custom--font-weight--bold);line-height:var(--wp--custom--line-height--heading);text-transform:uppercase">Over 100 Years of Winemaking</h3>
-				<!-- /wp:heading -->
-				<!-- wp:buttons -->
-				<div class="wp-block-buttons">
-					<!-- wp:button -->
-					<div class="wp-block-button"><a class="wp-block-button__link wp-element-button">READ MORE</a></div>
-					<!-- /wp:button -->
+
+		<!-- wp:cover {"url":"http://localhost:8901/wp-content/uploads/2026/06/home-cta-image.png","id":102,"dimRatio":0,"overlayColor":"contrast","isUserOverlayColor":true,"minHeight":530,"minHeightUnit":"px","contentPosition":"center center","align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","right":"var:preset|spacing|30","bottom":"var:preset|spacing|60","left":"var:preset|spacing|30"}}},"layout":{"type":"constrained"}} -->
+		<div class="wp-block-cover alignfull"
+			style="padding-top:var(--wp--preset--spacing--60);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--60);padding-left:var(--wp--preset--spacing--30);min-height:530px">
+			<img class="wp-block-cover__image-background wp-image-102" alt=""
+				src="http://localhost:8901/wp-content/uploads/2026/06/home-cta-image.png"
+				data-object-fit="cover" /><span aria-hidden="true"
+				class="wp-block-cover__background has-contrast-background-color has-background-dim-0 has-background-dim"></span>
+			<div class="wp-block-cover__inner-container">
+				<!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"constrained","contentSize":"640px","justifyContent":"left"}} -->
+				<div class="wp-block-group alignwide">
+					<!-- wp:heading {"level":3,"style":{"typography":{"fontWeight":"var:custom|font-weight|bold","lineHeight":"var:custom|line-height|heading","textTransform":"uppercase"}},"textColor":"base","fontSize":"600","fontFamily":"heading"} -->
+					<h3 class="wp-block-heading has-base-color has-text-color has-heading-font-family has-600-font-size"
+						style="font-weight:var(--wp--custom--font-weight--bold);line-height:var(--wp--custom--line-height--heading);text-transform:uppercase">
+						Over 100 Years of Winemaking</h3>
+					<!-- /wp:heading -->
+
+					<!-- wp:buttons -->
+					<div class="wp-block-buttons"><!-- wp:button {"className":"is-style-fill"} -->
+						<div class="wp-block-button is-style-fill"><a
+								class="wp-block-button__link wp-element-button">READ MORE</a></div>
+						<!-- /wp:button -->
+					</div>
+					<!-- /wp:buttons -->
 				</div>
-				<!-- /wp:buttons -->
+				<!-- /wp:group -->
 			</div>
-			<!-- /wp:group -->
-		</div></div>
+		</div>
 		<!-- /wp:cover -->
 	</section>
 	<!-- /wp:group -->
 
-	<!-- wp:group {"tagName":"section","metadata":{"name":"Latest News"},"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|40"}},"layout":{"type":"constrained"}} -->
-	<section class="wp-block-group alignwide">
-		<!-- wp:group {"metadata":{"name":"Section Header"},"className":"is-style-section-header","layout":{"type":"constrained"}} -->
-		<div class="wp-block-group is-style-section-header">
-			<!-- wp:heading {"fontFamily":"heading","fontSize":"400","style":{"typography":{"fontWeight":"var:custom|font-weight|medium","textTransform":"uppercase","letterSpacing":"1px"}}} -->
-			<h2 class="wp-block-heading has-heading-font-family has-400-font-size" style="font-weight:var(--wp--custom--font-weight--medium);letter-spacing:1px;text-transform:uppercase">Latest News</h2>
+	<!-- wp:group {"tagName":"section","metadata":{"name":"Latest News"},"align":"full","style":{"spacing":{"blockGap":"var:preset|spacing|40"}},"layout":{"type":"constrained"}} -->
+	<section class="wp-block-group alignfull">
+		<!-- wp:group {"metadata":{"name":"Section Header"},"align":"wide","className":"is-style-section-header","layout":{"type":"constrained"}} -->
+		<div class="wp-block-group alignwide is-style-section-header">
+			<!-- wp:heading {"align":"wide","style":{"typography":{"textTransform":"uppercase"}},"fontFamily":"heading"} -->
+			<h2 class="wp-block-heading alignwide has-heading-font-family" style="text-transform:uppercase">Latest News
+			</h2>
 			<!-- /wp:heading -->
 		</div>
 		<!-- /wp:group -->
-		<!-- wp:query {"queryId":0,"query":{"perPage":4,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"exclude","inherit":false},"layout":{"type":"default"}} -->
-		<div class="wp-block-query">
-			<!-- wp:post-template {"style":{"spacing":{"blockGap":"var:preset|spacing|40"}},"layout":{"type":"grid","columnCount":4,"minimumColumnWidth":null}} -->
-				<!-- wp:pattern {"slug":"kwv/blog-card"} /-->
-			<!-- /wp:post-template -->
+
+		<!-- wp:group {"align":"wide","className":"is-style-inner-page-section","layout":{"type":"constrained"}} -->
+		<div class="wp-block-group alignwide is-style-inner-page-section">
+			<!-- wp:query {"queryId":0,"query":{"perPage":4,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"exclude","inherit":false},"align":"wide","layout":{"type":"default"}} -->
+			<div class="wp-block-query alignwide">
+				<!-- wp:post-template {"style":{"spacing":{"blockGap":"var:preset|spacing|40"}},"layout":{"type":"grid","columnCount":4,"minimumColumnWidth":null}} -->
+				<!-- wp:group {"metadata":{"name":"Blog Card","patternName":"kwv/blog-card","description":"A single post card — featured image with hover zoom above the post title. Built for the homepage \u0022Latest News\u0022 query loop.","categories":["kwv/card","kwv/posts"]},"className":"is-style-blog-card","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch"}} -->
+				<div class="wp-block-group is-style-blog-card">
+					<!-- wp:group {"metadata":{"name":"Media"},"className":"blog-card__media","style":{"spacing":{"blockGap":"0","padding":{"top":"0","right":"0","bottom":"0","left":"0"}},"border":{"radius":{"topLeft":"var:preset|border-radius|0","topRight":"var:preset|border-radius|0","bottomLeft":"var:preset|border-radius|0","bottomRight":"var:preset|border-radius|0"}}}} -->
+					<div class="wp-block-group blog-card__media"
+						style="border-top-left-radius:var(--wp--preset--border-radius--0);border-top-right-radius:var(--wp--preset--border-radius--0);border-bottom-left-radius:var(--wp--preset--border-radius--0);border-bottom-right-radius:var(--wp--preset--border-radius--0);padding-top:0;padding-right:0;padding-bottom:0;padding-left:0">
+						<!-- wp:post-featured-image {"isLink":true,"aspectRatio":"4/5","className":"is-style-image-hover-zoom","style":{"border":{"radius":{"topLeft":"var:preset|border-radius|0","topRight":"var:preset|border-radius|0","bottomLeft":"var:preset|border-radius|0","bottomRight":"var:preset|border-radius|0"}}}} /-->
+					</div>
+					<!-- /wp:group -->
+
+					<!-- wp:post-title {"isLink":true,"style":{"typography":{"fontWeight":"var:custom|font-weight|medium","lineHeight":"var:custom|line-height|heading"}},"textColor":"contrast","fontSize":"300","fontFamily":"heading"} /-->
+				</div>
+				<!-- /wp:group -->
+				<!-- /wp:post-template -->
+			</div>
+			<!-- /wp:query -->
 		</div>
-		<!-- /wp:query -->
+		<!-- /wp:group -->
 	</section>
 	<!-- /wp:group -->
 
 	<!-- wp:group {"tagName":"section","metadata":{"name":"Newsletter"},"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"constrained"}} -->
 	<section class="wp-block-group alignwide">
-		<!-- wp:heading {"fontFamily":"heading","fontSize":"500","style":{"typography":{"fontWeight":"var:custom|font-weight|bold","textTransform":"uppercase","letterSpacing":"1px","lineHeight":"var:custom|line-height|heading"}}} -->
-		<h2 class="wp-block-heading has-heading-font-family has-500-font-size" style="font-weight:var(--wp--custom--font-weight--bold);letter-spacing:1px;text-transform:uppercase">Subscribe to Our Newsletter</h2>
-		<!-- /wp:heading -->
-		<!-- wp:gravityforms/form /-->
+		<!-- wp:group {"align":"wide","layout":{"type":"flex","flexWrap":"nowrap"}} -->
+		<div class="wp-block-group alignwide">
+			<!-- wp:heading {"style":{"typography":{"fontWeight":"var:custom|font-weight|bold","textTransform":"uppercase","letterSpacing":"1px","lineHeight":"var:custom|line-height|heading"}},"fontSize":"500","fontFamily":"heading"} -->
+			<h2 class="wp-block-heading has-heading-font-family has-500-font-size"
+				style="font-weight:var(--wp--custom--font-weight--bold);letter-spacing:1px;line-height:var(--wp--custom--line-height--heading);text-transform:uppercase">
+				Subscribe to Our Newsletter</h2>
+			<!-- /wp:heading -->
+
+			<!-- wp:gravityforms/form {"formId":"","inputPrimaryColor":"#204ce5"} /-->
+		</div>
+		<!-- /wp:group -->
 	</section>
 	<!-- /wp:group -->
-
 </main>
 <!-- /wp:group -->
 
-<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->
+<!-- wp:template-part {"slug":"footer","theme":"kwv-theme-2026","tagName":"footer"} /-->

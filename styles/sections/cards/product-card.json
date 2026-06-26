@@ -1,0 +1,31 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Product Card",
+	"slug": "product-card",
+	"blockTypes": [ "core/group" ],
+	"description": "WooCommerce product card: white frame, gold brand border, packshot, divider, title, attribute and price.",
+	"styles": {
+		"color": {
+			"background": "var:preset|color|base"
+		},
+		"border": {
+			"color": "var:preset|color|brand-500",
+			"style": "solid",
+			"width": "1px",
+			"radius": "var:preset|border-radius|200"
+		},
+		"spacing": {
+			"blockGap": "var:preset|spacing|20",
+			"margin": {
+				"top": "0"
+			},
+			"padding": {
+				"top": "var:preset|spacing|30",
+				"right": "var:preset|spacing|30",
+				"bottom": "var:preset|spacing|30",
+				"left": "var:preset|spacing|30"
+			}
+		}
+	}
+}

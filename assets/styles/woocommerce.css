@@ -504,22 +504,42 @@ table.woocommerce-product-attributes {
 }
 
 /* ============================================
-   Product Collection Title Override
+   Product Card — Bordered
+   (pattern: kwv/woo-product-card-bordered)
+   Pairs with styles/sections/cards/product-card.json (frame + typography)
+   and styles/blocks/button/add-to-cart.json (is-style-add-to-cart for core/button).
+   The Add to Cart control in the loop is woocommerce/product-button — a
+   different block from core/button — so the is-style-add-to-cart look is
+   reapplied here with enough specificity to beat WooCommerce's own button rules.
    ============================================ */
 
-/* Override WooCommerce's medium font size for product titles in collections
-   Using cascade layers to override !important without blocking editor customization.
-   Cascade layers allow our styles to override WooCommerce's !important styles,
-   while inline styles from the editor will still take precedence. */
-@layer theme-overrides {
-	/* Target product titles within product collection blocks with high specificity */
-	.wp-block-woocommerce-product-collection .wp-block-post-title.has-400-font-size,
-	.wp-block-woocommerce-product-collection .wp-block-post-title[class*="has-400-font-size"],
-	.wp-block-woocommerce-product-template .wp-block-post-title.has-400-font-size,
-	.wp-block-woocommerce-product-template .wp-block-post-title[class*="has-400-font-size"] {
-		font-size: var(--wp--preset--font-size--300) !important;
-	}
+/* Add to Cart button (product-button variant of is-style-add-to-cart) */
+.is-style-product-card .wc-block-components-product-button.is-style-add-to-cart .wp-block-button__link {
+	background-color: var(--wp--preset--color--contrast);
+	color: var(--wp--preset--color--base);
+	border-bottom-left-radius: var(--wp--preset--border-radius--200);
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: var(--wp--preset--font-size--200);
+	font-weight: var(--wp--custom--font-weight--semi-bold);
+	text-transform: uppercase;
+	letter-spacing: 0.075em;
+	transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+.is-style-product-card .wc-block-components-product-button.is-style-add-to-cart .wp-block-button__link:hover,
+.is-style-product-card .wc-block-components-product-button.is-style-add-to-cart .wp-block-button__link:focus-visible {
+	background-color: var(--wp--preset--color--brand-500);
+	color: var(--wp--preset--color--contrast);
+}
+
+
+
+/* Bottle-size attribute (core/post-terms, taxonomy pa_bottlesize) sits inline
+   with the price; suppress the term link's hover underline inside the card. */
+.is-style-product-card .product-card__attribute a:hover {
+	text-decoration: none;
+}
+
 
 /* ============================================
    Product Categories
