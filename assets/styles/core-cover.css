@@ -28,3 +28,76 @@
 		min-height: 430px !important;
 	}
 }
+
+/* Scroll-down indicator — used by the kwv/home-hero pattern.
+   Bottom-right of the cover, aligned to the wide content edge,
+   clamped 40px in from the right and bottom. Pure CSS chevron,
+   no JS; links to #content for a smooth jump past the hero.
+--------------------------------------------- */
+
+html {
+	scroll-behavior: smooth;
+}
+
+.wp-block-cover .wp-block-buttons.kwv-scroll-indicator {
+	position: absolute;
+	z-index: 2;
+	margin: 0;
+	bottom: clamp(20px, 4vw, 40px);
+	right: max(
+		clamp(16px, 4vw, 40px),
+		calc((100% - var(--wp--style--global--wide-size, 1520px)) / 2 + clamp(16px, 4vw, 40px))
+	);
+}
+
+.wp-block-cover .kwv-scroll-indicator .wp-block-button__link {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 3.5rem;
+	height: 3.5rem;
+	padding: 0;
+	border: 0;
+	border-radius: 50%;
+	background: transparent;
+	color: var(--wp--preset--color--base);
+	font-size: 0; /* visually hide the accessible link text, keep it for screen readers */
+	line-height: 0;
+	animation: kwv-scroll-bounce 1.8s ease-in-out infinite;
+}
+
+.wp-block-cover .kwv-scroll-indicator .wp-block-button__link::after {
+	content: "";
+	width: 0.85rem;
+	height: 0.85rem;
+	margin-top: -0.3rem;
+	border-right: 2px solid currentColor;
+	border-bottom: 2px solid currentColor;
+	transform: rotate(45deg);
+}
+
+.wp-block-cover .kwv-scroll-indicator .wp-block-button__link:hover,
+.wp-block-cover .kwv-scroll-indicator .wp-block-button__link:focus-visible {
+	color: var(--wp--preset--color--brand-300);
+}
+
+@keyframes kwv-scroll-bounce {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+
+	50% {
+		transform: translateY(6px);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	.wp-block-cover .kwv-scroll-indicator .wp-block-button__link {
+		animation: none;
+	}
+}

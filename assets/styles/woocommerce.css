@@ -941,6 +941,20 @@ table.wc-block-cart-items .wc-block-cart-items__row .wc-block-cart-item__total {
 }
 
 /* ============================================
+   Customer Account
+   ============================================ */
+
+/* The customer-account block's default icon style renders <svg class="icon">,
+   which WooCommerce never sizes (it only sizes the "line"/"alt" variant's
+   .wc-block-customer-account__account-icon). With no width/height the SVG
+   collapses to 0x0 and the My Account icon disappears — most visibly in the
+   transparent header. Give the default icon the same 1.5em box. */
+.wp-block-woocommerce-customer-account .icon {
+	width: 1.5em;
+	height: 1.5em;
+}
+
+/* ============================================
    Mini Cart
    (Figma: KWV Design System node 107:1691 — "CART" drawer.
    Source frame has no bound variables, so tokens are inferred
@@ -950,6 +964,17 @@ table.wc-block-cart-items .wc-block-cart-items__row .wc-block-cart-item__total {
 
 .wc-block-mini-cart[aria-hidden="true"] {
 	display: none !important;
+}
+
+/* Quantity badge — fixed legible pill.
+   The mini-cart Interactivity store derives the badge colours from the
+   header's inherited text/background colours and writes them as inline
+   styles on hydration. On the transparent header that inherited colour is
+   white, so the store renders the count white-on-white. !important is
+   required to win over those inline styles regardless of header variant. */
+.wc-block-mini-cart__badge {
+	background-color: var(--wp--preset--color--base) !important;
+	color: var(--wp--preset--color--contrast) !important;
 }
 
 /* Drawer surface — white panel */
@@ -1140,12 +1165,6 @@ table.wc-block-cart-items .wc-block-cart-items__row .wc-block-cart-item__total {
 	color: var(--wp--preset--color--base);
 	background-color: var(--wp--preset--color--contrast);
 	text-decoration: none;
-}
-
-/* Cart-icon badge in the header */
-.wc-block-mini-cart__badge {
-	font-size: 12px;
-	margin-left: -40%;
 }
 
 /* ============================================
