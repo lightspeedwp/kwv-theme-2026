@@ -328,163 +328,193 @@
 			"writingMode": true,
 			"fontFamilies": [
 				{
-					"fontFamily": "Jost, sans-serif",
-					"name": "Jost",
+					"fontFamily": "Poppins, sans-serif",
+					"name": "Poppins",
 					"slug": "heading",
 					"fontFace": [
 						{
 							"fontDisplay": "swap",
-							"fontFamily": "Jost",
+							"fontFamily": "Poppins",
 							"fontStyle": "normal",
 							"fontWeight": "100",
 							"src": [
-								"file:./assets/fonts/jost/Jost-100-normal.woff2"
+								"file:./assets/fonts/poppins/Poppins-100-normal.woff2"
 							]
-						}
-						,
+						},
 						{
 							"fontDisplay": "swap",
-							"fontFamily": "Jost",
+							"fontFamily": "Poppins",
 							"fontStyle": "normal",
 							"fontWeight": "200",
 							"src": [
-								"file:./assets/fonts/jost/Jost-200-normal.woff2"
+								"file:./assets/fonts/poppins/Poppins-200-normal.woff2"
 							]
-						}
-						,
+						},
 						{
 							"fontDisplay": "swap",
-							"fontFamily": "Jost",
+							"fontFamily": "Poppins",
 							"fontStyle": "normal",
 							"fontWeight": "300",
 							"src": [
-								"file:./assets/fonts/jost/Jost-300-normal.woff2"
+								"file:./assets/fonts/poppins/Poppins-300-normal.woff2"
 							]
-						}
-						,
+						},
 						{
 							"fontDisplay": "swap",
-							"fontFamily": "Jost",
+							"fontFamily": "Poppins",
 							"fontStyle": "normal",
 							"fontWeight": "400",
 							"src": [
-								"file:./assets/fonts/jost/Jost-400-normal.woff2"
+								"file:./assets/fonts/poppins/Poppins-400-normal.woff2"
 							]
-						}
-						,
+						},
 						{
 							"fontDisplay": "swap",
-							"fontFamily": "Jost",
+							"fontFamily": "Poppins",
 							"fontStyle": "normal",
 							"fontWeight": "500",
 							"src": [
-								"file:./assets/fonts/jost/Jost-500-normal.woff2"
+								"file:./assets/fonts/poppins/Poppins-500-normal.woff2"
 							]
 						},
 						{
 							"fontDisplay": "swap",
-							"fontFamily": "Jost",
+							"fontFamily": "Poppins",
 							"fontStyle": "normal",
 							"fontWeight": "600",
 							"src": [
-								"file:./assets/fonts/jost/Jost-600-normal.woff2"
+								"file:./assets/fonts/poppins/Poppins-600-normal.woff2"
 							]
 						},
 						{
 							"fontDisplay": "swap",
-							"fontFamily": "Jost",
+							"fontFamily": "Poppins",
 							"fontStyle": "normal",
 							"fontWeight": "700",
 							"src": [
-								"file:./assets/fonts/jost/Jost-700-normal.woff2"
+								"file:./assets/fonts/poppins/Poppins-700-normal.woff2"
 							]
 						},
 						{
 							"fontDisplay": "swap",
-							"fontFamily": "Jost",
+							"fontFamily": "Poppins",
 							"fontStyle": "normal",
 							"fontWeight": "800",
 							"src": [
-								"file:./assets/fonts/jost/Jost-800-normal.woff2"
+								"file:./assets/fonts/poppins/Poppins-800-normal.woff2"
 							]
 						},
 						{
 							"fontDisplay": "swap",
-							"fontFamily": "Jost",
+							"fontFamily": "Poppins",
 							"fontStyle": "normal",
 							"fontWeight": "900",
 							"src": [
-								"file:./assets/fonts/jost/Jost-900-normal.woff2"
+								"file:./assets/fonts/poppins/Poppins-900-normal.woff2"
 							]
 						}
 					]
 				},
 				{
-					"fontFamily": "Figtree, sans-serif",
-					"name": "Figtree",
+					"fontFamily": "Poppins, sans-serif",
+					"name": "Poppins",
 					"slug": "body",
 					"fontFace": [
 						{
 							"fontDisplay": "swap",
-							"fontFamily": "Figtree",
+							"fontFamily": "Poppins",
+							"fontStyle": "normal",
+							"fontWeight": "100",
+							"src": [
+								"file:./assets/fonts/poppins/Poppins-100-normal.woff2"
+							]
+						},
+						{
+							"fontDisplay": "swap",
+							"fontFamily": "Poppins",
+							"fontStyle": "normal",
+							"fontWeight": "200",
+							"src": [
+								"file:./assets/fonts/poppins/Poppins-200-normal.woff2"
+							]
+						},
+						{
+							"fontDisplay": "swap",
+							"fontFamily": "Poppins",
 							"fontStyle": "normal",
 							"fontWeight": "300",
 							"src": [
-								"file:./assets/fonts/figtree/Figtree-300-normal.woff2"
+								"file:./assets/fonts/poppins/Poppins-300-normal.woff2"
 							]
 						},
 						{
 							"fontDisplay": "swap",
-							"fontFamily": "Figtree",
+							"fontFamily": "Poppins",
 							"fontStyle": "normal",
 							"fontWeight": "400",
 							"src": [
-								"file:./assets/fonts/figtree/Figtree-400-normal.woff2"
+								"file:./assets/fonts/poppins/Poppins-400-normal.woff2"
 							]
 						},
 						{
 							"fontDisplay": "swap",
-							"fontFamily": "Figtree",
+							"fontFamily": "Poppins",
 							"fontStyle": "normal",
 							"fontWeight": "500",
 							"src": [
-								"file:./assets/fonts/figtree/Figtree-500-normal.woff2"
+								"file:./assets/fonts/poppins/Poppins-500-normal.woff2"
 							]
 						},
 						{
 							"fontDisplay": "swap",
-							"fontFamily": "Figtree",
+							"fontFamily": "Poppins",
 							"fontStyle": "normal",
 							"fontWeight": "600",
 							"src": [
-								"file:./assets/fonts/figtree/Figtree-600-normal.woff2"
+								"file:./assets/fonts/poppins/Poppins-600-normal.woff2"
 							]
 						},
 						{
 							"fontDisplay": "swap",
-							"fontFamily": "Figtree",
+							"fontFamily": "Poppins",
 							"fontStyle": "normal",
 							"fontWeight": "700",
 							"src": [
-								"file:./assets/fonts/figtree/Figtree-700-normal.woff2"
+								"file:./assets/fonts/poppins/Poppins-700-normal.woff2"
 							]
 						},
 						{
 							"fontDisplay": "swap",
-							"fontFamily": "Figtree",
+							"fontFamily": "Poppins",
 							"fontStyle": "normal",
 							"fontWeight": "800",
 							"src": [
-								"file:./assets/fonts/figtree/Figtree-800-normal.woff2"
+								"file:./assets/fonts/poppins/Poppins-800-normal.woff2"
 							]
 						},
 						{
 							"fontDisplay": "swap",
-							"fontFamily": "Figtree",
+							"fontFamily": "Poppins",
 							"fontStyle": "normal",
 							"fontWeight": "900",
 							"src": [
-								"file:./assets/fonts/figtree/Figtree-900-normal.woff2"
+								"file:./assets/fonts/poppins/Poppins-900-normal.woff2"
+							]
+						}
+					]
+				},
+				{
+					"fontFamily": "\"Bodoni Moda\", serif",
+					"name": "Bodoni Moda",
+					"slug": "accent",
+					"fontFace": [
+						{
+							"fontDisplay": "swap",
+							"fontFamily": "Bodoni Moda",
+							"fontStyle": "normal",
+							"fontWeight": "400 900",
+							"src": [
+								"file:./assets/fonts/bodoni-moda/BodoniModa-VariableFont_wght.woff2"
 							]
 						}
 					]
@@ -1079,6 +1109,13 @@
 		}
 	},
 	"customTemplates": [
+		{
+			"name": "page-faq",
+			"title": "Page — FAQ",
+			"postTypes": [
+				"page"
+			]
+		},
 		{
 			"name": "page-no-title",
 			"title": "Page (Full Width, No Title)",

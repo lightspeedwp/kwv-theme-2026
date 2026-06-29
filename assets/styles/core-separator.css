@@ -32,3 +32,11 @@ hr.is-style-separator-dotted,
 .is-style-separator-thin {
 	border-top: 1px !important;
 }
+
+/* Brand-gold rule. The base separator rules above force a currentColor border on
+   every separator, so a brand-coloured rule needs an explicit colour override. */
+.wp-block-separator.kwv-rule-brand {
+	border-color: var(--wp--preset--color--brand-500);
+	color: var(--wp--preset--color--brand-500);
+	background-color: transparent;
+}

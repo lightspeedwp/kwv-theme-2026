@@ -157,7 +157,13 @@ function pattern_categories() {
 		),
 		'kwv/menu'    => array(
 			'label' => __( 'Menu', 'kwv' ),
-		)
+		),
+		'kwv/about'          => array(
+			'label' => __( 'About Page', 'kwv' ),
+		),
+		'kwv/winemakers-club' => array(
+			'label' => __( 'Winemaker’s Club', 'kwv' ),
+		),
 	);
 
 	foreach ( $block_pattern_categories as $name => $properties ) {
