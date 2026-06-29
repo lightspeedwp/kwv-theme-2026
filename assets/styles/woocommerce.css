@@ -942,34 +942,207 @@ table.wc-block-cart-items .wc-block-cart-items__row .wc-block-cart-item__total {
 
 /* ============================================
    Mini Cart
+   (Figma: KWV Design System node 107:1691 — "CART" drawer.
+   Source frame has no bound variables, so tokens are inferred
+   from the KWV ramp: gold brand-500 qty badge, black contrast
+   checkout bar, Jost heading display type.)
    ============================================ */
 
 .wc-block-mini-cart[aria-hidden="true"] {
 	display: none !important;
 }
 
-h2.wc-block-mini-cart__title {
-	font-size: var(--wp--preset--font-size--200);
+/* Drawer surface — white panel */
+.wc-block-mini-cart__drawer .components-modal__content,
+.wc-block-mini-cart__drawer .wc-block-components-drawer__content {
+	background: var(--wp--preset--color--base);
 }
 
-.wc-block-mini-cart__items .wc-block-mini-cart__products-table .wc-block-cart-items__row {
+/* Title — centred, uppercase, Jost black.
+   Core makes the h2 a flex container with a scroll-fade mask + negative
+   bottom margin; override those for the Figma's static, hairline-divided
+   title and centre the flex content (text-align can't centre flex items). */
+.wc-block-mini-cart__drawer h2.wc-block-mini-cart__title {
+	display: flex;
+	justify-content: center;
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: var(--wp--preset--font-size--300);
+	font-weight: var(--wp--custom--font-weight--bold);
+	line-height: var(--wp--custom--line-height--heading);
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	text-align: center;
+	color: var(--wp--preset--color--contrast);
+	mask-image: none;
+	-webkit-mask-image: none;
+	margin: 16px 16px var(--wp--preset--spacing--20);
+	padding-bottom: var(--wp--preset--spacing--20);
 	border-bottom: 1px solid var(--wp--preset--color--neutral-300);
-	padding: 25px 0 !important;
 }
 
 .wc-block-mini-cart__items .wc-block-mini-cart__products-table .wc-block-cart-items__row:last-child {
 	border-bottom: none;
 }
 
-.wc-block-mini-cart__footer {
+/* Item image — rounded thumbnail */
+.wc-block-mini-cart__drawer .wc-block-cart-item__image img {
+	border-radius: var(--wp--preset--border-radius--100);
+	width: 240px;
+}
+
+/* Product name + price — Jost bold, uppercase, stacked tight */
+.wc-block-mini-cart__drawer .wc-block-components-product-name,
+.wc-block-mini-cart__drawer .wc-block-cart-item__prices .wc-block-components-product-price {
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: var(--wp--preset--font-size--300);
+	font-weight: var(--wp--custom--font-weight--bold);
+	text-transform: uppercase;
+	color: var(--wp--preset--color--contrast);
+	line-height: var(--wp--custom--line-height--snug);
+}
+
+.wc-block-mini-cart__drawer .wc-block-cart-item__prices {
+	margin-top: 2px;
+}
+
+/* Quantity stepper — neutral pill with a gold (brand-500) badge.
+   Scoped to the mini cart so the product/cart-page steppers are untouched. */
+.wc-block-mini-cart__drawer .wc-block-cart-item__quantity .wc-block-components-quantity-selector {
+	transform: none;
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	width: fit-content;
+	padding: 4px;
 	background: var(--wp--preset--color--neutral-200);
 	border: none;
+	border-radius: var(--wp--preset--border-radius--500);
+}
+
+.wc-block-mini-cart__drawer .wc-block-components-quantity-selector .wc-block-components-quantity-selector__button,
+.wc-block-mini-cart__drawer .wc-block-components-quantity-selector .wc-block-components-quantity-selector__button:disabled {
+	background: transparent;
+	color: var(--wp--preset--color--contrast);
+	border: none;
+	border-radius: var(--wp--preset--border-radius--500);
+	width: 32px;
+	min-width: 32px;
+	height: 32px;
+}
+
+.wc-block-mini-cart__drawer .wc-block-components-quantity-selector .wc-block-components-quantity-selector__button:hover {
+	background: var(--wp--preset--color--neutral-300);
+}
+
+/* The number itself — gold circular badge */
+.wc-block-mini-cart__drawer .wc-block-components-quantity-selector input.wc-block-components-quantity-selector__input {
+	min-width: 32px;
+	max-width: 32px;
+	width: 32px;
+	height: 32px;
+	padding: 0;
+	background: var(--wp--preset--color--brand-500);
+	color: var(--wp--preset--color--base);
+	font-family: var(--wp--preset--font-family--heading);
+	font-weight: var(--wp--custom--font-weight--bold);
+	font-size: var(--wp--preset--font-size--200);
+	text-align: center;
+	border: none;
+	border-radius: var(--wp--preset--border-radius--500);
+}
+
+.wc-block-mini-cart__drawer .wc-block-components-quantity-selector input.wc-block-components-quantity-selector__input:focus {
+	box-shadow: 0 0 0 2px var(--wp--preset--color--brand-700);
+	border-color: transparent;
+}
+
+/* Remove (trash) link */
+.wc-block-mini-cart__drawer .wc-block-cart-item__remove-link {
+	color: var(--wp--preset--color--neutral-700);
+}
+
+.wc-block-mini-cart__drawer .wc-block-cart-item__remove-link:hover {
+	color: var(--wp--preset--color--contrast);
+}
+
+/* Footer — white surface, no default tinted band */
+.wc-block-mini-cart__footer {
+	background: var(--wp--preset--color--base);
+	border: none;
+	border-top: 1px solid var(--wp--preset--color--neutral-300);
 }
 
 .wc-block-mini-cart__footer:after {
 	display: none;
 }
 
+/* Subtotal / totals rows — small Figtree, muted labels */
+.wc-block-mini-cart__footer .wc-block-mini-cart__footer-subtotal,
+.wc-block-mini-cart__footer .wc-block-components-totals-item__label,
+.wc-block-mini-cart__footer .wc-block-mini-cart__footer-subtotal .wc-block-components-totals-item__label {
+	font-size: var(--wp--preset--font-size--300);
+	color: var(--wp--preset--color--neutral-700);
+	font-weight: var(--wp--custom--font-weight--semi-bold);
+}
+
+/* Grand-total emphasis — Jost semibold, uppercase */
+.wc-block-mini-cart__footer .wc-block-components-totals-item.wc-block-mini-cart__footer-subtotal .wc-block-components-totals-item__label,
+.wc-block-mini-cart__footer .wc-block-mini-cart__footer-subtotal .wc-block-components-formatted-money-amount,
+.wc-block-mini-cart__footer .wc-block-mini-cart__footer-subtotal .wc-block-components-totals-item__value {
+	font-family: var(--wp--preset--font-family--heading);
+	font-weight: var(--wp--custom--font-weight--semi-bold);
+	color: var(--wp--preset--color--contrast);
+}
+
+/* Footer action buttons — stacked full-width */
+.wc-block-mini-cart__footer-actions {
+	display: flex;
+	flex-direction: column;
+	gap: var(--wp--preset--spacing--10);
+}
+
+/* Primary: CHECKOUT — black bar, white uppercase, square corners */
+.wc-block-mini-cart__footer-actions .wc-block-mini-cart__footer-checkout,
+.wc-block-mini-cart__footer a.wc-block-components-button.contained {
+	width: 100%;
+	background: var(--wp--preset--color--contrast);
+	color: var(--wp--preset--color--base);
+	border: none;
+	border-radius: 0;
+	font-family: var(--wp--preset--font-family--heading);
+	font-weight: var(--wp--custom--font-weight--bold);
+	font-size: var(--wp--preset--font-size--200);
+	text-transform: uppercase;
+	letter-spacing: 0.075em;
+	transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.wc-block-mini-cart__footer-actions .wc-block-mini-cart__footer-checkout:hover,
+.wc-block-mini-cart__footer a.wc-block-components-button.contained:hover {
+	background: var(--wp--preset--color--brand-500);
+	color: var(--wp--preset--color--contrast);
+}
+
+/* Secondary: View cart — quiet text link beneath the CHECKOUT bar */
+.wc-block-mini-cart__footer-actions .wc-block-mini-cart__footer-cart {
+	width: 100%;
+	background: transparent;
+	color: var(--wp--preset--color--neutral-700);
+	border: none;
+	font-size: var(--wp--preset--font-size--200);
+	font-weight: var(--wp--custom--font-weight--medium);
+	text-transform: uppercase;
+	letter-spacing: 0.075em;
+	transition: color 250ms ease, background-color 250ms ease;
+}
+
+.wc-block-mini-cart__footer-actions .wc-block-mini-cart__footer-cart:hover {
+	color: var(--wp--preset--color--base);
+	background-color: var(--wp--preset--color--contrast);
+	text-decoration: none;
+}
+
+/* Cart-icon badge in the header */
 .wc-block-mini-cart__badge {
 	font-size: 12px;
 	margin-left: -40%;

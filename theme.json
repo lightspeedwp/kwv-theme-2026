@@ -807,21 +807,25 @@
 				}
 			},
 			"core/query-pagination": {
+				"spacing": {
+					"blockGap": "var:preset|spacing|20"
+				},
 				"elements": {
 					"link": {
 						"border": {
-							"radius": "5px",
+							"radius": "0",
 							"width": "0"
 						},
 						"color": {
-							"background": "var:preset|color|base"
+							"background": "transparent",
+							"text": "var:preset|color|neutral-700"
 						},
 						"spacing": {
 							"padding": {
-								"top": ".5em",
-								"right": "1em",
-								"bottom": ".5em",
-								"left": "1em"
+								"top": ".25em",
+								"right": ".4em",
+								"bottom": ".25em",
+								"left": ".4em"
 							}
 						},
 						"typography": {
@@ -830,12 +834,19 @@
 							"textDecoration": "none"
 						},
 						":hover": {
+							"color": {
+								"text": "var:preset|color|brand-500"
+							},
 							"typography": {
-								"textDecoration": "underline"
+								"textDecoration": "none"
 							}
 						}
 					}
-				}
+				},
+				"typography": {
+					"fontSize": "var:preset|font-size|200"
+				},
+				"css": "& .wp-block-query-pagination-numbers{display:flex;align-items:center;gap:var(--wp--preset--spacing--10)} & .page-numbers{color:var(--wp--preset--color--neutral-700);text-decoration:none;padding:0 .35em} & .page-numbers.current{color:var(--wp--preset--color--brand-500);font-weight:700} & .page-numbers.dots{color:var(--wp--preset--color--neutral-500)}"
 			},
 			"core/quote": {
 				"elements": {
@@ -930,6 +941,20 @@
 			"woocommerce/category-description": {
 				"typography": {
 					"fontSize": "var:preset|font-size|200"
+				}
+			},
+			"woocommerce/product-filters": {
+				"typography": {
+					"fontSize": "var:preset|font-size|100"
+				},
+				"css": "& > div{border-top:1px solid var(--wp--preset--color--neutral-300);padding-top:var(--wp--preset--spacing--20);margin-top:var(--wp--preset--spacing--20)} & > .wp-block-heading{border-top:0;padding-top:0;margin-top:0}"
+			},
+			"woocommerce/product-results-count": {
+				"typography": {
+					"fontSize": "var:preset|font-size|100"
+				},
+				"color": {
+					"text": "var:preset|color|neutral-700"
 				}
 			}
 		},

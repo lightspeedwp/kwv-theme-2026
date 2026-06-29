@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: Product Card — Bordered
+ * Title: KWV Product Card
  * Slug: kwv/woo-product-card-bordered
  * Description: Gold-bordered product card with packshot, divider, title, bottle-size attribute, price and an always-visible Add to Cart button. Built for a WooCommerce product collection / query loop.
  * Categories: kwv/card, kwv/product-card
@@ -10,7 +10,7 @@
  * Viewport Width: 600
  */
 ?>
-<!-- wp:group {"metadata":{"name":"Product Card — Bordered"},"className":"is-style-product-card","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","verticalAlignment":"space-between"}} -->
+<!-- wp:group {"metadata":{"name":"KWV Product Card"},"className":"is-style-product-card","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","verticalAlignment":"space-between"}} -->
 <div class="wp-block-group is-style-product-card">
 	<!-- wp:group {"metadata":{"name":"Media"},"className":"product-card__media","style":{"spacing":{"blockGap":"0","padding":{"top":"0","right":"0","bottom":"0","left":"0"}}},"layout":{"type":"constrained"}} -->
 	<div class="wp-block-group product-card__media">
