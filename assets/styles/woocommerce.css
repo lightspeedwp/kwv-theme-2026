@@ -513,23 +513,86 @@ table.woocommerce-product-attributes {
    reapplied here with enough specificity to beat WooCommerce's own button rules.
    ============================================ */
 
-/* Add to Cart button (product-button variant of is-style-add-to-cart) */
+/* Inset brand divider: full width within its spacing-20 padded wrapper.
+   (Separator width has no theme.json equivalent, so it lives here — a genuine
+   css-selector rule, per AGENTS.md → "Styling lives in JSON".) */
+.is-style-product-card .product-card__divider {
+	width: 100%;
+	max-width: 100%;
+}
+
+/* Add to Cart control (is-style-add-to-cart on woocommerce/product-button).
+   This Woo block declares __experimentalSelector + skip-serialisation, so a
+   block-style JSON can't drive it: its variation CSS mis-targets the inner
+   selector and is :where()-zero-specificity (verified — the plate rendered
+   grey). It is therefore styled here in enqueued CSS, the sanctioned exception
+   in AGENTS.md → "Styling lives in JSON". The canonical look still lives in
+   styles/blocks/button/add-to-cart.json for core/button + add-to-cart-with-options.
+
+   Design: a black "button" plate (rounded only bottom-left, matching the card
+   corner) + a spacing-20 gap + a static gold circular "+" icon. On hover the
+   plate flips — background to base, border and text to contrast — icon static. */
+.is-style-product-card .wc-block-components-product-button.is-style-add-to-cart {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: var(--wp--preset--spacing--20);
+}
+
+/* Stretch the link's hit area across the whole row (plate + gap + icon) so a
+   tap on the gold icon also adds to cart. The icon (::after below) stays
+   pointer-events:none, so clicks over it fall through to this transparent
+   overlay; hovering anywhere in the row therefore also triggers the flip. */
+.is-style-product-card .wc-block-components-product-button.is-style-add-to-cart .wp-block-button__link::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+}
+
 .is-style-product-card .wc-block-components-product-button.is-style-add-to-cart .wp-block-button__link {
+	flex: 1 1 auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 45px;
 	background-color: var(--wp--preset--color--contrast);
 	color: var(--wp--preset--color--base);
-	border-bottom-left-radius: var(--wp--preset--border-radius--200);
+	border: 1px solid var(--wp--preset--color--contrast);
+	border-radius: 0 0 0 var(--wp--preset--border-radius--200);
 	font-family: var(--wp--preset--font-family--heading);
 	font-size: var(--wp--preset--font-size--200);
 	font-weight: var(--wp--custom--font-weight--semi-bold);
 	text-transform: uppercase;
 	letter-spacing: 0.075em;
-	transition: background-color 0.3s ease, color 0.3s ease;
+	transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 .is-style-product-card .wc-block-components-product-button.is-style-add-to-cart .wp-block-button__link:hover,
 .is-style-product-card .wc-block-components-product-button.is-style-add-to-cart .wp-block-button__link:focus-visible {
-	background-color: var(--wp--preset--color--brand-500);
+	background-color: var(--wp--preset--color--base);
 	color: var(--wp--preset--color--contrast);
+	border-color: var(--wp--preset--color--contrast);
+}
+
+.is-style-product-card .wc-block-components-product-button.is-style-add-to-cart::after {
+	content: "";
+	flex: 0 0 45px;
+	align-self: center;
+	width: 45px;
+	height: 45px;
+	background-color: var(--wp--preset--color--brand-500);
+	-webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2045%2045'%20fill='none'%3E%3Ccircle%20cx='22.5'%20cy='22.5'%20r='22'%20stroke='%23000'/%3E%3Cline%20x1='22.5'%20y1='6'%20x2='22.5'%20y2='39'%20stroke='%23000'/%3E%3Cline%20x1='5.5'%20y1='23'%20x2='38.5'%20y2='23'%20stroke='%23000'/%3E%3C/svg%3E") center / contain no-repeat;
+	mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2045%2045'%20fill='none'%3E%3Ccircle%20cx='22.5'%20cy='22.5'%20r='22'%20stroke='%23000'/%3E%3Cline%20x1='22.5'%20y1='6'%20x2='22.5'%20y2='39'%20stroke='%23000'/%3E%3Cline%20x1='5.5'%20y1='23'%20x2='38.5'%20y2='23'%20stroke='%23000'/%3E%3C/svg%3E") center / contain no-repeat;
+	pointer-events: none;
+}
+
+/* After adding, the product-button reveals a "View cart" link beside the
+   button — redundant with the header mini-cart, and it wedges into the flex row
+   between the plate and the icon. Hide its whole wrapper (not just the anchor)
+   so it leaves no stray flex gap either. */
+.is-style-product-card .wc-block-components-product-button.is-style-add-to-cart > span:has(> .added_to_cart) {
+	display: none;
 }
 
 

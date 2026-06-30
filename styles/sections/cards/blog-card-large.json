@@ -1,0 +1,46 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Blog Card Large",
+	"slug": "blog-card-large",
+	"blockTypes": [ "core/group" ],
+	"styles": {
+		"blocks": {
+			"core/post-featured-image": {
+				"spacing": {
+					"margin": {
+						"top": "0",
+						"bottom": "0"
+					}
+				},
+				"border": {
+					"radius": "0"
+				}
+			},
+			"link": {
+				"color": {
+					"text": "var:preset|color|contrast"
+				},
+				"typography": {
+					"textDecoration": "none"
+				},
+				":hover": {
+					"typography": {
+						"textDecoration": "none"
+					},
+					"color": {
+						"text": "var:preset|color|brand-500"
+					}
+				}
+			},
+			"core/post-title": {
+				"typography": {
+					"fontSize": "var(--wp--preset--font-size--400)",
+					"fontWeight": "var(--wp--custom--font-weight--black)",
+					"textTransform": "uppercase"
+				}
+			}
+		},
+		"css": "&{position:relative}& .blog-card-large__media{position:relative}& .blog-card-large__media .wp-block-post-featured-image{margin:0}& .blog-card-large__media img{display:block;width:100%;object-fit:cover}& .wp-block-separator.kwv-rule-brand{width:16rem;max-width:100%;margin-left:0;margin-right:auto}& .wp-block-post-excerpt{text-align:justify}"
+	}
+}

@@ -50,6 +50,17 @@ kwv-theme-2026/
 - **No** raw `#hex` / `rgb()` / font-family / raw font-weight literals. In raw `css` strings use `var(--wp--preset--…)` / `var(--wp--custom--…)`.
 - Semantic HTML `tagName`s; correct heading hierarchy; keep templates/parts lean (no inline styles).
 
+### Styling lives in JSON (block & section styles)
+**Rule:** every style belongs in a block-style or section-style JSON partial under `styles/**` — including its `css` field for selector-level rules. Author CSS in `assets/styles/*.css` **only** for the parts a JSON style genuinely cannot express. This keeps one source of truth, renders the style in the editor, and keeps the cascade clean. (We audit `assets/styles/*.css` against this rule.)
+
+What goes where:
+- **Structured props** (color, border, radius, typography, spacing) and **native pseudo-states** (`:hover`/`:focus` as `styles` keys) → the JSON `styles` object. These render in the editor.
+- **Selector-level rules** that aren't structured props (descendant selectors, layout/`display:flex` on generated wrappers, resting overrides that must out-specify a plugin) → the JSON style's **`css` field** (`&` = variation root). The `css` field loads in the editor too.
+- **`assets/styles/*.css`** → last resort, only for what the `css` field provably can't hold. The `css` field is **`:where()`-zero-specificity** (use `!important` to win), **strips `:hover`/`:first-child`**, **mangles `content:""`**, and **drops comma `&` selectors**. So `:hover`/`:focus` flips and `::after`/`::before` icons (which need `content`) belong in enqueued CSS — nothing else should. Front-end-only sheets like `woocommerce.css` never reach the editor, which is the whole reason to prefer JSON.
+- **WooCommerce caveat (tested):** Woo blocks that declare `__experimentalSelector` **and** `__experimentalSkipSerialization` (e.g. `woocommerce/product-button`) **cannot** be driven by a block-style JSON. Adding the block to `blockTypes` makes WP compile the variation's `&` against the *inner* experimental selector (so `& .wp-block-button__link` mis-targets), emit everything at `:where()`-zero-specificity, and serialize a stray inline border — and the `!important`-in-preset trick (`var:preset|color|x !important`) compiles to invalid CSS (`var(--…--x !important)`). For these blocks, style the control in **enqueued CSS** scoped to its `is-style-*` class (natural specificity wins cleanly, no `!important`). Keep the JSON style for the serializable blocks (`core/button`, `woocommerce/add-to-cart-with-options`).
+
+When you must put something in a `.css` file, add a comment saying which limit forced it, and link back to this rule. Worked example: `styles/blocks/button/add-to-cart.json` (canonical, for core/button) + the full `woocommerce/product-button` bridge in `assets/styles/woocommerce.css` (the tested WooCommerce exception).
+
 ### PHP (`functions.php`, `inc/`, `patterns/*.php`)
 - Escape **all** output (`esc_html`, `esc_attr`, `esc_url`, `wp_kses_post`) and include the **text domain** in every translation call.
 - Keep `functions.php`/`inc/` minimal — no plugin-like features in the theme.

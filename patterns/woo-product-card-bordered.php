@@ -18,9 +18,13 @@
 	</div>
 	<!-- /wp:group -->
 
-	<!-- wp:separator {"className":"product-card__divider is-style-wide"} -->
-	<hr class="wp-block-separator has-alpha-channel-opacity product-card__divider is-style-wide"/>
-	<!-- /wp:separator -->
+	<!-- wp:group {"metadata":{"name":"Divider"},"className":"product-card__divider-wrap","style":{"spacing":{"padding":{"top":"0","right":"var:preset|spacing|20","bottom":"0","left":"var:preset|spacing|20"}}},"layout":{"type":"constrained"}} -->
+	<div class="wp-block-group product-card__divider-wrap" style="padding-top:0;padding-right:var(--wp--preset--spacing--20);padding-bottom:0;padding-left:var(--wp--preset--spacing--20)">
+		<!-- wp:separator {"className":"product-card__divider is-style-separator-thin kwv-rule-brand"} -->
+		<hr class="wp-block-separator has-alpha-channel-opacity product-card__divider is-style-separator-thin kwv-rule-brand"/>
+		<!-- /wp:separator -->
+	</div>
+	<!-- /wp:group -->
 
 	<!-- wp:post-title {"textAlign":"left","level":3,"isLink":true,"className":"product-card__title","__woocommerceNamespace":"woocommerce/product-collection/product-title"} /-->
 

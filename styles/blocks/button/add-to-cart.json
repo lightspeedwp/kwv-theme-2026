@@ -4,28 +4,39 @@
 	"title": "Add to Cart",
 	"slug": "add-to-cart",
 	"blockTypes": [ "core/button", "woocommerce/add-to-cart-with-options" ],
-	"description": "Solid black add-to-cart button: uppercase heading font, gold hover.",
+	"description": "Black add-to-cart plate (rounded bottom-left) that flips to a contrast-outlined base button on hover.",
 	"styles": {
 		"color": {
-			"background": "var:preset|color|contrast !important",
-			"text": "var:preset|color|base !important"
+			"background": "var:preset|color|contrast",
+			"text": "var:preset|color|base"
+		},
+		"border": {
+			"color": "var:preset|color|contrast",
+			"style": "solid",
+			"width": "1px",
+			"radius": {
+				"topLeft": "0",
+				"topRight": "0",
+				"bottomRight": "0",
+				"bottomLeft": "var:preset|border-radius|200"
+			}
 		},
 		"typography": {
 			"fontFamily": "var:preset|font-family|heading",
 			"fontSize": "var:preset|font-size|200",
-			"fontWeight": "600",
+			"fontWeight": "var:custom|font-weight|semi-bold",
 			"textTransform": "uppercase",
 			"letterSpacing": "0.02em"
 		},
 		":hover": {
 			"color": {
-				"background": "var:preset|color|brand-500",
+				"background": "var:preset|color|base",
 				"text": "var:preset|color|contrast"
 			}
 		},
 		":focus": {
 			"color": {
-				"background": "var:preset|color|brand-500",
+				"background": "var:preset|color|base",
 				"text": "var:preset|color|contrast"
 			}
 		}

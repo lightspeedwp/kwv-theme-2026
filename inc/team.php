@@ -162,3 +162,71 @@ function save_team_role_meta_box( $post_id ) {
 	}
 }
 add_action( 'save_post_kwv_team', __NAMESPACE__ . '\save_team_role_meta_box' );
+
+
+/**
+ * Register a block binding source that resolves a post author's role.
+ *
+ * Blog posts have no native link to the Team CPT, so this source matches the
+ * current post's author (by display name) to the `kwv_team` member of the same
+ * title and returns that member's `kwv_team_role` meta. It lets the blog-card
+ * pattern show the winemaker's role dynamically without duplicating the value
+ * on every post. Bind it to a paragraph's `content`:
+ * `{"metadata":{"bindings":{"content":{"source":"kwv/author-role"}}}}`.
+ */
+function register_author_role_binding() {
+	if ( ! function_exists( 'register_block_bindings_source' ) ) {
+		return;
+	}
+
+	register_block_bindings_source(
+		'kwv/author-role',
+		array(
+			'label'              => __( 'Author Role (from Team)', 'kwv' ),
+			'get_value_callback' => __NAMESPACE__ . '\get_author_role_binding',
+			'uses_context'       => array( 'postId' ),
+		)
+	);
+}
+add_action( 'init', __NAMESPACE__ . '\register_author_role_binding' );
+
+
+/**
+ * Resolve the role for a post's author from the matching Team member.
+ *
+ * @param array     $source_args    Arguments passed to the binding (unused).
+ * @param \WP_Block $block_instance The bound block instance.
+ * @return string The role string, or an empty string when none is found.
+ */
+function get_author_role_binding( $source_args, $block_instance ) {
+	$post_id = isset( $block_instance->context['postId'] )
+		? (int) $block_instance->context['postId']
+		: (int) get_the_ID();
+
+	if ( ! $post_id ) {
+		return '';
+	}
+
+	$author_id   = (int) get_post_field( 'post_author', $post_id );
+	$author_name = get_the_author_meta( 'display_name', $author_id );
+
+	if ( '' === $author_name ) {
+		return '';
+	}
+
+	$members = get_posts(
+		array(
+			'post_type'        => 'kwv_team',
+			'title'            => $author_name,
+			'posts_per_page'   => 1,
+			'no_found_rows'    => true,
+			'suppress_filters' => false,
+		)
+	);
+
+	if ( empty( $members ) ) {
+		return '';
+	}
+
+	return (string) get_post_meta( $members[0]->ID, 'kwv_team_role', true );
+}

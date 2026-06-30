@@ -26,6 +26,50 @@
 				"bottom": "var:preset|spacing|30",
 				"left": "var:preset|spacing|30"
 			}
+		},
+		"blocks": {
+			"separator": {
+				"color": {
+					"background": "var:preset|color|brand-500"
+				}
+			},
+			"core/post-title": {
+				"typography": {
+					"fontSize": "var(--wp--preset--font-size--300)",
+					"fontWeight": "var(--wp--custom--font-weight--medium)",
+					"textTransform": "uppercase",
+					"textDecoration": "none"
+				},
+				":hover": {
+					"color": "var:preset|color|contrast",
+					"textDecoration": "none"
+				}
+			},
+			"link": {
+				"color": {
+					"text": "var:preset|color|contrast"
+				},
+				"typography": {
+					"textDecoration": "none"
+				},
+				":hover": {
+					"typography": {
+						"textDecoration": "none"
+					}
+				}
+			},
+			"woocommerce/product-title": {
+				"typography": {
+					"fontSize": "var(--wp--preset--font-size--300)",
+					"fontWeight": "var(--wp--custom--font-weight--medium)",
+					"textTransform": "uppercase",
+					"textDecoration": "none"
+				},
+				":hover": {
+					"color": "var:preset|color|contrast",
+					"textDecoration": "none"
+				}
+			}	
 		}
 	}
 }
