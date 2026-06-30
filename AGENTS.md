@@ -13,7 +13,7 @@ Scaffolded from the **Ollie** theme and **fully re-skinned to KWV**. Ollie ident
 
 - `style.css` → `Theme Name: KWV 2026`, author LightSpeed, `Text Domain: kwv`, `Version: 1.0.0`.
 - `functions.php` / `inc/` → PHP namespace `Kwv`, text domain `kwv`, block-style handles `kwv-block-*`.
-- `theme.json` → real KWV tokens from Figma (gold brand ramp `brand-500 #B29143`, Jost + Figtree fonts, numeric token scales). Schema `wp/6.9`.
+- `theme.json` → real KWV tokens from Figma (gold brand ramp `brand-500 #B29143`, Poppins + Bodoni Moda fonts, numeric token scales). Schema `wp/6.9`.
 
 The current `theme.json` **is** the KWV design system — see [`../../../DESIGN.md`](../../../DESIGN.md). Remaining work: rebuild deleted pattern references (footer + template patterns), WooCommerce styling, and the in-scope patterns/blocks listed in DESIGN.md §9.
 
@@ -30,11 +30,15 @@ kwv-theme-2026/
 ├── templates/            # Page/post/Woo templates (.html).
 ├── parts/                # Template parts: header, footer (empty placeholder), sidebar, product-card, add-to-cart parts.
 ├── patterns/             # ~20 block patterns (.php): headers, post loops, team, WooCommerce set.
-├── styles/               # Style variations (none currently; no dark.json — see DESIGN.md §4.3, §8).
+├── styles/               # Block & section style variations (auto-scanned, recursive). No dark.json — see DESIGN.md §4.3, §8.
+│   ├── blocks/<block>/   #   Variations scoped to one block type (button, media, navigation, paragraph).
+│   └── sections/         #   `core/group` "section" compositions (cards/ subfolder + page/header sections).
 └── assets/
-    ├── fonts/            # Self-hosted WOFF2: jost/ (headings), figtree/ (body).
+    ├── fonts/            # Self-hosted WOFF2: poppins/ (headings + body), bodoni-moda/ (accent).
     └── styles/           # Per-block CSS, lazy-enqueued by filename (core-*.css → core/*).
 ```
+
+> **`styles/` layout rule:** a variation scoped to a single block type lives in `styles/blocks/<block>/`; a `core/group` "section" composition lives in `styles/sections/`. Registration is by file (slug + blockTypes + title), scanned **recursively** — folders are organisational only, but **basenames must stay unique** across the tree (core dedupes parent/child variations by basename).
 
 ---
 

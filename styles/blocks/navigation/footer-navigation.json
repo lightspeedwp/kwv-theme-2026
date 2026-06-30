@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Footer Navigation",
+	"slug": "footer-navigation",
+	"blockTypes": [ "core/navigation" ],
+	"description": "KWV footer nav: base-coloured links at font-size 300 / medium weight, spacing-20 gap between items, turning brand-500 with no underline on hover. Uses the structured elements.link + :hover form (like core/query-pagination) rather than the css field, since the css field strips :hover.",
+	"styles": {
+		"spacing": {
+			"blockGap": "var:preset|spacing|20"
+		},
+		"elements": {
+			"link": {
+				"color": {
+					"text": "var:preset|color|base"
+				},
+				"typography": {
+					"fontSize": "var:preset|font-size|300",
+					"fontWeight": "var:custom|font-weight|medium",
+					"textDecoration": "none"
+				},
+				":hover": {
+					"color": {
+						"text": "var:preset|color|brand-500"
+					},
+					"typography": {
+						"textDecoration": "none"
+					}
+				}
+			}
+		}
+	}
+}

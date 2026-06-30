@@ -99,16 +99,21 @@ add_action( 'init', __NAMESPACE__ . '\register_block_styles' );
 
 
 /**
- * Load custom block styles only when the block is used.
+ * Load per-block CSS only when the block is used.
+ *
+ * Convention: `assets/styles/core-<block>.css` maps to the core block `core/<block>`
+ * (e.g. `core-button.css` → `core/button`) and is lazy-enqueued when that block renders.
+ * Only `core-*.css` files participate; sheets for non-core blocks (e.g. `woocommerce.css`,
+ * `ollie-mega-menu.css`) are enqueued by their own modules in `inc/`.
  */
 function enqueue_custom_block_styles() {
 
-	// Scan our styles folder to locate block styles.
-	$files = glob( get_template_directory() . '/assets/styles/*.css' );
+	// Scan our styles folder for per-core-block stylesheets.
+	$files = glob( get_template_directory() . '/assets/styles/core-*.css' );
 
 	foreach ( $files as $file ) {
 
-		// Get the filename and core block name.
+		// Get the filename and core block name (core-button -> core/button).
 		$filename   = basename( $file, '.css' );
 		$block_name = str_replace( 'core-', 'core/', $filename );
 

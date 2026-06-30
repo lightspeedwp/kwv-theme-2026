@@ -6,11 +6,11 @@
 	"blockTypes": [
 		"core/paragraph"
 	],
-	"description": "ATI Subheading Small Paragraph",
+	"description": "Small subheading paragraph — font-size 300 with snug line-height.",
 	"styles": {
 		"typography": {
-            "fontSize": "var:preset|font-size|300",
-            "lineHeight": "var:custom|typography|line-height|normal"
-        }
+			"fontSize": "var:preset|font-size|300",
+			"lineHeight": "var:custom|line-height|snug"
+		}
 	}
 }

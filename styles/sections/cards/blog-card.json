@@ -5,18 +5,8 @@
 	"slug": "blog-card",
 	"blockTypes": [ "core/group" ],
 	"styles": {
-		"blocks": {
-			"core/post-featured-image": {
-				"spacing": {
-					"margin": {
-						"top": "0",
-						"bottom": "0"
-					}
-				},
-				"border": {
-					"radius": "0"
-				}
-			},
+		"css": "&{position:relative;transition:all 0.25s ease}& .blog-card__media{position:relative;overflow:hidden}& .blog-card__media img{display:block;width:100%;object-fit:cover}",
+		"elements": {
 			"link": {
 				"color": {
 					"text": "var:preset|color|contrast"
@@ -25,27 +15,34 @@
 					"textDecoration": "none"
 				},
 				":hover": {
-					"typography": {
-						"textDecoration": "none"
-					},
 					"color": {
 						"text": "var:preset|color|brand-500"
+					},
+					"typography": {
+						"textDecoration": "none"
+					}
+				}
+			}
+		},
+		"blocks": {
+			"core/post-featured-image": {
+				"border": {
+					"radius": "0"
+				},
+				"spacing": {
+					"margin": {
+						"top": "0",
+						"bottom": "0"
 					}
 				}
 			},
 			"core/post-title": {
 				"typography": {
-					"fontSize": "var(--wp--preset--font-size--200)",
-					"fontWeight": "var(--wp--custom--font-weight--medium)",
+					"fontSize": "var:preset|font-size|200",
+					"fontWeight": "var:custom|font-weight|medium",
 					"textTransform": "none"
-				},
-				"hover": {
-					"color": "var:preset|color|brand-500",
-					"textDecoration": "none"
 				}
 			}
-		},
-	
-		"css": "&{transition:all 0.25s ease} &{position:relative}& .blog-card__media{position:relative;overflow:hidden;}& .blog-card__media .wp-block-post-featured-image{margin:0}& .blog-card__media img{display:block;width:100%;object-fit:cover}"
+		}
 	}
 }

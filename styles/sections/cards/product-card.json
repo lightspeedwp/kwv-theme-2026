@@ -6,14 +6,14 @@
 	"blockTypes": [ "core/group" ],
 	"description": "WooCommerce product card: white frame, gold brand border, packshot, divider, title, attribute and price.",
 	"styles": {
-		"color": {
-			"background": "var:preset|color|base"
-		},
 		"border": {
 			"color": "var:preset|color|brand-500",
 			"style": "solid",
 			"width": "1px",
 			"radius": "var:preset|border-radius|200"
+		},
+		"color": {
+			"background": "var:preset|color|base"
 		},
 		"spacing": {
 			"blockGap": "var:preset|spacing|20",
@@ -27,24 +27,7 @@
 				"left": "var:preset|spacing|30"
 			}
 		},
-		"blocks": {
-			"separator": {
-				"color": {
-					"background": "var:preset|color|brand-500"
-				}
-			},
-			"core/post-title": {
-				"typography": {
-					"fontSize": "var(--wp--preset--font-size--300)",
-					"fontWeight": "var(--wp--custom--font-weight--medium)",
-					"textTransform": "uppercase",
-					"textDecoration": "none"
-				},
-				":hover": {
-					"color": "var:preset|color|contrast",
-					"textDecoration": "none"
-				}
-			},
+		"elements": {
 			"link": {
 				"color": {
 					"text": "var:preset|color|contrast"
@@ -57,19 +40,46 @@
 						"textDecoration": "none"
 					}
 				}
-			},
-			"woocommerce/product-title": {
+			}
+		},
+		"blocks": {
+			"core/post-title": {
 				"typography": {
-					"fontSize": "var(--wp--preset--font-size--300)",
-					"fontWeight": "var(--wp--custom--font-weight--medium)",
+					"fontSize": "var:preset|font-size|300",
+					"fontWeight": "var:custom|font-weight|medium",
 					"textTransform": "uppercase",
 					"textDecoration": "none"
 				},
 				":hover": {
-					"color": "var:preset|color|contrast",
-					"textDecoration": "none"
+					"color": {
+						"text": "var:preset|color|contrast"
+					},
+					"typography": {
+						"textDecoration": "none"
+					}
 				}
-			}	
+			},
+			"core/separator": {
+				"color": {
+					"background": "var:preset|color|brand-500"
+				}
+			},
+			"woocommerce/product-title": {
+				"typography": {
+					"fontSize": "var:preset|font-size|300",
+					"fontWeight": "var:custom|font-weight|medium",
+					"textTransform": "uppercase",
+					"textDecoration": "none"
+				},
+				":hover": {
+					"color": {
+						"text": "var:preset|color|contrast"
+					},
+					"typography": {
+						"textDecoration": "none"
+					}
+				}
+			}
 		}
 	}
 }

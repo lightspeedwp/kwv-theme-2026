@@ -8,7 +8,7 @@ The **KWV 2026** theme is a WordPress + WooCommerce Full Site Editing (FSE) bloc
 
 KWV 2026 is driven by a Figma-authored design system. Brand colours, typography, spacing, radius, and shadow tokens are extracted from Figma into `theme.json`, keeping the build in sync with the design source of truth. The theme was scaffolded on the Ollie block theme and re-skinned to the KWV brand.
 
-- **Fonts:** Jost (headings) + Figtree (body)
+- **Fonts:** Poppins (headings + body) + Bodoni Moda (accent)
 - **Editor:** Full Site Editing — templates, template parts, patterns, and Global Styles
 - **Commerce:** WooCommerce templates, parts, and styles
 

@@ -6,11 +6,11 @@
 	"blockTypes": [
 		"core/paragraph"
 	],
-	"description": "ATI Subheading Large Paragraph",
+	"description": "Large subheading paragraph — font-size 500 with snug line-height.",
 	"styles": {
 		"typography": {
-            "fontSize": "var:preset|font-size|500",
-			"lineHeight": "var:custom|typography|line-height|snug"
-        }
+			"fontSize": "var:preset|font-size|500",
+			"lineHeight": "var:custom|line-height|snug"
+		}
 	}
 }

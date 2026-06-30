@@ -418,90 +418,7 @@
 				{
 					"fontFamily": "Poppins, sans-serif",
 					"name": "Poppins",
-					"slug": "body",
-					"fontFace": [
-						{
-							"fontDisplay": "swap",
-							"fontFamily": "Poppins",
-							"fontStyle": "normal",
-							"fontWeight": "100",
-							"src": [
-								"file:./assets/fonts/poppins/Poppins-100-normal.woff2"
-							]
-						},
-						{
-							"fontDisplay": "swap",
-							"fontFamily": "Poppins",
-							"fontStyle": "normal",
-							"fontWeight": "200",
-							"src": [
-								"file:./assets/fonts/poppins/Poppins-200-normal.woff2"
-							]
-						},
-						{
-							"fontDisplay": "swap",
-							"fontFamily": "Poppins",
-							"fontStyle": "normal",
-							"fontWeight": "300",
-							"src": [
-								"file:./assets/fonts/poppins/Poppins-300-normal.woff2"
-							]
-						},
-						{
-							"fontDisplay": "swap",
-							"fontFamily": "Poppins",
-							"fontStyle": "normal",
-							"fontWeight": "400",
-							"src": [
-								"file:./assets/fonts/poppins/Poppins-400-normal.woff2"
-							]
-						},
-						{
-							"fontDisplay": "swap",
-							"fontFamily": "Poppins",
-							"fontStyle": "normal",
-							"fontWeight": "500",
-							"src": [
-								"file:./assets/fonts/poppins/Poppins-500-normal.woff2"
-							]
-						},
-						{
-							"fontDisplay": "swap",
-							"fontFamily": "Poppins",
-							"fontStyle": "normal",
-							"fontWeight": "600",
-							"src": [
-								"file:./assets/fonts/poppins/Poppins-600-normal.woff2"
-							]
-						},
-						{
-							"fontDisplay": "swap",
-							"fontFamily": "Poppins",
-							"fontStyle": "normal",
-							"fontWeight": "700",
-							"src": [
-								"file:./assets/fonts/poppins/Poppins-700-normal.woff2"
-							]
-						},
-						{
-							"fontDisplay": "swap",
-							"fontFamily": "Poppins",
-							"fontStyle": "normal",
-							"fontWeight": "800",
-							"src": [
-								"file:./assets/fonts/poppins/Poppins-800-normal.woff2"
-							]
-						},
-						{
-							"fontDisplay": "swap",
-							"fontFamily": "Poppins",
-							"fontStyle": "normal",
-							"fontWeight": "900",
-							"src": [
-								"file:./assets/fonts/poppins/Poppins-900-normal.woff2"
-							]
-						}
-					]
+					"slug": "body"
 				},
 				{
 					"fontFamily": "\"Bodoni Moda\", serif",
@@ -726,8 +643,8 @@
 					"link": {
 						"spacing": {
 							"margin": {
-								"top": "200px",
-								"bottom": "200px"
+								"top": "20px",
+								"bottom": "20px"
 							}
 						}
 					}
@@ -1023,7 +940,7 @@
 						"background": "var:preset|color|contrast"
 					}
 				},
-				"css": "& transition: all 0.25s ease-in-out; & svg { transition: all 0.25s ease-in-out; }"
+				"css": "& { transition: all 0.25s ease-in-out; } & svg { transition: all 0.25s ease-in-out; }"
 			},
 			"h1": {
 				"typography": {
@@ -1043,7 +960,7 @@
 				"typography": {
 					"fontSize": "var:preset|font-size|400",
 					"lineHeight": "var:custom|line-height|button",
-					"fontWeight": "var:custom|font-weight|semibold"
+					"fontWeight": "var:custom|font-weight|semi-bold"
 				}
 			},
 			"h4": {

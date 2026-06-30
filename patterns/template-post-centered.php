@@ -21,7 +21,7 @@
 			<div class="wp-block-group has-secondary-color has-text-color has-link-color has-small-font-size" style="font-style:normal;font-weight:500">
 			<!-- wp:post-author {"showBio":false} /-->
 			<!-- wp:paragraph {"textColor":"secondary"} -->
-				<p class="has-secondary-color has-text-color"><?php esc_html_e( '·', 'ollie' ); ?></p>
+				<p class="has-secondary-color has-text-color"><?php esc_html_e( '·', 'kwv' ); ?></p>
 			<!-- /wp:paragraph -->
 			<!-- wp:post-date /-->
 			</div>
@@ -50,7 +50,7 @@
 			<!-- wp:group {"metadata":{"name":"Comments Title"},"style":{"spacing":{"blockGap":"0.5rem"}},"layout":{"type":"constrained"}} -->
 				<div class="wp-block-group">
 				<!-- wp:heading -->
-					<h2 class="wp-block-heading"><?php esc_html_e( 'Comments', 'ollie' ); ?></h2>
+					<h2 class="wp-block-heading"><?php esc_html_e( 'Comments', 'kwv' ); ?></h2>
 				<!-- /wp:heading -->
 				<!-- wp:comments-title {"level":3,"style":{"elements":{"link":{"color":{"text":"var:preset|color|secondary"}}}},"textColor":"secondary","fontSize":"base"} /-->
 				</div>
