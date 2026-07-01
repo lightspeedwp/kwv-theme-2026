@@ -537,7 +537,7 @@ table.woocommerce-product-attributes {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	gap: var(--wp--preset--spacing--20);
+	gap: var(--wp--preset--spacing--30);
 }
 
 /* Stretch the link's hit area across the whole row (plate + gap + icon) so a
@@ -577,10 +577,10 @@ table.woocommerce-product-attributes {
 
 .is-style-product-card .wc-block-components-product-button.is-style-add-to-cart::after {
 	content: "";
-	flex: 0 0 45px;
+	flex: 0 0 52px;
 	align-self: center;
-	width: 45px;
-	height: 45px;
+	width: 52px;
+	height: 52px;
 	background-color: var(--wp--preset--color--brand-500);
 	-webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2045%2045'%20fill='none'%3E%3Ccircle%20cx='22.5'%20cy='22.5'%20r='22'%20stroke='%23000'/%3E%3Cline%20x1='22.5'%20y1='6'%20x2='22.5'%20y2='39'%20stroke='%23000'/%3E%3Cline%20x1='5.5'%20y1='23'%20x2='38.5'%20y2='23'%20stroke='%23000'/%3E%3C/svg%3E") center / contain no-repeat;
 	mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2045%2045'%20fill='none'%3E%3Ccircle%20cx='22.5'%20cy='22.5'%20r='22'%20stroke='%23000'/%3E%3Cline%20x1='22.5'%20y1='6'%20x2='22.5'%20y2='39'%20stroke='%23000'/%3E%3Cline%20x1='5.5'%20y1='23'%20x2='38.5'%20y2='23'%20stroke='%23000'/%3E%3C/svg%3E") center / contain no-repeat;
@@ -1742,18 +1742,3 @@ p.ppcp-place-order-description {
 	}
 }
 
-/* ============================================
-   Product Collection Title Override (Final)
-   ============================================ */
-
-/* Final override at end of file to ensure it loads after WooCommerce styles.
-   Uses high specificity and !important to override WooCommerce's !important styles.
-   Inline styles from the editor will still take precedence over this. */
-.wp-block-woocommerce-product-collection .wp-block-post-title.has-400-font-size,
-.wp-block-woocommerce-product-collection .wp-block-post-title[class*="has-400-font-size"],
-.wp-block-woocommerce-product-template .wp-block-post-title.has-400-font-size,
-.wp-block-woocommerce-product-template .wp-block-post-title[class*="has-400-font-size"],
-.wc-block-product-template__responsive .wp-block-post-title.has-400-font-size,
-.wc-block-product-template__responsive .wp-block-post-title[class*="has-400-font-size"] {
-	font-size: var(--wp--preset--font-size--300) !important;
-}

@@ -28,6 +28,23 @@
 					}
 				}
 			}
+		},
+		"blocks": {
+			"core/navigation-link": {
+				"typography": {
+					"fontSize": "var:preset|font-size|200",
+					"fontWeight": "var:custom|font-weight|medium",
+					"textDecoration": "none"
+				},
+				":hover": {
+					"color": {
+						"text": "var:preset|color|brand-500"
+					},
+					"typography": {
+						"textDecoration": "none"
+					}
+				}
+			}
 		}
 	}
 }

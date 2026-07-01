@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added (Careers page — Figma node 59:3246)
+- **Five `kwv/careers-*` section patterns** (`patterns/careers-{hero,intro,portfolio,team,open-positions}.php`), each an independently-registered, inserter-visible section named after the design:
+  - **`careers-hero`** — the Home Hero pattern re-used with a `Careers` `<h1>` (full-bleed cover, embedded transparent header, `#content` scroll chevron). Reuses `home-hero`'s existing background image; the dead "Learn more" button is dropped (no button in the Careers hero).
+  - **`careers-intro`** — a column of three Section-Header–styled blocks (Careers at KWV `<h2>`, Why join us? / Innovation `<h3>`) beside a placeholder image.
+  - **`careers-portfolio`** — "Award-winning brand portfolio" image + copy + an outlined **Click here** button (`base`/`contrast`, `1px` border, square).
+  - **`careers-team`** — "Why a career with KWV?" heading + subtitle over a **static** 4-card row (`foreach`, not a query loop) of the four winemaking team members. Each card uses the existing `is-style-team-member-card` (hover/focus bio-overlay reveal) with **lorem-ipsum** overlay text; images are placeholders.
+  - **`careers-open-positions`** — gold `kwv-rule-brand` rule, centred prompt and an outlined **Open positions** button.
+- **`kwv/page-careers` page starter** (`patterns/page-careers.php`, inserter-visible) — composes the full page by inlining the five sections via `require` (same single-source approach as `page-faq.php`).
+- **`kwv/template-careers` + `templates/page-careers.html`** — the Careers page template. Because `careers-hero` carries its own transparent header (like the home hero), the template omits the `header` template part to avoid a double header, mirroring `front-page.html`: hero → `<main id="content">` sections → footer. Registered in `theme.json` `customTemplates` as **Page — Careers**.
+- **Careers page created** (ID 292, slug `careers`, `page-careers` template) rendering from the pattern set. Verified live at `/careers/`: 200, single `<h1>` "Careers", one header + one footer, all five section headings, four team members, four lorem overlays, working `#content` anchor.
+
+### Added (Contact page — Figma node 59:2206)
+- **`kwv/contact-info` section pattern** (`patterns/contact-info.php`) — the reusable KWV contact directory: a full-width **tinted** band (`is-style-tinted-page-section`, `brand-100`) with four columns (General offices, Tours & Tastings venues, Member Shops, Shop Online). Gold `brand-500` uppercase column headings (`heading` family, `font-size-300`), bold venue names, and `tel:`/`mailto:` links throughout. Built to be dropped onto Contact, Visit Us and similar pages ("the section at the bottom, used in a few places").
+- **Vertical column rules.** Block JSON has no per-side border on `core/column`, so the dividers between directory columns live in `assets/styles/core-columns.css`, scoped to `.kwv-contact-directory` (`1px` `neutral-300` `border-left` + `spacing-40` inset); reset to no rule when columns stack at ≤781px.
+- **`kwv/page-contact` page starter** (`patterns/page-contact.php`) — composes the full page: a centred **Contact Us** `<h1>` + an **empty Gravity Forms block** (left blank for the client to assign/style), the `contact-info` directory (inlined via `require`, same single-source approach as `page-faq.php`), and a **Subscribe to Our Newsletter** band (empty GF block, mirroring `front-page.html`).
+- **Contact page created** (ID 291, slug `contact`, `page-no-title` template) with content rendered from `kwv/page-contact` so the page and the pattern stay identical. Verified live at `/contact/`: 200, no fatals, no invalid-block warnings, single `<h1>`, header/footer chrome + both GF placeholders present.
+
 ### Changed (Styling audit & refactor — theme.json, style.css, styles/*.json, core-*.css)
 Full audit report: `.github/reports/styling-audit-2026-06-30.md`. WooCommerce CSS (`assets/styles/woocommerce.css`) deferred to a follow-up pass. `assets/styles/ollie-mega-menu.css` left intact (load-bearing — targets the Ollie Menu Designer plugin's `ollie/mega-menu` block, not re-skin residue).
 

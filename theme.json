@@ -1027,6 +1027,13 @@
 	},
 	"customTemplates": [
 		{
+			"name": "page-careers",
+			"title": "Page — Careers",
+			"postTypes": [
+				"page"
+			]
+		},
+		{
 			"name": "page-faq",
 			"title": "Page — FAQ",
 			"postTypes": [

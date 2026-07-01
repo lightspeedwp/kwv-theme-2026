@@ -149,3 +149,18 @@ body.rtl .wp-block-navigation__responsive-container.is-menu-open .wp-block-navig
 .wp-block-kwv-mega-menu__menu-container {
 	font-weight: 400;
 }
+
+
+/* Footer Navigation */
+.wp-block-navigation__container .wp-block-navigation-item__content {
+	font-size: var(--wp--preset--font-size--200);
+	font-weight: var(--wp--custom--font-weight--medium);
+	text-transform: none;
+	transition: color 0.25s ease;
+}
+
+.wp-block-navigation__container .wp-block-navigation-item__content:hover,
+.wp-block-navigation__container .wp-block-navigation-item__content:focus-visible {
+	color: var(--wp--preset--color--brand-500);
+	text-decoration: none;
+}

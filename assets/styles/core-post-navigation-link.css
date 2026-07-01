@@ -1,0 +1,17 @@
+/* Post Navigation Link
+--------------------------------------------- */
+
+/* Single-post prev/next. The design pairs a small uppercase label (a sibling
+   paragraph) with the adjacent post title. With `showTitle` the block renders
+   the post title as the anchor text, so we style the anchor as that title. */
+.kwv-post-nav a {
+	color: var(--wp--preset--color--contrast);
+	font-weight: var(--wp--custom--font-weight--semi-bold);
+	line-height: var(--wp--custom--line-height--snug);
+	text-decoration: none;
+}
+
+.kwv-post-nav a:hover,
+.kwv-post-nav a:focus {
+	color: var(--wp--preset--color--brand-500);
+}
