@@ -1,12 +1,15 @@
 <?php
 /**
- * Team post type for the KWV theme.
+ * User job titles for the KWV theme.
  *
- * Registers the `kwv_team` post type and its `role` field. A team member uses:
- * - the post title for the member's name,
- * - the featured image for their photo,
- * - the post content for their short bio,
- * - the `kwv_team_role` meta field for their role.
+ * A person's job title (e.g. "Cellar Master", "CEO") is stored as the
+ * `job_title` meta on the WordPress user, editable on every user's profile
+ * screen and available to all roles. The `kwv/author-role` block binding reads
+ * this value so a post's byline can show the author's title dynamically.
+ *
+ * This replaces the former `kwv_team` custom post type: the only field it
+ * carried was the role, and its one remaining dynamic consumer — the author
+ * byline — maps a person to a WordPress user, so the value belongs on the user.
  *
  * @package kwv
  * @author  LightSpeed
@@ -16,162 +19,109 @@
 
 namespace Kwv;
 
-/**
- * Register the Team post type.
- */
-function register_team_post_type() {
-
-	$labels = array(
-		'name'                  => _x( 'Team', 'Post type general name', 'kwv' ),
-		'singular_name'         => _x( 'Team Member', 'Post type singular name', 'kwv' ),
-		'menu_name'             => _x( 'Team', 'Admin Menu text', 'kwv' ),
-		'name_admin_bar'        => _x( 'Team Member', 'Add New on Toolbar', 'kwv' ),
-		'add_new'               => __( 'Add New', 'kwv' ),
-		'add_new_item'          => __( 'Add New Team Member', 'kwv' ),
-		'new_item'              => __( 'New Team Member', 'kwv' ),
-		'edit_item'             => __( 'Edit Team Member', 'kwv' ),
-		'view_item'             => __( 'View Team Member', 'kwv' ),
-		'all_items'             => __( 'All Team Members', 'kwv' ),
-		'search_items'          => __( 'Search Team Members', 'kwv' ),
-		'not_found'             => __( 'No team members found.', 'kwv' ),
-		'not_found_in_trash'    => __( 'No team members found in Trash.', 'kwv' ),
-		'featured_image'        => __( 'Photo', 'kwv' ),
-		'set_featured_image'    => __( 'Set photo', 'kwv' ),
-		'remove_featured_image' => __( 'Remove photo', 'kwv' ),
-		'use_featured_image'    => __( 'Use as photo', 'kwv' ),
-		'archives'              => __( 'Team Archives', 'kwv' ),
-		'item_published'        => __( 'Team member published.', 'kwv' ),
-		'item_updated'          => __( 'Team member updated.', 'kwv' ),
-	);
-
-	$args = array(
-		'labels'             => $labels,
-		'public'             => true,
-		'show_in_rest'       => true,
-		'menu_icon'          => 'dashicons-groups',
-		'menu_position'      => 20,
-		'has_archive'        => true,
-		'hierarchical'       => false,
-		'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt', 'custom-fields' ),
-		'rewrite'            => array( 'slug' => 'team' ),
-		'capability_type'    => 'post',
-	);
-
-	register_post_type( 'kwv_team', $args );
-}
-add_action( 'init', __NAMESPACE__ . '\register_team_post_type' );
-
+const JOB_TITLE_META_KEY = 'job_title';
 
 /**
- * Register the team member role meta field.
+ * Register the `job_title` user meta.
  *
  * Exposed to the REST API so it is available to the block editor and the
- * front end.
+ * front end. Available on every user regardless of role.
  */
-function register_team_meta() {
-	register_post_meta(
-		'kwv_team',
-		'kwv_team_role',
+function register_job_title_meta() {
+	register_meta(
+		'user',
+		JOB_TITLE_META_KEY,
 		array(
 			'type'              => 'string',
-			'description'       => __( 'The team member\'s role.', 'kwv' ),
+			'description'       => __( 'The user\'s job title.', 'kwv' ),
 			'single'            => true,
 			'default'           => '',
 			'show_in_rest'      => true,
 			'sanitize_callback' => 'sanitize_text_field',
-			'auth_callback'     => function () {
-				return current_user_can( 'edit_posts' );
+			'auth_callback'     => function ( $allowed, $meta_key, $object_id ) {
+				return current_user_can( 'edit_user', (int) $object_id );
 			},
 		)
 	);
 }
-add_action( 'init', __NAMESPACE__ . '\register_team_meta' );
+add_action( 'init', __NAMESPACE__ . '\register_job_title_meta' );
 
 
 /**
- * Add the Role meta box to the Team editor.
- */
-function add_team_role_meta_box() {
-	add_meta_box(
-		'kwv_team_role',
-		__( 'Role', 'kwv' ),
-		__NAMESPACE__ . '\render_team_role_meta_box',
-		'kwv_team',
-		'side',
-		'high'
-	);
-}
-add_action( 'add_meta_boxes', __NAMESPACE__ . '\add_team_role_meta_box' );
-
-
-/**
- * Render the Role meta box.
+ * Render the Job Title field on the user profile screen.
  *
- * @param \WP_Post $post The current post object.
+ * Fires for both the current user's own profile (`show_user_profile`) and when
+ * editing another user (`edit_user_profile`), so it is available to every role.
+ *
+ * @param \WP_User $user The user being edited.
  */
-function render_team_role_meta_box( $post ) {
-	$role = get_post_meta( $post->ID, 'kwv_team_role', true );
+function render_job_title_field( $user ) {
+	$job_title = get_user_meta( $user->ID, JOB_TITLE_META_KEY, true );
 
-	wp_nonce_field( 'kwv_team_role_save', 'kwv_team_role_nonce' );
+	wp_nonce_field( 'kwv_job_title_save', 'kwv_job_title_nonce' );
 	?>
-	<p>
-		<label class="screen-reader-text" for="kwv_team_role_field">
-			<?php esc_html_e( 'Role', 'kwv' ); ?>
-		</label>
-		<input
-			type="text"
-			id="kwv_team_role_field"
-			name="kwv_team_role_field"
-			class="widefat"
-			value="<?php echo esc_attr( $role ); ?>"
-			placeholder="<?php esc_attr_e( 'e.g. Cellar Master', 'kwv' ); ?>"
-		/>
-	</p>
+	<h2><?php esc_html_e( 'KWV', 'kwv' ); ?></h2>
+	<table class="form-table" role="presentation">
+		<tr>
+			<th>
+				<label for="kwv_job_title_field"><?php esc_html_e( 'Job title', 'kwv' ); ?></label>
+			</th>
+			<td>
+				<input
+					type="text"
+					id="kwv_job_title_field"
+					name="kwv_job_title_field"
+					class="regular-text"
+					value="<?php echo esc_attr( $job_title ); ?>"
+					placeholder="<?php esc_attr_e( 'e.g. Cellar Master', 'kwv' ); ?>"
+				/>
+				<p class="description">
+					<?php esc_html_e( 'Shown in the byline of posts this user authors.', 'kwv' ); ?>
+				</p>
+			</td>
+		</tr>
+	</table>
 	<?php
 }
+add_action( 'show_user_profile', __NAMESPACE__ . '\render_job_title_field' );
+add_action( 'edit_user_profile', __NAMESPACE__ . '\render_job_title_field' );
 
 
 /**
- * Save the Role meta box value.
+ * Save the Job Title field from the user profile screen.
  *
- * @param int $post_id The ID of the post being saved.
+ * @param int $user_id The ID of the user being saved.
  */
-function save_team_role_meta_box( $post_id ) {
+function save_job_title_field( $user_id ) {
 
 	// Verify the nonce.
-	if ( ! isset( $_POST['kwv_team_role_nonce'] )
-		|| ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['kwv_team_role_nonce'] ) ), 'kwv_team_role_save' ) ) {
+	if ( ! isset( $_POST['kwv_job_title_nonce'] )
+		|| ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['kwv_job_title_nonce'] ) ), 'kwv_job_title_save' ) ) {
 		return;
 	}
 
-	// Bail on autosave and capability failure.
-	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+	if ( ! current_user_can( 'edit_user', $user_id ) ) {
 		return;
 	}
 
-	if ( ! current_user_can( 'edit_post', $post_id ) ) {
-		return;
-	}
-
-	if ( isset( $_POST['kwv_team_role_field'] ) ) {
-		update_post_meta(
-			$post_id,
-			'kwv_team_role',
-			sanitize_text_field( wp_unslash( $_POST['kwv_team_role_field'] ) )
+	if ( isset( $_POST['kwv_job_title_field'] ) ) {
+		update_user_meta(
+			$user_id,
+			JOB_TITLE_META_KEY,
+			sanitize_text_field( wp_unslash( $_POST['kwv_job_title_field'] ) )
 		);
 	}
 }
-add_action( 'save_post_kwv_team', __NAMESPACE__ . '\save_team_role_meta_box' );
+add_action( 'personal_options_update', __NAMESPACE__ . '\save_job_title_field' );
+add_action( 'edit_user_profile_update', __NAMESPACE__ . '\save_job_title_field' );
 
 
 /**
- * Register a block binding source that resolves a post author's role.
+ * Register a block binding source that resolves a post author's job title.
  *
- * Blog posts have no native link to the Team CPT, so this source matches the
- * current post's author (by display name) to the `kwv_team` member of the same
- * title and returns that member's `kwv_team_role` meta. It lets the blog-card
- * pattern show the winemaker's role dynamically without duplicating the value
- * on every post. Bind it to a paragraph's `content`:
+ * Reads the `job_title` meta from the current post's author so a byline can
+ * show the author's title dynamically without duplicating the value on every
+ * post. Bind it to a paragraph's `content`:
  * `{"metadata":{"bindings":{"content":{"source":"kwv/author-role"}}}}`.
  */
 function register_author_role_binding() {
@@ -182,7 +132,7 @@ function register_author_role_binding() {
 	register_block_bindings_source(
 		'kwv/author-role',
 		array(
-			'label'              => __( 'Author Role (from Team)', 'kwv' ),
+			'label'              => __( 'Author Job Title', 'kwv' ),
 			'get_value_callback' => __NAMESPACE__ . '\get_author_role_binding',
 			'uses_context'       => array( 'postId' ),
 		)
@@ -192,11 +142,11 @@ add_action( 'init', __NAMESPACE__ . '\register_author_role_binding' );
 
 
 /**
- * Resolve the role for a post's author from the matching Team member.
+ * Resolve the job title for a post's author.
  *
  * @param array     $source_args    Arguments passed to the binding (unused).
  * @param \WP_Block $block_instance The bound block instance.
- * @return string The role string, or an empty string when none is found.
+ * @return string The job title, or an empty string when none is set.
  */
 function get_author_role_binding( $source_args, $block_instance ) {
 	$post_id = isset( $block_instance->context['postId'] )
@@ -207,26 +157,11 @@ function get_author_role_binding( $source_args, $block_instance ) {
 		return '';
 	}
 
-	$author_id   = (int) get_post_field( 'post_author', $post_id );
-	$author_name = get_the_author_meta( 'display_name', $author_id );
+	$author_id = (int) get_post_field( 'post_author', $post_id );
 
-	if ( '' === $author_name ) {
+	if ( ! $author_id ) {
 		return '';
 	}
 
-	$members = get_posts(
-		array(
-			'post_type'        => 'kwv_team',
-			'title'            => $author_name,
-			'posts_per_page'   => 1,
-			'no_found_rows'    => true,
-			'suppress_filters' => false,
-		)
-	);
-
-	if ( empty( $members ) ) {
-		return '';
-	}
-
-	return (string) get_post_meta( $members[0]->ID, 'kwv_team_role', true );
+	return (string) get_user_meta( $author_id, JOB_TITLE_META_KEY, true );
 }

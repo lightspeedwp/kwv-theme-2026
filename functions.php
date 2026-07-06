@@ -207,9 +207,9 @@ function template_part_areas( array $areas ) {
 add_filter( 'default_wp_template_part_areas', __NAMESPACE__ . '\template_part_areas' );
 
 /**
- * Load the Team post type.
+ * Load user job titles (job_title user meta + author-role block binding).
  */
-require_once get_template_directory() . '/inc/team.php';
+require_once get_template_directory() . '/inc/user-job-title.php';
 
 /**
  * Load WooCommerce specific functions.

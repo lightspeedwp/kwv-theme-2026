@@ -23,8 +23,8 @@ require __DIR__ . '/careers-hero.php';
 <?php
 require __DIR__ . '/careers-intro.php';
 require __DIR__ . '/careers-portfolio.php';
+require __DIR__ . '/careers-positions.php';
 require __DIR__ . '/careers-team.php';
-require __DIR__ . '/careers-open-positions.php';
 ?>
 </main>
 <!-- /wp:group -->

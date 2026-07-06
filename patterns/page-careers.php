@@ -2,7 +2,7 @@
 /**
  * Title: Page — Careers
  * Slug: kwv/page-careers
- * Description: Full Careers page layout — hero, intro (why join us / innovation), award-winning brand portfolio, team and an open-positions CTA. A page starter built from the kwv/careers-* section patterns.
+ * Description: Full Careers page layout — hero, intro (why join us / innovation), award-winning brand portfolio, an available-positions job board (kwv_career query loop) and team. A page starter built from the kwv/careers-* section patterns.
  * Categories: kwv/pages
  * Keywords: careers, page, starter, jobs, team, vacancies
  * Block Types: core/post-content
@@ -18,5 +18,5 @@
 require __DIR__ . '/careers-hero.php';
 require __DIR__ . '/careers-intro.php';
 require __DIR__ . '/careers-portfolio.php';
+require __DIR__ . '/careers-positions.php';
 require __DIR__ . '/careers-team.php';
-require __DIR__ . '/careers-open-positions.php';
