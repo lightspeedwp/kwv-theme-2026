@@ -152,15 +152,15 @@ body.rtl .wp-block-navigation__responsive-container.is-menu-open .wp-block-navig
 
 
 /* Footer Navigation */
-.wp-block-navigation__container .wp-block-navigation-item__content {
+.wp-block-navigation__container .wp-block-navigation-item__content .is-style-footer-navigation {
 	font-size: var(--wp--preset--font-size--200);
 	font-weight: var(--wp--custom--font-weight--medium);
 	text-transform: none;
 	transition: color 0.25s ease;
 }
 
-.wp-block-navigation__container .wp-block-navigation-item__content:hover,
-.wp-block-navigation__container .wp-block-navigation-item__content:focus-visible {
+.wp-block-navigation__container .wp-block-navigation-item__content .is-style-footer-navigation:hover,
+.wp-block-navigation__container .wp-block-navigation-item__content .is-style-footer-navigation:focus-visible {
 	color: var(--wp--preset--color--brand-500);
 	text-decoration: none;
 }
