@@ -14,7 +14,10 @@
  *
  * The plugin's render callback returns raw markup without `get_block_wrapper_attributes()`,
  * so WordPress never prints the block's `className` (the `is-style-*` class) onto the
- * output. We reattach it with a `render_block` filter (see aws_apply_block_class()).
+ * output. We reattach it with a `render_block` filter (see apply_block_class()) using the
+ * HTML Tag Processor — the Block Visibility plugin adds its own classes to `.aws-container`
+ * on the same hook, so we must merge into whatever class list already exists rather than
+ * matching an exact attribute string.
  *
  * The styling and fold-out behaviour live in assets/styles/aws-search.css and
  * assets/js/aws-search.js. They can't live in a block-style JSON `css` field: the
@@ -93,17 +96,28 @@ function apply_block_class( $block_content, $block ) {
 
 	$classes = isset( $block['attrs']['className'] ) ? trim( $block['attrs']['className'] ) : '';
 
-	if ( '' === $classes || false === strpos( $block_content, 'class="aws-container"' ) ) {
+	if ( '' === $classes || ! class_exists( 'WP_HTML_Tag_Processor' ) ) {
 		return $block_content;
 	}
 
-	return str_replace(
-		'class="aws-container"',
-		'class="aws-container ' . esc_attr( $classes ) . '"',
-		$block_content
-	);
+	// Merge the class into the container's existing class list. Using the Tag
+	// Processor (rather than a string match) is essential: the Block Visibility
+	// plugin adds its own classes to .aws-container on the same render_block
+	// hook, so the attribute is not a predictable literal.
+	$tags = new \WP_HTML_Tag_Processor( $block_content );
+
+	if ( $tags->next_tag( array( 'class_name' => 'aws-container' ) ) ) {
+		foreach ( preg_split( '/\s+/', $classes ) as $class ) {
+			if ( '' !== $class ) {
+				$tags->add_class( $class );
+			}
+		}
+		return $tags->get_updated_html();
+	}
+
+	return $block_content;
 }
-add_filter( 'render_block', __NAMESPACE__ . '\apply_block_class', 10, 2 );
+add_filter( 'render_block', __NAMESPACE__ . '\apply_block_class', 20, 2 );
 
 /**
  * Enqueue the KWV search styling and fold-out script on the front end.
