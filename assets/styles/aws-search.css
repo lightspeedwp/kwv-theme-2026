@@ -1,0 +1,380 @@
+/**
+ * KWV styling for Advanced Woo Search (advanced-woo-search/*-search-block).
+ *
+ * Enqueued from inc/search.php, dependent on the plugin's `aws-style` handle so
+ * equal-specificity rules win by source order. Two block styles are supported:
+ *
+ *   .is-style-kwv-search         — brand search bar (mobile menu).
+ *   .is-style-kwv-header-search  — icon that folds out over the header nav.
+ *
+ * Why this is a .css file and not a block-style JSON `css` field: the fold-out
+ * needs `:hover`/`:focus` flips, `content:""` magnifier/close pseudo-elements,
+ * transitions, and positioning of the plugin's body-level results dropdown —
+ * all of which the `:where()`-wrapped, zero-specificity css field strips or
+ * mangles (see wp-content/themes/kwv-theme-2026/AGENTS.md, "Styling lives in
+ * JSON"). AWS is front-end only, so its form never renders in the editor.
+ */
+
+:root {
+	/* Material magnifier + close glyphs, reused as masks so they inherit token colours. */
+	--kwv-search-magnifier: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='M15.5%2014h-.79l-.28-.27C15.41%2012.59%2016%2011.11%2016%209.5%2016%205.91%2013.09%203%209.5%203S3%205.91%203%209.5%205.91%2016%209.5%2016c1.61%200%203.09-.59%204.23-1.57l.27.28v.79l5%204.99L20.49%2019l-4.99-5zm-6%200C7.01%2014%205%2011.99%205%209.5S7.01%205%209.5%205%2014%207.01%2014%209.5%2011.99%2014%209.5%2014z'/%3E%3C/svg%3E");
+	--kwv-search-close: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='M19%206.41L17.59%205%2012%2010.59%206.41%205%205%206.41%2010.59%2012%205%2017.59%206.41%2019%2012%2013.41%2017.59%2019%2019%2017.59%2013.41%2012z'/%3E%3C/svg%3E");
+}
+
+/* ============================================================
+   Shared: reset the plugin's default field chrome for both looks
+   ============================================================ */
+.aws-container.is-style-kwv-search,
+.aws-container.is-style-kwv-header-search {
+	margin: 0;
+	font-family: var(--wp--preset--font-family--body);
+}
+
+.aws-container.is-style-kwv-search .aws-search-field,
+.aws-container.is-style-kwv-header-search .aws-search-field {
+	margin: 0;
+	border: 0;
+	background: transparent;
+	box-shadow: none;
+	font-family: var(--wp--preset--font-family--body);
+	font-size: var(--wp--preset--font-size--100);
+	color: var(--wp--preset--color--contrast);
+}
+
+.aws-container.is-style-kwv-search .aws-search-field:focus,
+.aws-container.is-style-kwv-header-search .aws-search-field:focus {
+	outline: none;
+	box-shadow: none;
+}
+
+.aws-container.is-style-kwv-search .aws-search-field::placeholder,
+.aws-container.is-style-kwv-header-search .aws-search-field::placeholder {
+	color: var(--wp--preset--color--neutral-500);
+	opacity: 1;
+}
+
+/* The plugin's clear (×) sits at the end of the wrapper; recolour to the brand. */
+.aws-container.is-style-kwv-search .aws-search-clear span,
+.aws-container.is-style-kwv-header-search .aws-search-clear span {
+	color: var(--wp--preset--color--neutral-500);
+}
+
+/* ============================================================
+   KWV Search Bar — is-style-kwv-search (mobile menu)
+   A soft-rounded field with a leading magnifier.
+   ============================================================ */
+.aws-container.is-style-kwv-search {
+	width: 100%;
+}
+
+.aws-container.is-style-kwv-search .aws-search-form .aws-wrapper {
+	position: relative;
+	display: flex;
+	align-items: center;
+	background: var(--wp--preset--color--base);
+	border: 1px solid var(--wp--preset--color--neutral-300);
+	border-radius: var(--wp--preset--border-radius--500);
+	padding-block: var(--wp--preset--spacing--10);
+	padding-inline: var(--wp--preset--spacing--40) var(--wp--preset--spacing--20);
+	transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Leading magnifier (masked so it uses a brand token colour). */
+.aws-container.is-style-kwv-search .aws-search-form .aws-wrapper::before {
+	content: "";
+	position: absolute;
+	inset-inline-start: var(--wp--preset--spacing--20);
+	inline-size: 1.1rem;
+	block-size: 1.1rem;
+	background-color: var(--wp--preset--color--neutral-500);
+	-webkit-mask: var(--kwv-search-magnifier) center / contain no-repeat;
+	mask: var(--kwv-search-magnifier) center / contain no-repeat;
+	pointer-events: none;
+}
+
+.aws-container.is-style-kwv-search .aws-search-field {
+	flex: 1 1 auto;
+	width: 100%;
+	padding: 0;
+	background: transparent;
+}
+
+/* Focus ring on the whole field via :focus-within on the wrapper. */
+.aws-container.is-style-kwv-search .aws-search-form .aws-wrapper:focus-within {
+	border-color: var(--wp--preset--color--brand-500);
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--wp--preset--color--brand-500) 22%, transparent);
+}
+
+/* ============================================================
+   KWV Header Search — is-style-kwv-header-search
+   Collapsed: a single icon in the header icon cluster.
+   Open: folds out over the nav as a pill bar with a close (×).
+   ============================================================ */
+.aws-container.is-style-kwv-header-search {
+	display: flex;
+	align-items: center;
+}
+
+/* The fold-out form is hidden until opened. */
+.aws-container.is-style-kwv-header-search .aws-search-form {
+	display: none;
+}
+
+/* Injected trigger (assets/js/aws-search.js) — matches the account/cart icons:
+   masked glyph tinted with the header's inherited currentColor (white on the
+   transparent/dark headers, contrast on the light header). */
+.kwv-search-toggle {
+	appearance: none;
+	-webkit-appearance: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0;
+	margin: 0;
+	border: 0;
+	background: none;
+	color: currentColor;
+	cursor: pointer;
+	line-height: 0;
+}
+
+.kwv-search-toggle::before {
+	content: "";
+	inline-size: 1.5em;
+	block-size: 1.5em;
+	background-color: currentColor;
+	-webkit-mask: var(--kwv-search-magnifier) center / contain no-repeat;
+	mask: var(--kwv-search-magnifier) center / contain no-repeat;
+	transition: opacity 0.2s ease;
+}
+
+.kwv-search-toggle:hover::before,
+.kwv-search-toggle:focus-visible::before {
+	opacity: 0.7;
+}
+
+.kwv-search-toggle:focus-visible {
+	outline: 2px solid currentColor;
+	outline-offset: 3px;
+	border-radius: var(--wp--preset--border-radius--100);
+}
+
+/* -------- Open state -------- */
+
+/* Hide the icon; show the fold-out bar. */
+.aws-container.is-style-kwv-header-search.kwv-search-open .kwv-search-toggle {
+	display: none;
+}
+
+.aws-container.is-style-kwv-header-search.kwv-search-open {
+	flex: 1 1 auto;
+}
+
+.aws-container.is-style-kwv-header-search.kwv-search-open .aws-search-form {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	background: var(--wp--preset--color--base);
+	border: 1px solid var(--wp--preset--color--neutral-300);
+	border-radius: var(--wp--preset--border-radius--500);
+	padding-block: var(--wp--preset--spacing--10);
+	padding-inline: var(--wp--preset--spacing--30) var(--wp--preset--spacing--10);
+	box-shadow: var(--wp--preset--shadow--500);
+	animation: kwv-search-foldout 0.22s ease;
+}
+
+/* Leading magnifier as the first flex item in the open bar. */
+.aws-container.is-style-kwv-header-search.kwv-search-open .aws-search-form::before {
+	content: "";
+	flex: 0 0 auto;
+	inline-size: 1.1rem;
+	block-size: 1.1rem;
+	margin-inline-end: var(--wp--preset--spacing--10);
+	background-color: var(--wp--preset--color--neutral-500);
+	-webkit-mask: var(--kwv-search-magnifier) center / contain no-repeat;
+	mask: var(--kwv-search-magnifier) center / contain no-repeat;
+	pointer-events: none;
+}
+
+@keyframes kwv-search-foldout {
+	from {
+		opacity: 0;
+		transform: translateY(-4px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.aws-container.is-style-kwv-header-search.kwv-search-open .aws-wrapper {
+	position: relative;
+	display: flex;
+	align-items: center;
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+.aws-container.is-style-kwv-header-search.kwv-search-open .aws-search-field {
+	flex: 1 1 auto;
+	width: 100%;
+	min-width: 0;
+	padding: 0;
+	color: var(--wp--preset--color--contrast);
+}
+
+/* The plugin's own clear-× would sit right beside our close button; the close
+   button already clears the field, so suppress the duplicate in the header bar. */
+.aws-container.is-style-kwv-header-search .aws-search-clear {
+	display: none;
+}
+
+/* Injected close (×) button inside the open bar. */
+.kwv-search-close {
+	appearance: none;
+	-webkit-appearance: none;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 auto;
+	padding: 0;
+	margin-inline-start: var(--wp--preset--spacing--10);
+	border: 0;
+	background: none;
+	color: var(--wp--preset--color--contrast);
+	cursor: pointer;
+	line-height: 0;
+}
+
+.aws-container.is-style-kwv-header-search.kwv-search-open .kwv-search-close {
+	display: inline-flex;
+}
+
+.kwv-search-close::before {
+	content: "";
+	inline-size: 1.15em;
+	block-size: 1.15em;
+	background-color: currentColor;
+	-webkit-mask: var(--kwv-search-close) center / contain no-repeat;
+	mask: var(--kwv-search-close) center / contain no-repeat;
+	transition: opacity 0.2s ease;
+}
+
+.kwv-search-close:hover::before,
+.kwv-search-close:focus-visible::before {
+	opacity: 0.6;
+}
+
+.kwv-search-close:focus-visible {
+	outline: 2px solid var(--wp--preset--color--brand-500);
+	outline-offset: 2px;
+	border-radius: var(--wp--preset--border-radius--100);
+}
+
+/* When the search is open, fold away the nav so the bar overlays it.
+   `:has()` scopes to the header row that actually contains an open search. */
+.wp-block-group.alignwide:has(.aws-container.kwv-search-open) > .wp-block-navigation.is-style-main-navigation {
+	display: none;
+}
+
+/* Let the icon cluster grow to fill the freed space, and hide the account/cart
+   icons while searching so the bar spans from the logo to the row's edge. */
+.wp-block-group:has(> .aws-container.kwv-search-open) {
+	flex: 1 1 auto;
+}
+
+.wp-block-group:has(> .aws-container.kwv-search-open) > .wp-block-woocommerce-customer-account,
+.wp-block-group:has(> .aws-container.kwv-search-open) > .wp-block-woocommerce-mini-cart {
+	display: none;
+}
+
+/* ============================================================
+   Results dropdown (body-level portal: #aws-search-result-N.aws-search-result)
+   The plugin appends this to <body> and positions it with JS, so it can't be
+   scoped to a block style — style it to the brand globally.
+   ============================================================ */
+.aws-search-result {
+	background: var(--wp--preset--color--base);
+	border: 1px solid var(--wp--preset--color--neutral-300);
+	border-radius: var(--wp--preset--border-radius--200);
+	box-shadow: var(--wp--preset--shadow--600);
+	font-family: var(--wp--preset--font-family--body);
+	overflow: hidden;
+	z-index: 9999;
+}
+
+.aws-search-result .aws_result_item {
+	padding: var(--wp--preset--spacing--20);
+	border-bottom: 1px solid var(--wp--preset--color--neutral-200);
+	transition: background-color 0.15s ease;
+}
+
+.aws-search-result .aws_result_item:last-child {
+	border-bottom: 0;
+}
+
+.aws-search-result .aws_result_item:hover,
+.aws-search-result .aws_result_item.hovered {
+	background: var(--wp--preset--color--neutral-100);
+}
+
+.aws-search-result .aws_result_image img {
+	border-radius: var(--wp--preset--border-radius--100);
+}
+
+.aws-search-result .aws_result_title {
+	color: var(--wp--preset--color--contrast);
+	font-size: var(--wp--preset--font-size--100);
+	font-weight: var(--wp--custom--font-weight--medium);
+	line-height: var(--wp--custom--line-height--snug);
+}
+
+.aws-search-result .aws_result_excerpt {
+	color: var(--wp--preset--color--neutral-600);
+	font-size: var(--wp--preset--font-size--100);
+	line-height: var(--wp--custom--line-height--body);
+}
+
+.aws-search-result .aws_result_price,
+.aws-search-result .aws_result_price ins .amount {
+	color: var(--wp--preset--color--brand-600);
+	font-weight: var(--wp--custom--font-weight--semi-bold);
+}
+
+/* Struck-through original price on sale items. */
+.aws-search-result .aws_result_price del,
+.aws-search-result .aws_result_price del .amount {
+	color: var(--wp--preset--color--neutral-500);
+	font-weight: var(--wp--custom--font-weight--regular);
+}
+
+.aws-search-result .aws_result_link_top:hover .aws_result_title {
+	color: var(--wp--preset--color--brand-600);
+}
+
+/* "Show more results" footer link. */
+.aws-search-result .aws_search_more,
+.aws-search-result a.aws_search_more {
+	display: block;
+	padding: var(--wp--preset--spacing--20);
+	background: var(--wp--preset--color--neutral-100);
+	color: var(--wp--preset--color--brand-600);
+	font-size: var(--wp--preset--font-size--100);
+	font-weight: var(--wp--custom--font-weight--semi-bold);
+	text-align: center;
+	text-decoration: none;
+}
+
+.aws-search-result .aws_search_more:hover,
+.aws-search-result a.aws_search_more:hover {
+	background: var(--wp--preset--color--brand-100);
+	text-decoration: underline;
+}
+
+.aws-search-result .aws_no_result {
+	display: block;
+	padding: var(--wp--preset--spacing--30);
+	color: var(--wp--preset--color--neutral-600);
+	font-size: var(--wp--preset--font-size--100);
+	text-align: center;
+}

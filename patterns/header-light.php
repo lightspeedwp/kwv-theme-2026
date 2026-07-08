@@ -32,6 +32,8 @@
 
 			<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
 			<div class="wp-block-group">
+				<!-- wp:advanced-woo-search/nav-search-block {"className":"is-style-kwv-header-search"} /-->
+
 				<!-- wp:woocommerce/customer-account {"displayStyle":"icon_only","iconStyle":"line"} /-->
 
 				<!-- wp:woocommerce/mini-cart /-->
