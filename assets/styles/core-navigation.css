@@ -112,7 +112,7 @@ body.rtl .wp-block-navigation__responsive-container.is-menu-open .wp-block-navig
 	width: 100%;
 	font-size: var(--wp--preset--font-size--200);
 	padding: 15px 60px 15px 15px;
-	border-radius: 5px;
+	border-radius: var(--wp--preset--border-radius--200);
 }
 
 body.rtl .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__responsive-container-content .wp-block-navigation-item__content {
@@ -215,6 +215,8 @@ body.rtl .is-style-mobile-navigation .wp-block-navigation__responsive-container.
 .is-style-mobile-navigation .wp-block-navigation__responsive-container-close {
 	background: transparent;
 	color: var(--wp--preset--color--brand-500);
+	margin-top: var(--wp--preset--spacing--10);
+	margin-right: var(--wp--preset--spacing--10);
 }
 
 /* Menu list fills the drawer; kill the shared centring gap. */
