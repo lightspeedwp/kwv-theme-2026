@@ -88,3 +88,50 @@
 		transition-duration: 1ms;
 	}
 }
+
+/**
+ * Timeline Milestone — round image with a hover slide-out info panel.
+ *
+ * The structure (round media crop, layout, typography) lives in the section
+ * style styles/sections/cards/timeline-milestone.json so it renders in the
+ * editor. The collapse/expand reveal lives here as plain CSS because the
+ * block-style-variation compiler drops `:hover`/`:focus-within` from that JSON
+ * and wraps it at `:where()` zero specificity (see the theme AGENTS.md
+ * "Styling lives in JSON" rule).
+ *
+ * The panel uses a grid-template-rows 0fr -> 1fr transition so the info slides
+ * open from behind the year and pushes nothing else around. The child needs
+ * min-height:0 + overflow:hidden for the collapsed row to actually clip it.
+ */
+.is-style-timeline-milestone .timeline-milestone__info {
+	display: grid;
+	grid-template-rows: 0fr;
+	transition: grid-template-rows 320ms ease;
+}
+
+.is-style-timeline-milestone .timeline-milestone__info > * {
+	min-height: 0;
+	overflow: hidden;
+}
+
+/* Reveal on hover / keyboard focus within the milestone. */
+.is-style-timeline-milestone:hover .timeline-milestone__info,
+.is-style-timeline-milestone:focus-within .timeline-milestone__info {
+	grid-template-rows: 1fr;
+}
+
+/*
+ * Keep the slide-out permanently open inside the editor so the info text can be
+ * selected and edited without a hover. `.editor-styles-wrapper` only exists in
+ * the editor iframe, so the front end stays collapsed-until-hover. The extra
+ * class also out-specifies the resting rule above.
+ */
+.editor-styles-wrapper .is-style-timeline-milestone .timeline-milestone__info {
+	grid-template-rows: 1fr;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.is-style-timeline-milestone .timeline-milestone__info {
+		transition-duration: 1ms;
+	}
+}

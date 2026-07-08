@@ -1,0 +1,13 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Timeline Milestone",
+	"slug": "timeline-milestone",
+	"blockTypes": [ "core/group" ],
+	"styles": {
+		"spacing": {
+			"blockGap": "var:preset|spacing|20"
+		},
+		"css": "&{position:relative;text-align:center}& .timeline-milestone__media{width:7.5rem;max-width:100%;margin-inline:auto;aspect-ratio:1;border-radius:50%;overflow:hidden;position:relative;z-index:1}& .timeline-milestone__media figure{margin:0;width:100%;height:100%}& .timeline-milestone__media img{width:100%;height:100%;object-fit:cover;border-radius:50%}& .timeline-milestone__year{margin:0}& .timeline-milestone__info>*{margin:0}"
+	}
+}

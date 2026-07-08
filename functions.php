@@ -166,6 +166,9 @@ function pattern_categories() {
 		'kwv/about'          => array(
 			'label' => __( 'About Page', 'kwv' ),
 		),
+		'kwv/history'        => array(
+			'label' => __( 'History Page', 'kwv' ),
+		),
 		'kwv/winemakers-club' => array(
 			'label' => __( 'Winemaker’s Club', 'kwv' ),
 		),
