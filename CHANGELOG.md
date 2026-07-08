@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed (Shop mega-menu toggle chevron)
+- **`assets/styles/ollie-mega-menu.css`** — the Ollie Menu Designer "Shop" trigger chevron sat at the bottom of the label and flipped lopsidedly on open. Both are vendor-default bugs surfacing in the KWV header, corrected with a theme override (plugin untouched): the toggle `<button>` is now `inline-flex; align-items:center` so the plugin's `align-self:center` on the icon actually centres it against the label; and the open-state svg gets `margin-top:0; transform-origin:center` so `rotate(180deg)` spins in place instead of pivoting toward the bottom.
+
 ### Added (History page + timeline-milestone block style — Figma node 166-107)
 - **`kwv/page-history` + three `kwv/history-*` section patterns** — a full History / About-heritage page starter (`patterns/page-history.php`) composed, `page-about.php`-style, by `require`-inlining its sections (WordPress does not resolve nested `wp:pattern` refs). Sections:
   - **`kwv/history-hero`** — full-bleed `core/cover` heritage image with a 40% contrast scrim and an overlaid uppercase H1 ("Since 1918 / A story of legacy and growth"), `contentPosition:bottom left`. No header baked in — designed to sit under the transparent site header (pair with a transparent-header template).

@@ -258,3 +258,13 @@
 	width: clamp(16rem, 24vw, 25rem);
 	margin-left: auto;
 }
+
+/* ==========================
+   Shop mega-menu TOGGLE chevron positioning
+=========================== */
+
+.wp-block-ollie-mega-menu__toggle .wp-block-ollie-mega-menu__toggle-icon svg {
+	margin-top: -1px !important;
+	margin-left: 2px !important;
+	transform-origin: center !important;
+}
