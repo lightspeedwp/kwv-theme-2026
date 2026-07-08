@@ -151,6 +151,120 @@ body.rtl .wp-block-navigation__responsive-container.is-menu-open .wp-block-navig
 }
 
 
+/* Dedicated Mobile Menu — `is-style-mobile-navigation`
+--------------------------------------------------------------------------- */
+/* The `parts/mobile-menu.html` template part renders a navigation block with
+   `overlayMenu:"always"`, so it is always a hamburger that opens an off-canvas
+   drawer. These rules build on the shared `.is-menu-open` styles above but are
+   scoped to `.is-style-mobile-navigation` so they never touch the main header
+   nav's own responsive overlay. Tokens only — spacing/colour/shadow presets. */
+
+/* Hamburger trigger: clean and borderless, distinct from the boxed default. */
+.is-style-mobile-navigation .wp-block-navigation__responsive-container-open {
+	background: transparent;
+	color: var(--wp--preset--color--contrast);
+	padding: var(--wp--preset--spacing--5);
+}
+
+.is-style-mobile-navigation .wp-block-navigation__responsive-container-open svg {
+	width: 28px;
+	height: 28px;
+}
+
+/* Dim, blurred backdrop behind the drawer. */
+.is-style-mobile-navigation .wp-block-navigation__responsive-container.is-menu-open.has-modal-open {
+	padding: 0;
+	background: color-mix(in srgb, var(--wp--preset--color--contrast) 45%, transparent);
+	backdrop-filter: blur(2px);
+}
+
+/* The drawer panel: pinned to the inline-end edge, slides in on open. */
+.is-style-mobile-navigation .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__responsive-dialog {
+	position: fixed;
+	inset-block: 0;
+	inset-inline-end: 0;
+	width: min(88vw, 380px);
+	background: var(--wp--preset--color--base);
+	box-shadow: var(--wp--preset--shadow--500);
+	padding: var(--wp--preset--spacing--40) var(--wp--preset--spacing--30) var(--wp--preset--spacing--30);
+	overflow-y: auto;
+	animation: kwv-mobile-menu-in 0.32s ease;
+}
+
+@keyframes kwv-mobile-menu-in {
+	from { transform: translateX(100%); }
+	to { transform: translateX(0); }
+}
+
+body.rtl .is-style-mobile-navigation .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__responsive-dialog {
+	animation-name: kwv-mobile-menu-in-rtl;
+}
+
+@keyframes kwv-mobile-menu-in-rtl {
+	from { transform: translateX(-100%); }
+	to { transform: translateX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.is-style-mobile-navigation .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__responsive-dialog {
+		animation: none;
+	}
+}
+
+/* Close button: brand-tinted, sits in the drawer's top-inline-end corner. */
+.is-style-mobile-navigation .wp-block-navigation__responsive-container-close {
+	background: transparent;
+	color: var(--wp--preset--color--brand-500);
+}
+
+/* Menu list fills the drawer; kill the shared centring gap. */
+.is-style-mobile-navigation .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__responsive-container-content {
+	width: 100%;
+	margin-top: var(--wp--preset--spacing--30);
+}
+
+.is-style-mobile-navigation .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__container {
+	gap: 0 !important;
+}
+
+/* Top-level rows get a hairline divider (child combinator keeps it off submenus). */
+.is-style-mobile-navigation .wp-block-navigation__responsive-container-content > .wp-block-navigation__container > .wp-block-navigation-item,
+.is-style-mobile-navigation .wp-block-navigation__responsive-container-content > .wp-block-navigation__container > .wp-block-page-list > .wp-block-navigation-item {
+	border-bottom: 1px solid var(--wp--preset--color--neutral-200);
+}
+
+/* Link treatment: larger, medium weight, square (drawer rows, not pills). */
+.is-style-mobile-navigation .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item__content {
+	font-size: var(--wp--preset--font-size--300);
+	font-weight: var(--wp--custom--font-weight--medium);
+	padding: var(--wp--preset--spacing--20) 60px var(--wp--preset--spacing--20) 0;
+	border-radius: 0;
+}
+
+body.rtl .is-style-mobile-navigation .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item__content {
+	padding: var(--wp--preset--spacing--20) 0 var(--wp--preset--spacing--20) 60px;
+}
+
+.is-style-mobile-navigation .wp-block-navigation__responsive-container.is-menu-open .current-menu-item > .wp-block-navigation-item__content,
+.is-style-mobile-navigation .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item:hover > .wp-block-navigation-item__content {
+	color: var(--wp--preset--color--brand-500);
+	background: transparent;
+}
+
+/* Submenu: indented, quieter, no dividers. */
+.is-style-mobile-navigation .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__submenu-container {
+	padding: 0 0 var(--wp--preset--spacing--10) var(--wp--preset--spacing--20);
+	gap: 0;
+}
+
+.is-style-mobile-navigation .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__submenu-container .wp-block-navigation-item__content {
+	font-size: var(--wp--preset--font-size--200);
+	font-weight: var(--wp--custom--font-weight--regular);
+	color: var(--wp--preset--color--neutral-600);
+	padding-block: var(--wp--preset--spacing--10);
+}
+
+
 /* Footer Navigation */
 .wp-block-navigation__container .wp-block-navigation-item__content .is-style-footer-navigation {
 	font-size: var(--wp--preset--font-size--200);

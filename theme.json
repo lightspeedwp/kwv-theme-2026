@@ -1094,6 +1094,11 @@
 			"name": "shop-mega-menu-nav",
 			"title": "Shop Mega Menu (Nav)",
 			"area": "menu"
+		},
+		{
+			"name": "mobile-menu",
+			"title": "Mobile Menu",
+			"area": "menu"
 		}
 	]
 }

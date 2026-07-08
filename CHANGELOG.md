@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added (Mobile Menu template part — dedicated off-canvas drawer)
+- **`parts/mobile-menu.html`** — new `menu`-area template part: a single `core/navigation` block with `overlayMenu:"always"` (always a hamburger), `is-style-mobile-navigation`, `base` overlay background / `contrast` text, referencing the dev "Mobile Menu" navigation menu (`wp_navigation` post **182351**: Shop, a Wines submenu → Red/White/Sparkling, About, Wineclub, Blog). Registered in **`theme.json`** `templateParts` as `mobile-menu` (area `menu`). Standalone for now — not wired into any header; place it where needed.
+- **`assets/styles/core-navigation.css`** — extended the existing mobile-nav styles with a scoped `.is-style-mobile-navigation` layer that turns the full-screen overlay into a right-edge off-canvas **drawer**: dim+blur backdrop, `min(88vw,380px)` `base` panel with `shadow-500`, slide-in animation (RTL-mirrored, `prefers-reduced-motion` fallback), borderless hamburger, brand-tinted close button, hairline `neutral-200` dividers between top-level rows (child-combinator-scoped so submenus stay clean), larger medium-weight links with `brand-500` hover/active, and an indented, quieter (`neutral-600`, regular weight) submenu. Tokens only — spacing/colour/shadow/font-weight presets. Scoped so the main header nav's own overlay is untouched.
+- **Dev site:** mirrored as a DB `wp_template_part` override (post **182352**, slug `mobile-menu`) with the `kwv-theme-2026` theme term + a new `menu` `wp_template_part_area` term, so it's live and previewable in the Site Editor ahead of the theme-file deploy.
+- **Verified:** `theme.json` validates; nav + part posts and term relationships confirmed via SQL. **Not** visually verified on the front end — the part is standalone (rendered nowhere yet), so styling shows only once placed or previewed in the Site Editor.
+
 ### Fixed (Shop mega-menu toggle chevron)
 - **`assets/styles/ollie-mega-menu.css`** — the Ollie Menu Designer "Shop" trigger chevron sat at the bottom of the label and flipped lopsidedly on open. Both are vendor-default bugs surfacing in the KWV header, corrected with a theme override (plugin untouched): the toggle `<button>` is now `inline-flex; align-items:center` so the plugin's `align-self:center` on the icon actually centres it against the label; and the open-state svg gets `margin-top:0; transform-origin:center` so `rotate(180deg)` spins in place instead of pivoting toward the bottom.
 
