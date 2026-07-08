@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added (carousel nav arrows — Figma node 1-162)
+- **`assets/styles/carousel-block.css` + `inc/carousel.php`** — restyled the third-party `carousel-block` (Swiper) prev/next arrows on the three front-page brand carousels to match the design: small neutral-grey chevrons pinned top-right on the section-title row, instead of the plugin default (arrows centred vertically over the slides). CSS-only — the plugin and the DB front-page template are untouched. Recolours via the plugin's own `--wp--custom--carousel-block--navigation-*` custom props (`neutral-500`, hover `neutral-600`) and lifts the buttons into the header band with a scoped positioning override. Scoped to `.alignfull:not(.cb-hero-slider)` so the full-bleed hero keeps its centred arrows. Stylesheet is attached to `cb/carousel-v2` via `wp_enqueue_block_style()` (loads only when the carousel renders), mirroring the `woocommerce.php` / `mega-menu.php` convention; wired through a `require` in `functions.php`.
+
 ### Fixed (empty templates — five dangling pattern references)
 - Five templates referenced `wp:pattern` slugs that no pattern declared (leftovers from the de-Ollie cleanup), so they rendered empty. Built the missing patterns, all following the established `template-*` house style (header/footer via `wp:template-part`, numeric preset/custom token slugs only, `esc_html_e`/`esc_attr_x` output, `Categories: hidden`, `Inserter: false`):
   - **`kwv/template-page-404`** (`404.html`) — centred `404` + "Page not found" message, a `core/search` form and a "Back to homepage" button.

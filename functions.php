@@ -220,3 +220,8 @@ require_once get_template_directory() . '/inc/woocommerce.php';
  * Load the product-category mega menu renderer.
  */
 require_once get_template_directory() . '/inc/mega-menu.php';
+
+/**
+ * Load the carousel block (cb/carousel-v2) nav-arrow styling.
+ */
+require_once get_template_directory() . '/inc/carousel.php';

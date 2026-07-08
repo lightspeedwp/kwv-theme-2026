@@ -1,0 +1,72 @@
+/**
+ * Carousel Block (cb/carousel-v2) — KWV nav-arrow treatment.
+ *
+ * The carousel comes from the third-party `carousel-block` plugin (Swiper). By
+ * default its prev/next arrows are overlay buttons centred vertically over the
+ * slides. The KWV design (Figma node 1-162) instead places them top-right, on
+ * the section title's row, as small neutral-grey chevrons.
+ *
+ * We do NOT touch the plugin or the block markup. The plugin already exposes
+ * colour/size via custom properties, and the buttons live inside the
+ * `position:relative` block wrapper, so a scoped CSS override is enough to
+ * recolour them and lift them up into the header band.
+ *
+ * Scope: `.alignfull:not(.cb-hero-slider)` targets the three front-page brand
+ * carousels (Wine / Spirits / Agency), which sit under an `is-style-section-header`
+ * title group. The full-bleed hero (`.cb-hero-slider`) keeps its centred arrows.
+ *
+ * @package kwv
+ */
+
+.wp-block-cb-carousel-v2.alignfull:not( .cb-hero-slider ) {
+	/* Glyph size (reuses Swiper's built-in chevron) + KWV neutral palette. */
+	--wp--custom--carousel-block--navigation-size: var( --wp--preset--spacing--30 );
+	--wp--custom--carousel-block--navigation-color: var( --wp--preset--color--neutral-800 );
+	--wp--custom--carousel-block--navigation-alignfull-color: var( --wp--preset--color--neutral-800 );
+	--wp--custom--carousel-block--navigation-hover-color: var( --wp--preset--color--neutral-900 );
+
+	/*
+	 * Right edge of the next-arrow, aligned to the alignwide content edge. On
+	 * viewports narrower than wideSize the calc goes negative, so max() falls
+	 * back to a small inset.
+	 */
+	--kwv-carousel-nav-inset: max(
+		var( --wp--preset--spacing--30 ),
+		calc( ( 100% - var( --wp--style--global--wide-size, 1520px ) ) / 2 )
+	);
+
+	/* How far above the carousel top the arrows sit, into the title row. Tuned
+	 * against the rendered header-to-carousel gap to centre them in the title-text
+	 * band; adjust here if the section-header spacing changes. */
+	--kwv-carousel-nav-top: calc( -1 * var( --wp--preset--spacing--90 ) );
+}
+
+/* Lift both arrows out of vertical-centre and up into the header row. */
+.wp-block-cb-carousel-v2.alignfull:not( .cb-hero-slider ) .cb-button-prev,
+.wp-block-cb-carousel-v2.alignfull:not( .cb-hero-slider ) .cb-button-next {
+	top: var( --kwv-carousel-nav-top );
+	margin-top: 0;
+}
+
+/*
+ * Embolden the chevron. Swiper's glyph is a single icon-font character with no
+ * bold weight, so we thicken its strokes with a small text-stroke in the current
+ * (neutral-800) colour rather than swapping the glyph.
+ */
+.wp-block-cb-carousel-v2.alignfull:not( .cb-hero-slider ) .cb-button-prev::after,
+.wp-block-cb-carousel-v2.alignfull:not( .cb-hero-slider ) .cb-button-next::after {
+	-webkit-text-stroke: 0.04em currentColor;
+	text-stroke: 0.04em currentColor;
+}
+
+/* Next: pinned to the alignwide right edge. */
+.wp-block-cb-carousel-v2.alignfull:not( .cb-hero-slider ) .cb-button-next {
+	left: auto;
+	right: var( --kwv-carousel-nav-inset );
+}
+
+/* Prev: sits just to the left of next. */
+.wp-block-cb-carousel-v2.alignfull:not( .cb-hero-slider ) .cb-button-prev {
+	left: auto;
+	right: calc( var( --kwv-carousel-nav-inset ) + var( --wp--preset--spacing--80 ) );
+}
