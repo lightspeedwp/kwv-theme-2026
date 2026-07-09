@@ -784,9 +784,10 @@ input[type=checkbox].wc-block-product-filter-checkbox-list__input:checked+.wc-bl
 }
 
 .wc-block-product-filter-removable-chips__items .wc-block-product-filter-removable-chips__item {
-	border-radius: 100px;
+	border-radius: var(--wp--preset--border-radius--200);
 	background: var(--wp--preset--color--neutral-200);
-	border: none;
+	border: 1px solid var(--wp--preset--color--neutral-400);
+	font-size: var(--wp--preset--font-size--100);
 	width: 100%;
 	padding: 8px 10px 8px 15px;
 }
