@@ -840,7 +840,7 @@ input[type=checkbox].wc-block-product-filter-checkbox-list__input:checked+.wc-bl
 .kwv-shop-filters
 	[data-block-name^="woocommerce/product-filter-"]:not([hidden]):not(.wc-block-product-filter--hidden):has(> .wp-block-heading) {
 	border-bottom: 1px solid var(--wp--preset--color--neutral-700);
-	padding-block: var(--wp--preset--spacing--20);
+	padding-block: var(--wp--preset--spacing--30);
 }
 
 /* Fold behaviour (JS present). A grid row-collapse keeps the section full-width
@@ -893,6 +893,7 @@ input[type=checkbox].wc-block-product-filter-checkbox-list__input:checked+.wc-bl
 	padding-inline-end: 1.75em;    /* room for the +/- glyph */
 	text-transform: none;          /* theme.json uppercases all headings; filter names read better cased */
 	font-size: var(--wp--preset--font-size--300) !important;
+	font-weight: var(--wp--custom--font-weight--regular) !important;
 	cursor: pointer;
 	user-select: none;
 }
