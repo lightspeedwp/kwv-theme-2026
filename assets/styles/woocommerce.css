@@ -669,6 +669,47 @@ table.woocommerce-product-attributes {
 	row-gap: 2em;
 }
 
+/* Keep product cards large: never narrower than 300px.
+   WooCommerce's responsive (shrinkColumns) grid floors each column at 150px
+   — `minmax(max(150px, calc(<n>% - gap)), 1fr)` — which lets cards get too
+   small on mid-size viewports. Raise the floor to 300px while preserving each
+   pattern's intended column cap (the `calc(<n>% - gap)` term still wins on wide
+   screens, so archive stays 4-up / sidebar-archive 3-up). auto-fill then drops
+   the column count as the container narrows, so cards stay >=300px instead of
+   shrinking. `min(300px, 100%)` prevents horizontal overflow on phones whose
+   content column is itself narrower than 300px (it falls back to one full card).
+   The column gap is WooCommerce's default 1.25em (only row-gap is themed above). */
+.wc-block-product-template__responsive.columns-2 {
+	grid-template-columns: repeat( auto-fill, minmax( max( min( 300px, 100% ), calc( 50% - 0.625em ) ), 1fr ) );
+}
+
+.wc-block-product-template__responsive.columns-3 {
+	grid-template-columns: repeat( auto-fill, minmax( max( min( 300px, 100% ), calc( 33.33333% - 0.83333em ) ), 1fr ) );
+}
+
+.wc-block-product-template__responsive.columns-4 {
+	grid-template-columns: repeat( auto-fill, minmax( max( min( 300px, 100% ), calc( 25% - 0.9375em ) ), 1fr ) );
+}
+
+.wc-block-product-template__responsive.columns-5 {
+	grid-template-columns: repeat( auto-fill, minmax( max( min( 300px, 100% ), calc( 20% - 1em ) ), 1fr ) );
+}
+
+.wc-block-product-template__responsive.columns-6 {
+	grid-template-columns: repeat( auto-fill, minmax( max( min( 300px, 100% ), calc( 16.66667% - 1.04167em ) ), 1fr ) );
+}
+
+/* Same 300px floor for the non-responsive flex layout (shrinkColumns:false,
+   e.g. the "You may also like" related-products grid on the single-product
+   page). WooCommerce hands each item a fixed fractional width above 600px,
+   which can fall below 300px on mid-size screens; min-width holds the floor and
+   flex-wrap reflows to fewer columns, while flex-grow lets a short final row
+   fill the width. min(300px, 100%) again avoids overflow on narrow phones. */
+.wc-block-product-template.is-flex-container > li {
+	min-width: min( 300px, 100% );
+	flex-grow: 1;
+}
+
 .accordion-content__wrapper {
 	margin-top: var(--wp--preset--spacing--30);
 }
@@ -1019,10 +1060,6 @@ table.wc-block-cart-items .wc-block-cart-items__row .wc-block-cart-item__total {
 
 /* ============================================
    Mini Cart
-   (Figma: KWV Design System node 107:1691 — "CART" drawer.
-   Source frame has no bound variables, so tokens are inferred
-   from the KWV ramp: gold brand-500 qty badge, black contrast
-   checkout bar, Jost heading display type.)
    ============================================ */
 
 .wc-block-mini-cart[aria-hidden="true"] {
@@ -1055,7 +1092,7 @@ table.wc-block-cart-items .wc-block-cart-items__row .wc-block-cart-item__total {
 	justify-content: center;
 	font-family: var(--wp--preset--font-family--heading);
 	font-size: var(--wp--preset--font-size--300);
-	font-weight: var(--wp--custom--font-weight--bold);
+	font-weight: var(--wp--custom--font-weight--semi-bold);
 	line-height: var(--wp--custom--line-height--heading);
 	text-transform: uppercase;
 	letter-spacing: 0.04em;
@@ -1063,19 +1100,11 @@ table.wc-block-cart-items .wc-block-cart-items__row .wc-block-cart-item__total {
 	color: var(--wp--preset--color--contrast);
 	mask-image: none;
 	-webkit-mask-image: none;
-	margin: 16px 16px var(--wp--preset--spacing--20);
-	padding-bottom: var(--wp--preset--spacing--20);
+	margin-top: 0;
+	padding-top: var(--wp--preset--spacing--20);
+	padding-bottom: var(--wp--preset--spacing--40);
+	margin-bottom: var(--wp--preset--spacing--5);
 	border-bottom: 1px solid var(--wp--preset--color--neutral-300);
-}
-
-.wc-block-mini-cart__items .wc-block-mini-cart__products-table .wc-block-cart-items__row:last-child {
-	border-bottom: none;
-}
-
-/* Item image — rounded thumbnail */
-.wc-block-mini-cart__drawer .wc-block-cart-item__image img {
-	border-radius: var(--wp--preset--border-radius--100);
-	width: 240px;
 }
 
 /* Product name + price — Jost bold, uppercase, stacked tight */
@@ -1087,10 +1116,6 @@ table.wc-block-cart-items .wc-block-cart-items__row .wc-block-cart-item__total {
 	text-transform: uppercase;
 	color: var(--wp--preset--color--contrast);
 	line-height: var(--wp--custom--line-height--snug);
-}
-
-.wc-block-mini-cart__drawer .wc-block-cart-item__prices {
-	margin-top: 2px;
 }
 
 /* Quantity stepper — neutral pill with a gold (brand-500) badge.
@@ -1144,27 +1169,12 @@ table.wc-block-cart-items .wc-block-cart-items__row .wc-block-cart-item__total {
 	border-color: transparent;
 }
 
-/* Remove (trash) link */
-.wc-block-mini-cart__drawer .wc-block-cart-item__remove-link {
-	color: var(--wp--preset--color--neutral-700);
-}
-
-.wc-block-mini-cart__drawer .wc-block-cart-item__remove-link:hover {
-	color: var(--wp--preset--color--contrast);
-}
-
 /* Footer — white surface, no default tinted band */
 .wc-block-mini-cart__footer {
-	background: var(--wp--preset--color--base);
-	border: none;
 	border-top: 1px solid var(--wp--preset--color--neutral-300);
 }
 
-.wc-block-mini-cart__footer:after {
-	display: none;
-}
-
-/* Subtotal / totals rows — small Figtree, muted labels */
+/* Subtotal / totals rows */
 .wc-block-mini-cart__footer .wc-block-mini-cart__footer-subtotal,
 .wc-block-mini-cart__footer .wc-block-components-totals-item__label,
 .wc-block-mini-cart__footer .wc-block-mini-cart__footer-subtotal .wc-block-components-totals-item__label {
@@ -1173,7 +1183,7 @@ table.wc-block-cart-items .wc-block-cart-items__row .wc-block-cart-item__total {
 	font-weight: var(--wp--custom--font-weight--semi-bold);
 }
 
-/* Grand-total emphasis — Jost semibold, uppercase */
+/* Sub-total emphasis — Jost semibold, uppercase */
 .wc-block-mini-cart__footer .wc-block-components-totals-item.wc-block-mini-cart__footer-subtotal .wc-block-components-totals-item__label,
 .wc-block-mini-cart__footer .wc-block-mini-cart__footer-subtotal .wc-block-components-formatted-money-amount,
 .wc-block-mini-cart__footer .wc-block-mini-cart__footer-subtotal .wc-block-components-totals-item__value {
@@ -1195,20 +1205,21 @@ table.wc-block-cart-items .wc-block-cart-items__row .wc-block-cart-item__total {
 	width: 100%;
 	background: var(--wp--preset--color--contrast);
 	color: var(--wp--preset--color--base);
-	border: none;
+	border: 1px solid var(--wp--preset--color--contrast);
 	border-radius: 0;
 	font-family: var(--wp--preset--font-family--heading);
 	font-weight: var(--wp--custom--font-weight--bold);
 	font-size: var(--wp--preset--font-size--200);
 	text-transform: uppercase;
 	letter-spacing: 0.075em;
-	transition: background-color 0.25s ease, color 0.25s ease;
+	transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
 }
 
 .wc-block-mini-cart__footer-actions .wc-block-mini-cart__footer-checkout:hover,
 .wc-block-mini-cart__footer a.wc-block-components-button.contained:hover {
-	background: var(--wp--preset--color--brand-500);
+	background: var(--wp--preset--color--neutral-300);
 	color: var(--wp--preset--color--contrast);
+	border-color: var(--wp--preset--color--contrast);
 }
 
 /* Secondary: View cart — quiet text link beneath the CHECKOUT bar */
@@ -1228,6 +1239,38 @@ table.wc-block-cart-items .wc-block-cart-items__row .wc-block-cart-item__total {
 	color: var(--wp--preset--color--base);
 	background-color: var(--wp--preset--color--contrast);
 	text-decoration: none;
+}
+
+/* Close button — inset from the top-right corner (in from the right + down)
+   instead of flush to the very edge. The button carries a negative-margin
+   expanded hit area, so its absolute offsets sit at the corner by default. */
+.wc-block-mini-cart__drawer .wc-block-components-drawer__close {
+	top: calc(2px + var(--wp--preset--spacing--40));
+	right: calc(2px + var(--wp--preset--spacing--40));
+}
+
+/* Product short-description — left-aligned and wrapping.
+   Some products' WooCommerce short descriptions are authored as raw HTML with a
+   fixed-width <table> (e.g. <table width="1876"> ... style="text-align:center">),
+   which forces the whole products table to overflow (horizontal scroll) and
+   centres the text. Contain any embedded markup to the drawer width and force
+   left alignment — the inline text-align:center needs !important to beat. */
+.wc-block-mini-cart__drawer .wc-block-components-product-metadata__description,
+.wc-block-mini-cart__drawer .wc-block-components-product-metadata__description * {
+	text-align: left !important;
+	max-width: 100%;
+}
+
+.wc-block-mini-cart__drawer .wc-block-components-product-metadata__description table {
+	width: 100%;
+	table-layout: fixed;
+}
+
+.wc-block-mini-cart__drawer .wc-block-components-product-metadata__description td,
+.wc-block-mini-cart__drawer .wc-block-components-product-metadata__description th {
+	width: auto;
+	overflow-wrap: anywhere;
+	word-break: break-word;
 }
 
 /* ============================================
