@@ -1,64 +1,108 @@
 /**
- * "KWV Newsletter" Gravity Forms block style (is-style-kwv-newsletter).
+ * "KWV Newsletter" Gravity Forms styling, scoped to form id 2.
  *
- * Applied from the editor Styles panel to any Gravity Forms block. Registered and
- * enqueued in inc/gravity-forms.php.
+ * Gravity Forms wraps each form in `#gform_wrapper_{id}`, so `#gform_wrapper_2`
+ * targets the newsletter form on both local and dev (same form id on each).
+ * Registered and enqueued in inc/gravity-forms.php.
  *
  * Lives in a .css file rather than a block-style JSON `css` field because it relies
  * on `::placeholder`, `:focus` and `:hover` — pseudo-selectors the `:where()`-wrapped
  * JSON css field strips or mangles (see the theme AGENTS.md "Styling lives in JSON"
  * note). Gravity Forms 2.7+ scopes its own theme with `:where()` (zero specificity),
- * so these class-scoped rules win without `!important`.
+ * so these id-scoped rules win without `!important`.
  *
  * The submit button mirrors theme.json's core/button `outline` variation (contrast
  * fill, base text + border, colours swapping on hover), reusing the same tokens so
  * the two stay in lock-step.
  */
 
-/* Grow to fill the horizontal space beside the heading in a flex row. */
-.is-style-kwv-newsletter {
-	flex: 1 1 320px;
+/* Grow to fill the horizontal space beside the heading in a flex row. The GF
+   block wrapper is the flex child; #gform_wrapper_2 is nested inside it, so match
+   the block wrapper that contains form 2. */
+.wp-block-gravityforms-form:has(#gform_wrapper_2) {
+	flex: 1 1 320px !important;
 }
 
-/* Email input — brand-500 fill, contrast placeholder, square brand border. */
-.is-style-kwv-newsletter .gfield input[type="email"] {
-	background-color: var(--wp--preset--color--brand-500);
-	color: var(--wp--preset--color--contrast);
-	border: 1px solid var(--wp--preset--color--brand-500);
-	border-radius: 0;
+/* Lay the email + submit row out as [ input fills ][ button content-width ], and
+   let the button collapse to its own full-width line once the input reaches its
+   300px minimum. Gravity Forms renders both fields as gfield--width-half (span 6)
+   in its 12-col grid, which leaves the content-width button floating in a half-width
+   column with a large empty gap. Replace the grid with flex-wrap:
+   - email: min-width 300px + a huge grow factor so it takes the free space while the
+     button stays content-width beside it, and wraps rather than shrink below 300px;
+   - submit: flex 1 1 auto so, when it wraps onto its own line, it fills the width;
+   - button: width 100% so it spans its field — content-width when inline, full-width
+     once wrapped. The 16px gap is GF's own. */
+#gform_wrapper_2 .gform_fields {
+	display: flex !important;
+	flex-wrap: wrap !important;
+	gap: 16px !important;
+	align-items: flex-end !important;
+}
+
+#gform_wrapper_2 .gfield--type-email {
+	flex: 999 1 300px !important;
+	min-width: 300px !important;
+}
+
+#gform_wrapper_2 .gfield--type-submit {
+	flex: 1 1 auto !important;
+}
+
+#gform_wrapper_2 .gform-button {
+	width: 100% !important;
+}
+
+/* Email input — brand-500 fill, contrast placeholder, square brand border.
+   Fixed height matches the submit button (see .gform-button below). */
+#gform_wrapper_2 .gfield input[type="email"] {
+	height: 48px !important;
+	box-sizing: border-box !important;
+	background-color: var(--wp--preset--color--brand-500) !important;
+	color: var(--wp--preset--color--contrast) !important;
+	border: 1px solid var(--wp--preset--color--brand-500) !important;
+	border-radius: 0 !important;
 	transition: background-color 0.25s ease-in-out, border-color 0.25s ease-in-out;
 }
 
-.is-style-kwv-newsletter .gfield input[type="email"]::placeholder {
-	color: var(--wp--preset--color--contrast);
-	opacity: 1;
+#gform_wrapper_2 .gfield input[type="email"]::placeholder {
+	color: var(--wp--preset--color--contrast) !important;
+	opacity: 1 !important; /* override browser default opacity */
 }
 
 /* Focus — brand-100 fill, brand-500 border. */
-.is-style-kwv-newsletter .gfield input[type="email"]:focus {
-	background-color: var(--wp--preset--color--brand-100);
-	border-color: var(--wp--preset--color--brand-500);
-	outline: none;
+#gform_wrapper_2 .gfield input[type="email"]:focus {
+	background-color: var(--wp--preset--color--brand-100) !important;
+	border-color: var(--wp--preset--color--brand-500) !important;
+	outline: none !important;
 }
 
-/* Submit button — mirror the theme.json core/button "outline" variation. */
-.is-style-kwv-newsletter .gform-button {
-	background-color: var(--wp--preset--color--contrast);
-	color: var(--wp--preset--color--base);
-	border: 1px solid var(--wp--preset--color--base);
-	border-radius: 0;
-	padding: var(--wp--custom--spacing--button--padding-vertical) var(--wp--custom--spacing--button--padding-horizontal);
-	font-size: var(--wp--preset--font-size--300);
-	font-weight: var(--wp--custom--font-weight--medium);
-	line-height: 1;
-	text-transform: uppercase;
-	letter-spacing: 0.075em;
-	cursor: pointer;
-	transition: all 0.25s ease-in-out;
+/* Submit button — mirror the theme.json core/button "outline" variation.
+   Fixed 48px height (matching the email input); vertical padding drops to 0 and the
+   label is flex-centred so the fixed height governs. */
+#gform_wrapper_2 .gform-button {
+	height: 48px !important;
+	box-sizing: border-box !important;
+	display: inline-flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	background-color: var(--wp--preset--color--base) !important;
+	color: var(--wp--preset--color--contrast) !important;
+	border: 1px solid var(--wp--preset--color--contrast) !important;
+	border-radius: 0 !important;
+	padding: 0 var(--wp--custom--spacing--button--padding-horizontal) !important;
+	font-size: var(--wp--preset--font-size--200) !important;
+	font-weight: var(--wp--custom--font-weight--medium) !important;
+	line-height: 1 !important;
+	text-transform: uppercase !important;
+	letter-spacing: 0.075em !important;
+	cursor: pointer !important;
+	transition: all 0.25s ease-in-out !important;
 }
 
-.is-style-kwv-newsletter .gform-button:hover,
-.is-style-kwv-newsletter .gform-button:focus-visible {
-	background-color: var(--wp--preset--color--base);
-	color: var(--wp--preset--color--contrast);
+#gform_wrapper_2 .gform-button:hover,
+#gform_wrapper_2 .gform-button:focus-visible {
+	background-color: var(--wp--preset--color--contrast) !important;
+	color: var(--wp--preset--color--base) !important;
+	border-color: var(--wp--preset--color--contrast) !important;
 }

@@ -819,6 +819,22 @@ input[type=checkbox].wc-block-product-filter-checkbox-list__input:checked+.wc-bl
    stays open and fully accessible.
    ============================================ */
 
+/* WooCommerce puts a grey top border + top padding/margin on the overlay
+   wrapper (a separator meant for the mobile "Filter products" bar); on desktop
+   it reads as a stray light-grey line above the filters. Remove it. */
+.kwv-shop-filters .wc-block-product-filters__overlay {
+	border-top: 0;
+	margin-top: 0;
+	padding-top: 0;
+}
+
+/* Section spacing is defined by each section's own padding-block + divider, so
+   drop WooCommerce's flex block-gap (its hard-coded fallback ignores the editor
+   and stacks extra space on top of ours). */
+.kwv-shop-filters .wc-block-product-filters__overlay-content {
+	gap: 0;
+}
+
 /* Divider below every visible section (skip the empty/hidden ones WooCommerce
    marks with [hidden] / .wc-block-product-filter--hidden). */
 .kwv-shop-filters
@@ -915,13 +931,26 @@ input[type=checkbox].wc-block-product-filter-checkbox-list__input:checked+.wc-bl
 .kwv-shop-filters.kwv-filters-collapsible
 	[data-block-name^="woocommerce/product-filter-"] > .wp-block-heading:focus-visible {
 	outline: 2px solid var(--wp--preset--color--brand-500);
-	outline-offset: 2px;
+	outline-offset: 5px;
 	border-radius: var(--wp--preset--border-radius--100);
 }
 
 /* Filter checkbox-list items at font-size 200. */
 .kwv-shop-filters .wc-block-product-filter-checkbox-list__label {
 	font-size: var(--wp--preset--font-size--200);
+}
+
+/* Top-align the checkbox, label and count so a long label that wraps to two
+   lines keeps the checkbox and count on the first line (they were vertically
+   centred against the whole wrapped block). A small top pad on the text nudges
+   it so a single-line label still reads centred against the checkbox. */
+.kwv-shop-filters .wc-block-product-filter-checkbox-list__label {
+	align-items: flex-start;
+}
+
+.kwv-shop-filters .wc-block-product-filter-checkbox-list__text-wrapper {
+	align-items: flex-start;
+	margin-bottom: 5px;
 }
 
 /* ============================================
@@ -1193,10 +1222,6 @@ table.wc-block-cart-items .wc-block-cart-items__row .wc-block-cart-item__total {
      - is-style-mini-cart-dark  → dark header:  base (light) badge, contrast (dark) count
    The bare default matches the dark variant so any Mini Cart without a style
    (e.g. the transparent header) still reads against a dark backdrop. */
-.wc-block-mini-cart__badge {
-	background-color: var(--wp--preset--color--base) !important;
-	color: var(--wp--preset--color--contrast) !important;
-}
 
 .wc-block-mini-cart.is-style-mini-cart-dark .wc-block-mini-cart__badge {
 	background-color: var(--wp--preset--color--base) !important;

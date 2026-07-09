@@ -35,6 +35,6 @@ require __DIR__ . '/contact-info.php';
 <h2 class="wp-block-heading has-heading-font-family has-500-font-size" style="font-weight:var(--wp--custom--font-weight--bold);letter-spacing:1px;line-height:var(--wp--custom--line-height--heading);text-transform:uppercase"><?php esc_html_e( 'Subscribe to Our Newsletter', 'kwv' ); ?></h2>
 <!-- /wp:heading -->
 
-<!-- wp:gravityforms/form {"formId":"","className":"is-style-kwv-newsletter"} /--></div>
+<!-- wp:gravityforms/form {"formId":"2"} /--></div>
 <!-- /wp:group --></section>
 <!-- /wp:group -->

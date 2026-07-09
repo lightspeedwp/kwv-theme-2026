@@ -1,12 +1,12 @@
 <?php
 /**
- * Gravity Forms integration: KWV block style for newsletter-style forms.
+ * Gravity Forms integration: KWV newsletter form styling, scoped to form id 2.
  *
- * Registers a **block style** on the `gravityforms/form` block — "KWV Newsletter"
- * (`is-style-kwv-newsletter`) — so it can be applied to any Gravity Form from the
- * editor's Styles panel. The look is defined in assets/styles/gravity-forms.css and
- * tied to the block with wp_enqueue_block_style(), so the sheet lazy-loads with the
- * block on the front end and in the editor.
+ * The look is defined in assets/styles/gravity-forms.css and scoped to
+ * `#gform_wrapper_2` (the newsletter form on both local and dev share form id 2).
+ * The sheet is tied to the `gravityforms/form` block with wp_enqueue_block_style(),
+ * so it lazy-loads whenever the block renders on the front end or in the editor —
+ * no block style to apply from the Styles panel.
  *
  * The style lives in a .css file rather than a block-style JSON `css` field because
  * it relies on `::placeholder`, `:focus` and `:hover`, which the `:where()`-wrapped
@@ -20,30 +20,7 @@
 namespace Kwv\GravityForms;
 
 const BLOCK_NAME   = 'gravityforms/form';
-const STYLE_NAME   = 'kwv-newsletter';
 const STYLE_HANDLE = 'kwv-block-gravity-forms';
-
-/**
- * Register the "KWV Newsletter" block style on the Gravity Forms block.
- *
- * Runs at priority 20 so the Gravity Forms block type is registered first —
- * register_block_style() only takes effect once the target block exists.
- */
-function register_styles() {
-
-	if ( ! function_exists( 'register_block_style' ) ) {
-		return;
-	}
-
-	register_block_style(
-		BLOCK_NAME,
-		array(
-			'name'  => STYLE_NAME,
-			'label' => __( 'KWV Newsletter', 'kwv' ),
-		)
-	);
-}
-add_action( 'init', __NAMESPACE__ . '\register_styles', 20 );
 
 /**
  * Tie the stylesheet to the Gravity Forms block so it loads with the block.
