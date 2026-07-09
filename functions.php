@@ -233,3 +233,8 @@ require_once get_template_directory() . '/inc/search.php';
  * Load the carousel block (cb/carousel-v2) nav-arrow styling.
  */
 require_once get_template_directory() . '/inc/carousel.php';
+
+/**
+ * Load Gravity Forms newsletter sign-up styling.
+ */
+require_once get_template_directory() . '/inc/gravity-forms.php';

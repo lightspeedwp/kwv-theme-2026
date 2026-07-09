@@ -47,7 +47,8 @@
 	background: transparent !important;
 	box-shadow: none;
 	font-family: var(--wp--preset--font-family--body);
-	font-size: var(--wp--preset--font-size--100);
+	font-size: var(--wp--preset--font-size--200);
+	line-height: normal;
 	color: var(--wp--preset--color--contrast);
 }
 
@@ -177,13 +178,19 @@
 	display: flex !important;
 	align-items: center;
 	width: 100%;
-	height: 48px;
+	height: 52px;
 	padding-inline: var(--wp--preset--spacing--30) var(--wp--preset--spacing--20);
 	background: var(--wp--preset--color--base);
 	border: 1px solid var(--wp--preset--color--neutral-300);
 	border-radius: var(--wp--preset--border-radius--200) !important;
-	box-shadow: var(--wp--preset--shadow--500);
-	animation: kwv-search-foldout 0.22s ease;
+	box-shadow: var(--wp--preset--shadow--200);
+	animation: kwv-search-foldout 0.25s ease;
+	& .aws-search-field::placeholder {
+		font-size: var(--wp--preset--font-size--200);
+		color: var(--wp--preset--color--neutral-500);
+		line-height: var(--wp--preset--font-size--200);
+		margin-top: 5px !important; /* optical alignment with the magnifier and close button */
+	}
 }
 
 @keyframes kwv-search-foldout {
@@ -276,7 +283,7 @@
 	background: var(--wp--preset--color--base);
 	border: 1px solid var(--wp--preset--color--neutral-300);
 	border-radius: var(--wp--preset--border-radius--200) !important;
-	box-shadow: var(--wp--preset--shadow--600);
+	box-shadow: var(--wp--preset--shadow--300);
 	margin-top: var(--wp--preset--spacing--10);
 	overflow: hidden;
 	font-family: var(--wp--preset--font-family--body);

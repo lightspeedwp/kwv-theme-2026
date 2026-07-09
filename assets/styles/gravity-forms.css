@@ -1,0 +1,64 @@
+/**
+ * "KWV Newsletter" Gravity Forms block style (is-style-kwv-newsletter).
+ *
+ * Applied from the editor Styles panel to any Gravity Forms block. Registered and
+ * enqueued in inc/gravity-forms.php.
+ *
+ * Lives in a .css file rather than a block-style JSON `css` field because it relies
+ * on `::placeholder`, `:focus` and `:hover` — pseudo-selectors the `:where()`-wrapped
+ * JSON css field strips or mangles (see the theme AGENTS.md "Styling lives in JSON"
+ * note). Gravity Forms 2.7+ scopes its own theme with `:where()` (zero specificity),
+ * so these class-scoped rules win without `!important`.
+ *
+ * The submit button mirrors theme.json's core/button `outline` variation (contrast
+ * fill, base text + border, colours swapping on hover), reusing the same tokens so
+ * the two stay in lock-step.
+ */
+
+/* Grow to fill the horizontal space beside the heading in a flex row. */
+.is-style-kwv-newsletter {
+	flex: 1 1 320px;
+}
+
+/* Email input — brand-500 fill, contrast placeholder, square brand border. */
+.is-style-kwv-newsletter .gfield input[type="email"] {
+	background-color: var(--wp--preset--color--brand-500);
+	color: var(--wp--preset--color--contrast);
+	border: 1px solid var(--wp--preset--color--brand-500);
+	border-radius: 0;
+	transition: background-color 0.25s ease-in-out, border-color 0.25s ease-in-out;
+}
+
+.is-style-kwv-newsletter .gfield input[type="email"]::placeholder {
+	color: var(--wp--preset--color--contrast);
+	opacity: 1;
+}
+
+/* Focus — brand-100 fill, brand-500 border. */
+.is-style-kwv-newsletter .gfield input[type="email"]:focus {
+	background-color: var(--wp--preset--color--brand-100);
+	border-color: var(--wp--preset--color--brand-500);
+	outline: none;
+}
+
+/* Submit button — mirror the theme.json core/button "outline" variation. */
+.is-style-kwv-newsletter .gform-button {
+	background-color: var(--wp--preset--color--contrast);
+	color: var(--wp--preset--color--base);
+	border: 1px solid var(--wp--preset--color--base);
+	border-radius: 0;
+	padding: var(--wp--custom--spacing--button--padding-vertical) var(--wp--custom--spacing--button--padding-horizontal);
+	font-size: var(--wp--preset--font-size--300);
+	font-weight: var(--wp--custom--font-weight--medium);
+	line-height: 1;
+	text-transform: uppercase;
+	letter-spacing: 0.075em;
+	cursor: pointer;
+	transition: all 0.25s ease-in-out;
+}
+
+.is-style-kwv-newsletter .gform-button:hover,
+.is-style-kwv-newsletter .gform-button:focus-visible {
+	background-color: var(--wp--preset--color--base);
+	color: var(--wp--preset--color--contrast);
+}

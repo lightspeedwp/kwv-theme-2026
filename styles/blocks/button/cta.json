@@ -1,0 +1,53 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "CTA",
+	"slug": "cta",
+	"blockTypes": [ "core/button" ],
+	"description": "Contrast-filled call-to-action button with a 1px contrast border and square corners; on hover the fill drops to neutral-300 while the border and text stay contrast.",
+	"styles": {
+		"color": {
+			"background": "var:preset|color|contrast",
+			"text": "var:preset|color|base"
+		},
+		"border": {
+			"color": "var:preset|color|contrast",
+			"style": "solid",
+			"width": "1px",
+			"radius": "0"
+		},
+		"spacing": {
+			"padding": {
+				"top": "var:custom|spacing|button|padding-vertical",
+				"right": "var:custom|spacing|button|padding-horizontal",
+				"bottom": "var:custom|spacing|button|padding-vertical",
+				"left": "var:custom|spacing|button|padding-horizontal"
+			}
+		},
+		"typography": {
+			"fontFamily": "var:preset|font-family|heading",
+			"fontSize": "var:preset|font-size|200",
+			"fontWeight": "var:custom|font-weight|semi-bold",
+			"textTransform": "uppercase",
+			"letterSpacing": "0.02em"
+		},
+		":hover": {
+			"color": {
+				"background": "var:preset|color|neutral-300",
+				"text": "var:preset|color|contrast"
+			},
+			"border": {
+				"color": "var:preset|color|contrast"
+			}
+		},
+		":focus": {
+			"color": {
+				"background": "var:preset|color|neutral-300",
+				"text": "var:preset|color|contrast"
+			},
+			"border": {
+				"color": "var:preset|color|contrast"
+			}
+		}
+	}
+}

@@ -17,6 +17,7 @@ if ( class_exists( 'WooCommerce' ) ) {
 
 	// WooCommerce is active.
 	add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_woocommerce_styles' );
+	add_action( 'init', __NAMESPACE__ . '\register_mini_cart_block_styles', 20 );
 	add_action( 'init', __NAMESPACE__ . '\unregister_woocommerce_block_patterns', 999 );
 	add_filter( 'woocommerce_admin_features', __NAMESPACE__ . '\disable_pattern_toolkit' );
 
@@ -30,6 +31,44 @@ if ( class_exists( 'WooCommerce' ) ) {
 
 
 /**
+ * Register KWV block styles on the Mini Cart block.
+ *
+ * The site ships a light and a dark header, and the Mini Cart quantity badge
+ * needs opposite colours in each so the product count stays legible:
+ *   - `mini-cart-light` (light header) → contrast (dark) badge, base (light) count.
+ *   - `mini-cart-dark`  (dark header)  → base (light) badge, contrast (dark) count.
+ *
+ * The colours themselves live in `.is-style-*` rules in
+ * `assets/styles/woocommerce.css`; `className` is folded onto the block's
+ * `.wc-block-mini-cart` wrapper on the front end, so those rules resolve.
+ *
+ * Registered at priority 20 so WooCommerce has registered the Mini Cart block
+ * type first (needed for the styles to appear in the editor).
+ */
+function register_mini_cart_block_styles() {
+
+	if ( ! function_exists( 'register_block_style' ) ) {
+		return;
+	}
+
+	$styles = array(
+		'mini-cart-light' => __( 'Light Header', 'kwv' ),
+		'mini-cart-dark'  => __( 'Dark Header', 'kwv' ),
+	);
+
+	foreach ( $styles as $name => $label ) {
+		register_block_style(
+			'woocommerce/mini-cart',
+			array(
+				'name'  => $name,
+				'label' => $label,
+			)
+		);
+	}
+}
+
+
+/**
  * Enqueue WooCommerce specific stylesheet.
  */
 function enqueue_woocommerce_styles() {
@@ -39,6 +78,20 @@ function enqueue_woocommerce_styles() {
 		array(),
 		'1.0.0'
 	);
+
+	// Collapsible Product Filters sidebar — only where the filters render.
+	if ( function_exists( 'is_shop' ) && ( is_shop() || is_product_taxonomy() ) ) {
+		wp_enqueue_script(
+			'theme-shop-filters',
+			get_template_directory_uri() . '/assets/js/shop-filters.js',
+			array(),
+			'1.0.0',
+			array(
+				'in_footer' => true,
+				'strategy'  => 'defer',
+			)
+		);
+	}
 }
 
 

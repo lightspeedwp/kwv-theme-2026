@@ -36,7 +36,7 @@
 
 				<!-- wp:woocommerce/customer-account {"displayStyle":"icon_only","iconStyle":"line"} /-->
 
-				<!-- wp:woocommerce/mini-cart /-->
+				<!-- wp:woocommerce/mini-cart {"className":"is-style-mini-cart-light"} /-->
 			</div>
 			<!-- /wp:group -->
 		</div>

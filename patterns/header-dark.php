@@ -23,7 +23,7 @@
 		<div class="wp-block-group has-brand-500-color has-text-color">
 			<!-- wp:woocommerce/customer-account {"displayStyle":"icon_only","iconStyle":"line"} /-->
 
-			<!-- wp:woocommerce/mini-cart /-->
+			<!-- wp:woocommerce/mini-cart {"className":"is-style-mini-cart-dark"} /-->
 		</div>
 		<!-- /wp:group -->
 	</div>
