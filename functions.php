@@ -78,6 +78,9 @@ function register_block_styles() {
 		'core/post-terms'   => array(
 			'term-button' => __( 'Button Style', 'kwv' ),
 		),
+		'core/categories'   => array(
+			'categories-chevron' => __( 'Chevron', 'kwv' ),
+		),
 		'core/video'        => array(
 			'media-boxed' => __( 'Boxed', 'kwv' ),
 		),

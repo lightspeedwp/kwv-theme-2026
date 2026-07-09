@@ -40,3 +40,19 @@ hr.is-style-separator-dotted,
 	color: var(--wp--preset--color--brand-500);
 	background-color: transparent;
 }
+
+/* Blog Card Large: a 16rem gold rule that reads as exactly 1px.
+   Core gives every separator a 2px top border and the base rule above adds a 1px
+   bottom border plus height:1px — a 3px footprint. Core also caps a non-wide
+   separator at 100px. The block-style JSON `css` field resolves to zero
+   specificity and can't beat these, so the sizing lives here: zero the height and
+   the 2px top border, leaving a single 1px gold bottom border as the whole rule. */
+.is-style-blog-card-large .wp-block-separator.kwv-rule-brand {
+	width: 16rem;
+	max-width: 100%;
+	height: 0;
+	border-top: 0;
+	border-bottom: 1px solid var(--wp--preset--color--brand-500);
+	margin-left: 0;
+	margin-right: auto;
+}

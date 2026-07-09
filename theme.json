@@ -1006,9 +1006,10 @@
 				},
 				":hover": {
 					"typography": {
-						"textDecoration": "underline"
+						"textDecoration": "none"
 					}
-				}
+				},
+				"css": "& { transition: color 0.25s ease; }"
 			}
 		},
 		"spacing": {

@@ -1,0 +1,35 @@
+/* Categories
+--------------------------------------------- */
+
+/* Chevron style: swap the default disc bullets for a right-pointing gold chevron
+   marker (the theme's "›" convention), for the News/Archive sidebar list.
+   Applied via the registered "Chevron" block style (is-style-categories-chevron).
+   The ::before marker can't live in the block-style JSON `css` field (it strips
+   pseudo-element content), so it lives here. */
+.wp-block-categories.is-style-categories-chevron {
+	list-style: none;
+}
+
+.wp-block-categories.is-style-categories-chevron li.cat-item {
+	position: relative;
+	padding-left: 1.25em;
+}
+
+.wp-block-categories.is-style-categories-chevron li.cat-item::before {
+	content: "\203A"; /* › single right-pointing angle quotation mark */
+	position: absolute;
+	left: 0;
+	top: 0;
+	color: var(--wp--preset--color--brand-500);
+	font-weight: 700;
+	line-height: inherit;
+}
+
+/* Active (current) category: term link and its chevron in brand-600. */
+.wp-block-categories.is-style-categories-chevron li.current-cat > a {
+	color: var(--wp--preset--color--brand-600);
+}
+
+.wp-block-categories.is-style-categories-chevron li.current-cat::before {
+	color: var(--wp--preset--color--brand-600);
+}
