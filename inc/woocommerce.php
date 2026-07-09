@@ -20,6 +20,7 @@ if ( class_exists( 'WooCommerce' ) ) {
 	add_action( 'init', __NAMESPACE__ . '\register_mini_cart_block_styles', 20 );
 	add_action( 'init', __NAMESPACE__ . '\unregister_woocommerce_block_patterns', 999 );
 	add_filter( 'woocommerce_admin_features', __NAMESPACE__ . '\disable_pattern_toolkit' );
+	add_filter( 'loop_shop_per_page', __NAMESPACE__ . '\shop_products_per_page' );
 
 } else {
 
@@ -92,6 +93,18 @@ function enqueue_woocommerce_styles() {
 			)
 		);
 	}
+}
+
+
+/**
+ * Products per shop / archive page.
+ *
+ * The Product Collection on the archive inherits the main query, so its count
+ * comes from this filter (not the block's `perPage`). 15 = 5 full rows on the
+ * 3-wide grid; WooCommerce's default 16 leaves an orphan on the last row.
+ */
+function shop_products_per_page() {
+	return 15;
 }
 
 

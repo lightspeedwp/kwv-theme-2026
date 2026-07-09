@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed (Shop archive — 15 products per page)
+- **`inc/woocommerce.php`** — added a `loop_shop_per_page` filter returning **15** (was WooCommerce's default 16). The archive's Product Collection uses `inherit: true`, so its count comes from the main query / this filter rather than the block's `perPage`; 15 fills 5 complete rows on the 3-wide grid instead of leaving a single orphan tile on the last row. **Verified** on the live local shop: the results count reads "Showing 1–15 of 24 results" with 15 product tiles.
+
 ### Added (Mini Cart — light/dark header badge block styles)
 - **`inc/woocommerce.php`** — registered two block styles on `woocommerce/mini-cart` (init priority 20, after WooCommerce registers the block): **Light Header** (`is-style-mini-cart-light`) and **Dark Header** (`is-style-mini-cart-dark`). The quantity badge needs opposite colours in each of the site's two headers to stay legible; WooCommerce folds the block `className` onto the front-end `.wc-block-mini-cart` wrapper, so the `.is-style-*` rules resolve.
 - **`assets/styles/woocommerce.css`** — split the single `.wc-block-mini-cart__badge` rule into a bare default plus two variant rules. `is-style-mini-cart-light` (light header) → contrast (dark) badge with base (light) count; `is-style-mini-cart-dark` (dark header) → base (light) badge with contrast (dark) count. The bare default keeps the previous dark-look colours so any Mini Cart without a style (e.g. the transparent header) still reads against a dark backdrop.
