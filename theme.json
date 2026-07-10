@@ -204,6 +204,12 @@
 				"button": "1.35",	
 				"body": "1.5"
 			},
+			"letterSpacing": {
+				"none": "0em",
+				"narrow": "0.02em",
+				"heading": "0.04em",
+				"wide": "0.075em"
+			},
 			"spacing": {
 				"button": {
 					"padding-horizontal": "clamp(32px, 14vw, 48px)",
@@ -853,7 +859,7 @@
 					"fontSize": "var:preset|font-size|300",
 					"fontWeight": "600",
 					"lineHeight": "var:custom|line-height|heading",
-					"letterSpacing": "0"
+					"letterSpacing": "var:custom|letter-spacing|none"
 				},
 				"elements": {
 					"link": {
@@ -935,7 +941,7 @@
 					"fontSize": "var:preset|font-size|300",
 					"fontWeight": "var:custom|font-weight|medium",
 					"textTransform": "uppercase",
-					"letterSpacing": "0.075em"
+					"letterSpacing": "var:custom|letter-spacing|wide"
 				},
 				":hover": {
 					"color": {
@@ -948,35 +954,40 @@
 				"typography": {
 					"fontSize": "var:preset|font-size|700",
 					"lineHeight": "var:custom|line-height|heading",
-					"fontWeight": "var:custom|font-weight|bold"
+					"fontWeight": "var:custom|font-weight|bold",
+					"letterSpacing": "var:custom|letter-spacing|heading"
 				}
 			},
 			"h2": {
 				"typography": {
 					"fontSize": "var:preset|font-size|500",
 					"lineHeight": "var:custom|line-height|heading",
-					"fontWeight": "var:custom|font-weight|bold"
+					"fontWeight": "var:custom|font-weight|bold",
+					"letterSpacing": "var:custom|letter-spacing|heading"
 				}
 			},
 			"h3": {
 				"typography": {
 					"fontSize": "var:preset|font-size|400",
 					"lineHeight": "var:custom|line-height|button",
-					"fontWeight": "var:custom|font-weight|semi-bold"
+					"fontWeight": "var:custom|font-weight|semi-bold",
+					"letterSpacing": "var:custom|letter-spacing|heading"
 				}
 			},
 			"h4": {
 				"typography": {
 					"fontSize": "var:preset|font-size|300",
 					"lineHeight": "var:custom|line-height|button",
-					"fontWeight": "var:custom|font-weight|medium"
+					"fontWeight": "var:custom|font-weight|medium",
+					"letterSpacing": "var:custom|letter-spacing|heading"
 				}
 			},
 			"h5": {
 				"typography": {
 					"fontSize": "var:preset|font-size|200",
 					"lineHeight": "var:custom|line-height|button",
-					"fontWeight": "var:custom|font-weight|medium"
+					"fontWeight": "var:custom|font-weight|medium",
+					"letterSpacing": "var:custom|letter-spacing|heading"
 				}
 			},
 			"h6": {
@@ -984,7 +995,7 @@
 					"fontSize": "var:preset|font-size|200",
 					"lineHeight": "var:custom|line-height|button",
 					"textTransform": "uppercase",
-					"letterSpacing": "1px"
+					"letterSpacing": "var:custom|letter-spacing|wide"
 				}
 			},
 			"heading": {
