@@ -10,31 +10,22 @@
  * Viewport Width: 1500
  */
 
-// Prefer the current term's banner; otherwise fall back to the shared shop hero image.
-$kwv_banner = function_exists( 'Kwv\get_queried_term_banner' ) ? \Kwv\get_queried_term_banner( 'large' ) : array(
-	'id'  => 0,
-	'url' => '',
+// The image src baked below is the shared fallback (the shop-hero-image
+// attachment, resolved by slug — query-independent, so it is safe to resolve
+// here at pattern-registration time). The per-term banner is applied at RENDER
+// time via the `kwv/term-banner` binding on the image `url`; when a term has no
+// banner the binding returns null and this fallback src stays in place.
+$kwv_fallback     = get_posts(
+	array(
+		'post_type'        => 'attachment',
+		'name'             => 'shop-hero-image',
+		'posts_per_page'   => 1,
+		'post_status'      => 'inherit',
+		'suppress_filters' => false,
+	)
 );
-
-$kwv_banner_id  = (int) $kwv_banner['id'];
-$kwv_banner_url = (string) $kwv_banner['url'];
-
-if ( ! $kwv_banner_url ) {
-	$kwv_fallback = get_posts(
-		array(
-			'post_type'        => 'attachment',
-			'name'             => 'shop-hero-image',
-			'posts_per_page'   => 1,
-			'post_status'      => 'inherit',
-			'suppress_filters' => false,
-		)
-	);
-
-	if ( $kwv_fallback ) {
-		$kwv_banner_id  = (int) $kwv_fallback[0]->ID;
-		$kwv_banner_url = (string) wp_get_attachment_image_url( $kwv_banner_id, 'large' );
-	}
-}
+$kwv_fallback_id  = $kwv_fallback ? (int) $kwv_fallback[0]->ID : 0;
+$kwv_fallback_url = $kwv_fallback_id ? (string) wp_get_attachment_image_url( $kwv_fallback_id, 'large' ) : '';
 ?>
 <!-- wp:group {"metadata":{"name":"Shop Hero"},"align":"full","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"0","right":"0","bottom":"0","left":"0"},"blockGap":"0"},"dimensions":{"minHeight":"0px"}},"backgroundColor":"brand-100","layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull has-brand-100-background-color has-background" style="min-height:0px;margin-top:0;margin-bottom:0;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- wp:columns {"verticalAlignment":"stretch","align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|0","bottom":"var:preset|spacing|0"},"blockGap":{"left":"var:preset|spacing|30"}}}} -->
@@ -44,11 +35,9 @@ if ( ! $kwv_banner_url ) {
 
 <!-- wp:column {"verticalAlignment":"stretch","width":"","style":{"spacing":{"padding":{"top":"0","right":"0","bottom":"0","left":"0"}}}} -->
 <div class="wp-block-column is-vertically-aligned-stretch" style="padding-top:0;padding-right:0;padding-bottom:0;padding-left:0">
-<?php if ( $kwv_banner_url ) : ?>
-<!-- wp:image {"id":<?php echo (int) $kwv_banner_id; ?>,"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="<?php echo esc_url( $kwv_banner_url ); ?>" alt="" class="wp-image-<?php echo (int) $kwv_banner_id; ?>"/></figure>
+<!-- wp:image {"id":<?php echo (int) $kwv_fallback_id; ?>,"sizeSlug":"large","linkDestination":"none","metadata":{"bindings":{"url":{"source":"kwv/term-banner"}}}} -->
+<figure class="wp-block-image size-large"><img src="<?php echo esc_url( $kwv_fallback_url ); ?>" alt="" class="wp-image-<?php echo (int) $kwv_fallback_id; ?>"/></figure>
 <!-- /wp:image -->
-<?php endif; ?>
 </div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>

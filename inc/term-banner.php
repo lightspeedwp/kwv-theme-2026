@@ -214,6 +214,55 @@ function save_banner_field( $term_id ) {
 
 
 /**
+ * Register a block binding source that resolves the current term's banner URL.
+ *
+ * Runs at render time (unlike raw PHP baked into a pattern file, which executes
+ * once at pattern registration when there is no queried object), so
+ * `get_queried_object()` is the real category/brand term. Bind it to an image's
+ * `url`:
+ * `{"metadata":{"bindings":{"url":{"source":"kwv/term-banner"}}}}`.
+ *
+ * Returns null when the term has no banner (or on non-term views), which tells
+ * core to leave the image's baked `src` in place — that is the shared fallback
+ * image, so no per-request fallback lookup is needed here.
+ */
+function register_term_banner_binding() {
+	if ( ! function_exists( 'register_block_bindings_source' ) ) {
+		return;
+	}
+
+	register_block_bindings_source(
+		'kwv/term-banner',
+		array(
+			'label'              => __( 'Term Banner Image', 'kwv' ),
+			'get_value_callback' => __NAMESPACE__ . '\get_term_banner_binding',
+		)
+	);
+}
+add_action( 'init', __NAMESPACE__ . '\register_term_banner_binding' );
+
+
+/**
+ * Resolve the bound value for the `kwv/term-banner` source.
+ *
+ * @param array     $source_args    Arguments passed to the binding (unused).
+ * @param \WP_Block $block_instance The bound block instance (unused).
+ * @param string    $attribute_name The image attribute being bound.
+ * @return string|null The banner URL for the `url` attribute, or null to leave
+ *                     the block's own value in place.
+ */
+function get_term_banner_binding( $source_args, $block_instance, $attribute_name ) {
+	if ( 'url' !== $attribute_name ) {
+		return null;
+	}
+
+	$banner = get_queried_term_banner( 'large' );
+
+	return $banner['url'] ? $banner['url'] : null;
+}
+
+
+/**
  * Resolve the banner image for the currently-queried term.
  *
  * Returns the banner attachment ID and URL when the current request is a
