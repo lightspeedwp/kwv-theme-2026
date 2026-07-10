@@ -8,13 +8,15 @@
    The brand-300 sliding underline lives here, not in the block style, because the
    variation's `css` field mangles `content:""` and strips the `:hover`
    pseudo-class during sanitisation. These selectors mirror the block style's
-   scoping (child combinator at the container level) so they stay off the nested
-   nav too. The ::after is anchored by the `position:relative` the block style
-   sets on the link. */
+   scoping — a direct-child combinator from `.is-style-main-navigation` to its own
+   `.wp-block-navigation__responsive-container` — so they only match this nav's
+   top-level row and never descend into a nested mega-menu nav (which sits far
+   below, not as a direct child). The ::after is anchored by the
+   `position:relative` the block style sets on the link. */
 
 /* The sliding line: hidden by default, scaled from the centre on hover/focus. */
-.is-style-main-navigation .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__responsive-container-content > .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content::after,
-.is-style-main-navigation .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__responsive-container-content > .wp-block-navigation__container > .wp-block-page-list > .wp-block-navigation-item > .wp-block-navigation-item__content::after {
+.is-style-main-navigation > .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__responsive-container-content > .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content::after,
+.is-style-main-navigation > .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__responsive-container-content > .wp-block-navigation__container > .wp-block-page-list > .wp-block-navigation-item > .wp-block-navigation-item__content::after {
 	content: "";
 	position: absolute;
 	inset-inline: 0;
@@ -26,16 +28,16 @@
 	transition: transform 0.3s ease-in-out;
 }
 
-.is-style-main-navigation .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__responsive-container-content > .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content:hover::after,
-.is-style-main-navigation .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__responsive-container-content > .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content:focus-visible::after,
-.is-style-main-navigation .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__responsive-container-content > .wp-block-navigation__container > .wp-block-page-list > .wp-block-navigation-item > .wp-block-navigation-item__content:hover::after,
-.is-style-main-navigation .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__responsive-container-content > .wp-block-navigation__container > .wp-block-page-list > .wp-block-navigation-item > .wp-block-navigation-item__content:focus-visible::after {
+.is-style-main-navigation > .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__responsive-container-content > .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content:hover::after,
+.is-style-main-navigation > .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__responsive-container-content > .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content:focus-visible::after,
+.is-style-main-navigation > .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__responsive-container-content > .wp-block-navigation__container > .wp-block-page-list > .wp-block-navigation-item > .wp-block-navigation-item__content:hover::after,
+.is-style-main-navigation > .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__responsive-container-content > .wp-block-navigation__container > .wp-block-page-list > .wp-block-navigation-item > .wp-block-navigation-item__content:focus-visible::after {
 	transform: scaleX(1);
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.is-style-main-navigation .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__responsive-container-content > .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content::after,
-	.is-style-main-navigation .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__responsive-container-content > .wp-block-navigation__container > .wp-block-page-list > .wp-block-navigation-item > .wp-block-navigation-item__content::after {
+	.is-style-main-navigation > .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__responsive-container-content > .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content::after,
+	.is-style-main-navigation > .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__responsive-container-content > .wp-block-navigation__container > .wp-block-page-list > .wp-block-navigation-item > .wp-block-navigation-item__content::after {
 		transition: none;
 	}
 }

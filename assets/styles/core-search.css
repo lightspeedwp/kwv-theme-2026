@@ -21,7 +21,9 @@
 	border-bottom: 1px solid var(--wp--preset--color--neutral-400);
 	border-radius: 0;
 	padding: 0;
-	padding-block: var(--wp--preset--spacing--10);
+	/* Match a nav row's vertical box (content padding spacing-20 + a snug
+	   font-size-200 line) so the underline lands on the first nav-row divider. */
+	padding-block: var(--wp--preset--spacing--20);
 }
 
 .wp-block-search.is-style-kwv-megamenu-search .wp-block-search__input {
@@ -33,7 +35,8 @@
 	box-shadow: none;
 	padding: 0;
 	font-family: var(--wp--preset--font-family--body);
-	font-size: var(--wp--preset--font-size--100);
+	font-size: var(--wp--preset--font-size--200);
+	line-height: var(--wp--custom--line-height--snug);
 	color: var(--wp--preset--color--contrast);
 }
 
@@ -46,16 +49,28 @@
 	opacity: 1;
 }
 
-.wp-block-search.is-style-kwv-megamenu-search .wp-block-search__button {
+.wp-block-search.is-style-kwv-megamenu-search .wp-block-search__button,
+.wp-block-search.is-style-kwv-megamenu-search .wp-block-search__button:hover,
+.wp-block-search.is-style-kwv-megamenu-search .wp-block-search__button:focus,
+.wp-block-search.is-style-kwv-megamenu-search .wp-block-search__button:focus-visible,
+.wp-block-search.is-style-kwv-megamenu-search .wp-block-search__button:active {
+	/* The search icon is a `.wp-element-button`, so it otherwise inherits the
+	   theme's global button element styling — a 1px base border and a
+	   `:hover{ background: contrast }`. Neutralise it flat on every interactive
+	   state so the icon stays a plain, borderless magnifier. */
 	background: transparent;
 	border: 0;
+	box-shadow: none;
+	outline: none;
 	padding: 0;
 	margin: 0;
 	color: var(--wp--preset--color--contrast);
 }
 
 .wp-block-search.is-style-kwv-megamenu-search .wp-block-search__button svg {
-	width: 1.25rem;
-	height: 1.25rem;
+	/* Capped to the input's line box (1rem × snug) so the icon doesn't make the
+	   search row taller than a nav row — keeps the underlines level. */
+	width: 1.125rem;
+	height: 1.125rem;
 	fill: currentColor;
 }

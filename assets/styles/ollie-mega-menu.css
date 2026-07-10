@@ -157,17 +157,31 @@
 	background-color: var(--wp--preset--color--base);
 }
 
+/* The wrap is a core/columns block (70% nav | 30% search). Columns own the
+   row layout + gap; we only constrain the width, centre it, pad it, align the
+   columns to the top, and reserve height for the absolutely-positioned flyout
+   columns (which are out of flow, so the row can't grow to contain them). */
 .kwv-mega-menu-nav-wrap {
-	display: flex;
-	flex-wrap: nowrap;
 	align-items: flex-start;
-	gap: var(--wp--preset--spacing--40);
 	max-width: var(--wp--style--global--wide-size, 1280px);
 	margin-inline: auto;
 	padding-block: var(--wp--preset--spacing--40);
 	padding-inline: var(--wp--preset--spacing--30);
-	/* Reserve height for the absolutely-positioned flyout columns. */
-	min-block-size: 18rem;
+	min-block-size: 26rem;
+}
+
+/* The nav is pinned to a single column's width so its fold-out flyouts
+   (position:absolute, left:100% relative to the position:relative nav) step
+   out one column at a time. Without this the nav would stretch to fill its
+   70% column and left:100% would throw the flyouts far across the panel. */
+.kwv-mega-menu-nav-wrap .wp-block-navigation.is-style-mega-menu-nav {
+	width: 13.75rem;
+	flex: 0 0 auto;
+}
+
+/* Search fills its 30% column; underline field, no right-margin hack needed. */
+.kwv-mega-menu-nav-wrap .wp-block-search {
+	width: 100%;
 }
 
 /* The nav block's resting appearance — vertical column, label typography, row
@@ -250,13 +264,6 @@
 .is-style-mega-menu-nav .wp-block-navigation__container:hover > .wp-block-navigation-item:first-child:not(:hover):not(:focus-within) > .wp-block-navigation__submenu-container {
 	visibility: hidden;
 	opacity: 0;
-}
-
-/* Search sits to the far right. */
-.kwv-mega-menu-nav-wrap .wp-block-search {
-	flex: 0 0 auto;
-	width: clamp(16rem, 24vw, 25rem);
-	margin-left: auto;
 }
 
 /* ==========================
