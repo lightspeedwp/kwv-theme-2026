@@ -13,19 +13,7 @@
 <!-- wp:template-part {"slug":"header","theme":"kwv-theme-2026","tagName":"header","className":"site-header"} /-->
 
 <!-- wp:group {"tagName":"main","metadata":{"name":"Main Content"},"style":{"spacing":{"margin":{"top":"0","bottom":"0"},"blockGap":"0"}},"layout":{"inherit":true,"type":"constrained"}} -->
-<main class="wp-block-group" style="margin-top:0;margin-bottom:0"><!-- wp:group {"metadata":{"name":"Shop Hero"},"align":"full","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"0","right":"0","bottom":"0","left":"0"},"blockGap":"0"},"dimensions":{"minHeight":"0px"}},"backgroundColor":"brand-100","layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignfull has-brand-100-background-color has-background" style="min-height:0px;margin-top:0;margin-bottom:0;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- wp:columns {"verticalAlignment":"stretch","align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|0","bottom":"var:preset|spacing|0"},"blockGap":{"left":"var:preset|spacing|30"}}}} -->
-<div class="wp-block-columns alignwide are-vertically-aligned-stretch" style="margin-top:var(--wp--preset--spacing--0);margin-bottom:var(--wp--preset--spacing--0)"><!-- wp:column {"verticalAlignment":"center","width":"33.33%","style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|60","right":"var:preset|spacing|40"}}}} -->
-<div class="wp-block-column is-vertically-aligned-center" style="padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--60);flex-basis:33.33%"><!-- wp:query-title {"type":"archive","showPrefix":false,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast","fontSize":"600"} /--></div>
-<!-- /wp:column -->
-
-<!-- wp:column {"verticalAlignment":"stretch","width":"","style":{"spacing":{"padding":{"top":"0","right":"0","bottom":"0","left":"0"}}}} -->
-<div class="wp-block-column is-vertically-aligned-stretch" style="padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- wp:image {"id":182430,"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://kwv.lightspeedwp.dev/wp-content/uploads/2026/07/shop-hero-image-1-1200x301.png" alt="" class="wp-image-182430"/></figure>
-<!-- /wp:image --></div>
-<!-- /wp:column --></div>
-<!-- /wp:columns --></div>
-<!-- /wp:group -->
+<main class="wp-block-group" style="margin-top:0;margin-bottom:0"><?php require __DIR__ . '/term-banner-hero.php'; ?>
 
 <!-- wp:group {"metadata":{"name":"Product Grid Section"},"align":"full","className":"is-style-light-page-section","layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull is-style-light-page-section"><!-- wp:block {"ref":182452} /-->

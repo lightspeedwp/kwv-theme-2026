@@ -223,6 +223,11 @@ require_once get_template_directory() . '/inc/user-job-title.php';
 require_once get_template_directory() . '/inc/woocommerce.php';
 
 /**
+ * Load per-term banner images (product category + brand hero images).
+ */
+require_once get_template_directory() . '/inc/term-banner.php';
+
+/**
  * Load the product-category mega menu renderer.
  */
 require_once get_template_directory() . '/inc/mega-menu.php';
