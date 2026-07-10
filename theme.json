@@ -540,6 +540,20 @@
 			"core/button": {
 				"variations": {
 					"outline": {
+						"spacing": {
+							"padding": {
+								"top": "var:custom|spacing|button|padding-vertical",
+								"right": "var:custom|spacing|button|padding-horizontal",
+								"bottom": "var:custom|spacing|button|padding-vertical",
+								"left": "var:custom|spacing|button|padding-horizontal"
+							}
+						},
+						"typography": {
+							"fontSize": "var:preset|font-size|300",
+							"fontWeight": "var:custom|font-weight|medium",
+							"textTransform": "uppercase",
+							"letterSpacing": "var:custom|letter-spacing|wide"
+						},
 						"color": {
 							"background": "var:preset|color|contrast",
 							"text": "var:preset|color|base",
