@@ -1007,6 +1007,9 @@
 				":hover": {
 					"typography": {
 						"textDecoration": "none"
+					},
+					"color": {
+						"text": "var:preset|color|brand-600"
 					}
 				},
 				"css": "& { transition: color 0.25s ease; }"

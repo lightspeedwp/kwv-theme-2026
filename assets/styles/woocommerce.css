@@ -1375,7 +1375,7 @@ table.wc-block-cart-items .wc-block-cart-items__row .wc-block-cart-item__total {
 
 .wc-block-mini-cart__footer-actions .wc-block-mini-cart__footer-checkout:hover,
 .wc-block-mini-cart__footer a.wc-block-components-button.contained:hover {
-	background: var(--wp--preset--color--neutral-300);
+	background: var(--wp--preset--color--base);
 	color: var(--wp--preset--color--contrast);
 	border-color: var(--wp--preset--color--contrast);
 }
@@ -1941,5 +1941,252 @@ p.ppcp-place-order-description {
 		flex-wrap: wrap;
 		display: flex;
 	}
+}
+
+/* ============================================
+   Classic WooCommerce buttons (shared)
+   The block theme ships WooCommerce's own neutral button styling
+   (body.woocommerce-block-theme-has-button-styles), which renders the classic
+   account / cart / checkout action buttons grey. Restyle them to the KWV button:
+   resting = black plate + white uppercase text; hover = outline flip (base bg,
+   contrast text, 1px contrast border) — matching the mini-cart footer button.
+   Woo's own rules are strong (and use the .wp-element-button hook), so !important
+   is needed to win cleanly here. This lifts LOG IN / REGISTER / RESET PASSWORD as
+   well as the classic cart/checkout actions (Update cart, Proceed to checkout, …).
+   ============================================ */
+.woocommerce a.button,
+.woocommerce button.button,
+.woocommerce input.button,
+.woocommerce .wp-element-button,
+.woocommerce button[type="submit"] {
+	background: var(--wp--preset--color--contrast) !important;
+	color: var(--wp--preset--color--base) !important;
+	border: 1px solid var(--wp--preset--color--contrast) !important;
+	border-radius: var(--wp--preset--border-radius--200);
+	font-family: var(--wp--preset--font-family--heading);
+	font-weight: var(--wp--custom--font-weight--bold);
+	font-size: var(--wp--preset--font-size--200);
+	text-transform: uppercase;
+	letter-spacing: 0.075em;
+	padding: 1em 1.5em;
+	transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.woocommerce a.button:hover,
+.woocommerce button.button:hover,
+.woocommerce input.button:hover,
+.woocommerce .wp-element-button:hover,
+.woocommerce button[type="submit"]:hover {
+	background: var(--wp--preset--color--base) !important;
+	color: var(--wp--preset--color--contrast) !important;
+	border-color: var(--wp--preset--color--contrast) !important;
+}
+
+/* ============================================
+   My Account — Login / Registration (Figma 176-106)
+   Logged-out My Account (page id 10, [woocommerce_my_account]): the classic
+   form-login.php renders form.login (left) + form.register (right) inside
+   .u-columns.col2-set. Design: centered two-column layout split by a gold
+   (brand-500) vertical divider; fields on white; solid-black buttons.
+
+   Content-vs-design flags (kept default WooCommerce fields, styled around):
+   - Design's right column is a CTA-only "CREATE AN ACCOUNT"; the default register
+     form has Email + Password fields + a "Register" button (registration is on,
+     auto-password off) — kept and styled. Heading reads "Register" (design
+     "Create Account"); Remember-me + privacy text are default and kept.
+   - Login labels sit above the fields (default) vs inline placeholders in design.
+   These are classic shortcode markup that never reaches the block editor and have
+   no block-style-JSON equivalent, so they live here per AGENTS.md.
+   ============================================ */
+
+/* Design shows no page title on the login screen (just the LOGIN/REGISTER
+   headings). Hide the page-title H1 only on the logged-out login screen — it is
+   kept on the lost-password endpoint and the logged-in dashboard. */
+.woocommerce-account:not(.woocommerce-lost-password):not(.logged-in) .wp-block-post-title {
+	display: none;
+}
+
+.woocommerce-account:not(.logged-in) .woocommerce {
+	max-width: 860px;
+	margin-inline: auto;
+	padding-block: var(--wp--preset--spacing--40);
+}
+
+/* Two columns with a gold vertical divider (the 1px middle grid track). */
+.woocommerce-account .u-columns.col2-set {
+	display: grid;
+	grid-template-columns: 1fr 1px 1fr;
+	column-gap: var(--wp--preset--spacing--60);
+	align-items: start;
+	float: none;
+}
+
+.woocommerce-account .u-columns.col2-set::before {
+	content: "";
+	grid-column: 2;
+	grid-row: 1;
+	align-self: stretch;
+	width: 1px;
+	background: var(--wp--preset--color--brand-500);
+}
+
+.woocommerce-account .u-column1.col-1 {
+	grid-column: 1;
+	width: auto;
+	float: none;
+	margin: 0;
+}
+
+.woocommerce-account .u-column2.col-2 {
+	grid-column: 3;
+	width: auto;
+	float: none;
+	margin: 0;
+}
+
+.woocommerce-account .u-columns.col2-set > .u-column1 > h2,
+.woocommerce-account .u-columns.col2-set > .u-column2 > h2 {
+	text-align: center;
+	margin-top: 0;
+}
+
+/* Drop the neutral-200 boxes the generic account rule puts on the forms — the
+   design shows the fields on white. */
+.woocommerce-account form.login,
+.woocommerce-account form.register {
+	background: transparent !important;
+	border: none !important;
+	padding: 0 !important;
+}
+
+.woocommerce-account .woocommerce-form .form-row {
+	padding: 0;
+	margin-bottom: var(--wp--preset--spacing--30);
+}
+
+.woocommerce-account .woocommerce-form .button {
+	width: 100%;
+	margin-top: var(--wp--preset--spacing--10);
+}
+
+.woocommerce-account p.lost_password {
+	margin: var(--wp--preset--spacing--20) 0 0;
+}
+
+.woocommerce-account p.lost_password a {
+	color: var(--wp--preset--color--neutral-700);
+	font-size: var(--wp--preset--font-size--300);
+}
+
+.woocommerce-account .woocommerce-form-login__rememberme {
+	display: inline-flex;
+	gap: 8px;
+	align-items: center;
+	margin-bottom: var(--wp--preset--spacing--20);
+	font-size: var(--wp--preset--font-size--300);
+}
+
+.woocommerce-account .woocommerce-privacy-policy-text p {
+	font-size: var(--wp--preset--font-size--100);
+	color: var(--wp--preset--color--neutral-700);
+}
+
+/* Account form inputs (login / register / lost-password) — mirror the block
+   form input treatment used elsewhere in this file for a consistent field look. */
+.woocommerce-account .woocommerce input.input-text,
+.woocommerce-account .woocommerce input[type="email"],
+.woocommerce-account .woocommerce input[type="password"],
+.woocommerce-account .woocommerce input[type="text"] {
+	width: 100%;
+	padding: 0.95em 1em;
+	font-size: var(--wp--preset--font-size--300);
+	background: #fff;
+	border: solid 1px color-mix(in srgb, var(--wp--preset--color--neutral-200) 100%, var(--wp--preset--color--contrast) 40%);
+	border-radius: var(--wp--preset--border-radius--200);
+	box-shadow:
+		0 1px 2px rgba(0, 0, 0, 0.02),
+		0 0.5px 1px rgba(0, 0, 0, 0.04);
+}
+
+.woocommerce-account .woocommerce label {
+	font-size: var(--wp--preset--font-size--300);
+	color: var(--wp--preset--color--neutral-700);
+}
+
+.woocommerce-account .password-input {
+	display: block;
+	width: 100%;
+}
+
+/* Stack the two columns on narrow viewports; swap the vertical divider for a
+   horizontal one between them (responsive adaptation of the desktop design). */
+@media (max-width: 600px) {
+	.woocommerce-account:not(.logged-in) .woocommerce {
+		max-width: 420px;
+	}
+
+	.woocommerce-account .u-columns.col2-set {
+		grid-template-columns: 1fr;
+	}
+
+	.woocommerce-account .u-columns.col2-set::before {
+		display: none;
+	}
+
+	.woocommerce-account .u-column1.col-1,
+	.woocommerce-account .u-column2.col-2 {
+		grid-column: 1;
+	}
+
+	.woocommerce-account .u-column2.col-2 {
+		margin-top: var(--wp--preset--spacing--50);
+		padding-top: var(--wp--preset--spacing--50);
+		border-top: 1px solid var(--wp--preset--color--brand-500);
+	}
+}
+
+/* ============================================
+   My Account — Password Reset / Lost password (Figma 176-199)
+   The /my-account/lost-password/ endpoint (form-lost-password.php). Design:
+   centered heading + instruction + a single email field + black RESET PASSWORD
+   button. Flags (kept default, styled around): no dedicated H2 in the default
+   markup — the "Lost password" page title serves as the heading; the field label
+   is "Username or email" and the instruction wording is WooCommerce's default.
+   ============================================ */
+.woocommerce-lost-password .woocommerce {
+	max-width: 480px;
+	margin-inline: auto;
+	text-align: center;
+	padding-block: var(--wp--preset--spacing--40);
+}
+
+.woocommerce-lost-password .wp-block-post-title {
+	margin-bottom: var(--wp--preset--spacing--30);
+}
+
+.woocommerce-lost-password form.lost_reset_password {
+	max-width: 400px;
+	margin-inline: auto;
+}
+
+.woocommerce-lost-password form.lost_reset_password > p:first-of-type {
+	margin: 0 auto var(--wp--preset--spacing--40);
+	color: var(--wp--preset--color--neutral-700);
+	font-size: var(--wp--preset--font-size--300);
+}
+
+.woocommerce-lost-password .woocommerce-form-row.form-row-first {
+	width: 100%;
+	float: none;
+	margin: 0 0 var(--wp--preset--spacing--30);
+	text-align: left;
+}
+
+.woocommerce-lost-password form.lost_reset_password .button {
+	width: 100%;
+}
+
+.woocommerce-lost-password .clear {
+	display: none;
 }
 
