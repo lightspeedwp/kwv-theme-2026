@@ -542,12 +542,14 @@
 					"outline": {
 						"color": {
 							"background": "var:preset|color|contrast",
-							"text": "var:preset|color|base"
+							"text": "var:preset|color|base",
+							"border": "1px solid var:preset|color|base"
 						},
 						":hover": {
 							"color": {
 								"background": "var:preset|color|base",
-								"text": "var:preset|color|contrast"
+								"text": "var:preset|color|contrast",
+								"border": "1px solid var:preset|color|base"
 							}
 						}
 					}
