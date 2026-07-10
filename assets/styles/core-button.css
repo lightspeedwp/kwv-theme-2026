@@ -8,3 +8,20 @@ medium weight) is inherited from the button element in theme.json.
 
 The previous `border: none` + `outline: 2px solid currentColor` rules were
 removed here because they conflicted with that token-driven border. */
+
+
+/* Button - CTA Style hover/focus
+---------------------------------------------
+The "cta" variation (styles/blocks/button/cta.json) sets a contrast fill that
+should flip to a base fill on hover/focus. Its base background is already
+`contrast`, which is identical to the global button-element `:hover` in
+theme.json — and because every theme.json rule is wrapped in `:root :where(…)`
+(zero specificity), the variation's own `:hover` only wins the element rule by
+source order, which is fragile. These rules carry real specificity, so the
+flip lands regardless of source order. Keep in sync with cta.json. */
+.wp-block-button.is-style-cta .wp-block-button__link:hover,
+.wp-block-button.is-style-cta .wp-block-button__link:focus {
+	background-color: var(--wp--preset--color--base);
+	color: var(--wp--preset--color--contrast);
+	transition: background-color 0.25s, color 0.25s;
+}

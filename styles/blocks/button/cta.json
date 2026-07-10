@@ -48,7 +48,6 @@
 			"border": {
 				"color": "var:preset|color|contrast"
 			}
-		},
-		"css": "& { transition: all 0.25s; } & :hover { background-color: var(--wp--preset--color--base); color: var(--wp--preset--color--contrast); } & :focus { background-color: var(--wp--preset--color--base); color: var(--wp--preset--color--contrast); }"
+		}
 	}
 }
