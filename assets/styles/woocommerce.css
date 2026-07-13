@@ -142,6 +142,157 @@ label.wp-block-woocommerce-add-to-cart-with-options-variation-selector-attribute
 }
 
 /* ============================================
+   Single Product — Add to Cart controls & Payflex
+   (template: DB single-product / patterns/woo-single-product.php)
+
+   Restyles the three controls in the product-page Add to Cart form to the KWV
+   system WITHOUT changing the supplied layout (button above, stepper below,
+   both right-aligned in the sticky info column):
+     1. Add to Cart button → the black-plate + gold "+" circle treatment used on
+        the product cards (mirrors the is-style-add-to-cart look).
+     2. Quantity stepper → the neutral-200 pill + gold (brand-500) number badge
+        used in the Mini Cart drawer.
+     3. Payflex "buy now, pay later" widget → moved beneath the product
+        description by assets/js/payflex-relocate.js (which adds
+        .kwv-payflex-moved), then scaled down here.
+
+   All three are WooCommerce/plugin blocks a block-style JSON can't drive:
+   woocommerce/product-button declares __experimentalSelector + skip-serialise
+   (the tested exception in AGENTS.md → "Styling lives in JSON"), and the stepper
+   / Payflex are plugin component internals reached by descendant selectors — so
+   they live here, scoped to .single-product. The !important on the button plate
+   colours beats WooCommerce's own button styling
+   (body.woocommerce-block-theme-has-button-styles), the same reason the classic
+   My Account / cart buttons above need it — natural specificity alone loses.
+   ============================================ */
+
+/* --- Add to Cart button: black plate + gold "+" circle --- */
+.single-product .wp-block-add-to-cart-with-options .wc-block-components-product-button {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: var(--wp--preset--spacing--30);
+	flex: 0 1 auto;
+	max-width: none;
+	margin: 0;
+}
+
+.single-product .wp-block-add-to-cart-with-options .wc-block-components-product-button .wp-block-button__link.wc-block-components-product-button__button {
+	flex: 1 1 auto;
+	width: auto;
+	min-width: 190px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 52px;
+	background-color: var(--wp--preset--color--contrast) !important;
+	color: var(--wp--preset--color--base) !important;
+	border: 1px solid var(--wp--preset--color--contrast) !important;
+	border-radius: 0 0 0 var(--wp--preset--border-radius--200);
+	outline: none;
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: var(--wp--preset--font-size--200);
+	font-weight: var(--wp--custom--font-weight--semi-bold);
+	text-transform: uppercase;
+	letter-spacing: 0.075em;
+	transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Stretch the button's hit area across the whole row (plate + gap + gold icon)
+   so a click on the "+" circle also adds to cart — the icon is
+   pointer-events:none, so clicks fall through to this overlay. */
+.single-product .wp-block-add-to-cart-with-options .wc-block-components-product-button .wp-block-button__link.wc-block-components-product-button__button::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+}
+
+.single-product .wp-block-add-to-cart-with-options .wc-block-components-product-button .wp-block-button__link.wc-block-components-product-button__button:hover,
+.single-product .wp-block-add-to-cart-with-options .wc-block-components-product-button .wp-block-button__link.wc-block-components-product-button__button:focus-visible {
+	background-color: var(--wp--preset--color--base) !important;
+	color: var(--wp--preset--color--contrast) !important;
+	border-color: var(--wp--preset--color--contrast) !important;
+}
+
+/* Gold circular "+" icon — same masked SVG as the product-card button. */
+.single-product .wp-block-add-to-cart-with-options .wc-block-components-product-button::after {
+	content: "";
+	flex: 0 0 52px;
+	width: 52px;
+	height: 52px;
+	align-self: center;
+	background-color: var(--wp--preset--color--brand-500);
+	-webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2045%2045'%20fill='none'%3E%3Ccircle%20cx='22.5'%20cy='22.5'%20r='22'%20stroke='%23000'/%3E%3Cline%20x1='22.5'%20y1='6'%20x2='22.5'%20y2='39'%20stroke='%23000'/%3E%3Cline%20x1='5.5'%20y1='23'%20x2='38.5'%20y2='23'%20stroke='%23000'/%3E%3C/svg%3E") center / contain no-repeat;
+	mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2045%2045'%20fill='none'%3E%3Ccircle%20cx='22.5'%20cy='22.5'%20r='22'%20stroke='%23000'/%3E%3Cline%20x1='22.5'%20y1='6'%20x2='22.5'%20y2='39'%20stroke='%23000'/%3E%3Cline%20x1='5.5'%20y1='23'%20x2='38.5'%20y2='23'%20stroke='%23000'/%3E%3C/svg%3E") center / contain no-repeat;
+	pointer-events: none;
+}
+
+/* Hide the "View cart" link the button reveals after adding (redundant with the
+   header mini-cart, and it wedges into the flex row). */
+.single-product .wp-block-add-to-cart-with-options .wc-block-components-product-button > span:has(> .added_to_cart) {
+	display: none;
+}
+
+/* --- Quantity stepper: neutral pill + gold number badge (mirrors mini-cart) --- */
+.single-product .wp-block-add-to-cart-with-options .wc-block-components-quantity-selector {
+	transform: none;
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	width: fit-content;
+	padding: 4px;
+	background: var(--wp--preset--color--neutral-200);
+	border: none;
+	border-radius: var(--wp--preset--border-radius--500);
+	margin: 0;
+}
+
+.single-product .wp-block-add-to-cart-with-options .wc-block-components-quantity-selector .wc-block-components-quantity-selector__button,
+.single-product .wp-block-add-to-cart-with-options .wc-block-components-quantity-selector .wc-block-components-quantity-selector__button:disabled {
+	background: transparent;
+	color: var(--wp--preset--color--contrast);
+	border: none;
+	border-radius: var(--wp--preset--border-radius--500);
+	width: 40px;
+	min-width: 40px;
+	height: 40px;
+	opacity: 1;
+}
+
+.single-product .wp-block-add-to-cart-with-options .wc-block-components-quantity-selector .wc-block-components-quantity-selector__button:hover {
+	background: var(--wp--preset--color--neutral-300);
+}
+
+.single-product .wp-block-add-to-cart-with-options .wc-block-components-quantity-selector input.wc-block-components-quantity-selector__input {
+	min-width: 40px;
+	max-width: 40px;
+	width: 40px;
+	height: 32px;
+	padding: 0;
+	background: var(--wp--preset--color--brand-500);
+	color: var(--wp--preset--color--base);
+	font-family: var(--wp--preset--font-family--heading);
+	font-weight: var(--wp--custom--font-weight--bold);
+	font-size: var(--wp--preset--font-size--200);
+	text-align: center;
+	border: none;
+	border-radius: var(--wp--preset--border-radius--500);
+}
+
+.single-product .wp-block-add-to-cart-with-options .wc-block-components-quantity-selector input.wc-block-components-quantity-selector__input:focus {
+	box-shadow: 0 0 0 2px var(--wp--preset--color--brand-700);
+	border-color: transparent;
+}
+
+/* --- Payflex widget: shrunk once relocated below the description --- */
+.single-product .payflexCalculatorWidgetContainer.kwv-payflex-moved {
+	transform: scale(0.82);
+	transform-origin: left top;
+	margin: var(--wp--preset--spacing--10) 0 -14px 0;
+}
+
+/* ============================================
    Product Gallery
    ============================================ */
 
@@ -1954,11 +2105,28 @@ p.ppcp-place-order-description {
    is needed to win cleanly here. This lifts LOG IN / REGISTER / RESET PASSWORD as
    well as the classic cart/checkout actions (Update cart, Proceed to checkout, …).
    ============================================ */
+/* Restyle the classic WooCommerce `.button` action buttons — the ones inside a
+   `.woocommerce` wrapper (the classic [woocommerce_my_account] shortcode: LOG IN
+   / REGISTER / RESET PASSWORD / Save changes) — to the black KWV plate.
+   `!important` beats WooCommerce's own neutral button styling
+   (body.woocommerce-block-theme-has-button-styles).
+
+   Deliberately NOT the generic `.wp-element-button` / `button[type="submit"]`
+   hooks the original rule used: those matched every block button on a page with
+   the `.woocommerce` body class (products, shop), so the black plate + border +
+   radius leaked onto the header search icon, the whole mini-cart drawer (close,
+   empty-cart, footer) and the product add-to-cart buttons — all of which carry
+   their own KWV / front-page styling. That leak looked correct on the home page
+   only because it has no `.woocommerce` body class. Enumerating `.button` is
+   enough; a `:not()` chain would fix the leak but inflate specificity and
+   override the add-to-cart buttons' bottom-left radius.
+
+   Note: the block Cart / Checkout pages render no `.woocommerce` wrapper, so
+   neither this rule nor the old catch-all ever reached their CTAs (Proceed to
+   Checkout, Place Order) — those use the default block-button styling. */
 .woocommerce a.button,
 .woocommerce button.button,
-.woocommerce input.button,
-.woocommerce .wp-element-button,
-.woocommerce button[type="submit"] {
+.woocommerce input.button {
 	background: var(--wp--preset--color--contrast) !important;
 	color: var(--wp--preset--color--base) !important;
 	border: 1px solid var(--wp--preset--color--contrast) !important;
@@ -1974,219 +2142,8 @@ p.ppcp-place-order-description {
 
 .woocommerce a.button:hover,
 .woocommerce button.button:hover,
-.woocommerce input.button:hover,
-.woocommerce .wp-element-button:hover,
-.woocommerce button[type="submit"]:hover {
+.woocommerce input.button:hover {
 	background: var(--wp--preset--color--base) !important;
 	color: var(--wp--preset--color--contrast) !important;
 	border-color: var(--wp--preset--color--contrast) !important;
 }
-
-/* ============================================
-   My Account — Login / Registration (Figma 176-106)
-   Logged-out My Account (page id 10, [woocommerce_my_account]): the classic
-   form-login.php renders form.login (left) + form.register (right) inside
-   .u-columns.col2-set. Design: centered two-column layout split by a gold
-   (brand-500) vertical divider; fields on white; solid-black buttons.
-
-   Content-vs-design flags (kept default WooCommerce fields, styled around):
-   - Design's right column is a CTA-only "CREATE AN ACCOUNT"; the default register
-     form has Email + Password fields + a "Register" button (registration is on,
-     auto-password off) — kept and styled. Heading reads "Register" (design
-     "Create Account"); Remember-me + privacy text are default and kept.
-   - Login labels sit above the fields (default) vs inline placeholders in design.
-   These are classic shortcode markup that never reaches the block editor and have
-   no block-style-JSON equivalent, so they live here per AGENTS.md.
-   ============================================ */
-
-/* Design shows no page title on the login screen (just the LOGIN/REGISTER
-   headings). Hide the page-title H1 only on the logged-out login screen — it is
-   kept on the lost-password endpoint and the logged-in dashboard. */
-.woocommerce-account:not(.woocommerce-lost-password):not(.logged-in) .wp-block-post-title {
-	display: none;
-}
-
-.woocommerce-account:not(.logged-in) .woocommerce {
-	max-width: 860px;
-	margin-inline: auto;
-	padding-block: var(--wp--preset--spacing--40);
-}
-
-/* Two columns with a gold vertical divider (the 1px middle grid track). */
-.woocommerce-account .u-columns.col2-set {
-	display: grid;
-	grid-template-columns: 1fr 1px 1fr;
-	column-gap: var(--wp--preset--spacing--60);
-	align-items: start;
-	float: none;
-}
-
-.woocommerce-account .u-columns.col2-set::before {
-	content: "";
-	grid-column: 2;
-	grid-row: 1;
-	align-self: stretch;
-	width: 1px;
-	background: var(--wp--preset--color--brand-500);
-}
-
-.woocommerce-account .u-column1.col-1 {
-	grid-column: 1;
-	width: auto;
-	float: none;
-	margin: 0;
-}
-
-.woocommerce-account .u-column2.col-2 {
-	grid-column: 3;
-	width: auto;
-	float: none;
-	margin: 0;
-}
-
-.woocommerce-account .u-columns.col2-set > .u-column1 > h2,
-.woocommerce-account .u-columns.col2-set > .u-column2 > h2 {
-	text-align: center;
-	margin-top: 0;
-}
-
-/* Drop the neutral-200 boxes the generic account rule puts on the forms — the
-   design shows the fields on white. */
-.woocommerce-account form.login,
-.woocommerce-account form.register {
-	background: transparent !important;
-	border: none !important;
-	padding: 0 !important;
-}
-
-.woocommerce-account .woocommerce-form .form-row {
-	padding: 0;
-	margin-bottom: var(--wp--preset--spacing--30);
-}
-
-.woocommerce-account .woocommerce-form .button {
-	width: 100%;
-	margin-top: var(--wp--preset--spacing--10);
-}
-
-.woocommerce-account p.lost_password {
-	margin: var(--wp--preset--spacing--20) 0 0;
-}
-
-.woocommerce-account p.lost_password a {
-	color: var(--wp--preset--color--neutral-700);
-	font-size: var(--wp--preset--font-size--300);
-}
-
-.woocommerce-account .woocommerce-form-login__rememberme {
-	display: inline-flex;
-	gap: 8px;
-	align-items: center;
-	margin-bottom: var(--wp--preset--spacing--20);
-	font-size: var(--wp--preset--font-size--300);
-}
-
-.woocommerce-account .woocommerce-privacy-policy-text p {
-	font-size: var(--wp--preset--font-size--100);
-	color: var(--wp--preset--color--neutral-700);
-}
-
-/* Account form inputs (login / register / lost-password) — mirror the block
-   form input treatment used elsewhere in this file for a consistent field look. */
-.woocommerce-account .woocommerce input.input-text,
-.woocommerce-account .woocommerce input[type="email"],
-.woocommerce-account .woocommerce input[type="password"],
-.woocommerce-account .woocommerce input[type="text"] {
-	width: 100%;
-	padding: 0.95em 1em;
-	font-size: var(--wp--preset--font-size--300);
-	background: #fff;
-	border: solid 1px color-mix(in srgb, var(--wp--preset--color--neutral-200) 100%, var(--wp--preset--color--contrast) 40%);
-	border-radius: var(--wp--preset--border-radius--200);
-	box-shadow:
-		0 1px 2px rgba(0, 0, 0, 0.02),
-		0 0.5px 1px rgba(0, 0, 0, 0.04);
-}
-
-.woocommerce-account .woocommerce label {
-	font-size: var(--wp--preset--font-size--300);
-	color: var(--wp--preset--color--neutral-700);
-}
-
-.woocommerce-account .password-input {
-	display: block;
-	width: 100%;
-}
-
-/* Stack the two columns on narrow viewports; swap the vertical divider for a
-   horizontal one between them (responsive adaptation of the desktop design). */
-@media (max-width: 600px) {
-	.woocommerce-account:not(.logged-in) .woocommerce {
-		max-width: 420px;
-	}
-
-	.woocommerce-account .u-columns.col2-set {
-		grid-template-columns: 1fr;
-	}
-
-	.woocommerce-account .u-columns.col2-set::before {
-		display: none;
-	}
-
-	.woocommerce-account .u-column1.col-1,
-	.woocommerce-account .u-column2.col-2 {
-		grid-column: 1;
-	}
-
-	.woocommerce-account .u-column2.col-2 {
-		margin-top: var(--wp--preset--spacing--50);
-		padding-top: var(--wp--preset--spacing--50);
-		border-top: 1px solid var(--wp--preset--color--brand-500);
-	}
-}
-
-/* ============================================
-   My Account — Password Reset / Lost password (Figma 176-199)
-   The /my-account/lost-password/ endpoint (form-lost-password.php). Design:
-   centered heading + instruction + a single email field + black RESET PASSWORD
-   button. Flags (kept default, styled around): no dedicated H2 in the default
-   markup — the "Lost password" page title serves as the heading; the field label
-   is "Username or email" and the instruction wording is WooCommerce's default.
-   ============================================ */
-.woocommerce-lost-password .woocommerce {
-	max-width: 480px;
-	margin-inline: auto;
-	text-align: center;
-	padding-block: var(--wp--preset--spacing--40);
-}
-
-.woocommerce-lost-password .wp-block-post-title {
-	margin-bottom: var(--wp--preset--spacing--30);
-}
-
-.woocommerce-lost-password form.lost_reset_password {
-	max-width: 400px;
-	margin-inline: auto;
-}
-
-.woocommerce-lost-password form.lost_reset_password > p:first-of-type {
-	margin: 0 auto var(--wp--preset--spacing--40);
-	color: var(--wp--preset--color--neutral-700);
-	font-size: var(--wp--preset--font-size--300);
-}
-
-.woocommerce-lost-password .woocommerce-form-row.form-row-first {
-	width: 100%;
-	float: none;
-	margin: 0 0 var(--wp--preset--spacing--30);
-	text-align: left;
-}
-
-.woocommerce-lost-password form.lost_reset_password .button {
-	width: 100%;
-}
-
-.woocommerce-lost-password .clear {
-	display: none;
-}
-

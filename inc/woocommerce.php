@@ -80,11 +80,37 @@ function enqueue_woocommerce_styles() {
 		'1.0.0'
 	);
 
+	// My Account styling — only on account pages (dashboard, endpoints, and the
+	// logged-out login / register / lost-password screens). Split out of the
+	// shared sheet above; depends on it so it always cascades after.
+	if ( function_exists( 'is_account_page' ) && is_account_page() ) {
+		wp_enqueue_style(
+			'theme-woocommerce-account-style',
+			get_template_directory_uri() . '/assets/styles/woocommerce-account.css',
+			array( 'theme-woocommerce-style' ),
+			'1.0.0'
+		);
+	}
+
 	// Collapsible Product Filters sidebar — only where the filters render.
 	if ( function_exists( 'is_shop' ) && ( is_shop() || is_product_taxonomy() ) ) {
 		wp_enqueue_script(
 			'theme-shop-filters',
 			get_template_directory_uri() . '/assets/js/shop-filters.js',
+			array(),
+			'1.0.0',
+			array(
+				'in_footer' => true,
+				'strategy'  => 'defer',
+			)
+		);
+	}
+
+	// Relocate the Payflex widget beneath the product description — single products only.
+	if ( function_exists( 'is_product' ) && is_product() ) {
+		wp_enqueue_script(
+			'theme-payflex-relocate',
+			get_template_directory_uri() . '/assets/js/payflex-relocate.js',
 			array(),
 			'1.0.0',
 			array(

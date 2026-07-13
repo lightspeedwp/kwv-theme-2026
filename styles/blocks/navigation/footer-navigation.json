@@ -15,7 +15,7 @@
 					"text": "var:preset|color|base"
 				},
 				"typography": {
-					"fontSize": "var:preset|font-size|300",
+					"fontSize": "var:preset|font-size|200",
 					"fontWeight": "var:custom|font-weight|medium",
 					"textDecoration": "none"
 				},
