@@ -1634,6 +1634,47 @@ table.wc-block-cart-items .wc-block-cart-items__row .wc-block-cart-item__total {
 	min-height: 48px;
 }
 
+/* Cart / Checkout page primary CTAs — "Proceed to Checkout" (Cart block) and
+   "Place Order" (Checkout block) — to the KWV CTA black button.
+   These render as `.wc-block-components-button.contained` <button>s on pages
+   with no `.woocommerce` body class, so the classic `.woocommerce .button` rule
+   above never reaches them (see its Note) and they'd otherwise fall back to the
+   default block-button styling. Mirror the `is-style-cta` variation
+   (styles/blocks/button/cta.json): contrast plate + base text + 1px contrast
+   border + square corners; hover flips to a base fill with contrast text;
+   focus drops to a neutral-300 fill. Scoped by each block's own class so the
+   plate can't leak onto other buttons. No `!important` needed — WooCommerce's
+   grey fallback is gated behind body:not(.woocommerce-block-theme-has-button-styles)
+   (inactive here) and theme.json's button element styles are zero-specificity,
+   so a two-class selector wins. WooCommerce owns width / min-height — leave them. */
+.wp-block-woocommerce-proceed-to-checkout-block .wc-block-cart__submit-button,
+.wc-block-checkout__actions .wc-block-components-checkout-place-order-button {
+	background: var(--wp--preset--color--contrast);
+	color: var(--wp--preset--color--base);
+	border: 1px solid var(--wp--preset--color--contrast);
+	border-radius: 0;
+	font-family: var(--wp--preset--font-family--heading);
+	font-weight: var(--wp--custom--font-weight--semi-bold);
+	font-size: var(--wp--preset--font-size--200);
+	text-transform: uppercase;
+	letter-spacing: 0.02em;
+	transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.wp-block-woocommerce-proceed-to-checkout-block .wc-block-cart__submit-button:hover,
+.wc-block-checkout__actions .wc-block-components-checkout-place-order-button:hover {
+	background: var(--wp--preset--color--base);
+	color: var(--wp--preset--color--contrast);
+	border-color: var(--wp--preset--color--contrast);
+}
+
+.wp-block-woocommerce-proceed-to-checkout-block .wc-block-cart__submit-button:focus,
+.wc-block-checkout__actions .wc-block-components-checkout-place-order-button:focus {
+	background: var(--wp--preset--color--neutral-300);
+	color: var(--wp--preset--color--contrast);
+	border-color: var(--wp--preset--color--contrast);
+}
+
 /* Order summary */
 .wc-block-components-order-summary .wc-block-components-order-summary-item__quantity {
 	background: var(--wp--preset--color--contrast);
