@@ -174,16 +174,23 @@ body.rtl .wp-block-navigation__responsive-container.is-menu-open .wp-block-navig
 }
 
 
-/* Footer Navigation */
-.wp-block-navigation__container .wp-block-navigation-item__content .is-style-footer-navigation {
-	font-size: var(--wp--preset--font-size--200);
-	font-weight: var(--wp--custom--font-weight--medium);
-	text-transform: none;
-	transition: color 0.25s ease;
+/* Footer Navigation
+
+   Hover/focus colour for the footer nav links (is-style-footer-navigation).
+
+   This MUST live in CSS, not in the footer-navigation.json block-style variation.
+   WordPress core's navigation stylesheet (wp-includes/blocks/navigation/style.min.css)
+   ships an always-on reset:
+
+       .wp-block-navigation .wp-block-navigation-item__content.wp-block-navigation-item__content { color: inherit; }
+
+   The doubled class is a deliberate specificity hack -> (0,3,0). Block-style
+   variation partials are emitted by WP wrapped in `:root :where(...)`, i.e. only
+   (0,1,0), so the variation's :hover can never beat that reset and the footer
+   links stay locked to `inherit` (white, from the dark footer group) on hover.
+   The selector below is (0,4,0), so it out-specifies the core reset. */
+.wp-block-navigation.is-style-footer-navigation .wp-block-navigation-item__content:hover,
+.wp-block-navigation.is-style-footer-navigation .wp-block-navigation-item__content:focus-visible {
+	color: var(--wp--preset--color--brand-500);
 }
 
-.wp-block-navigation__container .wp-block-navigation-item__content .is-style-footer-navigation:hover,
-.wp-block-navigation__container .wp-block-navigation-item__content .is-style-footer-navigation:focus-visible {
-	color: var(--wp--preset--color--brand-500);
-	text-decoration: none;
-}

@@ -25,3 +25,19 @@ flip lands regardless of source order. Keep in sync with cta.json. */
 	color: var(--wp--preset--color--contrast);
 	transition: background-color 0.25s, color 0.25s;
 }
+
+
+/* Button - Outline Dark Style hover/focus
+---------------------------------------------
+The "outline-dark" variation (styles/blocks/button/outline-dark.json) is a
+transparent, contrast-bordered button for light sections that flips to a
+contrast fill with base text on hover/focus. As with the cta variation, the
+JSON `:hover`/`:focus` compiles to `:root :where(…)` (zero specificity) and only
+wins by fragile source order — these rules carry real specificity so the flip
+lands regardless. Keep in sync with outline-dark.json. */
+.wp-block-button.is-style-outline-dark .wp-block-button__link:hover,
+.wp-block-button.is-style-outline-dark .wp-block-button__link:focus {
+	background-color: var(--wp--preset--color--contrast);
+	color: var(--wp--preset--color--base);
+	transition: background-color 0.25s, color 0.25s;
+}
