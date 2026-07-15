@@ -92,6 +92,17 @@ function enqueue_woocommerce_styles() {
 		);
 	}
 
+	// Single Product page styling — split out of the shared sheet (Stage 3 CP2);
+	// only on product pages. Depends on the shared sheet so it cascades after it.
+	if ( function_exists( 'is_product' ) && is_product() ) {
+		wp_enqueue_style(
+			'theme-woocommerce-single-product-style',
+			get_template_directory_uri() . '/assets/styles/woocommerce-single-product.css',
+			array( 'theme-woocommerce-style' ),
+			'1.0.0'
+		);
+	}
+
 	// Collapsible Product Filters sidebar — only where the filters render.
 	if ( function_exists( 'is_shop' ) && ( is_shop() || is_product_taxonomy() ) ) {
 		wp_enqueue_script(
