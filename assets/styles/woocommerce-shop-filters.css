@@ -77,12 +77,21 @@
 	fill: currentColor;
 }
 
+/* Overlay "Close" control — was inheriting the same shrunk ~9.7px font; nudge it
+   up to a legible size (the X icon keeps its own size). */
+.kwv-shop-filters .wc-block-product-filters__close-overlay {
+	font-size: var(--wp--preset--font-size--100);
+}
+
 /* Divider below every visible section (skip the empty/hidden ones WooCommerce
-   marks with [hidden] / .wc-block-product-filter--hidden). */
+   marks with [hidden] / .wc-block-product-filter--hidden). Section spacing is the
+   padding-block + divider only; zero the block-gap margin the constrained layout
+   otherwise stacks between sections (esp. in the mobile overlay). */
 .kwv-shop-filters
 	[data-block-name^="woocommerce/product-filter-"]:not([hidden]):not(.wc-block-product-filter--hidden):has(> .wp-block-heading) {
 	border-bottom: 1px solid var(--wp--preset--color--neutral-700);
 	padding-block: var(--wp--preset--spacing--30);
+	margin-block: 0;
 }
 
 /* Fold behaviour (JS present). A grid row-collapse keeps the section full-width
