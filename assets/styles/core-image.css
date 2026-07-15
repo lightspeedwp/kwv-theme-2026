@@ -39,12 +39,9 @@ html .is-layout-flex .wp-block-image {
 }
 
 .is-style-media-boxed img {
-	box-shadow:
-		1px 2px 2px hsl(233deg 38% 85% / 0.2),
-		2px 4px 4px hsl(233deg 38% 85% / 0.2),
-		4px 8px 8px hsl(233deg 38% 85% / 0.2),
-		8px 16px 16px hsl(233deg 38% 85% / 0.2),
-		16px 32px 32px hsl(233deg 38% 85% / 0.2);
+	/* Neutral elevation token (was an inherited bluish hsl(233deg 38% 85%) stack,
+	   off-brand for the gold/neutral palette). See the assets/styles audit, finding ③. */
+	box-shadow: var(--wp--preset--shadow--400);
 }
 
 .is-style-media-boxed figcaption {

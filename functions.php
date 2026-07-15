@@ -44,9 +44,6 @@ function register_block_styles() {
 			'list-check-circle' => __( 'Check Circle', 'kwv' ),
 			'list-boxed'        => __( 'Boxed', 'kwv' ),
 		),
-		'core/code'         => array(
-			'dark-code' => __( 'Dark', 'kwv' ),
-		),
 		'core/cover'        => array(
 			'blur-image-less' => __( 'Blur Image Less', 'kwv' ),
 			'blur-image-more' => __( 'Blur Image More', 'kwv' ),
@@ -72,17 +69,11 @@ function register_block_styles() {
 			'rounded-full' => __( 'Rounded Full', 'kwv' ),
 			'media-boxed'  => __( 'Boxed', 'kwv' ),
 		),
-		'core/preformatted' => array(
-			'preformatted-dark' => __( 'Dark Style', 'kwv' ),
-		),
 		'core/post-terms'   => array(
 			'term-button' => __( 'Button Style', 'kwv' ),
 		),
 		'core/categories'   => array(
 			'categories-chevron' => __( 'Chevron', 'kwv' ),
-		),
-		'core/video'        => array(
-			'media-boxed' => __( 'Boxed', 'kwv' ),
 		),
 	);
 

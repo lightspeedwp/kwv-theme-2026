@@ -23,3 +23,15 @@
 .single .post-meta:empty {
 	display: none;
 }
+
+/* Generic post-terms interaction. Relocated here from woocommerce.css so it is
+   enqueued only when a post-terms block actually renders, rather than site-wide
+   via the always-loaded Woo sheet (which was bleeding onto blog post terms).
+   See the assets/styles audit, finding ②. */
+.wp-block-post-terms a:hover {
+	text-decoration: underline;
+}
+
+.wp-block-post-terms__prefix {
+	font-weight: 600;
+}

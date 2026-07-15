@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed (assets/styles refactor Stage 1 — dead Ollie content-block sheets)
+- Deleted seven per-block stylesheets inherited from Ollie for core blocks the theme never renders: **`core-gallery.css`, `core-code.css`, `core-pullquote.css`, `core-video.css`, `core-table.css`, `core-calendar.css`, `core-preformatted.css`**. Confirmed zero usage first via a dev DB query across every published/draft page, post, `wp_template`, `wp_template_part` and synced pattern — none contain these blocks — so any future use simply falls back to WordPress core's own block styling.
+- **`functions.php`** — unregistered the three block-style variations that belonged to deleted blocks: `core/code` → `dark-code`, `core/preformatted` → `preformatted-dark`, `core/video` → `media-boxed`. (The `media-boxed` variation on `core/image` is untouched — its rules live in `core-image.css`.)
+- Preserved cross-file bits: the `.kwv-avatar-row` helper (was duplicated in `core-gallery.css`) survives in `core-image.css`; inline-`<code>` styling in `core-code.css` was gated behind the code block and so never actually loaded.
+- Net: 28 → 22 sheets. Part of the CSS-minimisation refactor (prefer theme.json / block styles; ship CSS only when necessary). **Reaches dev on the next theme deploy;** nothing to visually verify since the blocks render nowhere.
+
+### Fixed (assets/styles audit — global rules bleeding out of the always-loaded Woo sheet)
+- Context: `assets/styles/woocommerce.css` is enqueued on `wp_enqueue_scripts` with **no page-type guard** ([`inc/woocommerce.php`](inc/woocommerce.php)), so it ships on every front-end page whenever WooCommerce is active. Four selectors in it were **not** Woo-scoped and were therefore styling non-Woo blocks site-wide (blog post terms, every core Search block). Relocated each to the per-block sheet that auto-enqueues only when that block renders — behaviour-preserving, but no longer emitted globally:
+  - `.wp-block-post-terms a:hover` (underline) and `.wp-block-post-terms__prefix` (font-weight 600) → **`assets/styles/core-post-terms.css`**.
+  - `.wp-block-search__button` (horizontal padding) and `.site-header .wp-block-search__input::placeholder` (font-size) → **`assets/styles/core-search.css`** (the `is-style-kwv-megamenu-search` rules there still out-specify the button padding).
+- **`assets/styles/core-image.css`** — replaced the inherited bluish `hsl(233deg 38% 85%)` 5-layer box-shadow on `is-style-media-boxed` with the neutral elevation token `var(--wp--preset--shadow--400)` (off-brand for the gold/neutral palette; variation is currently unused in shipped templates).
+- **Not yet verified on a running site** — theme files here are a source checkout; reaches dev on the next theme deploy. Confirm blog post-terms hover/prefix and core Search button padding still render, and that no Woo page regressed.
+- **Deferred (needs its own verified pass):** the `core-separator.css` global base rule (`border-bottom:1px solid currentColor` on every non-dots separator) is load-bearing — 10+ shipped separators use `has-background` and depend on it — so it was left untouched rather than risk a site-wide separator repaint.
+
 ### Added (Visit Us page — patterns, page starter & dev rebuild)
 - **`patterns/visit-hero.php`** (`kwv/visit-hero`) — full-bleed `core/cover` hero (KWV Twenty XXO brandy on a barrel, media `home-hero-image-full`), contrast overlay `dimRatio 25`, `VISIT US` H1 (`font-size|700`, heading family, `extra-bold`, uppercase) aligned to the wide content edge. Extracted from Figma node `181:610`.
 - **`patterns/visit-venues.php`** (`kwv/visit-venues`) — the three tour venues as alternating image/text rows: **KWV Emporium** (light band), **Cathedral Cellar** (tinted band, reversed) and **House of Fire** (light band). Each has an H2 (`font-size|500`), body copy and Menu / Book buttons. Images use `is-style-image-hover-zoom`, framed 3:2.

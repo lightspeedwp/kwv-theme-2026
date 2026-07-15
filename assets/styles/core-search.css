@@ -74,3 +74,16 @@
 	height: 1.125rem;
 	fill: currentColor;
 }
+
+/* Generic core/search tweaks. Relocated here from woocommerce.css so they load
+   with the core/search block instead of site-wide via the always-loaded Woo
+   sheet (see the assets/styles audit, finding ②). The is-style-kwv-megamenu-search
+   rules above out-specify the button padding wherever that style applies. */
+.wp-block-search__button {
+	padding-left: .6em;
+	padding-right: .6em;
+}
+
+.site-header .wp-block-search__input::placeholder {
+	font-size: inherit;
+}
