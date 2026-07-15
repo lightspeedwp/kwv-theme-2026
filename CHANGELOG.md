@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed (Cart & Checkout — styling tweaks + sync layout from dev)
+- **`assets/styles/woocommerce-cart-checkout.css`** — client-requested sizing/styling:
+  - **Cart:** the "Product" column header (`.wc-block-cart-items__header-image`) and the "Cart totals" heading (`.wc-block-cart__totals-title`) bumped to `font-size|300`; all product-item text (name, prices, description) raised one level to `font-size|200`; the quantity **stepper restyled to mirror the mini-cart** — neutral-200 pill + gold (`brand-500`) circular number badge, 32px transparent ± buttons — scoped to `.wc-block-cart` so the mini-cart drawer keeps its own rule. The product-name selector matches WooCommerce's own `table > row > name` structure so it outweighs the core `small` default.
+  - **Checkout:** the "Order summary" title now mirrors the step titles ("Contact information") — heading font, uppercase, `font-size|300`, medium, `0.04em`; the **Subtotal value** matches the Subtotal label (`font-size|300`, regular); the **Country/Region + Province** `<select>` value/placeholder text dropped to `font-size|200` so it isn't cramped against the floating label.
+  - All previewed against the live dev cart/checkout DOM (injected rules) before committing; every value confirmed. Tokens by numeric slug throughout.
+- **`patterns/woo-cart.php` / `patterns/woo-checkout.php`** — **synced the layout from the dev DB template overrides** (`page-cart` #182427, `page-checkout` #182806, the versions the client approved). Cart: `brand-100` page header, uppercase `300` breadcrumbs, `is-style-cta` "Continue Shopping" button, and the full `woocommerce/cart` block inlined (filled + empty states, cross-sells). Checkout: `brand-100` page header, inlined `woocommerce/checkout` blocks (incl. the PostNet selector). **Made portable:** dropped the `theme` attr from template-parts, `kwv.lightspeedwp.dev/shop/` → `/shop/`, and the hardcoded dev logo image (id 182340) → `wp:site-logo` (matches the light header; `site_logo` = 182341 on dev). PHP lints; no dev-specific refs remain.
+  - **Deploy note:** the dev DB template overrides (182427 / 182806) still shadow these theme files and must be **deleted on the deploy that ships this change** — otherwise dev keeps rendering the stale DB copies.
+
 ### Changed (assets/styles refactor Stage 3 CP4b — split cart/checkout + order-confirmation)
 - **`assets/styles/woocommerce-cart-checkout.css`** (new, 383 lines) — the Checkout Styles + Responsive Styles sections moved verbatim; enqueued on `is_cart() || is_checkout()`.
 - **`assets/styles/woocommerce-order-confirmation.css`** (new, 23 lines) — the Order Confirmation section; enqueued on `is_wc_endpoint_url( 'order-received' )`.

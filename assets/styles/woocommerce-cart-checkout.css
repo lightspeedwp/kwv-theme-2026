@@ -46,9 +46,15 @@
 	padding-right: 0;
 }
 
+/* "Order summary" title → mirror the checkout step titles (e.g. "Contact
+   information"): heading font, uppercase, one level up (300), medium weight. */
 .wp-block-woocommerce-checkout-order-summary-block .wc-block-components-checkout-order-summary__title .wc-block-components-checkout-order-summary__title-text {
-	font-size: var(--wp--preset--font-size--200);
-	font-weight: 600;
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: var(--wp--preset--font-size--300);
+	font-weight: var(--wp--custom--font-weight--medium);
+	line-height: var(--wp--custom--line-height--heading);
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
 }
 
 .wp-block-woocommerce-checkout-order-summary-cart-items-block.wc-block-components-totals-wrapper {
@@ -110,8 +116,7 @@
 	font-weight: 500;
 }
 
-.wc-block-components-order-summary .wc-block-components-order-summary-item__individual-prices,
-.wc-block-cart .wc-block-components-product-price {
+.wc-block-components-order-summary .wc-block-components-order-summary-item__individual-prices {
 	padding-top: 0;
 	line-height: 1;
 	font-size: var(--wp--preset--font-size--100);
@@ -145,6 +150,19 @@
 
 .wc-block-components-totals-footer-item .wc-block-components-totals-item__value {
 	line-height: 1;
+}
+
+/* Subtotal value → same size/style as the "Subtotal" label (300, regular).
+   Scoped to the subtotal block so the footer total keeps its own emphasis. */
+.wp-block-woocommerce-checkout-order-summary-subtotal-block .wc-block-components-totals-item__value {
+	font-size: var(--wp--preset--font-size--300);
+	font-weight: var(--wp--custom--font-weight--regular);
+}
+
+/* Country/Region + Province selects — drop the value/placeholder text a level
+   (300 → 200) so it isn't cramped against the floating label. */
+.wp-block-woocommerce-checkout .wc-blocks-components-select__select {
+	font-size: var(--wp--preset--font-size--200);
 }
 
 /* Checkout steps */
@@ -225,6 +243,88 @@ p.ppcp-place-order-description {
 
 #ppcp-checkout-paylater-messages {
 	margin-top: 10px;
+}
+
+/* ============================================
+   Cart page — KWV sizing & stepper
+   ============================================ */
+
+/* Section titles: the "Product" column header + the "Cart totals" heading
+   one level up (300). */
+.wc-block-cart .wc-block-cart-items__header-image span,
+.wc-block-cart .wc-block-cart__totals-title {
+	font-size: var(--wp--preset--font-size--300);
+}
+
+/* Product item list text up one level (100 → 200): name, prices, description.
+   The name selector matches WooCommerce's own cart.css rule structure
+   (table > row > name) so it outweighs the core "small" default. */
+.wc-block-cart table.wc-block-cart-items .wc-block-cart-items__row .wc-block-components-product-name {
+	font-size: var(--wp--preset--font-size--200);
+}
+
+.wc-block-cart .wc-block-cart-item__prices .wc-block-components-product-price,
+.wc-block-cart .wc-block-cart-item__total .wc-block-components-product-price {
+	padding-top: 0;
+	line-height: 1;
+	font-size: var(--wp--preset--font-size--200);
+}
+
+.wc-block-cart .wc-block-components-product-metadata,
+.wc-block-cart .wc-block-components-product-metadata__description p {
+	font-size: var(--wp--preset--font-size--200);
+}
+
+/* Quantity stepper — mirror the mini-cart pill (neutral-200 pill + gold badge).
+   Scoped to the cart page; the mini-cart drawer keeps its own identical rule
+   (assets/styles/woocommerce.css). */
+.wc-block-cart .wc-block-cart-item__quantity .wc-block-components-quantity-selector {
+	transform: none;
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	width: fit-content;
+	padding: 4px;
+	background: var(--wp--preset--color--neutral-200);
+	border: none;
+	border-radius: var(--wp--preset--border-radius--500);
+}
+
+.wc-block-cart .wc-block-components-quantity-selector .wc-block-components-quantity-selector__button,
+.wc-block-cart .wc-block-components-quantity-selector .wc-block-components-quantity-selector__button:disabled {
+	background: transparent;
+	color: var(--wp--preset--color--contrast);
+	border: none;
+	border-radius: var(--wp--preset--border-radius--500);
+	width: 32px;
+	min-width: 32px;
+	height: 32px;
+}
+
+.wc-block-cart .wc-block-components-quantity-selector .wc-block-components-quantity-selector__button:hover {
+	background: var(--wp--preset--color--neutral-300);
+}
+
+/* The number itself — gold circular badge */
+.wc-block-cart .wc-block-components-quantity-selector input.wc-block-components-quantity-selector__input {
+	min-width: 32px;
+	max-width: 32px;
+	width: 32px;
+	height: 32px;
+	padding: 0;
+	background: var(--wp--preset--color--brand-500);
+	color: var(--wp--preset--color--base);
+	font-family: var(--wp--preset--font-family--heading);
+	font-weight: var(--wp--custom--font-weight--bold);
+	font-size: var(--wp--preset--font-size--200);
+	text-align: center;
+	border: none;
+	border-radius: var(--wp--preset--border-radius--500);
+}
+
+.wc-block-cart .wc-block-components-quantity-selector input.wc-block-components-quantity-selector__input:focus {
+	box-shadow: 0 0 0 2px var(--wp--preset--color--brand-700);
+	border-color: transparent;
 }
 
 /* ============================================

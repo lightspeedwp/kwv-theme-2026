@@ -816,8 +816,7 @@
 								"background": "transparent !important"
 							},
 							"typography": {
-								"textDecoration": "none",
-								"fontWeight": "var:custom|font-weight|semi-bold"
+								"textDecoration": "none"
 							}
 						}
 					}
@@ -903,7 +902,8 @@
 					"margin": {
 						"top": "0px !important"
 					}
-				}
+				},
+				"css": "& { margin-block-start: 0 !important; margin-top: 0 !important; }"
 			},
 			"woocommerce/product-image": {
 				"border": {
