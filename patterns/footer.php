@@ -11,158 +11,117 @@
  * Inserter: true
  */
 ?>
-<!-- wp:group {"metadata":{"name":"Footer"},"align":"full","className":"is-style-site-footer","layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignfull is-style-site-footer">
+<!-- wp:group {"metadata":{"name":"Footer"},"align":"full","style":{"spacing":{"blockGap":"var:preset|spacing|0"}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull"><!-- wp:group {"tagName":"section","metadata":{"name":"Newsletter"},"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|70","padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|30"}}},"layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignwide" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--30)"><!-- wp:group {"align":"wide","layout":{"type":"flex","flexWrap":"wrap"}} -->
+<div class="wp-block-group alignwide"><!-- wp:heading {"style":{"spacing":{"padding":{"bottom":"var:preset|spacing|30"}}}} -->
+<h2 class="wp-block-heading" style="padding-bottom:var(--wp--preset--spacing--30)">
+				Subscribe to Our Newsletter</h2>
+<!-- /wp:heading -->
 
-	<!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|60"}},"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"top"}} -->
-	<div class="wp-block-group alignwide">
+<!-- wp:group {"style":{"layout":{"selfStretch":"fill","flexSize":null}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group"><!-- wp:gravityforms/form {"formId":"2","title":false,"description":false,"theme":"orbital","inputSize":"lg","inputBorderRadius":"8","inputBorderColor":"#B29143","inputBackgroundColor":"#E9DEB9","inputPrimaryColor":"#876E35","labelFontSize":"16","descriptionFontSize":"16","buttonPrimaryBackgroundColor":"#0B0905"} /--></div>
+<!-- /wp:group --></div>
+<!-- /wp:group --></section>
+<!-- /wp:group -->
 
-		<!-- wp:group {"metadata":{"name":"Brand"},"style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"flex","orientation":"vertical"}} -->
-		<div class="wp-block-group">
-			<!-- wp:site-logo {"width":120} /-->
+<!-- wp:group {"metadata":{"name":"Footer","description":"Dark footer with logo, call-to-action buttons, link columns, responsible-drinking notice and copyright.","categories":["footer"]},"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|80","bottom":"var:preset|spacing|30","right":"var:preset|spacing|20","left":"var:preset|spacing|20"},"blockGap":"var:preset|spacing|80"}},"backgroundColor":"contrast","textColor":"base","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull has-base-color has-contrast-background-color has-text-color has-background" style="padding-top:var(--wp--preset--spacing--80);padding-right:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--20)"><!-- wp:columns {"align":"wide"} -->
+<div class="wp-block-columns alignwide"><!-- wp:column {"width":"26%"} -->
+<div class="wp-block-column" style="flex-basis:26%"><!-- wp:group {"metadata":{"name":"Brand"},"style":{"spacing":{"blockGap":"var:preset|spacing|40"}},"layout":{"type":"flex","orientation":"vertical"},"blockVisibility":{"controlSets":[{"id":1,"enable":true,"controls":{"screenSize":{"hideOnScreenSize":{"large":false,"small":true}}}}]}} -->
+<div class="wp-block-group"><!-- wp:site-logo {"width":120} /-->
 
-			<!-- wp:buttons {"style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","orientation":"vertical"}} -->
-			<div class="wp-block-buttons">
-				<!-- wp:button {"textColor":"base","width":100,"className":"is-style-outline","style":{"border":{"width":"1px","radius":"0px","color":"var:preset|color|base"}}} -->
-				<div class="wp-block-button has-custom-width wp-block-button__width-100 is-style-outline"><a class="wp-block-button__link has-base-color has-text-color has-border-color wp-element-button" style="border-color:var(--wp--preset--color--base);border-width:1px;border-radius:0px" href="<?php echo esc_url( '#' ); ?>"><?php esc_html_e( 'SHOP NOW', 'kwv' ); ?></a></div>
-				<!-- /wp:button -->
+<!-- wp:buttons {"style":{"spacing":{"blockGap":"var:preset|spacing|20","margin":{"top":"var:preset|spacing|30"}}},"layout":{"type":"flex","orientation":"vertical"}} -->
+<div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--30)"><!-- wp:button {"className":"is-style-outline","style":{"border":{"width":"1px","radius":"0px","color":"var:preset|color|base"},"dimensions":{"width":"100%"}}} -->
+<div class="wp-block-button is-style-outline" style="width:100%"><a class="wp-block-button__link has-border-color wp-element-button" href="/shop" style="border-color:var(--wp--preset--color--base);border-width:1px;border-radius:0px">SHOP NOW</a></div>
+<!-- /wp:button -->
 
-				<!-- wp:button {"textColor":"base","width":100,"className":"is-style-outline","style":{"border":{"width":"1px","radius":"0px","color":"var:preset|color|base"}}} -->
-				<div class="wp-block-button has-custom-width wp-block-button__width-100 is-style-outline"><a class="wp-block-button__link has-base-color has-text-color has-border-color wp-element-button" style="border-color:var(--wp--preset--color--base);border-width:1px;border-radius:0px" href="<?php echo esc_url( '#' ); ?>"><?php esc_html_e( 'CONTACT', 'kwv' ); ?></a></div>
-				<!-- /wp:button -->
-			</div>
-			<!-- /wp:buttons -->
-		</div>
-		<!-- /wp:group -->
+<!-- wp:button {"className":"is-style-outline","style":{"border":{"width":"1px","radius":"0px","color":"var:preset|color|base"},"dimensions":{"width":"100%"}}} -->
+<div class="wp-block-button is-style-outline" style="width:100%"><a class="wp-block-button__link has-border-color wp-element-button" href="/contact" style="border-color:var(--wp--preset--color--base);border-width:1px;border-radius:0px">CONTACT</a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons --></div>
+<!-- /wp:group -->
 
-		<!-- wp:group {"metadata":{"name":"Corporate Links"},"style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","orientation":"vertical"}} -->
-		<div class="wp-block-group">
-			<!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"700"}},"textColor":"base","fontSize":"100"} -->
-			<p class="has-base-color has-text-color has-100-font-size" style="font-style:normal;font-weight:700"><?php esc_html_e( 'CORPORATE LINKS', 'kwv' ); ?></p>
-			<!-- /wp:paragraph -->
+<!-- wp:group {"metadata":{"name":"Brand"},"style":{"spacing":{"blockGap":"var:preset|spacing|40"}},"layout":{"type":"flex","flexWrap":"nowrap"},"blockVisibility":{"controlSets":[{"id":1,"enable":true,"controls":{"screenSize":{"hideOnScreenSize":{"large":true,"medium":true}}}}]}} -->
+<div class="wp-block-group"><!-- wp:site-logo {"width":120} /-->
 
-			<!-- wp:paragraph {"fontSize":"100"} -->
-			<p class="has-100-font-size"><a href="<?php echo esc_url( '#' ); ?>"><?php esc_html_e( 'Timeline', 'kwv' ); ?></a></p>
-			<!-- /wp:paragraph -->
+<!-- wp:buttons {"style":{"spacing":{"blockGap":"var:preset|spacing|20","margin":{"top":"var:preset|spacing|30"}}},"layout":{"type":"flex","orientation":"vertical"}} -->
+<div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--30)"><!-- wp:button {"className":"is-style-outline","style":{"border":{"width":"1px","radius":"0px","color":"var:preset|color|base"},"dimensions":{"width":"100%"}}} -->
+<div class="wp-block-button is-style-outline" style="width:100%"><a class="wp-block-button__link has-border-color wp-element-button" href="/shop" style="border-color:var(--wp--preset--color--base);border-width:1px;border-radius:0px">SHOP NOW</a></div>
+<!-- /wp:button -->
 
-			<!-- wp:paragraph {"fontSize":"100"} -->
-			<p class="has-100-font-size"><a href="<?php echo esc_url( '#' ); ?>"><?php esc_html_e( 'FAQ', 'kwv' ); ?></a></p>
-			<!-- /wp:paragraph -->
+<!-- wp:button {"className":"is-style-outline","style":{"border":{"width":"1px","radius":"0px","color":"var:preset|color|base"},"dimensions":{"width":"100%"}}} -->
+<div class="wp-block-button is-style-outline" style="width:100%"><a class="wp-block-button__link has-border-color wp-element-button" href="/contact" style="border-color:var(--wp--preset--color--base);border-width:1px;border-radius:0px">CONTACT</a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons --></div>
+<!-- /wp:group --></div>
+<!-- /wp:column -->
 
-			<!-- wp:paragraph {"fontSize":"100"} -->
-			<p class="has-100-font-size"><a href="<?php echo esc_url( '#' ); ?>"><?php esc_html_e( 'Founders', 'kwv' ); ?></a></p>
-			<!-- /wp:paragraph -->
+<!-- wp:column {"width":""} -->
+<div class="wp-block-column"><!-- wp:columns -->
+<div class="wp-block-columns"><!-- wp:column -->
+<div class="wp-block-column"><!-- wp:columns {"isStackedOnMobile":false} -->
+<div class="wp-block-columns is-not-stacked-on-mobile"><!-- wp:column -->
+<div class="wp-block-column"><!-- wp:group {"metadata":{"name":"Corporate Links"},"style":{"spacing":{"blockGap":"var:preset|spacing|50"}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group"><!-- wp:heading {"level":3,"textColor":"base","fontSize":"300"} -->
+<h3 class="wp-block-heading has-base-color has-text-color has-300-font-size">CORPORATE LINKS</h3>
+<!-- /wp:heading -->
 
-			<!-- wp:paragraph {"fontSize":"100"} -->
-			<p class="has-100-font-size"><a href="<?php echo esc_url( '#' ); ?>"><?php esc_html_e( 'Heritage', 'kwv' ); ?></a></p>
-			<!-- /wp:paragraph -->
+<!-- wp:navigation {"ref":182561,"overlayMenu":"never","className":"is-style-footer-navigation","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","orientation":"vertical"}} /--></div>
+<!-- /wp:group --></div>
+<!-- /wp:column -->
 
-			<!-- wp:paragraph {"fontSize":"100"} -->
-			<p class="has-100-font-size"><a href="<?php echo esc_url( '#' ); ?>"><?php esc_html_e( 'Infrastructure', 'kwv' ); ?></a></p>
-			<!-- /wp:paragraph -->
+<!-- wp:column -->
+<div class="wp-block-column"><!-- wp:group {"metadata":{"name":"Featured Brands"},"style":{"spacing":{"blockGap":"var:preset|spacing|50"}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group"><!-- wp:heading {"level":3,"textColor":"base","fontSize":"300"} -->
+<h3 class="wp-block-heading has-base-color has-text-color has-300-font-size">FEATURED BRANDS</h3>
+<!-- /wp:heading -->
 
-			<!-- wp:paragraph {"fontSize":"100"} -->
-			<p class="has-100-font-size"><a href="<?php echo esc_url( '#' ); ?>"><?php esc_html_e( 'Certifications / B-BBEE', 'kwv' ); ?></a></p>
-			<!-- /wp:paragraph -->
+<!-- wp:navigation {"ref":182562,"overlayMenu":"never","className":"is-style-footer-navigation","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","orientation":"vertical"}} /--></div>
+<!-- /wp:group --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns --></div>
+<!-- /wp:column -->
 
-			<!-- wp:paragraph {"fontSize":"100"} -->
-			<p class="has-100-font-size"><a href="<?php echo esc_url( '#' ); ?>"><?php esc_html_e( 'Corporate Responsibility', 'kwv' ); ?></a></p>
-			<!-- /wp:paragraph -->
-		</div>
-		<!-- /wp:group -->
+<!-- wp:column -->
+<div class="wp-block-column"><!-- wp:columns {"isStackedOnMobile":false} -->
+<div class="wp-block-columns is-not-stacked-on-mobile"><!-- wp:column -->
+<div class="wp-block-column"><!-- wp:group {"metadata":{"name":"Noteworthy"},"style":{"spacing":{"blockGap":"var:preset|spacing|50"}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group"><!-- wp:heading {"level":3,"textColor":"base","fontSize":"300"} -->
+<h3 class="wp-block-heading has-base-color has-text-color has-300-font-size">NOTEWORTHY</h3>
+<!-- /wp:heading -->
 
-		<!-- wp:group {"metadata":{"name":"Featured Brands"},"style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","orientation":"vertical"}} -->
-		<div class="wp-block-group">
-			<!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"700"}},"textColor":"base","fontSize":"100"} -->
-			<p class="has-base-color has-text-color has-100-font-size" style="font-style:normal;font-weight:700"><?php esc_html_e( 'FEATURED BRANDS', 'kwv' ); ?></p>
-			<!-- /wp:paragraph -->
+<!-- wp:navigation {"ref":182563,"overlayMenu":"never","className":"is-style-footer-navigation","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","orientation":"vertical"}} /--></div>
+<!-- /wp:group --></div>
+<!-- /wp:column -->
 
-			<!-- wp:paragraph {"fontSize":"100"} -->
-			<p class="has-100-font-size"><a href="<?php echo esc_url( '#' ); ?>"><?php esc_html_e( 'The Mentors', 'kwv' ); ?></a></p>
-			<!-- /wp:paragraph -->
+<!-- wp:column -->
+<div class="wp-block-column"><!-- wp:group {"metadata":{"name":"Contact Us"},"style":{"spacing":{"blockGap":"var:preset|spacing|50"}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group"><!-- wp:heading {"level":3,"textColor":"base","fontSize":"300"} -->
+<h3 class="wp-block-heading has-base-color has-text-color has-300-font-size">CONTACT US</h3>
+<!-- /wp:heading -->
 
-			<!-- wp:paragraph {"fontSize":"100"} -->
-			<p class="has-100-font-size"><a href="<?php echo esc_url( '#' ); ?>"><?php esc_html_e( 'Cathedral Cellar', 'kwv' ); ?></a></p>
-			<!-- /wp:paragraph -->
+<!-- wp:navigation {"ref":182564,"overlayMenu":"never","className":"is-style-footer-navigation","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","orientation":"vertical"}} /--></div>
+<!-- /wp:group --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns -->
 
-			<!-- wp:paragraph {"fontSize":"100"} -->
-			<p class="has-100-font-size"><a href="<?php echo esc_url( '#' ); ?>"><?php esc_html_e( 'KWV Brandy', 'kwv' ); ?></a></p>
-			<!-- /wp:paragraph -->
+<!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"default"}} -->
+<div class="wp-block-group alignwide"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|40"}},"typography":{"textAlign":"center"}},"fontSize":"300"} -->
+<p class="has-text-align-center has-300-font-size" style="margin-top:var(--wp--preset--spacing--40)">PLEASE DRINK RESPONSIBLY</p>
+<!-- /wp:paragraph -->
 
-			<!-- wp:paragraph {"fontSize":"100"} -->
-			<p class="has-100-font-size"><a href="<?php echo esc_url( '#' ); ?>"><?php esc_html_e( 'Wild Africa Cream', 'kwv' ); ?></a></p>
-			<!-- /wp:paragraph -->
+<!-- wp:separator {"align":"wide","className":"is-style-separator-thin","backgroundColor":"neutral-700"} -->
+<hr class="wp-block-separator alignwide has-text-color has-neutral-700-color has-alpha-channel-opacity has-neutral-700-background-color has-background is-style-separator-thin"/>
+<!-- /wp:separator -->
 
-			<!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"700"}},"fontSize":"100"} -->
-			<p class="has-100-font-size" style="font-style:normal;font-weight:700"><a href="<?php echo esc_url( '#' ); ?>"><?php esc_html_e( 'SHOP NOW ›', 'kwv' ); ?></a></p>
-			<!-- /wp:paragraph -->
-		</div>
-		<!-- /wp:group -->
-
-		<!-- wp:group {"metadata":{"name":"Noteworthy"},"style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","orientation":"vertical"}} -->
-		<div class="wp-block-group">
-			<!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"700"}},"textColor":"base","fontSize":"100"} -->
-			<p class="has-base-color has-text-color has-100-font-size" style="font-style:normal;font-weight:700"><?php esc_html_e( 'NOTEWORTHY', 'kwv' ); ?></p>
-			<!-- /wp:paragraph -->
-
-			<!-- wp:paragraph {"fontSize":"100"} -->
-			<p class="has-100-font-size"><a href="<?php echo esc_url( '#' ); ?>"><?php esc_html_e( 'Awards', 'kwv' ); ?></a></p>
-			<!-- /wp:paragraph -->
-
-			<!-- wp:paragraph {"fontSize":"100"} -->
-			<p class="has-100-font-size"><a href="<?php echo esc_url( '#' ); ?>"><?php esc_html_e( 'New Releases', 'kwv' ); ?></a></p>
-			<!-- /wp:paragraph -->
-
-			<!-- wp:paragraph {"fontSize":"100"} -->
-			<p class="has-100-font-size"><a href="<?php echo esc_url( '#' ); ?>"><?php esc_html_e( 'Winemakers', 'kwv' ); ?></a></p>
-			<!-- /wp:paragraph -->
-		</div>
-		<!-- /wp:group -->
-
-		<!-- wp:group {"metadata":{"name":"Contact Us"},"style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","orientation":"vertical"}} -->
-		<div class="wp-block-group">
-			<!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"700"}},"textColor":"base","fontSize":"100"} -->
-			<p class="has-base-color has-text-color has-100-font-size" style="font-style:normal;font-weight:700"><?php esc_html_e( 'CONTACT US', 'kwv' ); ?></p>
-			<!-- /wp:paragraph -->
-
-			<!-- wp:paragraph {"fontSize":"100"} -->
-			<p class="has-100-font-size"><a href="<?php echo esc_url( '#' ); ?>"><?php esc_html_e( 'Emporium Opening Hours', 'kwv' ); ?></a></p>
-			<!-- /wp:paragraph -->
-
-			<!-- wp:paragraph {"fontSize":"100"} -->
-			<p class="has-100-font-size"><a href="<?php echo esc_url( '#' ); ?>"><?php esc_html_e( 'KWV Head Office', 'kwv' ); ?></a></p>
-			<!-- /wp:paragraph -->
-
-			<!-- wp:paragraph {"fontSize":"100"} -->
-			<p class="has-100-font-size"><a href="<?php echo esc_url( '#' ); ?>"><?php esc_html_e( 'Contact Form', 'kwv' ); ?></a></p>
-			<!-- /wp:paragraph -->
-
-			<!-- wp:paragraph {"fontSize":"100"} -->
-			<p class="has-100-font-size"><a href="<?php echo esc_url( '#' ); ?>"><?php esc_html_e( 'Careers', 'kwv' ); ?></a></p>
-			<!-- /wp:paragraph -->
-
-			<!-- wp:paragraph {"fontSize":"100"} -->
-			<p class="has-100-font-size"><a href="<?php echo esc_url( '#' ); ?>"><?php esc_html_e( 'Distributors', 'kwv' ); ?></a></p>
-			<!-- /wp:paragraph -->
-		</div>
-		<!-- /wp:group -->
-	</div>
-	<!-- /wp:group -->
-
-	<!-- wp:paragraph {"align":"center","style":{"spacing":{"margin":{"top":"var:preset|spacing|40"}}},"fontSize":"100"} -->
-	<p class="has-text-align-center has-100-font-size" style="margin-top:var(--wp--preset--spacing--40)"><?php esc_html_e( 'PLEASE DRINK RESPONSIBLY', 'kwv' ); ?></p>
-	<!-- /wp:paragraph -->
-
-	<!-- wp:separator {"align":"wide","backgroundColor":"neutral-700","className":"is-style-wide"} -->
-	<hr class="wp-block-separator alignwide has-text-color has-neutral-700-color has-alpha-channel-opacity has-neutral-700-background-color has-background is-style-wide"/>
-	<!-- /wp:separator -->
-
-	<!-- wp:group {"align":"wide","layout":{"type":"constrained"}} -->
-	<div class="wp-block-group alignwide">
-		<!-- wp:paragraph {"textColor":"neutral-400","fontSize":"100"} -->
-		<p class="has-neutral-400-color has-text-color has-100-font-size"><?php printf( esc_html__( 'COPYRIGHT © %s KWV', 'kwv' ), esc_html( gmdate( 'Y' ) ) ); ?></p>
-		<!-- /wp:paragraph -->
-	</div>
-	<!-- /wp:group -->
-</div>
+<!-- wp:paragraph {"textColor":"neutral-400","fontSize":"100"} -->
+<p class="has-neutral-400-color has-text-color has-100-font-size">COPYRIGHT © 2026 KWV</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group --></div>
+<!-- /wp:group --></div>
 <!-- /wp:group -->
