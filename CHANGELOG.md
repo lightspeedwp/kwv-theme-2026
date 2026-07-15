@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added (Mobile "Filter products" toggle styling)
+- **`assets/styles/woocommerce-shop-filters.css`** — styled `.wc-block-product-filters__open-overlay`, the button that opens the filter overlay below WooCommerce's breakpoint. It was previously unstyled (rendered as ~9.7px text inheriting a shrunk font from WooCommerce's own CSS). Now a KWV outline button (mirrors the `outline-dark` variation: transparent on the light shop background, 1px contrast border + contrast text, square corners, uppercase Poppins at `font-size|200`, filter icon + label with a gap and real tap padding; flips to a contrast fill with base text on hover/focus). Content-width, left-aligned. Deliberately does **not** set `display` — WooCommerce toggles that per breakpoint (none on desktop, flex on mobile). Tokens verified against theme.json (0 orphan refs); previewed on dev at 390px. **Not from the refactor** — the toggle simply had no KWV style; noticed while checking mobile filters.
+
 ### Changed (assets/styles refactor Stage 3 CP3 — split product-grid + shop-filters out of the global Woo sheet)
 - **`assets/styles/woocommerce-product-grid.css`** (new, 395 lines) — the product card/grid sections moved verbatim: Product Card Hover, Product Card Bordered, Product Grid & Template, Sale Badge, Product Badges, Pagination. Enqueued via **`wp_enqueue_block_style( 'woocommerce/product-template', … )`** so it loads wherever a product grid renders — shop, brand/category archives, search results, and the single-product related-products grid — and nowhere else. Depends on `theme-woocommerce-style`.
 - **`assets/styles/woocommerce-shop-filters.css`** (new, 158 lines) — the collapsible filter-sidebar section, moved verbatim. Enqueued on `is_shop() || is_product_taxonomy()` (same condition as the existing filter JS), depending on the shared sheet.
