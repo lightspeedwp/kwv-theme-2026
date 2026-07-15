@@ -1,0 +1,23 @@
+/* WooCommerce — Order Confirmation
+   ---------------------------------------------
+   Order-received page styling, split out of woocommerce.css (Stage 3 CP4b).
+   Enqueued on the order-received endpoint; depends on the shared sheet.
+--------------------------------------------- */
+
+@layer woocommerce-default, theme-overrides;
+
+/* ============================================
+   Order Confirmation
+   ============================================ */
+
+.wp-block-woocommerce-order-confirmation-status {
+	display: flex;
+	flex-direction: column;
+	gap: var(--wp--preset--spacing--20);
+}
+
+.wp-block-woocommerce-order-confirmation-status h1 {
+	font-size: var(--wp--preset--font-size--500);
+	margin: 0;
+}
+

@@ -1,0 +1,383 @@
+/* WooCommerce — Cart & Checkout
+   ---------------------------------------------
+   Cart + checkout page styling, split out of woocommerce.css (Stage 3 CP4b).
+   Enqueued on is_cart() || is_checkout(); depends on the shared sheet so it
+   cascades after it.
+--------------------------------------------- */
+
+@layer woocommerce-default, theme-overrides;
+
+/* ============================================
+   Checkout Styles
+   ============================================ */
+
+.wp-block-woocommerce-checkout {
+	padding: 0;
+}
+
+.wc-block-components-sidebar-layout {
+	margin: 0;
+}
+
+.wc-block-components-sidebar-layout .wc-block-components-main {
+	padding-right: var(--wp--preset--spacing--40);
+	border-right: solid 1px hsla(0, 0%, 7%, .11);
+	font-size: var(--wp--preset--font-size--300);
+}
+
+.wc-block-components-address-card {
+	font-size: var(--wp--preset--font-size--300);
+}
+
+.wp-block-woocommerce-checkout-order-summary-block {
+	border: none;
+	border-radius: 0;
+}
+
+.wp-block-woocommerce-checkout-order-summary-block .wc-block-components-checkout-order-summary__title .wc-block-components-checkout-order-summary__title-text,
+.wc-block-components-order-summary,
+.wc-block-components-sidebar .slot-wrapper .wc-block-components-panel,
+.wc-block-components-sidebar .wc-block-components-panel,
+.wc-block-components-sidebar .wc-block-components-totals-coupon,
+.wc-block-components-sidebar .wc-block-components-totals-item {
+	margin-left: 0;
+	margin-right: 0;
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.wp-block-woocommerce-checkout-order-summary-block .wc-block-components-checkout-order-summary__title .wc-block-components-checkout-order-summary__title-text {
+	font-size: var(--wp--preset--font-size--200);
+	font-weight: 600;
+}
+
+.wp-block-woocommerce-checkout-order-summary-cart-items-block.wc-block-components-totals-wrapper {
+	padding-bottom: 30px;
+}
+
+.wc-block-cart__submit-button {
+	min-height: 48px;
+}
+
+/* Cart / Checkout page primary CTAs — "Proceed to Checkout" (Cart block) and
+   "Place Order" (Checkout block) — to the KWV CTA black button.
+   These render as `.wc-block-components-button.contained` <button>s on pages
+   with no `.woocommerce` body class, so the classic `.woocommerce .button` rule
+   above never reaches them (see its Note) and they'd otherwise fall back to the
+   default block-button styling. Mirror the `is-style-cta` variation
+   (styles/blocks/button/cta.json): contrast plate + base text + 1px contrast
+   border + square corners; hover flips to a base fill with contrast text;
+   focus drops to a neutral-300 fill. Scoped by each block's own class so the
+   plate can't leak onto other buttons. No `!important` needed — WooCommerce's
+   grey fallback is gated behind body:not(.woocommerce-block-theme-has-button-styles)
+   (inactive here) and theme.json's button element styles are zero-specificity,
+   so a two-class selector wins. WooCommerce owns width / min-height — leave them. */
+.wp-block-woocommerce-proceed-to-checkout-block .wc-block-cart__submit-button,
+.wc-block-checkout__actions .wc-block-components-checkout-place-order-button {
+	background: var(--wp--preset--color--contrast);
+	color: var(--wp--preset--color--base);
+	border: 1px solid var(--wp--preset--color--contrast);
+	border-radius: 0;
+	font-family: var(--wp--preset--font-family--heading);
+	font-weight: var(--wp--custom--font-weight--semi-bold);
+	font-size: var(--wp--preset--font-size--200);
+	text-transform: uppercase;
+	letter-spacing: 0.02em;
+	transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.wp-block-woocommerce-proceed-to-checkout-block .wc-block-cart__submit-button:hover,
+.wc-block-checkout__actions .wc-block-components-checkout-place-order-button:hover {
+	background: var(--wp--preset--color--base);
+	color: var(--wp--preset--color--contrast);
+	border-color: var(--wp--preset--color--contrast);
+}
+
+.wp-block-woocommerce-proceed-to-checkout-block .wc-block-cart__submit-button:focus,
+.wc-block-checkout__actions .wc-block-components-checkout-place-order-button:focus {
+	background: var(--wp--preset--color--neutral-300);
+	color: var(--wp--preset--color--contrast);
+	border-color: var(--wp--preset--color--contrast);
+}
+
+/* Order summary */
+.wc-block-components-order-summary .wc-block-components-order-summary-item__quantity {
+	background: var(--wp--preset--color--contrast);
+	color: var(--wp--preset--color--base);
+	border: none;
+	box-shadow: none;
+	font-size: 12px;
+	font-weight: 500;
+}
+
+.wc-block-components-order-summary .wc-block-components-order-summary-item__individual-prices,
+.wc-block-cart .wc-block-components-product-price {
+	padding-top: 0;
+	line-height: 1;
+	font-size: var(--wp--preset--font-size--100);
+}
+
+.wc-block-components-order-summary .wc-block-components-order-summary-item__image {
+	margin-top: 7px;
+}
+
+.wc-block-components-order-summary .wc-block-components-order-summary-item__description .wc-block-components-product-metadata,
+.wc-block-components-order-summary .wc-block-components-order-summary-item__description p,
+.wp-block-woocommerce-checkout-order-summary-block .wc-block-components-product-details {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	-webkit-line-clamp: 2;
+	font-size: 13px;
+}
+
+/* Totals */
+.wc-block-components-totals-item__label,
+.wc-block-components-panel__button {
+	font-size: var(--wp--preset--font-size--300);
+}
+
+.wc-block-components-totals-footer-item .wc-block-components-totals-item__label,
+.wc-block-components-totals-item__value .wc-block-formatted-money-amount {
+	font-size: var(--wp--preset--font-size--300);
+	font-weight: 600;
+}
+
+.wc-block-components-totals-footer-item .wc-block-components-totals-item__value {
+	line-height: 1;
+}
+
+/* Checkout steps */
+.wc-block-components-checkout-step__description {
+	color: var(--wp--preset--color--neutral-700);
+}
+
+.wc-block-components-address-form__address_2-toggle {
+	font-size: var(--wp--preset--font-size--300);
+}
+
+/* Payment methods */
+.wc-block-checkout__payment-method .wc-block-components-radio-control-accordion-option .wc-block-components-radio-control__label {
+	font-size: var(--wp--preset--font-size--300);
+	font-weight: 600;
+}
+
+.wc-block-components-radio-control-accordion-content {
+	font-size: var(--wp--preset--font-size--100);
+	color: var(--wp--preset--color--neutral-700);
+}
+
+.wc-block-components-radio-control--highlight-checked:after {
+	border-color: color-mix(in srgb, var(--wp--preset--color--neutral-200) 100%, var(--wp--preset--color--contrast) 40%);
+	border-radius: 5px;
+	z-index: 1;
+}
+
+.wc-block-components-radio-control--highlight-checked div.wc-block-components-radio-control-accordion-option {
+	border-radius: 5px;
+	z-index: 5;
+}
+
+.wc-block-components-radio-control--highlight-checked .wc-block-components-radio-control-accordion-option--checked-option-highlighted,
+.wc-block-components-radio-control--highlight-checked label.wc-block-components-radio-control__option--checked-option-highlighted {
+	box-shadow: inset 0 0 0 2px currentColor;
+}
+
+/* Checkboxes */
+.wp-block-woocommerce-checkout-fields-block .wc-block-components-checkbox .wc-block-components-checkbox__input[type=checkbox] {
+	padding: 0;
+}
+
+.wc-block-components-checkbox .wc-block-components-checkbox__input[type=checkbox]:checked {
+	background: var(--wp--preset--color--contrast);
+}
+
+.wc-block-components-checkbox .wc-block-components-checkbox__mark {
+	fill: var(--wp--preset--color--base);
+}
+
+/* Terms and actions */
+.wc-block-checkout__terms.wc-block-checkout__terms--with-separator {
+	border-color: var(--wp--preset--color--neutral-300);
+}
+
+.wc-block-checkout__terms {
+	font-size: var(--wp--preset--font-size--100);
+	background: var(--wp--preset--color--neutral-200);
+	border-radius: 5px;
+	border: none !important;
+	padding: var(--wp--preset--spacing--20) !important;
+	margin-bottom: var(--wp--preset--spacing--30);
+}
+
+.wc-block-components-checkout-return-to-cart-button {
+	font-size: var(--wp--preset--font-size--300);
+}
+
+.wc-block-checkout__actions:not(:has(+ *)) {
+	padding-bottom: 0;
+}
+
+/* PayPal */
+p.ppcp-place-order-description {
+	text-align: left !important;
+}
+
+#ppcp-checkout-paylater-messages {
+	margin-top: 10px;
+}
+
+/* ============================================
+   Responsive Styles
+   ============================================ */
+
+@container (max-width: 699px) {
+	/* Checkout layout */
+	.wc-block-components-sidebar-layout .wc-block-components-main {
+		overflow: hidden;
+		border-right: none;
+		padding: 0;
+	}
+
+	.wc-block-components-sidebar-layout .wc-block-components-sidebar {
+		padding: 0;
+		margin: 0;
+	}
+
+	.wc-block-checkout__sidebar {
+		margin: 0;
+	}
+
+	/* Order summary */
+	.wp-block-woocommerce-checkout-order-summary-block .wc-block-components-checkout-order-summary__title {
+		border-top: none;
+		padding: var(--wp--preset--spacing--20) 0;
+		margin: 0;
+	}
+
+	.wp-block-woocommerce-checkout-order-summary-cart-items-block.wc-block-components-totals-wrapper {
+		padding-bottom: 30px;
+		padding-top: 30px;
+	}
+
+	.wc-block-cart__sidebar .wp-block-woocommerce-cart-order-summary-block {
+		margin-bottom: var(--wp--preset--spacing--40);
+	}
+
+	/* Terms */
+	.wc-block-checkout__terms.wc-block-checkout__terms--with-separator {
+		padding: 0 0 28px 0;
+	}
+
+	/* PayPal */
+	#ppcp-checkout-paylater-messages {
+		padding: var(--wp--preset--spacing--20) var(--wp--preset--spacing--30) 0 var(--wp--preset--spacing--30);
+	}
+
+	#ppcp-cart-paylater-messages {
+		margin-bottom: 20px;
+	}
+
+	/* Cart table */
+	table.wc-block-cart-items {
+		margin-bottom: 0 !important;
+	}
+
+	table.wc-block-cart-items tbody tr {
+		border-bottom: 1px solid hsla(0, 0%, 7%, .11);
+		grid-template-columns: auto 1fr auto auto;
+	}
+
+	table.wc-block-cart-items tbody tr:last-child {
+		border-bottom: none;
+	}
+
+	.is-medium table.wc-block-cart-items .wc-block-cart-items__row,
+	.is-mobile table.wc-block-cart-items .wc-block-cart-items__row,
+	.is-small table.wc-block-cart-items .wc-block-cart-items__row {
+		grid-template-columns: auto 1fr auto auto;
+		gap: 5px;
+		padding: var(--wp--preset--spacing--30) 0;
+	}
+
+	.is-medium table.wc-block-cart-items .wc-block-cart-items__row:first-child,
+	.is-mobile table.wc-block-cart-items .wc-block-cart-items__row:first-child,
+	.is-small table.wc-block-cart-items .wc-block-cart-items__row:first-child {
+		padding-top: 0;
+	}
+
+	.is-medium table.wc-block-cart-items .wc-block-cart-items__row:last-child,
+	.is-mobile table.wc-block-cart-items .wc-block-cart-items__row:last-child,
+	.is-small table.wc-block-cart-items .wc-block-cart-items__row:last-child {
+		padding-bottom: 0;
+	}
+
+	.wc-block-cart-item__image {
+		width: 70px;
+	}
+
+	.wc-block-cart table.wc-block-cart-items, 
+	.wc-block-cart table.wc-block-cart-items td, 
+	.wc-block-cart table.wc-block-cart-items th {
+		margin: 0;
+	}
+
+	.wc-block-checkout__actions .wc-block-checkout__actions_row {
+		column-gap: var(--wp--preset--spacing--30);
+	}
+
+	.wc-block-checkout__actions .wc-block-checkout__actions_row .wc-block-components-checkout-place-order-button {
+		width: 100%;
+	}
+
+	.wc-block-components-checkout-return-to-cart-button {
+		flex-shrink: 0;
+	}
+}
+
+.wc-block-components-order-summary .wc-block-components-order-summary-item {
+	border-bottom: 1px solid var(--wp--preset--color--neutral-300);
+	padding: var(--wp--preset--spacing--20) 0 0 0;
+}
+
+.wc-block-components-order-summary .wc-block-components-order-summary-item:last-child {
+	border-bottom: none;
+	padding-bottom: 0;
+}
+
+.wc-block-components-product-metadata {
+	font-size: var(--wp--preset--font-size--100);
+}
+
+@media (max-width: 570px) {
+	.wc-block-checkout__terms.wc-block-checkout__terms--with-separator {
+		padding: 28px 0 0 0;
+	}
+}
+
+
+@container (max-width: 500px) {
+
+	.wc-block-cart-item__quantity .wc-block-cart-item__remove-link {
+		text-align: left;
+	}
+
+	.wc-block-components-order-summary .wc-block-components-order-summary-item__total-price {
+		margin-left: 0;
+	}
+
+	.wc-block-components-order-summary .wc-block-components-order-summary__content {
+		display: block;
+	}
+
+	.wc-block-components-order-summary .wc-block-components-order-summary-item {
+		display: grid;
+		grid-template-columns: auto 1fr auto auto;
+	}
+
+	.wc-block-components-order-summary .wc-block-components-order-summary-item__individual-prices,
+	.wc-block-components-product-price {
+		flex-wrap: wrap;
+		display: flex;
+	}
+}

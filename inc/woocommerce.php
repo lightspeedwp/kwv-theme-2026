@@ -125,6 +125,26 @@ function enqueue_woocommerce_styles() {
 		);
 	}
 
+	// Cart + Checkout page styling — split out of the shared sheet (Stage 3 CP4b).
+	if ( function_exists( 'is_cart' ) && ( is_cart() || is_checkout() ) ) {
+		wp_enqueue_style(
+			'theme-woocommerce-cart-checkout-style',
+			get_template_directory_uri() . '/assets/styles/woocommerce-cart-checkout.css',
+			array( 'theme-woocommerce-style' ),
+			'1.0.0'
+		);
+	}
+
+	// Order-confirmation styling — only on the order-received page (Stage 3 CP4b).
+	if ( function_exists( 'is_wc_endpoint_url' ) && is_wc_endpoint_url( 'order-received' ) ) {
+		wp_enqueue_style(
+			'theme-woocommerce-order-confirmation-style',
+			get_template_directory_uri() . '/assets/styles/woocommerce-order-confirmation.css',
+			array( 'theme-woocommerce-style' ),
+			'1.0.0'
+		);
+	}
+
 	// Relocate the Payflex widget beneath the product description — single products only.
 	if ( function_exists( 'is_product' ) && is_product() ) {
 		wp_enqueue_script(

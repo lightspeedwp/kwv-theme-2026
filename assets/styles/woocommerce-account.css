@@ -227,3 +227,69 @@
 .woocommerce-lost-password .clear {
 	display: none;
 }
+
+/* ============================================
+   My Account dashboard — navigation, orders, addresses
+   ---------------------------------------------
+   Relocated from woocommerce.css (Stage 3 CP4a). These are all account-only
+   (`.woocommerce-account` / `my_account_orders` / `woocommerce-Address` /
+   `EditAccountForm`), so moving them here — enqueued on is_account_page() — is
+   behaviour-preserving: they only ever matched on account pages.
+   ============================================ */
+
+.woocommerce-account .woocommerce-MyAccount-navigation li {
+	padding: 0;
+	margin-bottom: 6px;
+}
+
+.woocommerce-account .woocommerce-MyAccount-navigation li a {
+	padding: .8em 1em;
+	border-radius: 5px;
+	width: 100%;
+	display: block;
+	font-size: var(--wp--preset--font-size--300);
+}
+
+.woocommerce-account .woocommerce-MyAccount-navigation li.is-active a {
+	background: var(--wp--preset--color--neutral-200);
+	font-weight: 600;
+	text-decoration: none;
+}
+
+.woocommerce-account .woocommerce-MyAccount-navigation li a:hover {
+	background: var(--wp--preset--color--neutral-200);
+	text-decoration: none;
+}
+
+@media only screen and (min-width: 768px) {
+	.woocommerce-account .woocommerce-MyAccount-content {
+		width: 65%;
+	}
+}
+
+.woocommerce table.my_account_orders td,
+.woocommerce table.my_account_orders th {
+	padding: 10px 15px;
+}
+
+.woocommerce-Address-title h2 {
+	font-size: var(--wp--preset--font-size--400);
+	margin-top: 0;
+}
+
+.woocommerce-account .addresses .title .edit {
+	float: none;
+}
+
+.woocommerce-Address,
+.woocommerce-EditAccountForm {
+	background: var(--wp--preset--color--neutral-200);
+	padding: var(--wp--preset--spacing--30);
+	border-radius: 5px;
+	border: none;
+	font-size: var(--wp--preset--font-size--300);
+}
+
+.woocommerce-EditAccountForm {
+	padding: var(--wp--preset--spacing--40);
+}
