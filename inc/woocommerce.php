@@ -17,6 +17,7 @@ if ( class_exists( 'WooCommerce' ) ) {
 
 	// WooCommerce is active.
 	add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_woocommerce_styles' );
+	add_action( 'init', __NAMESPACE__ . '\enqueue_product_grid_block_style' );
 	add_action( 'init', __NAMESPACE__ . '\register_mini_cart_block_styles', 20 );
 	add_action( 'init', __NAMESPACE__ . '\unregister_woocommerce_block_patterns', 999 );
 	add_filter( 'woocommerce_admin_features', __NAMESPACE__ . '\disable_pattern_toolkit' );
@@ -105,6 +106,13 @@ function enqueue_woocommerce_styles() {
 
 	// Collapsible Product Filters sidebar — only where the filters render.
 	if ( function_exists( 'is_shop' ) && ( is_shop() || is_product_taxonomy() ) ) {
+		// Filter sidebar styling — split out of the shared sheet (Stage 3 CP3).
+		wp_enqueue_style(
+			'theme-woocommerce-shop-filters-style',
+			get_template_directory_uri() . '/assets/styles/woocommerce-shop-filters.css',
+			array( 'theme-woocommerce-style' ),
+			'1.0.0'
+		);
 		wp_enqueue_script(
 			'theme-shop-filters',
 			get_template_directory_uri() . '/assets/js/shop-filters.js',
@@ -130,6 +138,32 @@ function enqueue_woocommerce_styles() {
 			)
 		);
 	}
+}
+
+
+/**
+ * Enqueue the product-grid / card stylesheet via the block-style API so it loads
+ * only where a product grid renders — shop, brand/category archives, search
+ * results and the single-product "related products" grid — and nowhere else.
+ * Split out of woocommerce.css (Stage 3 CP3); depends on the shared sheet so it
+ * cascades after it.
+ */
+function enqueue_product_grid_block_style() {
+
+	if ( ! function_exists( 'wp_enqueue_block_style' ) ) {
+		return;
+	}
+
+	wp_enqueue_block_style(
+		'woocommerce/product-template',
+		array(
+			'handle' => 'theme-woocommerce-product-grid-style',
+			'src'    => get_theme_file_uri( 'assets/styles/woocommerce-product-grid.css' ),
+			'path'   => get_theme_file_path( 'assets/styles/woocommerce-product-grid.css' ),
+			'deps'   => array( 'theme-woocommerce-style' ),
+			'ver'    => '1.0.0',
+		)
+	);
 }
 
 

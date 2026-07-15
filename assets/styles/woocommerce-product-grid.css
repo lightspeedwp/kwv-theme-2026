@@ -1,0 +1,395 @@
+/* WooCommerce — Product Grid & Cards
+   ---------------------------------------------
+   Product grid / card styling, split out of woocommerce.css (Stage 3 CP3).
+   Enqueued via wp_enqueue_block_style('woocommerce/product-template') so it loads
+   wherever a product grid renders (shop, brand, category, search, single-product
+   related).
+--------------------------------------------- */
+
+@layer woocommerce-default, theme-overrides;
+
+/* ============================================
+   Product Card Hover Effects
+   ============================================ */
+
+.kwv-product-button-hover-image {
+	position: relative;
+	overflow: hidden;
+}
+
+.kwv-product-button-hover .wp-block-woocommerce-product-image {
+	overflow: hidden;
+}
+
+.kwv-product-button-hover .wp-block-woocommerce-product-button {
+	flex-direction: row;
+	margin: 0;
+	gap: 10px;
+}
+
+.kwv-product-button-hover .wp-block-woocommerce-product-button > * {
+	flex-shrink: 0;
+	margin: 0;
+	padding: 0;
+	width: auto !important;
+}
+
+.kwv-product-button-hover .wp-block-woocommerce-product-button a,
+.kwv-product-button-hover .wp-block-woocommerce-product-button a button {
+	margin: 0;
+	padding: 0;
+}
+
+.kwv-product-button-hover .wp-block-woocommerce-product-button a:not(:first-child):before {
+	content: "\00B7";
+	margin: 0 5px 0 8px;
+}
+
+.kwv-product-button-hover-group {
+	border-radius: 5px;
+	transform: translateY(100%);
+	transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+	margin: 0 !important;
+	position: absolute !important;
+	bottom: 12px;
+	right: 12px;
+	opacity: 0;
+}
+
+.kwv-product-button-hover:hover .kwv-product-button-hover-group {
+	transform: translateY(0);
+	opacity: 1;
+}
+
+.kwv-product-button-full-width {
+	width: 100%;
+	border-radius: 0;
+	left: 0;
+	bottom: 0;
+}
+
+/* Editor preview */
+.editor-styles-wrapper .kwv-product-button-hover-group {
+	opacity: 1 !important;
+	transform: translateY(0) !important;
+	position: absolute !important;
+}
+
+.editor-styles-wrapper .kwv-product-button-hover-group.is-selected {
+	opacity: 1 !important;
+	transform: translateY(0) !important;
+	position: absolute !important;
+}
+
+.block-editor-block-list__layout .kwv-product-button-hover .wp-block-woocommerce-product-price .wc-block-components-product-price__value:empty:before {
+	content: "$9.99";
+}
+
+/* Mobile: Always show hover group */
+@media (max-width: 722px) {
+	.kwv-product-button-hover-group {
+		opacity: 1;
+		transform: translateY(0);
+		position: absolute;
+	}
+}
+
+/* ============================================
+   Product Card — Bordered
+   (pattern: kwv/woo-product-card-bordered)
+   Pairs with styles/sections/cards/product-card.json (frame + typography)
+   and styles/blocks/button/add-to-cart.json (is-style-add-to-cart for core/button).
+   The Add to Cart control in the loop is woocommerce/product-button — a
+   different block from core/button — so the is-style-add-to-cart look is
+   reapplied here with enough specificity to beat WooCommerce's own button rules.
+   ============================================ */
+
+/* Inset brand divider: full width within its spacing-20 padded wrapper.
+   (Separator width has no theme.json equivalent, so it lives here — a genuine
+   css-selector rule, per AGENTS.md → "Styling lives in JSON".) */
+.is-style-product-card .product-card__divider {
+	width: 100%;
+	max-width: 100%;
+}
+
+/* Add to Cart control (is-style-add-to-cart on woocommerce/product-button).
+   This Woo block declares __experimentalSelector + skip-serialisation, so a
+   block-style JSON can't drive it: its variation CSS mis-targets the inner
+   selector and is :where()-zero-specificity (verified — the plate rendered
+   grey). It is therefore styled here in enqueued CSS, the sanctioned exception
+   in AGENTS.md → "Styling lives in JSON". The canonical look still lives in
+   styles/blocks/button/add-to-cart.json for core/button + add-to-cart-with-options.
+
+   Design: a black "button" plate (rounded only bottom-left, matching the card
+   corner) + a spacing-20 gap + a static gold circular "+" icon. On hover the
+   plate flips — background to base, border and text to contrast — icon static. */
+.is-style-product-card .wc-block-components-product-button.is-style-add-to-cart {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: var(--wp--preset--spacing--30);
+}
+
+/* Stretch the link's hit area across the whole row (plate + gap + icon) so a
+   tap on the gold icon also adds to cart. The icon (::after below) stays
+   pointer-events:none, so clicks over it fall through to this transparent
+   overlay; hovering anywhere in the row therefore also triggers the flip. */
+.is-style-product-card .wc-block-components-product-button.is-style-add-to-cart .wp-block-button__link::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+}
+
+.is-style-product-card .wc-block-components-product-button.is-style-add-to-cart .wp-block-button__link {
+	flex: 1 1 auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 45px;
+	background-color: var(--wp--preset--color--contrast);
+	color: var(--wp--preset--color--base);
+	border: 1px solid var(--wp--preset--color--contrast);
+	border-radius: 0 0 0 var(--wp--preset--border-radius--200);
+	font-family: var(--wp--preset--font-family--heading);
+	font-size: var(--wp--preset--font-size--200);
+	font-weight: var(--wp--custom--font-weight--semi-bold);
+	text-transform: uppercase;
+	letter-spacing: 0.075em;
+	transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.is-style-product-card .wc-block-components-product-button.is-style-add-to-cart .wp-block-button__link:hover,
+.is-style-product-card .wc-block-components-product-button.is-style-add-to-cart .wp-block-button__link:focus-visible {
+	background-color: var(--wp--preset--color--base);
+	color: var(--wp--preset--color--contrast);
+	border-color: var(--wp--preset--color--contrast);
+}
+
+.is-style-product-card .wc-block-components-product-button.is-style-add-to-cart::after {
+	content: "";
+	flex: 0 0 52px;
+	align-self: center;
+	width: 52px;
+	height: 52px;
+	background-color: var(--wp--preset--color--brand-500);
+	-webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2045%2045'%20fill='none'%3E%3Ccircle%20cx='22.5'%20cy='22.5'%20r='22'%20stroke='%23000'/%3E%3Cline%20x1='22.5'%20y1='6'%20x2='22.5'%20y2='39'%20stroke='%23000'/%3E%3Cline%20x1='5.5'%20y1='23'%20x2='38.5'%20y2='23'%20stroke='%23000'/%3E%3C/svg%3E") center / contain no-repeat;
+	mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2045%2045'%20fill='none'%3E%3Ccircle%20cx='22.5'%20cy='22.5'%20r='22'%20stroke='%23000'/%3E%3Cline%20x1='22.5'%20y1='6'%20x2='22.5'%20y2='39'%20stroke='%23000'/%3E%3Cline%20x1='5.5'%20y1='23'%20x2='38.5'%20y2='23'%20stroke='%23000'/%3E%3C/svg%3E") center / contain no-repeat;
+	pointer-events: none;
+}
+
+/* After adding, the product-button reveals a "View cart" link beside the
+   button — redundant with the header mini-cart, and it wedges into the flex row
+   between the plate and the icon. Hide its whole wrapper (not just the anchor)
+   so it leaves no stray flex gap either. */
+.is-style-product-card .wc-block-components-product-button.is-style-add-to-cart > span:has(> .added_to_cart) {
+	display: none;
+}
+
+
+
+/* Bottle-size attribute (core/post-terms, taxonomy pa_bottlesize) sits inline
+   with the price; suppress the term link's hover underline inside the card. */
+.is-style-product-card .product-card__attribute a:hover {
+	text-decoration: none;
+}
+
+
+/* ============================================
+   Pagination
+   ============================================ */
+
+.wp-block-query-pagination-numbers a,
+.wp-block-query-pagination-next,
+.wp-block-query-pagination-previous {
+	background: var(--wp--preset--color--neutral-200);
+	transition: .1s ease;
+}
+
+.wp-block-query-pagination-numbers a:hover,
+.wp-block-query-pagination-next:hover,
+.wp-block-query-pagination-previous:hover {
+	text-decoration: none;
+	background: color-mix(in srgb, var(--wp--preset--color--neutral-200) 100%, var(--wp--preset--color--contrast) 3%);
+}
+
+.wc-block-product-template__responsive + .wp-block-group:empty {
+	display: none;
+}
+
+/* ============================================
+   Product Grid & Template
+   ============================================ */
+
+.wc-block-product-template__responsive {
+	row-gap: 2em;
+}
+
+/* Keep product cards large: never narrower than 300px.
+   WooCommerce's responsive (shrinkColumns) grid floors each column at 150px
+   — `minmax(max(150px, calc(<n>% - gap)), 1fr)` — which lets cards get too
+   small on mid-size viewports. Raise the floor to 300px while preserving each
+   pattern's intended column cap (the `calc(<n>% - gap)` term still wins on wide
+   screens, so archive stays 4-up / sidebar-archive 3-up). auto-fill then drops
+   the column count as the container narrows, so cards stay >=300px instead of
+   shrinking. `min(300px, 100%)` prevents horizontal overflow on phones whose
+   content column is itself narrower than 300px (it falls back to one full card).
+   The column gap is WooCommerce's default 1.25em (only row-gap is themed above). */
+.wc-block-product-template__responsive.columns-2 {
+	grid-template-columns: repeat( auto-fill, minmax( max( min( 300px, 100% ), calc( 50% - 0.625em ) ), 1fr ) );
+}
+
+.wc-block-product-template__responsive.columns-3 {
+	grid-template-columns: repeat( auto-fill, minmax( max( min( 300px, 100% ), calc( 33.33333% - 0.83333em ) ), 1fr ) );
+}
+
+.wc-block-product-template__responsive.columns-4 {
+	grid-template-columns: repeat( auto-fill, minmax( max( min( 300px, 100% ), calc( 25% - 0.9375em ) ), 1fr ) );
+}
+
+.wc-block-product-template__responsive.columns-5 {
+	grid-template-columns: repeat( auto-fill, minmax( max( min( 300px, 100% ), calc( 20% - 1em ) ), 1fr ) );
+}
+
+.wc-block-product-template__responsive.columns-6 {
+	grid-template-columns: repeat( auto-fill, minmax( max( min( 300px, 100% ), calc( 16.66667% - 1.04167em ) ), 1fr ) );
+}
+
+/* Same 300px floor for the non-responsive flex layout (shrinkColumns:false,
+   e.g. the "You may also like" related-products grid on the single-product
+   page). WooCommerce hands each item a fixed fractional width above 600px,
+   which can fall below 300px on mid-size screens; min-width holds the floor and
+   flex-wrap reflows to fewer columns, while flex-grow lets a short final row
+   fill the width. min(300px, 100%) again avoids overflow on narrow phones. */
+.wc-block-product-template.is-flex-container > li {
+	min-width: min( 300px, 100% );
+	flex-grow: 1;
+}
+
+.accordion-content__wrapper {
+	margin-top: var(--wp--preset--spacing--30);
+}
+
+.wc-block-next-previous-buttons {
+	gap: 10px;
+}
+
+.wc-block-next-previous-buttons button {
+	background: var(--wp--preset--color--neutral-200);
+	color: var(--wp--preset--color--contrast);
+}
+
+:where(.wc-block-product-template .wc-block-product)>:not(:last-child) {
+    margin-bottom: var(--wp--preset--spacing--20);
+    margin-top: 0;
+}
+
+.wc-block-product-template .wc-block-product .wp-block-post-title {
+	margin-bottom: 0;
+}
+
+.wc-block-product-template .wc-block-product .add_to_cart_button {
+	font-size: var(--wp--preset--font-size--100);
+}
+
+.wc-block-product-template .wc-block-product .wc-block-components-product-sale-badge {
+	background: var(--wp--preset--color--contrast);
+	color: var(--wp--preset--color--base);
+	font-size: 0.75rem;
+	padding: .25em .75em;
+	border: none;
+	border-radius: 100px;
+}
+
+.wc-block-product-template .wc-block-product div:not(.wc-block-components-product-image) a.added_to_cart {
+	margin-top: 0;
+	font-size: 0.8rem;
+}
+
+.wp-block-button.wc-block-components-product-button.is-style-outline .wp-block-button__link {
+	border-width: 1px;
+	outline-width: 1px;
+    outline-offset: -2px;
+}
+
+.wp-block-woocommerce-product-collection h2.wp-block-heading,
+.editor-styles-wrapper .wp-block-woocommerce-product-collection h2.wp-block-heading {
+    font-size: var(--wp--preset--font-size--500);
+    line-height: var(--wp--custom--line-height--snug);
+}
+
+input[type=checkbox].wc-block-product-filter-checkbox-list__input[type="checkbox"] {
+	width: auto;
+	min-width: auto;
+	padding: 8px;
+	height: 18px;
+	width: 18px;
+}
+
+input[type=checkbox].wc-block-product-filter-checkbox-list__input:checked+.wc-block-product-filter-checkbox-list__mark {
+	background: var(--wp--preset--color--contrast);
+	color: var(--wp--preset--color--base);
+	border-radius: 5px;
+	height: 18px;
+	width: 18px;
+}
+
+.wc-block-product-filter-checkbox-list__input-wrapper:before {
+	border-radius: 5px;
+	display: none;
+}
+
+.wc-block-product-filter-removable-chips__items .wc-block-product-filter-removable-chips__item {
+	border-radius: var(--wp--preset--border-radius--200);
+	background: var(--wp--preset--color--neutral-200);
+	border: 1px solid var(--wp--preset--color--neutral-400);
+	font-size: var(--wp--preset--font-size--100);
+	width: 100%;
+	padding: 8px 10px 8px 15px;
+}
+
+.wc-block-product-filter-removable-chips__items {
+	gap: 8px;
+	width: 100%;
+}
+
+.wp-block-woocommerce-product-filter-clear-button button {
+	padding: var(--wp--preset--spacing--30);
+}
+
+.wc-block-product-filter-price-slider .text input[type=text] {
+	max-width: 70px;
+}
+
+/* ============================================
+   Sale Badge
+   ============================================ */
+
+.editor-styles-wrapper .wc-block-grid__products .wc-block-grid__product .wc-block-components-product-image .wc-block-components-product-sale-badge--align-right,
+.wc-block-components-product-image .wc-block-components-product-sale-badge--align-right {
+	top: 12px;
+	right: 12px;
+}
+
+.wc-block-cart-item__total-price-and-sale-badge-wrapper .wc-block-components-sale-badge {
+	margin-top: 8px;
+}
+
+/* ============================================
+   Product Badges
+   ============================================ */
+
+.wc-block-components-product-badge {
+	font-size: calc(var(--wp--preset--font-size--100) - 0.2rem);
+	background: var(--wp--preset--color--neutral-200);
+	border-radius: 100px;
+	border: none;
+	padding: 4px 10px;
+	font-weight: 500;
+	width: fit-content;
+}
+
+.wc-block-components-sale-badge {
+	background: #effcee;
+	color: #519a48;
+}

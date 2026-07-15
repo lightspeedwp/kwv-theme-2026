@@ -1,0 +1,157 @@
+/* WooCommerce — Shop Filters
+   ---------------------------------------------
+   Collapsible shop-filter sidebar, split out of woocommerce.css (Stage 3 CP3).
+   Enqueued on is_shop() || is_product_taxonomy().
+--------------------------------------------- */
+
+@layer woocommerce-default, theme-overrides;
+
+/* ============================================
+   Shop filters — collapsible sections
+   Enhanced by assets/js/shop-filters.js: each Product Filter section (Brands,
+   Price Range, Type, Pack Size, Special Offers) folds up by default with a +/-
+   disclosure on its heading, and a neutral-700 divider sits below every section.
+
+   These are Interactivity API regions that re-render on filter changes, so the
+   styling keys off the stable `data-block-name` structure — never JS-injected
+   markup. The `product-filter-` prefix matches the five sections (and would
+   match nested list/slider blocks, hence the `:has(> .wp-block-heading)` guard)
+   but not the `product-filters` container. The fold behaviour is gated on
+   `.kwv-filters-collapsible`, which the script adds, so without JS every section
+   stays open and fully accessible.
+   ============================================ */
+
+/* WooCommerce puts a grey top border + top padding/margin on the overlay
+   wrapper (a separator meant for the mobile "Filter products" bar); on desktop
+   it reads as a stray light-grey line above the filters. Remove it. */
+.kwv-shop-filters .wc-block-product-filters__overlay {
+	border-top: 0;
+	margin-top: 0;
+	padding-top: 0;
+}
+
+/* Section spacing is defined by each section's own padding-block + divider, so
+   drop WooCommerce's flex block-gap (its hard-coded fallback ignores the editor
+   and stacks extra space on top of ours). */
+.kwv-shop-filters .wc-block-product-filters__overlay-content {
+	gap: 0;
+}
+
+/* Divider below every visible section (skip the empty/hidden ones WooCommerce
+   marks with [hidden] / .wc-block-product-filter--hidden). */
+.kwv-shop-filters
+	[data-block-name^="woocommerce/product-filter-"]:not([hidden]):not(.wc-block-product-filter--hidden):has(> .wp-block-heading) {
+	border-bottom: 1px solid var(--wp--preset--color--neutral-700);
+	padding-block: var(--wp--preset--spacing--30);
+}
+
+/* Fold behaviour (JS present). A grid row-collapse keeps the section full-width
+   while folded so the CSS price slider still measures correctly on expand. Each
+   section has exactly two children — heading + content — so the second track
+   maps to the collapsible content. minmax(0, …) lets that track reach a true
+   zero when folded; a bare `0fr` floors at the content's padding-top sliver. */
+.kwv-shop-filters.kwv-filters-collapsible
+	[data-block-name^="woocommerce/product-filter-"]:has(> .wp-block-heading) {
+	display: grid;
+	grid-template-rows: auto minmax(0, 1fr);
+	transition: grid-template-rows 0.25s ease;
+}
+
+.kwv-shop-filters.kwv-filters-collapsible
+	[data-block-name^="woocommerce/product-filter-"].kwv-filter-collapsed {
+	grid-template-rows: auto minmax(0, 0fr);
+}
+
+/* The content row — clipped so it disappears completely when the track hits 0.
+   No vertical padding here: any would keep the box taller than the zeroed track
+   and leave a sliver. The heading↔content gap is on the heading instead (below). */
+.kwv-shop-filters.kwv-filters-collapsible
+	[data-block-name^="woocommerce/product-filter-"]:has(> .wp-block-heading) > :not(.wp-block-heading) {
+	min-height: 0;
+	overflow: hidden;
+}
+
+/* Indent the list / slider so it lines up with the label's left padding.
+   Horizontal padding is safe (it doesn't affect the vertical fold). Not gated on
+   the collapsible class so the indent holds even without JS. */
+.kwv-shop-filters
+	[data-block-name^="woocommerce/product-filter-"]:has(> .wp-block-heading) > :not(.wp-block-heading) {
+	padding-inline-start: var(--wp--preset--spacing--10);
+}
+
+/* The price slider's handles sit half-outside the track at the min/max ends, so
+   they overflow the sidebar edges. Give the slider room on the right too (the
+   left is covered by the indent above) so it's inset on both sides. */
+.kwv-shop-filters .wc-block-product-filter-price-slider {
+	padding-inline-end: var(--wp--preset--spacing--10);
+}
+
+/* The heading is the disclosure control. */
+.kwv-shop-filters.kwv-filters-collapsible
+	[data-block-name^="woocommerce/product-filter-"] > .wp-block-heading {
+	position: relative;
+	margin-bottom: 0 !important;   /* overrides the pattern's inline margin so a folded section is flush */
+	padding-inline-start: var(--wp--preset--spacing--10);
+	padding-inline-end: 1.75em;    /* room for the +/- glyph */
+	text-transform: none;          /* theme.json uppercases all headings; filter names read better cased */
+	font-size: var(--wp--preset--font-size--300) !important;
+	font-weight: var(--wp--custom--font-weight--regular) !important;
+	cursor: pointer;
+	user-select: none;
+}
+
+/* Gap between heading and content only while open (folds away when shut). */
+.kwv-shop-filters.kwv-filters-collapsible
+	[data-block-name^="woocommerce/product-filter-"]:not(.kwv-filter-collapsed) > .wp-block-heading {
+	margin-bottom: var(--wp--preset--spacing--20) !important;
+}
+
+/* +/- glyph — a single masked pseudo-element that swaps a plus SVG for a minus
+   SVG on expand. A whole-icon swap (no scaling bars, no transforms) so there is
+   no drift or odd motion; `currentColor` tints it via the mask. */
+.kwv-shop-filters.kwv-filters-collapsible
+	[data-block-name^="woocommerce/product-filter-"] > .wp-block-heading::after {
+	content: "";
+	position: absolute;
+	inset-inline-end: 0;
+	top: 50%;
+	inline-size: 0.75em;
+	block-size: 0.75em;
+	transform: translateY(-50%);
+	background-color: currentColor;
+	-webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Crect%20x='11'%20y='4'%20width='2'%20height='16'/%3E%3Crect%20x='4'%20y='11'%20width='16'%20height='2'/%3E%3C/svg%3E") center / contain no-repeat;
+	mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Crect%20x='11'%20y='4'%20width='2'%20height='16'/%3E%3Crect%20x='4'%20y='11'%20width='16'%20height='2'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* Expanded → swap the plus for a minus. */
+.kwv-shop-filters.kwv-filters-collapsible
+	[data-block-name^="woocommerce/product-filter-"]:not(.kwv-filter-collapsed) > .wp-block-heading::after {
+	-webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Crect%20x='4'%20y='11'%20width='16'%20height='2'/%3E%3C/svg%3E");
+	mask-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Crect%20x='4'%20y='11'%20width='16'%20height='2'/%3E%3C/svg%3E");
+}
+
+/* Keyboard focus affordance on the heading control. */
+.kwv-shop-filters.kwv-filters-collapsible
+	[data-block-name^="woocommerce/product-filter-"] > .wp-block-heading:focus-visible {
+	outline: 2px solid var(--wp--preset--color--brand-500);
+	outline-offset: 5px;
+	border-radius: var(--wp--preset--border-radius--100);
+}
+
+/* Filter checkbox-list items at font-size 200. */
+.kwv-shop-filters .wc-block-product-filter-checkbox-list__label {
+	font-size: var(--wp--preset--font-size--200);
+}
+
+/* Top-align the checkbox, label and count so a long label that wraps to two
+   lines keeps the checkbox and count on the first line (they were vertically
+   centred against the whole wrapped block). A small top pad on the text nudges
+   it so a single-line label still reads centred against the checkbox. */
+.kwv-shop-filters .wc-block-product-filter-checkbox-list__label {
+	align-items: flex-start;
+}
+
+.kwv-shop-filters .wc-block-product-filter-checkbox-list__text-wrapper {
+	align-items: flex-start;
+	margin-bottom: 5px;
+}
