@@ -40,37 +40,16 @@ function register_block_styles() {
 
 	$block_styles = array(
 		'core/list'         => array(
-			'list-check'        => __( 'Check', 'kwv' ),
-			'list-check-circle' => __( 'Check Circle', 'kwv' ),
-			'list-boxed'        => __( 'Boxed', 'kwv' ),
-		),
-		'core/cover'        => array(
-			'blur-image-less' => __( 'Blur Image Less', 'kwv' ),
-			'blur-image-more' => __( 'Blur Image More', 'kwv' ),
-			'rounded-cover'   => __( 'Rounded', 'kwv' ),
-		),
-		'core/column'       => array(
-			'column-box-shadow' => __( 'Box Shadow', 'kwv' ),
+			'list-check' => __( 'Check', 'kwv' ),
 		),
 		'core/post-excerpt' => array(
-			'excerpt-truncate-2' => __( 'Truncate 2 Lines', 'kwv' ),
 			'excerpt-truncate-3' => __( 'Truncate 3 Lines', 'kwv' ),
-			'excerpt-truncate-4' => __( 'Truncate 4 Lines', 'kwv' ),
 		),
 		'core/group'        => array(
-			'column-box-shadow' => __( 'Box Shadow', 'kwv' ),
-			'background-blur'   => __( 'Background Blur', 'kwv' ),
+			'background-blur' => __( 'Background Blur', 'kwv' ),
 		),
 		'core/separator'    => array(
-			'separator-dotted' => __( 'Dotted', 'kwv' ),
-			'separator-thin'   => __( 'Thin', 'kwv' ),
-		),
-		'core/image'        => array(
-			'rounded-full' => __( 'Rounded Full', 'kwv' ),
-			'media-boxed'  => __( 'Boxed', 'kwv' ),
-		),
-		'core/post-terms'   => array(
-			'term-button' => __( 'Button Style', 'kwv' ),
+			'separator-thin' => __( 'Thin', 'kwv' ),
 		),
 		'core/categories'   => array(
 			'categories-chevron' => __( 'Chevron', 'kwv' ),

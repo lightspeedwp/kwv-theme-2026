@@ -27,27 +27,6 @@ html .is-layout-flex .wp-block-image {
 	border-radius: 10px;
 }
 
-.wp-block-image.is-style-rounded-full img,
-.wp-block-image .is-style-rounded-full img {
-	border-radius: 1000px;
-}
-
-.is-style-media-boxed {
-	background-color: var(--wp--preset--color--neutral-200);
-	padding: var(--wp--preset--spacing--40);
-	border-radius: 5px;
-}
-
-.is-style-media-boxed img {
-	/* Neutral elevation token (was an inherited bluish hsl(233deg 38% 85%) stack,
-	   off-brand for the gold/neutral palette). See the assets/styles audit, finding ③. */
-	box-shadow: var(--wp--preset--shadow--400);
-}
-
-.is-style-media-boxed figcaption {
-	margin-bottom: calc(var(--wp--preset--spacing--20) * -1) !important;
-}
-
 .kwv-avatar-row > figure:not(:first-child) {
 	margin-left: -10px !important;
 }
