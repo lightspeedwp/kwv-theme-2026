@@ -164,7 +164,6 @@ body.rtl .wp-block-navigation__responsive-container.is-menu-open .wp-block-navig
 /* Hamburger trigger: clean and borderless, distinct from the boxed default. */
 .is-style-mobile-navigation .wp-block-navigation__responsive-container-open {
 	background: transparent;
-	color: var(--wp--preset--color--base);
 	padding: var(--wp--preset--spacing--5);
 }
 
