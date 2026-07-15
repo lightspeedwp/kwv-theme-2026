@@ -159,10 +159,18 @@
 	font-weight: var(--wp--custom--font-weight--regular);
 }
 
-/* Country/Region + Province selects — drop the value/placeholder text a level
-   (300 → 200) so it isn't cramped against the floating label. */
+/* Country/Region + Province selects — smaller value/placeholder text (200), but
+   keep the field the same height as the text inputs and open up the gap between
+   the floating label and the value. The theme sizes all fields with `height:
+   3.4em`, which is font-relative — so the smaller select font would otherwise
+   make these shorter than the 300-font text inputs. Pin the height to the same
+   "3.4 × the 300 font" the text inputs resolve to (fluid-safe), and add top
+   padding so the value clears the floating label. */
 .wp-block-woocommerce-checkout .wc-blocks-components-select__select {
 	font-size: var(--wp--preset--font-size--200);
+	height: calc(var(--wp--preset--font-size--300) * 3.4);
+	padding-top: 28px;
+	padding-bottom: 8px;
 }
 
 /* Checkout steps */
