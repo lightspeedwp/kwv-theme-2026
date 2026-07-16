@@ -43,25 +43,12 @@
 
 <!-- wp:query {"queryId":40,"query":{"perPage":10,"pages":0,"offset":0,"postType":"kwv_career","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false},"metadata":{"name":"Available Positions"}} -->
 <div class="wp-block-query"><!-- wp:post-template {"style":{"spacing":{"blockGap":"var:preset|spacing|40"}},"layout":{"type":"default"}} -->
-<!-- wp:columns {"verticalAlignment":"center","style":{"spacing":{"blockGap":{"left":"var:preset|spacing|40"}},"border":{"bottom":{"color":"var:preset|color|neutral-100","width":"1px"},"top":{},"right":{},"left":{}}}} -->
-<div class="wp-block-columns are-vertically-aligned-center" style="border-bottom-color:var(--wp--preset--color--neutral-100);border-bottom-width:1px"><!-- wp:column {"verticalAlignment":"center","width":"50%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:50%"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","flexWrap":"wrap","verticalAlignment":"center"}} -->
-<div class="wp-block-group"><!-- wp:post-title {"level":3,"isLink":false,"fontSize":"200","style":{"typography":{"fontWeight":"var:custom|font-weight|regular","lineHeight":"var:custom|line-height|body"}},"fontFamily":"body"} /-->
-
-<!-- wp:paragraph {"metadata":{"bindings":{"content":{"source":"core/post-meta","args":{"key":"kwv_career_reference"}}},"name":"Reference"},"className":"kwv-position-ref","fontSize":"200","style":{"typography":{"lineHeight":"var:custom|line-height|body"}}} -->
-<p class="kwv-position-ref has-200-font-size" style="line-height:var(--wp--custom--line-height--body)">BMMS0128</p>
-<!-- /wp:paragraph --></div>
-<!-- /wp:group --></div>
-<!-- /wp:column -->
-
-<!-- wp:column {"verticalAlignment":"center","width":"25%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:25%"><!-- wp:post-date {"format":"j F Y","fontSize":"200","style":{"typography":{"textTransform":"uppercase","lineHeight":"var:custom|line-height|body"}}} /--></div>
-<!-- /wp:column -->
-
-<!-- wp:column {"verticalAlignment":"center","width":"25%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:25%"><!-- wp:read-more {"content":"Click here","fontSize":"200","backgroundColor":"base","textColor":"contrast","style":{"border":{"color":"var:preset|color|contrast","width":"1px","radius":"0px"},"typography":{"fontWeight":"var:custom|font-weight|bold","textTransform":"uppercase","textDecoration":"none"},"spacing":{"padding":{"top":"var:preset|spacing|20","right":"var:preset|spacing|50","bottom":"var:preset|spacing|20","left":"var:preset|spacing|50"}}},"fontFamily":"heading"} /--></div>
-<!-- /wp:column --></div>
-<!-- /wp:columns -->
+<?php
+// The job "card" lives in its own pattern (kwv/career-card). It is inlined here
+// rather than referenced with wp:pattern because a nested wp:pattern is not
+// resolved inside another pattern on the front end — it silently drops.
+require __DIR__ . '/career-card.php';
+?>
 <!-- /wp:post-template -->
 
 <!-- wp:query-no-results -->

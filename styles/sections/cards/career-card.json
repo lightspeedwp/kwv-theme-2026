@@ -1,0 +1,49 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Career Card",
+	"slug": "career-card",
+	"blockTypes": [ "core/columns" ],
+	"styles": {
+		"blocks": {
+			"core/post-title": {
+				"typography": {
+					"fontFamily": "var:preset|font-family|body",
+					"fontSize": "var:preset|font-size|200",
+					"fontWeight": "var:custom|font-weight|medium",
+					"lineHeight": "var:custom|line-height|body",
+					"textTransform": "none",
+					"textDecoration": "none"
+				}
+			},
+			"core/read-more": {
+				"color": {
+					"text": "var:preset|color|contrast",
+					"background": "var:preset|color|base"
+				},
+				"border": {
+					"color": "var:preset|color|contrast",
+					"style": "solid",
+					"width": "1px",
+					"radius": "0px"
+				},
+				"spacing": {
+					"padding": {
+						"top": "var:preset|spacing|20",
+						"right": "var:preset|spacing|50",
+						"bottom": "var:preset|spacing|20",
+						"left": "var:preset|spacing|50"
+					}
+				},
+				"typography": {
+					"fontFamily": "var:preset|font-family|heading",
+					"fontSize": "var:preset|font-size|200",
+					"fontWeight": "var:custom|font-weight|medium",
+					"letterSpacing": "var:custom|letter-spacing|wide",
+					"textTransform": "uppercase",
+					"textDecoration": "none"
+				}
+			}
+		}
+	}
+}
