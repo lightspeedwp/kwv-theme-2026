@@ -8,8 +8,8 @@
  *
  * Selectors target the plugin's BEM markup (.age-gate__*) and are qualified with the
  * `button` tag where needed to match the plugin's own specificity (0,1,1), so our
- * later-loading sheet wins on source order. Values reference theme.json preset tokens
- * (brand-500 gold, base white, font-size 100/200) so the gate tracks the design
+ * later-loading sheet wins on source order. Values reference theme.json tokens
+ * (contrast/base, font-size 200, letter-spacing wide) so the gate tracks the design
  * system rather than the old-brand literals used on the live site (Montserrat /
  * #b49759). It lives in a real stylesheet rather than a block-style JSON `css` field
  * because it needs :hover/:focus and a plugin-specific layout offset.
@@ -19,15 +19,15 @@
    baked into the background image, matching the live gate. */
 .age-gate__subheadline {
 	margin: 15px;
-	padding-top: 200px;
+	padding-top: 220px;
 	color: var(--wp--preset--color--base);
-	font-size: var(--wp--preset--font-size--200);
+	font-size: var(--wp--preset--font-size--300);
 	font-weight: 500;
 	line-height: 1.8;
 	text-align: center;
 }
 
-/* No / Yes — gold, white-bordered, uppercase buttons. */
+/* No / Yes — solid black, uppercase buttons. */
 .age-gate__buttons {
 	gap: 10px;
 }
@@ -40,7 +40,6 @@ button.age-gate__submit--yes {
 	background-color: var(--wp--preset--color--contrast);
 	color: var(--wp--preset--color--base);
 	font-size: var(--wp--preset--font-size--200);
-	text-transform: uppercase;
 	font-weight: 600;
 	line-height: 1;
 	letter-spacing: var(--wp--custom--letter-spacing--wide);
@@ -48,7 +47,7 @@ button.age-gate__submit--yes {
 	transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
-/* Hover / focus drops the border, as on the live gate. */
+/* Hover / focus inverts to a white fill with black text. */
 button.age-gate__submit--no:hover,
 button.age-gate__submit--yes:hover,
 button.age-gate__submit--no:focus,
