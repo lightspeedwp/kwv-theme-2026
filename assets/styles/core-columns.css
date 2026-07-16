@@ -11,6 +11,18 @@
 	}
 }
 
+/* Columns stack on mobile */
+@media (max-width: 1024px) {
+	.wp-block-columns {
+		flex-wrap: wrap;
+	}
+
+	.wp-block-columns>.wp-block-column {
+		flex-basis: 100%;
+		width: 100%;
+	}
+}
+
 /* Contact directory — vertical rules between columns (Contact Info pattern).
    Block JSON has no per-side border on columns, so the divider lives here. */
 .kwv-contact-directory.wp-block-columns > .wp-block-column + .wp-block-column {
