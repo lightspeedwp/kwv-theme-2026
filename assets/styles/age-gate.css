@@ -35,14 +35,15 @@
 button.age-gate__submit--no,
 button.age-gate__submit--yes {
 	padding: 14px 24px;
-	border: 1px solid var(--wp--preset--color--base);
-	border-radius: 3px;
-	background-color: var(--wp--preset--color--brand-500);
+	border: 1px solid var(--wp--preset--color--contrast);
+	border-radius: 0;
+	background-color: var(--wp--preset--color--contrast);
 	color: var(--wp--preset--color--base);
-	font-size: var(--wp--preset--font-size--100);
+	font-size: var(--wp--preset--font-size--200);
+	text-transform: uppercase;
 	font-weight: 600;
 	line-height: 1;
-	letter-spacing: 1.2px;
+	letter-spacing: var(--wp--custom--letter-spacing--wide);
 	text-transform: uppercase;
 	transition: border-color 0.3s ease, background-color 0.3s ease;
 }
@@ -52,7 +53,7 @@ button.age-gate__submit--no:hover,
 button.age-gate__submit--yes:hover,
 button.age-gate__submit--no:focus,
 button.age-gate__submit--yes:focus {
-	border-color: transparent;
-	background-color: var(--wp--preset--color--brand-500);
-	color: var(--wp--preset--color--base);
+	border-color: var(--wp--preset--color--contrast);
+	background-color: var(--wp--preset--color--base);
+	color: var(--wp--preset--color--contrast);
 }
