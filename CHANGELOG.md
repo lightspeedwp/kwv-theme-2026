@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added (Careers — Gravity Forms application-form styling)
+- **`assets/styles/gravity-forms.css`** — styled the job application form (Gravity Forms Orbital theme), scoped to the **`.single-kwv_career` body class** (env-independent — works whether the page renders from the theme template or a DB override, and the shared form's id differs per environment):
+  - **Submit → black CTA button** mirroring the `core/button` `cta` variation (contrast fill + base text, flipping to base fill + contrast text on hover/focus; square, uppercase Poppins, `semi-bold`, `0.02em`), reusing the same tokens.
+  - **Uniform fields** — text/email/tel/number/url/select/textarea **and the file inputs** share one square, 1px `neutral-300` border on a `base` fill, `font-size|200`, `brand-500` focus border. The previously-**broken native file inputs** now sit in that same frame, with the picker (`::file-selector-button`) dressed as a compact contrast button, and the "accepted types / max size" hint styled as small `neutral-600` helper text.
+- **`inc/gravity-forms.php`** — the sheet now also loads on single `kwv_career` pages (`is_singular`), because the form is embedded via the `[kwv_career_form]` shortcode there, not the `gravityforms/form` block (so the existing block-tied enqueue never fires). Newsletter-form styling (form id 2) is unchanged.
+- Verify on **local** (renders from the theme files). On **dev** this needs the theme deploy — `gravity-forms.css` + `inc/gravity-forms.php` are theme files and the active theme isn't MCP-writable, so the dev job form stays Orbital-default until deploy.
+
+### Added (Careers — single job template: details + per-job application form)
+- **`patterns/template-single-career.php`** — surfaced the new SCF job fields and wired the per-job form:
+  - A **Job Details block** under the reference row — **Location**, **Department** and **Closing date**, each a label + a bound value (`core/post-meta` for location/department; the new **`kwv/meta-date`** binding for the closing date, formatted `j F Y`). Token-styled (`contrast`, `font-size|200`, bold labels). *Placement of these fields is a LightSpeed proposal — no Figma exists for them — easy to reposition.*
+  - Replaced the hardcoded `wp:gravityforms/form` (shared form via option) with a **`[kwv_career_form]` shortcode block**, so each job's **Application Form** field (`kwv_career_form_id`) chooses the embedded form, falling back to the shared "KWV Job Application" form.
+- **`kwv/meta-date` block binding** (KWV Enhancements plugin, `modules/block-bindings.php`) — formats an `Ymd` date meta (SCF date-picker storage) via `wp_date()`; reusable for any CPT (e.g. Events). Bind `content` with `args:{key,format}`.
+- Verified on dev (single job page renders location/department/closing date + the Gravity Form via the shortcode). The DB override `single-kwv_career` (182318) was mirrored to match; **delete it on theme deploy**.
+- **Process recorded** for reuse (the Events CPT will follow the same steps): `wp-content/plugins/kwv-enhancements/docs/adding-a-content-type.md`.
+
 ### Added (Careers — job "card" pattern, section style, Read More hover)
 - **`patterns/career-card.php`** (new, `kwv/career-card`) — extracted the Careers query-loop item into its own pattern: the Title/Reference/Date/"Click here" row. The **post-title is now a link** to the single job (was `isLink:false`). `Block Types: core/post-template` so it's suggested inside a job Query Loop. Inserter-visible.
 - **`patterns/careers-positions.php`** — the post-template now **inlines the card via `require __DIR__ . '/career-card.php'`** rather than a nested `wp:pattern` (a nested pattern is not resolved inside another pattern on the front end — it silently drops).
