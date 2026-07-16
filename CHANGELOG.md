@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed (Careers landing — synced patterns from the approved dev page)
+Folded the client's dev edits to the Careers page (page 36807, `/careers/`) back into the `kwv/careers-*` section patterns, keeping them portable (dev image URLs, nav-menu IDs 182338/182351 and the AWS-search block were **not** imported — the patterns keep placeholder images and portable nav refs). Per instruction, the positions loop uses the **`kwv/career-card`**, not the plain inline row that was on the dev page.
+- **`patterns/careers-positions.php`** — centred "Available positions" heading over a centred brand-rule separator (columns 25/50/25); header row re-widened to **50 / 25 / 15** (Title / Date / Details); "no positions" message enlarged to `font-size|400`, centred. Loop still inlines `career-card.php` via `require`.
+- **`patterns/career-card.php`** — Details (Read More) column `25% → 15%` to match the new header.
+- **`patterns/careers-portfolio.php`** — the "Click here" button now uses the **`is-style-cta`** button style (was a hand-rolled bordered button).
+- **`patterns/careers-team.php`** — added the centred separator sub-header; heading is now **"Why a career at KWV?"**; team grid `minimumColumnWidth` `300px → 16rem`.
+- **`patterns/careers-hero.php`** — `min-height 720 → 600`, `padding-top 12em → 16em`, aligning the shared hero with both the dev landing and the single-job hero.
+- **Not synced (environment-specific):** the new hero image, intro/portfolio photos (kept as placeholder image blocks), and the header's live nav/AWS-search wiring — these are set per-environment on the page/menus, not baked into the theme.
+- The live dev page (36807) is the client's own content and was left untouched; these theme patterns are the portable source of truth for a fresh build/deploy.
+
 ### Added (Careers — Gravity Forms application-form styling)
 - **`assets/styles/gravity-forms.css`** — styled the job application form (Gravity Forms Orbital theme), scoped to the **`.single-kwv_career` body class** (env-independent — works whether the page renders from the theme template or a DB override, and the shared form's id differs per environment):
   - **Submit → black CTA button** mirroring the `core/button` `cta` variation (contrast fill + base text, flipping to base fill + contrast text on hover/focus; square, uppercase Poppins, `semi-bold`, `0.02em`), reusing the same tokens.
