@@ -47,6 +47,12 @@
 .wp-block-search.is-style-kwv-megamenu-search .wp-block-search__input::placeholder {
 	color: var(--wp--preset--color--neutral-500);
 	opacity: 1;
+	/* Pin the placeholder to the input's own size (font-size-200). The placeholder
+	   doesn't reliably inherit it, and the generic `.site-header …::placeholder`
+	   fix below only reaches the template-part headers — not the home hero, whose
+	   transparent header is inlined markup with no `.site-header` ancestor. Scoping
+	   this to the block style makes it context-independent. */
+	font-size: inherit;
 }
 
 .wp-block-search.is-style-kwv-megamenu-search .wp-block-search__button,
