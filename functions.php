@@ -219,3 +219,8 @@ require_once get_template_directory() . '/inc/carousel.php';
  * Load Gravity Forms newsletter sign-up styling.
  */
 require_once get_template_directory() . '/inc/gravity-forms.php';
+
+/**
+ * Load the Age Gate age-verification skin (KWV 2026 brand).
+ */
+require_once get_template_directory() . '/inc/age-gate.php';

@@ -1,0 +1,58 @@
+/**
+ * Age Gate plugin — KWV 2026 brand skin.
+ *
+ * Reproduces the kwv.co.za age-verification gate on the 2026 brand. The background
+ * image (cellar barrels with the "WELCOME TO KWV" lockup baked in) and the colour
+ * variables are configured in the plugin's Appearance settings; this file only
+ * styles the form furniture the plugin renders.
+ *
+ * Selectors target the plugin's BEM markup (.age-gate__*) and are qualified with the
+ * `button` tag where needed to match the plugin's own specificity (0,1,1), so our
+ * later-loading sheet wins on source order. Values reference theme.json preset tokens
+ * (brand-500 gold, base white, font-size 100/200) so the gate tracks the design
+ * system rather than the old-brand literals used on the live site (Montserrat /
+ * #b49759). It lives in a real stylesheet rather than a block-style JSON `css` field
+ * because it needs :hover/:focus and a plugin-specific layout offset.
+ */
+
+/* "Are you over 18 years of age?" — pushed clear of the "WELCOME TO KWV" lockup
+   baked into the background image, matching the live gate. */
+.age-gate__subheadline {
+	margin: 15px;
+	padding-top: 200px;
+	color: var(--wp--preset--color--base);
+	font-size: var(--wp--preset--font-size--200);
+	font-weight: 500;
+	line-height: 1.8;
+	text-align: center;
+}
+
+/* No / Yes — gold, white-bordered, uppercase buttons. */
+.age-gate__buttons {
+	gap: 10px;
+}
+
+button.age-gate__submit--no,
+button.age-gate__submit--yes {
+	padding: 14px 24px;
+	border: 1px solid var(--wp--preset--color--base);
+	border-radius: 3px;
+	background-color: var(--wp--preset--color--brand-500);
+	color: var(--wp--preset--color--base);
+	font-size: var(--wp--preset--font-size--100);
+	font-weight: 600;
+	line-height: 1;
+	letter-spacing: 1.2px;
+	text-transform: uppercase;
+	transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+/* Hover / focus drops the border, as on the live gate. */
+button.age-gate__submit--no:hover,
+button.age-gate__submit--yes:hover,
+button.age-gate__submit--no:focus,
+button.age-gate__submit--yes:focus {
+	border-color: transparent;
+	background-color: var(--wp--preset--color--brand-500);
+	color: var(--wp--preset--color--base);
+}
