@@ -13,6 +13,24 @@
 	background-color: var(--wp--preset--color--base);
 }
 
+/* A CLOSED panel must never sit in the hit-test layer.
+   The plugin closes the panel with visibility:hidden + opacity:0, but the
+   native-nav variant's pre-open rule (below) forces a descendant column back to
+   visibility:visible — which overrides the ancestor's visibility:hidden — and
+   opacity:0 never blocks pointer events. The result is an invisible,
+   position:absolute, z-index:100 panel that traps clicks over the header (and,
+   in the transparent hero, over the nav from page load). Gating pointer-events
+   on the toggle's aria-expanded state neutralises it regardless of variant:
+   pointer-events:none cascades to every descendant (none of the reveal rules
+   reset it), and only an actually-open panel becomes interactive again. */
+.wp-block-ollie-mega-menu__menu-container {
+	pointer-events: none;
+}
+
+.wp-block-ollie-mega-menu__toggle[aria-expanded="true"] ~ .wp-block-ollie-mega-menu__menu-container {
+	pointer-events: auto;
+}
+
 /* The dropdown panel content: columns on the left, search on the right. */
 .kwv-mega-menu-wrap {
 	display: flex;
@@ -246,22 +264,27 @@
 	text-decoration: none !important;
 }
 
-/* Reveal a column when its parent row is hovered/focused. */
-.is-style-mega-menu-nav .wp-block-navigation-item:hover > .wp-block-navigation__submenu-container,
-.is-style-mega-menu-nav .wp-block-navigation-item:focus-within > .wp-block-navigation__submenu-container {
+/* Reveal a column when its parent row is hovered/focused.
+   Scoped to an OPEN panel (toggle aria-expanded="true") so these visibility
+   overrides never fire while the panel is closed — otherwise they'd flip a
+   column back to visibility:visible against the plugin's visibility:hidden
+   close, leaving it hit-testable and keyboard-focusable inside a "closed" menu. */
+[aria-expanded="true"] ~ .wp-block-ollie-mega-menu__menu-container .is-style-mega-menu-nav .wp-block-navigation-item:hover > .wp-block-navigation__submenu-container,
+[aria-expanded="true"] ~ .wp-block-ollie-mega-menu__menu-container .is-style-mega-menu-nav .wp-block-navigation-item:focus-within > .wp-block-navigation__submenu-container {
 	visibility: visible;
 	opacity: 1;
 }
 
-/* Pre-open the first parent's column by default. Lives here (not in the block
-   style) because WordPress also strips :first-child out of the css field. */
-.is-style-mega-menu-nav .wp-block-navigation__container > .wp-block-navigation-item:first-child > .wp-block-navigation__submenu-container {
+/* Pre-open the first parent's column by default (only while the panel is open).
+   Lives here (not in the block style) because WordPress strips :first-child out
+   of the css field. */
+[aria-expanded="true"] ~ .wp-block-ollie-mega-menu__menu-container .is-style-mega-menu-nav .wp-block-navigation__container > .wp-block-navigation-item:first-child > .wp-block-navigation__submenu-container {
 	visibility: visible;
 	opacity: 1;
 }
 
 /* Hide the pre-opened first column once another parent is the one being hovered. */
-.is-style-mega-menu-nav .wp-block-navigation__container:hover > .wp-block-navigation-item:first-child:not(:hover):not(:focus-within) > .wp-block-navigation__submenu-container {
+[aria-expanded="true"] ~ .wp-block-ollie-mega-menu__menu-container .is-style-mega-menu-nav .wp-block-navigation__container:hover > .wp-block-navigation-item:first-child:not(:hover):not(:focus-within) > .wp-block-navigation__submenu-container {
 	visibility: hidden;
 	opacity: 0;
 }

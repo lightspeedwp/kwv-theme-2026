@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed (Shop mega menu — invisible closed panel was blocking header nav clicks)
+The Ollie mega-menu closes its panel with `visibility:hidden` + `opacity:0`, but the native-nav variant's pre-open rule forced a descendant column back to `visibility:visible` (which overrides the ancestor's `visibility:hidden`), and `opacity:0` never blocks pointer events — leaving an invisible, `position:absolute`, `z-index:100` panel that trapped clicks over the header. Symptoms: About links unclickable on the transparent hero header (panel overlapped from load), and — on the light header — About blocked and the closed menu's first column re-firing after the Shop mega menu had been opened once.
+- **`assets/styles/ollie-mega-menu.css`** — gated `pointer-events` on `.wp-block-ollie-mega-menu__menu-container` to the toggle's `aria-expanded="true"` state (closed panel is now inert regardless of descendant `visibility`), and scoped the three flyout-reveal rules (hover/focus reveal, first-child pre-open, hide-first-when-other-hovered) under an open panel so a closed menu's columns are neither hit-testable nor keyboard-focusable.
+
 ### Changed (Careers landing — synced patterns from the approved dev page)
 Folded the client's dev edits to the Careers page (page 36807, `/careers/`) back into the `kwv/careers-*` section patterns, keeping them portable (dev image URLs, nav-menu IDs 182338/182351 and the AWS-search block were **not** imported — the patterns keep placeholder images and portable nav refs). Per instruction, the positions loop uses the **`kwv/career-card`**, not the plain inline row that was on the dev page.
 - **`patterns/careers-positions.php`** — centred "Available positions" heading over a centred brand-rule separator (columns 25/50/25); header row re-widened to **50 / 25 / 15** (Title / Date / Details); "no positions" message enlarged to `font-size|400`, centred. Loop still inlines `career-card.php` via `require`.
