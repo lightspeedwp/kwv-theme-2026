@@ -2,10 +2,10 @@
 /**
  * Title: Product Archive
  * Slug: kwv/woo-product-archive
- * Description: Shop / product archive — full-width hero, WooCommerce breadcrumbs, a filters sidebar (Brands, Price Range, Type, Pack Size, Special Offers), a four-column product grid using the Product Card, and pagination. Serves the shop and product category archives.
+ * Description: Shop / product archive — dynamic per-term hero, WooCommerce breadcrumbs, a filters sidebar (Brand, Price Range, Type, Volume), a three-column product grid using the Product Card, and pagination. Serves the shop, product category, and product brand archives.
  * Categories: kwv/woocommerce
  * Keywords: product, archive, shop, woocommerce, grid, filters
- * Template Types: archive-product, taxonomy-product_cat
+ * Template Types: archive-product, taxonomy-product_cat, taxonomy-product_brand
  * Inserter: false
  * Viewport Width: 1500
  */
@@ -15,8 +15,10 @@
 <!-- wp:group {"tagName":"main","metadata":{"name":"Main Content"},"style":{"spacing":{"margin":{"top":"0","bottom":"0"},"blockGap":"0"}},"layout":{"inherit":true,"type":"constrained"}} -->
 <main class="wp-block-group" style="margin-top:0;margin-bottom:0"><?php require __DIR__ . '/term-banner-hero.php'; ?>
 
-<!-- wp:group {"metadata":{"name":"Product Grid Section"},"align":"full","className":"is-style-light-page-section","layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignfull is-style-light-page-section"><!-- wp:block {"ref":182452} /-->
+<!-- wp:group {"metadata":{"name":"Product Grid Section"},"align":"full","className":"is-style-light-page-section","style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull is-style-light-page-section" style="padding-top:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40)"><!-- wp:group {"metadata":{"name":"Woo Breadcrumbs"},"align":"wide","style":{"spacing":{"padding":{"bottom":"var:preset|spacing|5","top":"var:preset|spacing|20"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignwide" style="padding-top:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--5)"><!-- wp:woocommerce/breadcrumbs {"fontSize":"200","textColor":"neutral-800","style":{"elements":{"link":{"color":{"text":"var:preset|color|neutral-800"}}},"spacing":{"margin":{"bottom":"var:preset|spacing|20"}},"typography":{"textTransform":"uppercase","fontStyle":"normal","fontWeight":"400"}}} /--></div>
+<!-- /wp:group -->
 
 <!-- wp:group {"metadata":{"name":"Store Notices Container"},"align":"wide","style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|20"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignwide" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--20)"><!-- wp:woocommerce/store-notices /--></div>
@@ -44,6 +46,16 @@
 <!-- /wp:woocommerce/product-filter-clear-button --></div>
 <!-- /wp:woocommerce/product-filter-active -->
 
+<!-- wp:woocommerce/product-filter-taxonomy {"taxonomy":"product_brand"} -->
+<div class="wp-block-woocommerce-product-filter-taxonomy"><!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|10","top":"0"}}},"fontSize":"100"} -->
+<h3 class="wp-block-heading has-100-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--10)">Brand</h3>
+<!-- /wp:heading -->
+
+<!-- wp:woocommerce/product-filter-checkbox-list -->
+<div class="wp-block-woocommerce-product-filter-checkbox-list wc-block-product-filter-checkbox-list"></div>
+<!-- /wp:woocommerce/product-filter-checkbox-list --></div>
+<!-- /wp:woocommerce/product-filter-taxonomy -->
+
 <!-- wp:woocommerce/product-filter-price -->
 <div class="wp-block-woocommerce-product-filter-price"><!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|10","top":"0"}}},"fontSize":"100"} -->
 <h3 class="wp-block-heading has-100-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--10)">Price Range</h3>
@@ -66,7 +78,7 @@
 
 <!-- wp:woocommerce/product-filter-attribute {"attributeId":3,"showCounts":true} -->
 <div class="wp-block-woocommerce-product-filter-attribute"><!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|10","top":"0"}}},"fontSize":"100"} -->
-<h3 class="wp-block-heading has-100-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--10)">Special Offers</h3>
+<h3 class="wp-block-heading has-100-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--10)">Volume</h3>
 <!-- /wp:heading -->
 
 <!-- wp:woocommerce/product-filter-checkbox-list -->
@@ -86,13 +98,15 @@
 <!-- /wp:woocommerce/product-template -->
 
 <!-- wp:group {"metadata":{"name":"Pagination"},"style":{"spacing":{"margin":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|20"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--50);margin-bottom:var(--wp--preset--spacing--20)"><!-- wp:query-pagination {"paginationArrow":"chevron","layout":{"type":"flex","justifyContent":"center"}} -->
-<!-- wp:query-pagination-previous /-->
+<div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--50);margin-bottom:var(--wp--preset--spacing--20)"><!-- wp:group {"metadata":{"name":"Pagination"},"style":{"spacing":{"margin":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40"},"padding":{"right":"var:preset|spacing|40","left":"var:preset|spacing|40"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--40);margin-bottom:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)"><!-- wp:query-pagination {"paginationArrow":"chevron","align":"wide","layout":{"type":"flex","justifyContent":"space-between"}} -->
+<!-- wp:query-pagination-previous {"label":"Previous Page","backgroundColor":"neutral-200"} /-->
 
 <!-- wp:query-pagination-numbers /-->
 
-<!-- wp:query-pagination-next /-->
+<!-- wp:query-pagination-next {"label":"Next Page"} /-->
 <!-- /wp:query-pagination --></div>
+<!-- /wp:group --></div>
 <!-- /wp:group -->
 
 <!-- wp:woocommerce/product-collection-no-results -->
