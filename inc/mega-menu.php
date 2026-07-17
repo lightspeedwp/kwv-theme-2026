@@ -41,7 +41,7 @@ function register_assets() {
 		MODULE_ID,
 		get_theme_file_uri( 'assets/js/mega-menu.js' ),
 		array( '@wordpress/interactivity' ),
-		wp_get_theme()->get( 'Version' )
+		\Kwv\asset_version( 'assets/js/mega-menu.js' )
 	);
 
 	wp_enqueue_block_style(
@@ -50,6 +50,7 @@ function register_assets() {
 			'handle' => STYLE_HANDLE,
 			'src'    => get_theme_file_uri( 'assets/styles/ollie-mega-menu.css' ),
 			'path'   => get_theme_file_path( 'assets/styles/ollie-mega-menu.css' ),
+			'ver'    => \Kwv\asset_version( 'assets/styles/ollie-mega-menu.css' ),
 		)
 	);
 }

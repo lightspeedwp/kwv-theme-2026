@@ -78,7 +78,7 @@ function enqueue_woocommerce_styles() {
 		'theme-woocommerce-style',
 		get_template_directory_uri() . '/assets/styles/woocommerce.css',
 		array(),
-		'1.0.0'
+		asset_version( 'assets/styles/woocommerce.css' )
 	);
 
 	// My Account styling — only on account pages (dashboard, endpoints, and the
@@ -89,7 +89,7 @@ function enqueue_woocommerce_styles() {
 			'theme-woocommerce-account-style',
 			get_template_directory_uri() . '/assets/styles/woocommerce-account.css',
 			array( 'theme-woocommerce-style' ),
-			'1.0.0'
+			asset_version( 'assets/styles/woocommerce-account.css' )
 		);
 	}
 
@@ -100,7 +100,7 @@ function enqueue_woocommerce_styles() {
 			'theme-woocommerce-single-product-style',
 			get_template_directory_uri() . '/assets/styles/woocommerce-single-product.css',
 			array( 'theme-woocommerce-style' ),
-			'1.0.0'
+			asset_version( 'assets/styles/woocommerce-single-product.css' )
 		);
 	}
 
@@ -111,13 +111,13 @@ function enqueue_woocommerce_styles() {
 			'theme-woocommerce-shop-filters-style',
 			get_template_directory_uri() . '/assets/styles/woocommerce-shop-filters.css',
 			array( 'theme-woocommerce-style' ),
-			'1.0.0'
+			asset_version( 'assets/styles/woocommerce-shop-filters.css' )
 		);
 		wp_enqueue_script(
 			'theme-shop-filters',
 			get_template_directory_uri() . '/assets/js/shop-filters.js',
 			array(),
-			'1.0.0',
+			asset_version( 'assets/js/shop-filters.js' ),
 			array(
 				'in_footer' => true,
 				'strategy'  => 'defer',
@@ -131,7 +131,7 @@ function enqueue_woocommerce_styles() {
 			'theme-woocommerce-cart-checkout-style',
 			get_template_directory_uri() . '/assets/styles/woocommerce-cart-checkout.css',
 			array( 'theme-woocommerce-style' ),
-			'1.0.0'
+			asset_version( 'assets/styles/woocommerce-cart-checkout.css' )
 		);
 	}
 
@@ -141,7 +141,7 @@ function enqueue_woocommerce_styles() {
 			'theme-woocommerce-order-confirmation-style',
 			get_template_directory_uri() . '/assets/styles/woocommerce-order-confirmation.css',
 			array( 'theme-woocommerce-style' ),
-			'1.0.0'
+			asset_version( 'assets/styles/woocommerce-order-confirmation.css' )
 		);
 	}
 
@@ -151,7 +151,7 @@ function enqueue_woocommerce_styles() {
 			'theme-payflex-relocate',
 			get_template_directory_uri() . '/assets/js/payflex-relocate.js',
 			array(),
-			'1.0.0',
+			asset_version( 'assets/js/payflex-relocate.js' ),
 			array(
 				'in_footer' => true,
 				'strategy'  => 'defer',
@@ -181,7 +181,7 @@ function enqueue_product_grid_block_style() {
 			'src'    => get_theme_file_uri( 'assets/styles/woocommerce-product-grid.css' ),
 			'path'   => get_theme_file_path( 'assets/styles/woocommerce-product-grid.css' ),
 			'deps'   => array( 'theme-woocommerce-style' ),
-			'ver'    => '1.0.0',
+			'ver'    => asset_version( 'assets/styles/woocommerce-product-grid.css' ),
 		)
 	);
 }

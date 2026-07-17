@@ -40,7 +40,7 @@ function enqueue_block_style() {
 			'handle' => STYLE_HANDLE,
 			'src'    => get_theme_file_uri( 'assets/styles/gravity-forms.css' ),
 			'path'   => get_theme_file_path( 'assets/styles/gravity-forms.css' ),
-			'ver'    => wp_get_theme()->get( 'Version' ),
+			'ver'    => \Kwv\asset_version( 'assets/styles/gravity-forms.css' ),
 		)
 	);
 }

@@ -109,7 +109,7 @@ function enqueue_banner_admin_assets( $hook_suffix ) {
 		'kwv-term-banner-admin',
 		get_theme_file_uri( 'assets/js/term-banner-admin.js' ),
 		array( 'jquery' ),
-		wp_get_theme()->get( 'Version' ),
+		asset_version( 'assets/js/term-banner-admin.js' ),
 		array( 'in_footer' => true )
 	);
 

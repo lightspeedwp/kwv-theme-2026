@@ -32,6 +32,7 @@ function register_assets() {
 			'handle' => STYLE_HANDLE,
 			'src'    => get_theme_file_uri( 'assets/styles/carousel-block.css' ),
 			'path'   => get_theme_file_path( 'assets/styles/carousel-block.css' ),
+			'ver'    => \Kwv\asset_version( 'assets/styles/carousel-block.css' ),
 		)
 	);
 }

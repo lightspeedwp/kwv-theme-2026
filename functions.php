@@ -11,6 +11,29 @@
 namespace Kwv;
 
 /**
+ * Cache-busting version string for a theme asset.
+ *
+ * Returns the asset's last-modified time so that any edit to the file changes
+ * its enqueued URL — which means no browser, device cache, CDN, or page cache
+ * (e.g. WP Rocket) can ever serve a stale copy after a deploy. Falls back to
+ * the theme version if the file can't be read (e.g. on a symlinked mount).
+ *
+ * Use this for every locally-shipped stylesheet/script `$ver`; never hardcode
+ * a version string, and don't lean on the theme `Version` header — it isn't
+ * bumped per asset edit, so it goes stale exactly like a literal would.
+ *
+ * @param string $relative_path Asset path relative to the theme root,
+ *                              e.g. 'assets/styles/woocommerce.css'.
+ * @return string Version string suitable for wp_enqueue_* `$ver`.
+ */
+function asset_version( $relative_path ) {
+	$file  = get_theme_file_path( $relative_path );
+	$mtime = is_readable( $file ) ? filemtime( $file ) : false;
+
+	return (string) ( false !== $mtime ? $mtime : wp_get_theme()->get( 'Version' ) );
+}
+
+/**
  * Set up theme defaults and register various WordPress features.
  */
 function setup() {
@@ -28,7 +51,7 @@ add_action( 'after_setup_theme', __NAMESPACE__ . '\setup' );
  * Enqueue styles.
  */
 function enqueue_style_sheet() {
-	wp_enqueue_style( sanitize_title( __NAMESPACE__ ), get_template_directory_uri() . '/style.css', array(), wp_get_theme()->get( 'Version' ) );
+	wp_enqueue_style( sanitize_title( __NAMESPACE__ ), get_template_directory_uri() . '/style.css', array(), asset_version( 'style.css' ) );
 }
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_style_sheet' );
 
@@ -96,6 +119,7 @@ function enqueue_custom_block_styles() {
 				'handle' => "kwv-block-{$filename}",
 				'src'    => get_theme_file_uri( "assets/styles/{$filename}.css" ),
 				'path'   => get_theme_file_path( "assets/styles/{$filename}.css" ),
+				'ver'    => asset_version( "assets/styles/{$filename}.css" ),
 			)
 		);
 	}

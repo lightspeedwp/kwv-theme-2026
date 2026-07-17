@@ -39,7 +39,7 @@ function enqueue_style() {
 		STYLE_HANDLE,
 		get_theme_file_uri( 'assets/styles/age-gate.css' ),
 		array( 'age-gate' ),
-		wp_get_theme()->get( 'Version' )
+		\Kwv\asset_version( 'assets/styles/age-gate.css' )
 	);
 }
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_style', 20 );

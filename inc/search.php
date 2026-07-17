@@ -137,20 +137,18 @@ function enqueue_assets() {
 		return;
 	}
 
-	$version = wp_get_theme()->get( 'Version' );
-
 	wp_enqueue_style(
 		STYLE_HANDLE,
 		get_theme_file_uri( 'assets/styles/aws-search.css' ),
 		array( 'aws-style' ),
-		$version
+		\Kwv\asset_version( 'assets/styles/aws-search.css' )
 	);
 
 	wp_enqueue_script(
 		SCRIPT_HANDLE,
 		get_theme_file_uri( 'assets/js/aws-search.js' ),
 		array(),
-		$version,
+		\Kwv\asset_version( 'assets/js/aws-search.js' ),
 		array(
 			'in_footer' => true,
 			'strategy'  => 'defer',
