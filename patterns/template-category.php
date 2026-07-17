@@ -1,12 +1,12 @@
 <?php
 /**
- * Title: Template: Blog Landing (News)
- * Slug: kwv/template-index-news
- * Description: Blog landing body — light header, a "News" cover hero, a list of large blog cards with an Archive (categories) sidebar and pagination, then the footer. Used by the index template.
+ * Title: Template: Category
+ * Slug: kwv/template-category
+ * Description: Blog category archive body — the News landing layout (cover hero, a list of large blog cards with an Archive categories sidebar and pagination) titled with the current category and with the active category highlighted in the sidebar. Used by the category template.
  * Categories: hidden
- * Keywords: template, index, blog, news, landing, archive
- * Block Types: core/post-template
- * Template Types: index
+ * Keywords: template, category, archive, blog, news, query
+ * Block Types: core/query
+ * Template Types: category
  * Post Types: wp_template
  * Inserter: false
  * Viewport Width: 1500
@@ -17,9 +17,7 @@
 <!-- wp:group {"tagName":"main","metadata":{"name":"News"},"align":"full","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"blockGap":"0"}},"layout":{"type":"constrained"},"anchor":"content"} -->
 <main class="wp-block-group alignfull" id="content" style="margin-top:0;margin-bottom:0"><!-- wp:cover {"url":"https://kwv.lightspeedwp.dev/wp-content/uploads/2026/07/Wine-Hero-Image.png","id":182457,"dimRatio":30,"overlayColor":"neutral-700","isUserOverlayColor":true,"minHeight":400,"minHeightUnit":"px","contentPosition":"center center","sizeSlug":"full","align":"full","layout":{"type":"constrained"}} -->
 <div class="wp-block-cover alignfull" style="min-height:400px"><img class="wp-block-cover__image-background wp-image-182457 size-full" alt="" src="https://kwv.lightspeedwp.dev/wp-content/uploads/2026/07/Wine-Hero-Image.png" data-object-fit="cover"/><span aria-hidden="true" class="wp-block-cover__background has-neutral-700-background-color has-background-dim-30 has-background-dim"></span><div class="wp-block-cover__inner-container"><!-- wp:group {"align":"wide","layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignwide"><!-- wp:heading {"level":1,"align":"wide","style":{"typography":{"fontStyle":"normal","fontWeight":"600","letterSpacing":"0.03em"}},"textColor":"base","fontSize":"800"} -->
-<h1 class="wp-block-heading alignwide has-base-color has-text-color has-800-font-size" style="font-style:normal;font-weight:600;letter-spacing:0.03em">News</h1>
-<!-- /wp:heading --></div>
+<div class="wp-block-group alignwide"><!-- wp:query-title {"type":"archive","showPrefix":false,"level":1,"align":"wide","textColor":"base","fontSize":"800","style":{"typography":{"fontStyle":"normal","fontWeight":"600","letterSpacing":"0.03em"}}} /--></div>
 <!-- /wp:group --></div></div>
 <!-- /wp:cover -->
 

@@ -9,7 +9,7 @@
  * Selectors target the plugin's BEM markup (.age-gate__*) and are qualified with the
  * `button` tag where needed to match the plugin's own specificity (0,1,1), so our
  * later-loading sheet wins on source order. Values reference theme.json tokens
- * (contrast/base, font-size 200, letter-spacing wide) so the gate tracks the design
+ * (contrast/base, font-size 200/300, letter-spacing wide) so the gate tracks the design
  * system rather than the old-brand literals used on the live site (Montserrat /
  * #b49759). It lives in a real stylesheet rather than a block-style JSON `css` field
  * because it needs :hover/:focus and a plugin-specific layout offset.
