@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed (Blog templates — portable hero image, DRY blog card, i18n strings)
+Resolved PR review feedback on the blog index / category / single-post templates so the patterns are environment-independent and translatable.
+- **Portable hero image** — `patterns/template-index-news.php` and `patterns/template-category.php` no longer point the cover block at a staging URL (`kwv.lightspeedwp.dev/…/Wine-Hero-Image.png`) with a DB-specific attachment ID (`182457`). The image is now bundled at **`assets/images/wine-hero.png`** and referenced via `esc_url( get_theme_file_uri( … ) )`; the `id`/`wp-image-*` attachment references were dropped.
+- **DRY blog card** — both templates now `require __DIR__ . '/blog-card-large.php'` inside the query loop instead of inlining the card markup. `patterns/blog-card-large.php` was updated to the current dev-approved card (square featured image, `33.33%` media column) so it is the single source of truth.
+- **i18n** — wrapped previously-static strings in translation functions: the "News" landing heading, the "No posts found." no-results message (both templates), and the author "Role" placeholder (`blog-card-large.php`, `template-single-post.php`).
+
 ### Changed (Homepage — synced the redesigned front page from dev; hero stays an injected pattern)
 Synced the redesigned homepage into `templates/front-page.html` and folded the new hero design back into its pattern instead of inlining it, keeping the template consistent with every other template in the theme (each is a single `wp:pattern` reference).
 - **`patterns/home-hero.php`** — updated to the redesigned dev hero: full-bleed `wp:cover` (`Wine-Hero-Image.png`, `dimRatio:20`, `min-height:720px`, focal `25% 50%`), the transparent header inlined inside it (logo, main nav `ref:182338`, AWS header search, customer-account, mini-cart, mobile nav `ref:182351` with their Block Visibility breakpoint rules), the "OVER 100 YEARS OF WINEMAKING" H1, a "Learn more" fill button, and the `kwv-scroll-indicator` chevron to `#content`.
