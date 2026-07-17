@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed (Blog templates — portable hero image, DRY blog card, i18n strings)
+Resolved PR review feedback on the blog index / category / single-post templates so the patterns are environment-independent and translatable.
+- **Portable hero image** — `patterns/template-index-news.php` and `patterns/template-category.php` no longer point the cover block at a staging URL (`kwv.lightspeedwp.dev/…/Wine-Hero-Image.png`) with a DB-specific attachment ID (`182457`). The image is now bundled at **`assets/images/wine-hero.png`** and referenced via `esc_url( get_theme_file_uri( … ) )`; the `id`/`wp-image-*` attachment references were dropped.
+- **DRY blog card** — both templates now `require __DIR__ . '/blog-card-large.php'` inside the query loop instead of inlining the card markup. `patterns/blog-card-large.php` was updated to the current dev-approved card (square featured image, `33.33%` media column) so it is the single source of truth.
+- **i18n** — wrapped previously-static strings in translation functions: the "News" landing heading, the "No posts found." no-results message (both templates), and the author "Role" placeholder (`blog-card-large.php`, `template-single-post.php`).
+
 ### Fixed (Shop mega menu — invisible closed panel was blocking header nav clicks)
 The Ollie mega-menu closes its panel with `visibility:hidden` + `opacity:0`, but the native-nav variant's pre-open rule forced a descendant column back to `visibility:visible` (which overrides the ancestor's `visibility:hidden`), and `opacity:0` never blocks pointer events — leaving an invisible, `position:absolute`, `z-index:100` panel that trapped clicks over the header. Symptoms: About links unclickable on the transparent hero header (panel overlapped from load), and — on the light header — About blocked and the closed menu's first column re-firing after the Shop mega menu had been opened once.
 - **`assets/styles/ollie-mega-menu.css`** — gated `pointer-events` on `.wp-block-ollie-mega-menu__menu-container` to the toggle's `aria-expanded="true"` state (closed panel is now inert regardless of descendant `visibility`), and scoped the three flyout-reveal rules (hover/focus reveal, first-child pre-open, hide-first-when-other-hovered) under an open panel so a closed menu's columns are neither hit-testable nor keyboard-focusable.

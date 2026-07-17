@@ -40,7 +40,7 @@ $kwv_news_url = get_option( 'page_for_posts' )
 <div class="wp-block-group"><!-- wp:post-author-name {"style":{"typography":{"fontWeight":"var:custom|font-weight|bold","lineHeight":"var:custom|line-height|snug","textTransform":"uppercase"}},"textColor":"contrast","fontSize":"200","fontFamily":"heading"} /-->
 
 <!-- wp:paragraph {"metadata":{"name":"Author Role","bindings":{"content":{"source":"kwv/author-role"}}},"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"neutral-700","fontSize":"200"} -->
-<p class="has-neutral-700-color has-text-color has-200-font-size" style="margin-top:0;margin-bottom:0">Role</p>
+<p class="has-neutral-700-color has-text-color has-200-font-size" style="margin-top:0;margin-bottom:0"><?php esc_html_e( 'Role', 'kwv' ); ?></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>
