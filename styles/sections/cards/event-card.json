@@ -67,7 +67,7 @@
 					"textDecoration": "none",
 					"textTransform": "none"
 				},
-				"css": "& {transition:color 0.25s ease,border-color 0.25s ease}"
+				"css": "& {transition:background-color 0.25s ease,color 0.25s ease,border-color 0.25s ease}"
 			}
 		},
 		"css": "& {position:relative;transition:all 0.25s ease}& .event-card__media{position:relative;overflow:hidden}& .event-card__media img{display:block;width:100%;object-fit:cover}"

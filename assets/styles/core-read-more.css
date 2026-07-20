@@ -13,3 +13,18 @@ links. Keep in sync with career-card.json. */
 	color: var(--wp--preset--color--base);
 	transition: background-color 0.25s, color 0.25s;
 }
+
+/* Read More - Event Card hover/focus
+---------------------------------------------
+The "Learn More" core/read-more link on an Event Card
+(styles/sections/cards/event-card.json) is a transparent outline that flips to a
+contrast fill with base text on hover/focus, matching the Career Card and the
+outline-dark button variation. Same zero-specificity reasoning as above — the
+hover flip needs real specificity here. Keep in sync with event-card.json. */
+.is-style-event-card .wp-block-read-more:hover,
+.is-style-event-card .wp-block-read-more:focus {
+	background-color: var(--wp--preset--color--contrast);
+	color: var(--wp--preset--color--base);
+	border-color: var(--wp--preset--color--contrast);
+	transition: background-color 0.25s, color 0.25s;
+}
