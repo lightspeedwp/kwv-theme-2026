@@ -1,0 +1,75 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Event Card",
+	"slug": "event-card",
+	"blockTypes": [ "core/group" ],
+	"styles": {
+		"elements": {
+			"link": {
+				"color": {
+					"text": "var:preset|color|contrast"
+				},
+				"typography": {
+					"textDecoration": "none"
+				},
+				":hover": {
+					"color": {
+						"text": "var:preset|color|brand-700"
+					},
+					"typography": {
+						"textDecoration": "none"
+					}
+				}
+			}
+		},
+		"blocks": {
+			"core/post-featured-image": {
+				"border": {
+					"radius": "0"
+				},
+				"spacing": {
+					"margin": {
+						"top": "0",
+						"bottom": "0"
+					}
+				}
+			},
+			"core/post-title": {
+				"typography": {
+					"fontSize": "var:preset|font-size|200",
+					"fontWeight": "var:custom|font-weight|regular",
+					"textTransform": "none"
+				},
+				"css": "& a{transition:color 0.25s ease}"
+			},
+			"core/read-more": {
+				"color": {
+					"text": "var:preset|color|contrast",
+					"background": "transparent"
+				},
+				"border": {
+					"color": "var:preset|color|contrast",
+					"style": "solid",
+					"width": "1px",
+					"radius": "0"
+				},
+				"spacing": {
+					"padding": {
+						"top": "var:preset|spacing|10",
+						"right": "var:preset|spacing|20",
+						"bottom": "var:preset|spacing|10",
+						"left": "var:preset|spacing|20"
+					}
+				},
+				"typography": {
+					"fontSize": "var:preset|font-size|100",
+					"textDecoration": "none",
+					"textTransform": "none"
+				},
+				"css": "& {transition:color 0.25s ease,border-color 0.25s ease}"
+			}
+		},
+		"css": "& {position:relative;transition:all 0.25s ease}& .event-card__media{position:relative;overflow:hidden}& .event-card__media img{display:block;width:100%;object-fit:cover}"
+	}
+}

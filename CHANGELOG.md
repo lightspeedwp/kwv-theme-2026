@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added (Visit — Upcoming Events driven by the Events CPT)
+Turned the four hard-coded "Upcoming Events" placeholder cards on the Visit page into a real Query Loop over the `kwv_event` post type (owned by the KWV Enhancements plugin), so events are managed as content instead of baked into the pattern.
+- **`patterns/event-card.php`** (new) — a single-event card for the query loop: featured image with hover zoom (`is-style-image-hover-zoom`), the linked event title (`h3`, `heading` font, `200`), and an outlined "Learn More" `core/read-more` link to the event. `Block Types: core/post-template`, `Post Types: kwv_event`.
+- **`styles/sections/cards/event-card.json`** (new) — the `is-style-event-card` section style (`core/group`). Mirrors `blog-card` for the hover treatment (link → `brand-700` on hover, media `overflow:hidden`, featured-image radius/margin `0`) and styles `core/read-more` as a square 1px-contrast outline in body `100`.
+- **`patterns/visit-events.php`** — the static four-column `wp:columns` block replaced with a `wp:query` (`postType:kwv_event`, `perPage:4`, `date desc`) whose `post-template` (4-col grid) `require`s `event-card.php`, plus a no-results message. The section wrapper, brand rule and heading are unchanged.
+- **Data (dev):** seeded four published `kwv_event` placeholders — Technical Tour, House of Fire Tour, Evening with the Winemaker, Candlelight Concerts (IDs 182944–182947) — each with `kwv_event_date`/`kwv_event_time` meta and the original placeholder image as its Featured Image. The live `/visit/` DB page (post 30587) had the same columns block swapped for the inlined query loop.
+
 ### Fixed (Blog templates — portable hero image, DRY blog card, i18n strings)
 Resolved PR review feedback on the blog index / category / single-post templates so the patterns are environment-independent and translatable.
 - **Portable hero image** — `patterns/template-index-news.php` and `patterns/template-category.php` no longer point the cover block at a staging URL (`kwv.lightspeedwp.dev/…/Wine-Hero-Image.png`) with a DB-specific attachment ID (`182457`). The image is now bundled at **`assets/images/wine-hero.png`** and referenced via `esc_url( get_theme_file_uri( … ) )`; the `id`/`wp-image-*` attachment references were dropped.
