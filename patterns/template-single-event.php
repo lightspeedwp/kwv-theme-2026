@@ -9,9 +9,6 @@
  * Viewport Width: 1500
  * Inserter: true
  */
-
-$kwv_visit     = get_page_by_path( 'visit', OBJECT, 'page' );
-$kwv_visit_url = $kwv_visit ? get_permalink( $kwv_visit ) : home_url( '/visit/' );
 ?>
 <!-- wp:template-part {"slug":"header-dark","theme":"kwv-theme-2026","tagName":"header","className":"site-header"} /-->
 
@@ -21,7 +18,7 @@ $kwv_visit_url = $kwv_visit ? get_permalink( $kwv_visit ) : home_url( '/visit/' 
 <div class="wp-block-columns alignwide" style="border-bottom-color:var(--wp--preset--color--neutral-300);border-bottom-width:1px;padding-bottom:var(--wp--preset--spacing--60)"><!-- wp:column {"verticalAlignment":"center","width":"60%"} -->
 <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:60%"><!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignwide" style="padding-top:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--20)"><!-- wp:paragraph {"align":"wide","className":"kwv-back-link","style":{"typography":{"fontStyle":"normal","fontWeight":"700","textTransform":"uppercase"},"elements":{"link":{"color":{"text":"var:preset|color|brand-500"},":hover":{"color":{"text":"var:preset|color|brand-600"}}}}},"textColor":"brand-500","fontSize":"200"} -->
-<p class="alignwide kwv-back-link has-brand-500-color has-text-color has-link-color has-200-font-size" style="font-style:normal;font-weight:700;text-transform:uppercase"><a href="<?php echo esc_url( $kwv_visit_url ); ?>">&larr; <?php esc_html_e( 'Back to Visit', 'kwv' ); ?></a></p>
+<p class="alignwide kwv-back-link has-brand-500-color has-text-color has-link-color has-200-font-size" style="font-style:normal;font-weight:700;text-transform:uppercase"><a href="/visit/">&larr; <?php esc_html_e( 'Back to Visit', 'kwv' ); ?></a></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"flex","orientation":"vertical"}} -->

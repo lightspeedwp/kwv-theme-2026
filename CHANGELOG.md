@@ -17,7 +17,7 @@ Turned the four hard-coded "Upcoming Events" placeholder cards on the Visit page
 
 ### Added (Single Event template)
 A single-event layout for the `kwv_event` post type, mirroring the Single Post template with the author/date byline replaced by the event's date and time.
-- **`patterns/template-single-event.php`** (new) — clone of `template-single-post.php`: dark header, a two-column article header (a "Back to Visit" link, the `h1` event title, and the event **date + time** beside a square featured image), `post-content`, a thin rule and previous/next event navigation. The date renders via the `kwv/meta-date` binding (`kwv_event_date`, `j F Y`) and the time via `core/post-meta` (`kwv_event_time`); the "Back to Visit" URL is resolved once from the `visit` page (falls back to `/visit/`).
+- **`patterns/template-single-event.php`** (new) — clone of `template-single-post.php`: dark header, a two-column article header (a "Back to Visit" link, the `h1` event title, and the event **date + time** beside a square featured image), `post-content`, a thin rule and previous/next event navigation. The date renders via the `kwv/meta-date` binding (`kwv_event_date`, `j F Y`) and the time via `core/post-meta` (`kwv_event_time`); the "Back to Visit" link is a plain root-relative `/visit/` (no runtime PHP — the Visit URL is a fixed path, unlike the single-post News link which reads the `page_for_posts` option).
 - **`templates/single-kwv_event.html`** (new) — `<!-- wp:pattern {"slug":"kwv/template-single-event"} /-->`, auto-discovered by the template hierarchy for `kwv_event` (same convention as `single-kwv_career.html`; no `theme.json` registration needed).
 
 ### Fixed (Blog templates — portable hero image, DRY blog card, i18n strings)
