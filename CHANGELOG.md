@@ -12,7 +12,8 @@ Phase 1 of the parts/patterns/templates audit. Reconciled the theme's template p
 - **`parts/promo-bar.html`** (new) — the header promo bar, split out as its own part (from live DB) so the shop's main header can be sticky while the promo scrolls away. `is-style-header-promo-bar`; raw `font-weight:500` written as `var:custom|font-weight|medium`.
 - **`parts/dropdown-menu.html`** (new) — base-background dropdown wrapping a vertical `wp:navigation` (menu area), from live DB.
 - **`parts/mobile-menu.html`** — aligned to the live structure (logo and AWS search in separate groups); **de-hardcoded** the logo image (`https://kwv.lightspeedwp.dev/…/Site-Logo-Dark-1.svg` → `/wp-content/uploads/…`) and dropped its `id`/`wp-image-*` attachment refs.
-- **`parts/shop-mega-menu-nav.html`** — all `http://localhost:8901/product-category/…` nav-link URLs made root-relative.
+- **`parts/shop-mega-menu-nav.html`** — switched to the live nav-menu ref (`wp:navigation {"ref":182539}`), matching dev (nav refs are kept — the theme is single-site and deploys fully).
+- **`parts/simple-product-add-to-cart-with-options.html`** — matched live: `flex/vertical/right` layout with the quantity selector `blockVisibility:false`, so **Single Product loses the quantity selector**.
 - **`parts/variable-product-add-to-cart-with-options.html`** — raw `"fontWeight":"500"` → `var:custom|font-weight|medium`.
 - **`theme.json`** — registered 5 parts (8 → 13 `templateParts`): `dropdown-menu` (menu), `promo-bar` (header), `product-card` (uncategorized), `simple-`/`variable-product-add-to-cart-with-options` (add-to-cart-with-options).
 - **Flagged for review (not deleted):** `parts/header-transparent.html` (orphan — markup duplicated inline in `home-hero`/`careers-hero`) and `parts/sidebar.html` (leftover scaffold placeholder copy).
