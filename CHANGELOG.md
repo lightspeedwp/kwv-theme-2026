@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed (Patterns audit — careers: de-hardcoded hero)
+Phase 2 (family: careers) of the patterns audit. Full findings: `.github/reports/audit-patterns-careers-2026-07-22.md`.
+- **`patterns/careers-hero.php`** — de-hardcoded the cover image: `url` + `<img>` src made root-relative and the `id:145`/`wp-image-145` attachment refs dropped (the only dev-hardcoding in the family, and the source of the dev URL baked into the live Careers page).
+- **Audited clean (no change):** escaping (`careers-team` loop), injection (`require` throughout, no nested `wp:pattern`), tokens, and metadata (`career-card` already carries `Categories: kwv/pages`).
+- **Flagged for review (not deleted):** `patterns/careers-open-positions.php` — orphan legacy CTA (superseded by `careers-positions`, referenced by nothing, dead `href="#"`); and the cross-cutting `Categories: hidden` on the `template-*` shells (unregistered — decide once across families).
+
 ### Changed (Parts audit — reconciled template parts with live dev, de-hardcoded, registered)
 Phase 1 of the parts/patterns/templates audit. Reconciled the theme's template parts against the live dev DB, removed dev-site hardcoding, fixed token literals, and registered previously-unregistered parts. Full findings: `.github/reports/audit-parts-2026-07-22.md`.
 - **`parts/promo-bar.html`** (new) — the header promo bar, split out as its own part (from live DB) so the shop's main header can be sticky while the promo scrolls away. `is-style-header-promo-bar`; raw `font-weight:500` written as `var:custom|font-weight|medium`.
