@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed (Patterns audit — about / history / contact: de-hardcoded links & images)
+Phase 2 (family 1) of the parts/patterns/templates audit. Removed all dev-site hardcoding from the about, history and contact patterns so every link and image is root-relative. Escaping, pattern injection (`require`), token discipline and metadata were audited and are clean. Full findings: `.github/reports/audit-patterns-about-history-contact-2026-07-22.md`.
+- **`patterns/about-hero.php`** — image `src` made root-relative; dropped the `id`/`wp-image-*` attachment refs.
+- **`patterns/about-executive-team.php`** — 9 team images made root-relative; attachment `id`/`wp-image-*` refs dropped.
+- **`patterns/history-hero.php`** — cover `url` and `<img>` src made root-relative.
+- **`patterns/history-timeline.php`, `patterns/history-archives.php`** — the `$kwv_uploads` base URL made root-relative (`/wp-content/uploads/2026/06/`), fixing all milestone/archive images.
+- **Not changed (deliberate):** content-section patterns keep no `Block Types` header (standalone, category-discoverable — not block-associated). Escaping/injection/tokens already clean.
+- **Flagged for a decision:** the live About/History/Contact Pages are flattened, diverged copies (About/History carry `lightspeedwp.dev` asset URLs); reconciling that page content back into the composed sections is a separate, substantial step (see report).
+
 ### Changed (Parts audit — reconciled template parts with live dev, de-hardcoded, registered)
 Phase 1 of the parts/patterns/templates audit. Reconciled the theme's template parts against the live dev DB, removed dev-site hardcoding, fixed token literals, and registered previously-unregistered parts. Full findings: `.github/reports/audit-parts-2026-07-22.md`.
 - **`parts/promo-bar.html`** (new) — the header promo bar, split out as its own part (from live DB) so the shop's main header can be sticky while the promo scrolls away. `is-style-header-promo-bar`; raw `font-weight:500` written as `var:custom|font-weight|medium`.
