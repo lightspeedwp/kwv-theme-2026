@@ -29,7 +29,7 @@ $kwv_archives = array(
 	),
 );
 
-$kwv_uploads = 'http://localhost:8901/wp-content/uploads/2026/06/';
+$kwv_uploads = '/wp-content/uploads/2026/06/';
 ?>
 <!-- wp:group {"metadata":{"name":"KWV Archives"},"align":"full","className":"is-style-light-page-section","style":{"spacing":{"padding":{"top":"var:preset|spacing|90","bottom":"var:preset|spacing|90"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull is-style-light-page-section" style="padding-top:var(--wp--preset--spacing--90);padding-bottom:var(--wp--preset--spacing--90)"><!-- wp:group {"align":"wide","className":"is-style-section-header","layout":{"type":"default"}} -->

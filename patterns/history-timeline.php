@@ -54,7 +54,7 @@ $kwv_milestones = array(
 	),
 );
 
-$kwv_uploads = 'http://localhost:8901/wp-content/uploads/2026/06/';
+$kwv_uploads = '/wp-content/uploads/2026/06/';
 ?>
 <!-- wp:group {"metadata":{"name":"History Timeline"},"align":"full","className":"is-style-light-page-section","style":{"spacing":{"padding":{"top":"var:preset|spacing|100","bottom":"var:preset|spacing|90"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull is-style-light-page-section" style="padding-top:var(--wp--preset--spacing--100);padding-bottom:var(--wp--preset--spacing--90)"><!-- wp:cb/carousel-v2 {"slidesPerView":2,"spaceBetween":20,"speed":500,"navigation":true,"pagination":false,"loop":true,"breakpoints":[{"width":1024,"slidesPerView":6,"slidesPerGroup":1}],"resizeObserver":true,"observer":true,"align":"full"} -->
