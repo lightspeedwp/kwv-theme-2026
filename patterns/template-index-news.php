@@ -14,7 +14,6 @@
 
 $kwv_hero_image = esc_url( get_theme_file_uri( 'assets/images/wine-hero.png' ) );
 ?>
-<!-- wp:template-part {"slug":"header","theme":"kwv-theme-2026","tagName":"header"} /-->
 
 <!-- wp:group {"tagName":"main","metadata":{"name":"News"},"align":"full","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"blockGap":"0"}},"layout":{"type":"constrained"},"anchor":"content"} -->
 <main class="wp-block-group alignfull" id="content" style="margin-top:0;margin-bottom:0"><!-- wp:cover {"url":"<?php echo $kwv_hero_image; ?>","dimRatio":30,"overlayColor":"neutral-700","isUserOverlayColor":true,"minHeight":400,"minHeightUnit":"px","contentPosition":"center center","sizeSlug":"full","align":"full","layout":{"type":"constrained"}} -->
@@ -66,4 +65,3 @@ $kwv_hero_image = esc_url( get_theme_file_uri( 'assets/images/wine-hero.png' ) )
 <!-- /wp:group --></main>
 <!-- /wp:group -->
 
-<!-- wp:template-part {"slug":"footer","theme":"kwv-theme-2026","tagName":"footer"} /-->

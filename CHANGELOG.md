@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed (Templates — header/footer extracted from shell patterns into the templates)
+Inverted the site-chrome composition: every full-page/template shell pattern now holds only the content *between* the header and footer, and each `templates/*.html` file composes `header template-part → wp:pattern (content) → footer template-part`. This mirrors the existing `front-page.html` shape, makes the header choice explicit per template, and keeps shell patterns focused on body content.
+- **Templates (20)** now reference the header/footer parts directly: the generic page / index / category / archive / search / 404 templates use `header`; `single.html` and `single-kwv_event.html` use `header-dark`; the WooCommerce templates (`page-cart`, `order-confirmation`, `single-product`, `archive-product`, `taxonomy-product_cat`, `taxonomy-product_brand`, `product-search-results`) use `header` with the `site-header` / `site-footer` classes.
+- **Footer-only:** `page-careers.html` and `single-kwv_career.html` add only the footer — their hero (`careers-hero`) carries its own transparent header, like `front-page.html`.
+- **Shell patterns (18)** had their header/footer `wp:template-part` refs removed: `template-{careers,category,faq,index-news,page-404,page-archive,page-centered,page-full,page-right-sidebar,page-search,single-career,single-event,single-post}` and `woo-{cart,order-confirmation,product-archive,product-search,single-product}`.
+- **Left as-is:** `woo-coming-soon` (header/footer are nested inside the `woocommerce/coming-soon` visibility wrapper), `woo-checkout` (custom minimal checkout header, no template-part), `woo-product-archive-sidebar` (orphan pattern, no template), and `front-page.html` / `page-no-header.html` (already conformant).
+- **Portability:** dropped the `theme":"kwv-theme-2026"` attribute from every template `wp:template-part` ref (including `page-no-header.html`) so they resolve to the active theme, matching the front-page convention.
+
 ### Added (Visit — Upcoming Events driven by the Events CPT)
 Turned the four hard-coded "Upcoming Events" placeholder cards on the Visit page into a real Query Loop over the `kwv_event` post type (owned by the KWV Enhancements plugin), so events are managed as content instead of baked into the pattern.
 - **`patterns/event-card.php`** (new) — a single-event card for the query loop: featured image with hover zoom (`is-style-image-hover-zoom`), the linked event title (`h3`, `heading` font, `200`), and an outlined "Learn More" `core/read-more` link to the event. `Block Types: core/post-template`, `Post Types: kwv_event`.

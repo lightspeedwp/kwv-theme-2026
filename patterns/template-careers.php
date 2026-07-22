@@ -29,4 +29,3 @@ require __DIR__ . '/careers-team.php';
 </main>
 <!-- /wp:group -->
 
-<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->
