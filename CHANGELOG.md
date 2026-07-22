@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed (Parts audit — reconciled template parts with live dev, de-hardcoded, registered)
+Phase 1 of the parts/patterns/templates audit. Reconciled the theme's template parts against the live dev DB, removed dev-site hardcoding, fixed token literals, and registered previously-unregistered parts. Full findings: `.github/reports/audit-parts-2026-07-22.md`.
+- **`parts/promo-bar.html`** (new) — the header promo bar, split out as its own part (from live DB) so the shop's main header can be sticky while the promo scrolls away. `is-style-header-promo-bar`; raw `font-weight:500` written as `var:custom|font-weight|medium`.
+- **`parts/dropdown-menu.html`** (new) — base-background dropdown wrapping a vertical `wp:navigation` (menu area), from live DB.
+- **`parts/mobile-menu.html`** — aligned to the live structure (logo and AWS search in separate groups); **de-hardcoded** the logo image (`https://kwv.lightspeedwp.dev/…/Site-Logo-Dark-1.svg` → `/wp-content/uploads/…`) and dropped its `id`/`wp-image-*` attachment refs.
+- **`parts/shop-mega-menu-nav.html`** — all `http://localhost:8901/product-category/…` nav-link URLs made root-relative.
+- **`parts/variable-product-add-to-cart-with-options.html`** — raw `"fontWeight":"500"` → `var:custom|font-weight|medium`.
+- **`theme.json`** — registered 5 parts (8 → 13 `templateParts`): `dropdown-menu` (menu), `promo-bar` (header), `product-card` (uncategorized), `simple-`/`variable-product-add-to-cart-with-options` (add-to-cart-with-options).
+- **Flagged for review (not deleted):** `parts/header-transparent.html` (orphan — markup duplicated inline in `home-hero`/`careers-hero`) and `parts/sidebar.html` (leftover scaffold placeholder copy).
+- **Deferred to Phase 2:** folding the live promo split into `header-light.php` (remove its inline promo, compose the `promo-bar` part), plus the pattern-backed parts' content.
+
 ### Added (Visit — Upcoming Events driven by the Events CPT)
 Turned the four hard-coded "Upcoming Events" placeholder cards on the Visit page into a real Query Loop over the `kwv_event` post type (owned by the KWV Enhancements plugin), so events are managed as content instead of baked into the pattern.
 - **`patterns/event-card.php`** (new) — a single-event card for the query loop: featured image with hover zoom (`is-style-image-hover-zoom`), the linked event title (`h3`, `heading` font, `200`), and an outlined "Learn More" `core/read-more` link to the event. `Block Types: core/post-template`, `Post Types: kwv_event`.
