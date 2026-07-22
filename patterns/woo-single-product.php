@@ -10,7 +10,6 @@
  * Viewport Width: 1500
  */
 ?>
-<!-- wp:template-part {"slug":"header","tagName":"header","className":"site-header"} /-->
 
 <!-- wp:group {"tagName":"main","metadata":{"name":"Main Content"},"className":"is-style-light-page-section","layout":{"inherit":true,"type":"constrained"}} -->
 <main class="wp-block-group is-style-light-page-section"><!-- wp:group {"metadata":{"name":"Product Layout"},"align":"full","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained"}} -->
@@ -106,4 +105,3 @@
 <!-- /wp:woocommerce/product-collection --></main>
 <!-- /wp:group -->
 
-<!-- wp:template-part {"slug":"footer","tagName":"footer","className":"site-footer"} /-->

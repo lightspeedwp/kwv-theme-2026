@@ -10,7 +10,6 @@
  * Viewport Width: 1500
  */
 ?>
-<!-- wp:template-part {"slug":"header","theme":"kwv-theme-2026","tagName":"header","className":"site-header"} /-->
 
 <!-- wp:group {"tagName":"main","metadata":{"name":"Main Content"},"style":{"spacing":{"margin":{"top":"0","bottom":"0"},"blockGap":"0"}},"layout":{"inherit":true,"type":"constrained"}} -->
 <main class="wp-block-group" style="margin-top:0;margin-bottom:0"><?php require __DIR__ . '/term-banner-hero.php'; ?>
@@ -126,4 +125,3 @@
 <!-- /wp:group --></main>
 <!-- /wp:group -->
 
-<!-- wp:template-part {"slug":"footer","theme":"kwv-theme-2026","tagName":"footer","className":"site-footer"} /-->
