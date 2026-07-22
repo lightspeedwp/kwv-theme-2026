@@ -1138,6 +1138,31 @@
 			"name": "mobile-menu",
 			"title": "Mobile Menu",
 			"area": "menu"
+		},
+		{
+			"name": "dropdown-menu",
+			"title": "Dropdown Menu",
+			"area": "menu"
+		},
+		{
+			"name": "promo-bar",
+			"title": "Promo Bar",
+			"area": "header"
+		},
+		{
+			"name": "product-card",
+			"title": "Product Card",
+			"area": "uncategorized"
+		},
+		{
+			"name": "simple-product-add-to-cart-with-options",
+			"title": "Simple Product Add to Cart + Options",
+			"area": "add-to-cart-with-options"
+		},
+		{
+			"name": "variable-product-add-to-cart-with-options",
+			"title": "Variable Product Add to Cart + Options",
+			"area": "add-to-cart-with-options"
 		}
 	]
 }
