@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed (Patterns audit — visit / events: de-hardcoded + font-weight tokens)
+Phase 2 (family: visit/events) of the patterns audit. Full findings: `.github/reports/audit-patterns-visit-events-2026-07-22.md`.
+- **`patterns/visit-hero.php`** — cover `url` + `<img>` src made root-relative; dropped `id:182362`/`wp-image-182362`.
+- **`patterns/visit-venues.php`** — 3 venue images de-hardcoded (`src` → root-relative; `id`/`wp-image-*` dropped).
+- **`patterns/template-single-event.php`** — raw font-weights → tokens (`700`→bold, `400`→regular, JSON attr + inline style); fixed the stale "dark header" wording in the Description (the header is now supplied by the template).
+- **Audited clean (no change):** escaping (`esc_*` + `kwv` throughout), injection (`page-visit`→hero/venues/events, `visit-events`→`event-card`; `template-single-event` is content-only, no `wp:template-part`), metadata.
+- **Flagged:** `visit-venues` has six `href="#"` placeholder Menu/Book CTAs (content TODO).
+
 ### Changed (Parts audit — reconciled template parts with live dev, de-hardcoded, registered)
 Phase 1 of the parts/patterns/templates audit. Reconciled the theme's template parts against the live dev DB, removed dev-site hardcoding, fixed token literals, and registered previously-unregistered parts. Full findings: `.github/reports/audit-parts-2026-07-22.md`.
 - **`parts/promo-bar.html`** (new) — the header promo bar, split out as its own part (from live DB) so the shop's main header can be sticky while the promo scrolls away. `is-style-header-promo-bar`; raw `font-weight:500` written as `var:custom|font-weight|medium`.
