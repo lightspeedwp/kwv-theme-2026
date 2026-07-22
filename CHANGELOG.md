@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed (Patterns audit — faq: token-notation fix)
+Phase 2 (family: faq) of the patterns audit. Full findings: `.github/reports/audit-patterns-faq-2026-07-22.md`.
+- **`patterns/faq-contact-cta.php`** — button `border.color` block attribute changed from the resolved `var(--wp--preset--color--contrast)` to the canonical `var:preset|color|contrast` shorthand (serialized inline style unchanged; block stays valid).
+- **Audited clean (no change):** no dev-hardcoding in any of the 8 files; escaping (`faq-team` loop), injection (`require` ×6 in both aggregators), metadata all correct.
+- **Noted:** cross-cutting `Categories: hidden` on `template-faq`; `page-faq`/`template-faq` share a duplicated require list.
+
 ### Changed (Parts audit — reconciled template parts with live dev, de-hardcoded, registered)
 Phase 1 of the parts/patterns/templates audit. Reconciled the theme's template parts against the live dev DB, removed dev-site hardcoding, fixed token literals, and registered previously-unregistered parts. Full findings: `.github/reports/audit-parts-2026-07-22.md`.
 - **`parts/promo-bar.html`** (new) — the header promo bar, split out as its own part (from live DB) so the shop's main header can be sticky while the promo scrolls away. `is-style-header-promo-bar`; raw `font-weight:500` written as `var:custom|font-weight|medium`.

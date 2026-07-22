@@ -21,7 +21,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
-<div class="wp-block-buttons"><!-- wp:button {"backgroundColor":"base","textColor":"contrast","style":{"border":{"color":"var(--wp--preset--color--contrast)","width":"1px","radius":"0px"}}} -->
+<div class="wp-block-buttons"><!-- wp:button {"backgroundColor":"base","textColor":"contrast","style":{"border":{"color":"var:preset|color|contrast","width":"1px","radius":"0px"}}} -->
 <div class="wp-block-button"><a class="wp-block-button__link has-contrast-color has-base-background-color has-text-color has-background has-border-color wp-element-button" href="/contact/" style="border-color:var(--wp--preset--color--contrast);border-width:1px;border-radius:0px">Contact Us</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
