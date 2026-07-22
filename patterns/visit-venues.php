@@ -32,8 +32,8 @@
 <!-- /wp:column -->
 
 <!-- wp:column {"verticalAlignment":"center"} -->
-<div class="wp-block-column is-vertically-aligned-center"><!-- wp:image {"id":159837,"aspectRatio":"3/2","scale":"cover","sizeSlug":"full","linkDestination":"none","className":"is-style-image-hover-zoom"} -->
-<figure class="wp-block-image size-full is-style-image-hover-zoom"><img src="https://kwv.lightspeedwp.dev/wp-content/uploads/2024/09/Emporium_Square_1.png" alt="<?php esc_attr_e( 'The KWV Emporium entrance', 'kwv' ); ?>" class="wp-image-159837" style="aspect-ratio:3/2;object-fit:cover"/></figure>
+<div class="wp-block-column is-vertically-aligned-center"><!-- wp:image {"aspectRatio":"3/2","scale":"cover","sizeSlug":"full","linkDestination":"none","className":"is-style-image-hover-zoom"} -->
+<figure class="wp-block-image size-full is-style-image-hover-zoom"><img src="/wp-content/uploads/2024/09/Emporium_Square_1.png" alt="<?php esc_attr_e( 'The KWV Emporium entrance', 'kwv' ); ?>" style="aspect-ratio:3/2;object-fit:cover"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></section>
@@ -42,8 +42,8 @@
 <!-- wp:group {"metadata":{"name":"Visit — Cathedral Cellar"},"tagName":"section","align":"full","className":"is-style-tinted-page-section","layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull is-style-tinted-page-section"><!-- wp:columns {"verticalAlignment":"center","align":"wide","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|40","left":"var:preset|spacing|70"}}}} -->
 <div class="wp-block-columns alignwide are-vertically-aligned-center"><!-- wp:column {"verticalAlignment":"center"} -->
-<div class="wp-block-column is-vertically-aligned-center"><!-- wp:image {"id":159829,"aspectRatio":"3/2","scale":"cover","sizeSlug":"full","linkDestination":"none","className":"is-style-image-hover-zoom"} -->
-<figure class="wp-block-image size-full is-style-image-hover-zoom"><img src="https://kwv.lightspeedwp.dev/wp-content/uploads/2024/09/Cathedral-Cellar_Square_1.png" alt="<?php esc_attr_e( 'Inside the KWV Cathedral Cellar', 'kwv' ); ?>" class="wp-image-159829" style="aspect-ratio:3/2;object-fit:cover"/></figure>
+<div class="wp-block-column is-vertically-aligned-center"><!-- wp:image {"aspectRatio":"3/2","scale":"cover","sizeSlug":"full","linkDestination":"none","className":"is-style-image-hover-zoom"} -->
+<figure class="wp-block-image size-full is-style-image-hover-zoom"><img src="/wp-content/uploads/2024/09/Cathedral-Cellar_Square_1.png" alt="<?php esc_attr_e( 'Inside the KWV Cathedral Cellar', 'kwv' ); ?>" style="aspect-ratio:3/2;object-fit:cover"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:column -->
 
@@ -92,8 +92,8 @@
 <!-- /wp:column -->
 
 <!-- wp:column {"verticalAlignment":"center"} -->
-<div class="wp-block-column is-vertically-aligned-center"><!-- wp:image {"id":159851,"aspectRatio":"3/2","scale":"cover","sizeSlug":"full","linkDestination":"none","className":"is-style-image-hover-zoom"} -->
-<figure class="wp-block-image size-full is-style-image-hover-zoom"><img src="https://kwv.lightspeedwp.dev/wp-content/uploads/2024/09/HoF_Square_4-1.png" alt="<?php esc_attr_e( 'The KWV House of Fire brandy experience', 'kwv' ); ?>" class="wp-image-159851" style="aspect-ratio:3/2;object-fit:cover"/></figure>
+<div class="wp-block-column is-vertically-aligned-center"><!-- wp:image {"aspectRatio":"3/2","scale":"cover","sizeSlug":"full","linkDestination":"none","className":"is-style-image-hover-zoom"} -->
+<figure class="wp-block-image size-full is-style-image-hover-zoom"><img src="/wp-content/uploads/2024/09/HoF_Square_4-1.png" alt="<?php esc_attr_e( 'The KWV House of Fire brandy experience', 'kwv' ); ?>" style="aspect-ratio:3/2;object-fit:cover"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></section>
