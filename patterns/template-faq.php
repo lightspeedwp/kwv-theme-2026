@@ -11,7 +11,6 @@
  * Inserter: false
  */
 ?>
-<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
 
 <!-- wp:group {"tagName":"main","align":"full","style":{"spacing":{"margin":{"top":"0"}}},"layout":{"type":"constrained"}} -->
 <main class="wp-block-group alignfull" style="margin-top:0">
@@ -29,4 +28,3 @@ require __DIR__ . '/faq-contact-cta.php';
 </main>
 <!-- /wp:group -->
 
-<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

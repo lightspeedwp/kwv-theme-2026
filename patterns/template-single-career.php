@@ -92,4 +92,3 @@ require __DIR__ . '/careers-hero.php';
 </main>
 <!-- /wp:group -->
 
-<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->
