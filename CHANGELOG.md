@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed (Patterns audit — winemakers-club: de-hardcoded images)
+Phase 2 (family: winemakers-club) of the patterns audit. Full findings: `.github/reports/audit-patterns-winemakers-club-2026-07-22.md`.
+- **`winemakers-club-hero.php`, `-intro.php`, `-gallery.php` (×3), `-benefits.php`** — 7 images de-hardcoded (`http://localhost:8901/…` → root-relative; `id`/`wp-image-*` attachment refs dropped).
+- **Audited clean (no change):** sections are static (no escaping surface); `page-winemakers-club` requires all 7 sections via `require`; metadata + tokens clean.
+
 ### Changed (Parts audit — reconciled template parts with live dev, de-hardcoded, registered)
 Phase 1 of the parts/patterns/templates audit. Reconciled the theme's template parts against the live dev DB, removed dev-site hardcoding, fixed token literals, and registered previously-unregistered parts. Full findings: `.github/reports/audit-parts-2026-07-22.md`.
 - **`parts/promo-bar.html`** (new) — the header promo bar, split out as its own part (from live DB) so the shop's main header can be sticky while the promo scrolls away. `is-style-header-promo-bar`; raw `font-weight:500` written as `var:custom|font-weight|medium`.
