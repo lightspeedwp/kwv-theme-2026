@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed (Patterns audit — home-hero: dropped attachment refs)
+Phase 2 (family: home-hero) of the patterns audit — the final pattern family. Full findings: `.github/reports/audit-patterns-home-hero-2026-07-23.md`.
+- **`patterns/home-hero.php`** — dropped the `id:182457`/`wp-image-182457` attachment refs on the hero cover (its URL was already root-relative). Completes de-hardcoding for the hero.
+- **Audited clean (no change):** no dev-hardcoding, no raw color/font tokens; the baked transparent header + nav refs (182338/182351) are the intended design.
+
 ### Changed (Parts audit — reconciled template parts with live dev, de-hardcoded, registered)
 Phase 1 of the parts/patterns/templates audit. Reconciled the theme's template parts against the live dev DB, removed dev-site hardcoding, fixed token literals, and registered previously-unregistered parts. Full findings: `.github/reports/audit-parts-2026-07-22.md`.
 - **`parts/promo-bar.html`** (new) — the header promo bar, split out as its own part (from live DB) so the shop's main header can be sticky while the promo scrolls away. `is-style-header-promo-bar`; raw `font-weight:500` written as `var:custom|font-weight|medium`.
