@@ -31,8 +31,8 @@
 
 	<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
 	<div class="wp-block-buttons">
-		<!-- wp:button {"backgroundColor":"brand-500","textColor":"base","style":{"typography":{"fontWeight":"700","textTransform":"uppercase"}}} -->
-		<div class="wp-block-button"><a class="wp-block-button__link has-base-color has-brand-500-background-color has-text-color has-background wp-element-button" href="<?php echo esc_url( home_url( '/' ) ); ?>" style="font-weight:700;text-transform:uppercase"><?php esc_html_e( 'Back to homepage', 'kwv' ); ?></a></div>
+		<!-- wp:button {"backgroundColor":"brand-500","textColor":"base","style":{"typography":{"fontWeight":"var:custom|font-weight|bold","textTransform":"uppercase"}}} -->
+		<div class="wp-block-button"><a class="wp-block-button__link has-base-color has-brand-500-background-color has-text-color has-background wp-element-button" href="<?php echo esc_url( home_url( '/' ) ); ?>" style="font-weight:var(--wp--custom--font-weight--bold);text-transform:uppercase"><?php esc_html_e( 'Back to homepage', 'kwv' ); ?></a></div>
 		<!-- /wp:button -->
 	</div>
 	<!-- /wp:buttons -->

@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed (Header promo-split + sticky + structural audit)
+Phase 2 (structural family) of the patterns audit, plus the confirmed header composition change. Full findings: `.github/reports/audit-patterns-structural-2026-07-23.md`.
+- **`patterns/header-light.php`** — removed the inline promo bar; the light header is now just the header row. The promo bar is composed as a separate `promo-bar` part in the templates.
+- **16 light-header templates** — now compose `promo-bar` part + `header` part at the top (`archive-product`, `single-product`, `taxonomy-product_cat`, `taxonomy-product_brand`, `page-cart`, `order-confirmation`, `product-search-results`, `404`, `index`, `category`, `page`, `page-faq`, `search`, `archive`, `page-with-sidebar`, `page-no-title`).
+- **Sticky header** (core `position:sticky`, no CSS) on **shop** (`archive-product`), **product-brand** (`taxonomy-product_brand`), **product-category** (`taxonomy-product_cat`), and `single-product` (matched to live). `single.html`/`single-kwv_event.html` use the dark header and are unchanged.
+- **Structural pattern fixes:** `template-page-404` raw font-weight → `var:custom|font-weight|bold`; `template-page-full` gained the missing `Viewport Width`; `woo-header` raw font-weight → `var:custom|font-weight|medium`.
+- **Flagged (not changed):** `footer.php` Gravity Forms block raw hex (third-party attrs, no token support); `woo-header.php` orphan candidate; cross-cutting `Categories: hidden` on template shells.
+
 ### Changed (Parts audit — reconciled template parts with live dev, de-hardcoded, registered)
 Phase 1 of the parts/patterns/templates audit. Reconciled the theme's template parts against the live dev DB, removed dev-site hardcoding, fixed token literals, and registered previously-unregistered parts. Full findings: `.github/reports/audit-parts-2026-07-22.md`.
 - **`parts/promo-bar.html`** (new) — the header promo bar, split out as its own part (from live DB) so the shop's main header can be sticky while the promo scrolls away. `is-style-header-promo-bar`; raw `font-weight:500` written as `var:custom|font-weight|medium`.
