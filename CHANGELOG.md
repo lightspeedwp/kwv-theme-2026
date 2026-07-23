@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed (Patterns audit — posts/blog/index: font-weight tokens; orphans flagged)
+Phase 2 (family: posts/blog/index) of the patterns audit. Full findings: `.github/reports/audit-patterns-posts-index-2026-07-23.md`.
+- **`blog-card-large.php`, `template-index-news.php`, `template-category.php`, `template-single-post.php`** — raw numeric font-weights converted to `var:custom|font-weight|…` tokens (JSON attr + inline style: `600`→semi-bold, `700`→bold, `400`→regular).
+- **Audited clean (no change):** no dev-hardcoding (hero via `get_theme_file_uri`); escaping (pre-escaped hero URL, `esc_url` at use); injection (`require blog-card-large`; `template-single-post` content-only).
+- **Flagged for review (not deleted):** `post-loop-grid-default.php` (orphan + broken dangling `kwv/blog-post-card` ref), `post-loop-grid-custom.php` (orphan; slug/filename mismatch `kwv/post-loop-grid`), `post-loop-list.php` (soft orphan; empty Description).
+
 ### Changed (Parts audit — reconciled template parts with live dev, de-hardcoded, registered)
 Phase 1 of the parts/patterns/templates audit. Reconciled the theme's template parts against the live dev DB, removed dev-site hardcoding, fixed token literals, and registered previously-unregistered parts. Full findings: `.github/reports/audit-parts-2026-07-22.md`.
 - **`parts/promo-bar.html`** (new) — the header promo bar, split out as its own part (from live DB) so the shop's main header can be sticky while the promo scrolls away. `is-style-header-promo-bar`; raw `font-weight:500` written as `var:custom|font-weight|medium`.
