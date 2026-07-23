@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed (Patterns audit — WooCommerce: category registration, de-hardcode, font-weight tokens)
+Phase 2 (family: WooCommerce) of the patterns audit. Full findings: `.github/reports/audit-patterns-woo-2026-07-23.md`.
+- **`functions.php`** — registered two previously-missing pattern categories: `kwv/woocommerce` (used by every woo page pattern) and `kwv/product-card` (used by the product-card patterns). They were falling into "Uncategorized".
+- **`patterns/woo-product-search.php`** — de-hardcoded the hero image (`https://kwv.lightspeedwp.dev/…` → root-relative; dropped `id:182430`/`wp-image-182430`).
+- **`patterns/woo-product-archive.php`, `woo-product-search.php`, `woo-single-product.php`** — raw font-weights → `var:custom|font-weight|…` tokens.
+- **Audited clean (no change):** `term-banner-hero`/`shop-hero` dynamic PHP correctly escaped (`esc_url`/`(int)`); injection (`require term-banner-hero`; content-only patterns confirmed; coming-soon/checkout as designed).
+- **Flagged for review (not deleted):** orphans `woo-product-archive-sidebar` (also stale header/footer + raw hex), `woo-product-card` (alt of the used `woo-product-card-bordered`), `shop-hero`; plus `woo-product-search` static-hero + `ref:182452` and `woo-order-confirmation` `page:"cart"` context.
+
 ### Changed (Parts audit — reconciled template parts with live dev, de-hardcoded, registered)
 Phase 1 of the parts/patterns/templates audit. Reconciled the theme's template parts against the live dev DB, removed dev-site hardcoding, fixed token literals, and registered previously-unregistered parts. Full findings: `.github/reports/audit-parts-2026-07-22.md`.
 - **`parts/promo-bar.html`** (new) — the header promo bar, split out as its own part (from live DB) so the shop's main header can be sticky while the promo scrolls away. `is-style-header-promo-bar`; raw `font-weight:500` written as `var:custom|font-weight|medium`.

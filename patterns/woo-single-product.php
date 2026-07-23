@@ -19,7 +19,7 @@
 
 <!-- wp:columns {"metadata":{"name":"Product Info Columns"},"align":"wide","style":{"spacing":{"blockGap":{"left":"var:preset|spacing|40"},"margin":{"top":"0","bottom":"0"}}}} -->
 <div class="wp-block-columns alignwide" style="margin-top:0;margin-bottom:0"><!-- wp:column {"width":"45%","style":{"spacing":{"blockGap":"var:preset|spacing|30"}}} -->
-<div class="wp-block-column" style="flex-basis:45%"><!-- wp:woocommerce/breadcrumbs {"fontSize":"200","textColor":"neutral-800","style":{"elements":{"link":{"color":{"text":"var:preset|color|neutral-800"}}},"spacing":{"margin":{"bottom":"var:preset|spacing|20"}},"typography":{"textTransform":"uppercase","fontStyle":"normal","fontWeight":"400"}}} /-->
+<div class="wp-block-column" style="flex-basis:45%"><!-- wp:woocommerce/breadcrumbs {"fontSize":"200","textColor":"neutral-800","style":{"elements":{"link":{"color":{"text":"var:preset|color|neutral-800"}}},"spacing":{"margin":{"bottom":"var:preset|spacing|20"}},"typography":{"textTransform":"uppercase","fontStyle":"normal","fontWeight":"var:custom|font-weight|regular"}}} /-->
 
 <!-- wp:woocommerce/product-gallery {"hoverZoom":false,"layout":{"type":"flex","flexWrap":"nowrap","orientation":"vertical"}} -->
 <div class="wp-block-woocommerce-product-gallery wc-block-product-gallery"><!-- wp:woocommerce/product-gallery-large-image -->
@@ -47,13 +47,13 @@
 <div class="wp-block-column"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group"><!-- wp:post-title {"level":1,"fontSize":"500","__woocommerceNamespace":"woocommerce/product-query/product-title"} /-->
 
-<!-- wp:post-excerpt {"style":{"elements":{"link":{"color":{"text":"var:preset|color|brand-500"}}},"typography":{"textTransform":"uppercase","fontStyle":"normal","fontWeight":"600"}},"textColor":"brand-500","fontSize":"200"} /--></div>
+<!-- wp:post-excerpt {"style":{"elements":{"link":{"color":{"text":"var:preset|color|brand-500"}}},"typography":{"textTransform":"uppercase","fontStyle":"normal","fontWeight":"var:custom|font-weight|semi-bold"}},"textColor":"brand-500","fontSize":"200"} /--></div>
 <!-- /wp:group --></div>
 <!-- /wp:column -->
 
 <!-- wp:column {"width":"120px"} -->
 <div class="wp-block-column" style="flex-basis:120px"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|50"}},"layout":{"type":"constrained","justifyContent":"right"}} -->
-<div class="wp-block-group"><!-- wp:woocommerce/product-price {"textAlign":"right","isDescendentOfSingleProductTemplate":true,"fontSize":"400","style":{"typography":{"fontStyle":"normal","fontWeight":"700"}}} /--></div>
+<div class="wp-block-group"><!-- wp:woocommerce/product-price {"textAlign":"right","isDescendentOfSingleProductTemplate":true,"fontSize":"400","style":{"typography":{"fontStyle":"normal","fontWeight":"var:custom|font-weight|bold"}}} /--></div>
 <!-- /wp:group --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns -->
@@ -67,11 +67,11 @@
 <div class="wp-block-group"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|0"}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group"><!-- wp:post-title {"level":1,"fontSize":"500","__woocommerceNamespace":"woocommerce/product-query/product-title"} /-->
 
-<!-- wp:post-excerpt {"style":{"elements":{"link":{"color":{"text":"var:preset|color|brand-500"}}},"typography":{"textTransform":"uppercase","fontStyle":"normal","fontWeight":"600"}},"textColor":"brand-500","fontSize":"200"} /--></div>
+<!-- wp:post-excerpt {"style":{"elements":{"link":{"color":{"text":"var:preset|color|brand-500"}}},"typography":{"textTransform":"uppercase","fontStyle":"normal","fontWeight":"var:custom|font-weight|semi-bold"}},"textColor":"brand-500","fontSize":"200"} /--></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|50"}},"layout":{"type":"constrained","justifyContent":"right"}} -->
-<div class="wp-block-group"><!-- wp:woocommerce/product-price {"textAlign":"right","isDescendentOfSingleProductTemplate":true,"fontSize":"400","style":{"typography":{"fontStyle":"normal","fontWeight":"700"}}} /-->
+<div class="wp-block-group"><!-- wp:woocommerce/product-price {"textAlign":"right","isDescendentOfSingleProductTemplate":true,"fontSize":"400","style":{"typography":{"fontStyle":"normal","fontWeight":"var:custom|font-weight|bold"}}} /-->
 
 <!-- wp:woocommerce/add-to-cart-with-options /--></div>
 <!-- /wp:group -->
