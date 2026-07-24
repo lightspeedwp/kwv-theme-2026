@@ -9,6 +9,7 @@ import { test as base, expect, type Page } from '@playwright/test';
  */
 
 export const PRODUCT = {
+  id: process.env.KWV_PRODUCT_ID ?? '181708',
   slug: process.env.KWV_PRODUCT_SLUG ?? 'kwv-classic-chardonnay-2025',
   name: process.env.KWV_PRODUCT_NAME ?? 'KWV Classic Chardonnay 2025',
 };
@@ -89,20 +90,51 @@ export function miniCartDrawer(page: Page) {
   return page.locator('.wc-block-mini-cart__drawer');
 }
 
-/** Add the seeded product to the cart from the Shop grid and wait for confirmation. */
+/**
+ * Seed the cart with the known product. Uses the server-side add-to-cart URL: the
+ * block "Add to cart" button only updates client state and is LOST on a full-page
+ * navigation to /cart or /checkout, whereas `?add-to-cart=<id>` persists in the
+ * WooCommerce session so the cart/checkout render populated. (TC-001 still exercises
+ * the shop button itself.)
+ */
 export async function addSeededProductToCart(page: Page): Promise<void> {
-  await page.goto('/shop/');
-  const card = page.getByRole('listitem').filter({ hasText: PRODUCT.name }).first();
-  await card.getByRole('button', { name: /add to cart/i }).click();
+  await page.goto(`/?add-to-cart=${PRODUCT.id}`);
   await expect(cartButton(page)).toHaveAccessibleName(/:\s*[1-9]/, { timeout: 20_000 });
 }
 
-/** Log in a WooCommerce customer via My Account. Requires TEST_CUSTOMER (skips otherwise). */
+/**
+ * Fill the checkout shipping address. For South Africa the State/County field is a
+ * province <select> (not a text input), so select it as a combobox.
+ */
+export async function fillCheckoutAddress(page: Page): Promise<void> {
+  const shipping = page.getByRole('group', { name: /shipping address/i });
+  await shipping.getByLabel(/country\/region/i).selectOption({ label: 'South Africa' });
+  await shipping.getByRole('textbox', { name: /first name/i }).fill('Zared');
+  await shipping.getByRole('textbox', { name: /last name/i }).fill('Test');
+  await shipping.getByRole('textbox', { name: /^address/i }).fill('123 Test Avenue');
+  await shipping.getByRole('textbox', { name: /city/i }).fill('Cape Town');
+  await shipping.getByRole('combobox', { name: /state|province|county/i }).selectOption({ label: 'Western Cape' });
+  await shipping.getByRole('textbox', { name: /postal code/i }).fill('7300');
+  await shipping.getByRole('textbox', { name: /phone/i }).fill('0210000000');
+  await waitForStoreApi(page);
+}
+
+/**
+ * Log in a WooCommerce customer via My Account. Requires TEST_CUSTOMER (skips otherwise).
+ * The My Account page shows both a login AND a register form, so target the login
+ * fields by their stable ids (#username / #password; register uses #reg_*).
+ */
 export async function loginCustomer(page: Page): Promise<void> {
   await page.goto('/my-account/');
-  await page.getByRole('textbox', { name: /username or email/i }).fill(TEST_CUSTOMER.email);
-  await page.getByRole('textbox', { name: /^password/i }).fill(TEST_CUSTOMER.password);
-  await page.getByRole('button', { name: /log in/i }).click();
+  await page.locator('#username').fill(TEST_CUSTOMER.email);
+  await page.locator('#password').fill(TEST_CUSTOMER.password);
+  await page.getByRole('button', { name: /^log in$/i }).click();
+  // Fail fast with a clear message if the credentials don't match the account.
+  await expect(
+    page.getByText(/username or password you entered is incorrect|unknown email|is not registered/i),
+    'Login failed — KWV_TEST_CUSTOMER_PASSWORD does not match the account for KWV_TEST_CUSTOMER_EMAIL',
+  ).toHaveCount(0, { timeout: 10_000 });
+  await expect(page.getByRole('link', { name: /log out/i }).first()).toBeVisible({ timeout: 20_000 });
 }
 
 export { expect };

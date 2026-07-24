@@ -14,7 +14,12 @@ test.describe('Shop discovery @shop', () => {
     await expect(status).toBeVisible();
     const before = (await status.textContent())?.trim();
 
-    await page.getByRole('checkbox', { name: /the mentors/i }).check();
+    // The Brand filter accordion is collapsed by default — expand it, then tick.
+    const brandToggle = page.getByRole('button', { name: /^brand$/i });
+    if ((await brandToggle.getAttribute('aria-expanded')) === 'false') await brandToggle.click();
+    const mentors = page.getByRole('checkbox', { name: /the mentors/i });
+    await mentors.scrollIntoViewIfNeeded();
+    await mentors.check({ force: true });
     // Results refresh (URL param or status text changes).
     await expect
       .poll(async () => (await status.textContent())?.trim(), { timeout: 20_000 })

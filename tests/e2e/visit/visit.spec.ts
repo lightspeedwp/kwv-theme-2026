@@ -20,7 +20,9 @@ test.describe('Visit Us @visit', () => {
   test('VISIT-TC1 landing renders the three facilities with Book links', async ({ page }) => {
     await page.goto('/visit/');
     for (const f of FACILITIES) {
-      await expect(page.getByRole('heading', { name: f.name })).toBeVisible();
+      // exact:true so "House of Fire" (facility h2) doesn't also match the
+      // "House of Fire Tour" event heading.
+      await expect(page.getByRole('heading', { name: f.name, exact: true })).toBeVisible();
     }
     await expect(page.getByRole('link', { name: /^book$/i }).first()).toBeVisible();
   });

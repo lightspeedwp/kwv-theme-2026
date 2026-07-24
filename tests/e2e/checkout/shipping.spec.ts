@@ -1,4 +1,4 @@
-import { test, expect, addSeededProductToCart, waitForStoreApi } from '../fixtures';
+import { test, expect, addSeededProductToCart, fillCheckoutAddress } from '../fixtures';
 
 /**
  * RQ-006 — Shipping rules apply at checkout once an address is entered.
@@ -13,17 +13,7 @@ test.describe('Checkout shipping @checkout', () => {
     await addSeededProductToCart(page);
     await page.goto('/checkout/');
 
-    const shipping = page.getByRole('group', { name: /shipping address/i });
-    await shipping.getByLabel(/country\/region/i).selectOption({ label: 'South Africa' });
-    await shipping.getByRole('textbox', { name: /first name/i }).fill('Test');
-    await shipping.getByRole('textbox', { name: /last name/i }).fill('Buyer');
-    await shipping.getByRole('textbox', { name: /^address/i }).fill('1 Test Street');
-    await shipping.getByRole('textbox', { name: /city/i }).fill('Cape Town');
-    await shipping.getByRole('textbox', { name: /state\/county/i }).fill('Western Cape');
-    await shipping.getByRole('textbox', { name: /postal code/i }).fill('7600');
-    await shipping.getByRole('textbox', { name: /phone/i }).fill('0210000000');
-
-    await waitForStoreApi(page);
+    await fillCheckoutAddress(page);
 
     const options = page.getByRole('group', { name: /shipping options/i });
     // The "enter an address" placeholder is replaced by a selectable method.

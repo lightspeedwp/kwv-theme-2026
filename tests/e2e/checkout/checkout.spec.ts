@@ -17,9 +17,8 @@ test.describe('Checkout structure @checkout', () => {
 
   // TC-005 — Checkout page structure (guest)
   test('TC-005 renders contact, shipping, payment groups and Place Order', async ({ page }) => {
-    const form = page.getByRole('form', { name: /checkout/i });
-    await expect(form).toBeVisible();
-
+    // The block checkout <form> has no stable accessible name; assert the fieldset
+    // groups + Place Order button, which are the reliable structure.
     await expect(page.getByRole('group', { name: /contact information/i })).toBeVisible();
     await expect(page.getByRole('group', { name: /shipping address/i })).toBeVisible();
     await expect(page.getByRole('group', { name: /payment options/i })).toBeVisible();

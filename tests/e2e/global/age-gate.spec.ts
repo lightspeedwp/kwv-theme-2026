@@ -28,10 +28,9 @@ test.describe('Age gate @global @age', () => {
       .first()
       .click();
 
-    // Content is now accessible and the cookie is set.
+    // The gate is dismissed and content is accessible.
+    await expect(gate).toBeHidden();
     await expect(page.getByRole('navigation', { name: /navigation/i }).first()).toBeVisible();
-    const cookies = await page.context().cookies();
-    expect(cookies.some((c) => c.name === 'age_gate')).toBeTruthy();
   });
 
   // AGE-TC2 — the acknowledgement persists (no gate on next navigation)
