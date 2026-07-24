@@ -4,7 +4,7 @@ import {
   SANDBOX_READY,
   TEST_CUSTOMER,
   addSeededProductToCart,
-  loginCustomer,
+  emptyCart,
   fillCheckoutAddress,
 } from '../fixtures';
 
@@ -54,21 +54,28 @@ test.describe('Place order @checkout @stateful', () => {
     }
   });
 
-  // TC-011 — Logged-in checkout
-  test('TC-011 completes checkout as a logged-in customer', async ({ page }) => {
+  // TC-011 — Logged-in checkout (pre-authenticated via saved session)
+  test('TC-011 completes checkout as a logged-in customer @auth', async ({ page }) => {
     test.skip(!TEST_CUSTOMER.email, 'Set KWV_TEST_CUSTOMER_EMAIL / _PASSWORD to run TC-011.');
 
-    await loginCustomer(page);
+    await emptyCart(page); // persistent account cart may hold leftover items
     await addSeededProductToCart(page);
     await page.goto('/checkout/');
 
-    // Contact/address may be prefilled from the account; ensure required fields are set.
+    // Address may be prefilled from the account; fillCheckoutAddress is idempotent
+    // and ensures shipping rates calculate before submit.
     await fillCheckoutAddress(page);
     await page.getByRole('radio', { name: /payfast/i }).check();
     await page.getByRole('button', { name: /place order/i }).click();
 
-    await expect(page).toHaveURL(/order-received|checkout\/order|payflex|payfast/i, {
-      timeout: 60_000,
-    });
+    await expect(page).toHaveURL(/payfast|order-pay|order-received/i, { timeout: 60_000 });
+    const complete = page
+      .getByRole('button', { name: /complete payment|pay now|complete/i })
+      .or(page.getByRole('link', { name: /complete payment|pay now|complete/i }))
+      .first();
+    if (await complete.count()) {
+      await complete.click();
+      await expect(page).toHaveURL(/order-received|order-confirmation|thank/i, { timeout: 60_000 });
+    }
   });
 });

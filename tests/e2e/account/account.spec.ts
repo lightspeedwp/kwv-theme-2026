@@ -20,10 +20,9 @@ test.describe('WooCommerce account @account @stateful', () => {
     await expect(page.getByRole('link', { name: /log out/i }).first()).toBeVisible({ timeout: 30_000 });
   });
 
-  // ACCT-TC2 — My Account screens
-  test('ACCT-TC2 My Account shows orders and account details', async ({ page }) => {
+  // ACCT-TC2 — My Account screens (pre-authenticated via saved session)
+  test('ACCT-TC2 My Account shows orders and account details @auth', async ({ page }) => {
     test.skip(!TEST_CUSTOMER.email, 'Set KWV_TEST_CUSTOMER_EMAIL/_PASSWORD to run My Account.');
-    await loginCustomer(page);
     await page.goto('/my-account/');
     await expect(page.getByRole('link', { name: /orders/i }).first()).toBeVisible();
     await expect(page.getByRole('link', { name: /account details|addresses/i }).first()).toBeVisible();

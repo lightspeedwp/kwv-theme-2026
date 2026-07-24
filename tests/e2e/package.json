@@ -8,6 +8,7 @@
     "test:headed": "playwright test --headed",
     "test:checkout": "playwright test checkout",
     "test:cart": "playwright test cart",
+    "test:auth": "playwright test --project=chromium-auth --workers=1",
     "report": "playwright show-report",
     "codegen": "playwright codegen $KWV_BASE_URL"
   },

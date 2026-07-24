@@ -37,9 +37,23 @@ export default defineConfig({
   },
 
   projects: [
+    { name: 'setup', testMatch: /auth\.setup\.ts/ },
     {
+      // Guest / unauthenticated — everything except @auth specs.
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
+      grepInvert: /@auth/,
+      testIgnore: /auth\.setup\.ts/,
+    },
+    {
+      // Authenticated — @auth specs reuse the session saved by `setup`.
+      name: 'chromium-auth',
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: 'playwright/.auth/customer.json',
+      },
+      grep: /@auth/,
+      dependencies: ['setup'],
     },
     // Responsive adaptations of the supplied desktop designs are covered under
     // LS-1175; enable this project when mobile checkout is in scope for a run.

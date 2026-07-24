@@ -103,19 +103,56 @@ export async function addSeededProductToCart(page: Page): Promise<void> {
 }
 
 /**
+ * Empty the cart. Logged-in customers have a persistent, account-bound cart that
+ * survives across tests, so authenticated checkout specs must start from a clean
+ * cart or items (incl. leftover subscriptions) accumulate.
+ */
+export async function emptyCart(page: Page): Promise<void> {
+  await page.goto('/cart/');
+  for (let i = 0; i < 15; i++) {
+    const remove = page.getByRole('button', { name: /remove (item|.*from cart)/i }).first();
+    if ((await remove.count()) === 0) break;
+    await remove.click();
+    await waitForStoreApi(page);
+  }
+}
+
+/**
  * Fill the checkout shipping address. For South Africa the State/County field is a
  * province <select> (not a text input), so select it as a combobox.
  */
 export async function fillCheckoutAddress(page: Page): Promise<void> {
   const shipping = page.getByRole('group', { name: /shipping address/i });
-  await shipping.getByLabel(/country\/region/i).selectOption({ label: 'South Africa' });
-  await shipping.getByRole('textbox', { name: /first name/i }).fill('Zared');
-  await shipping.getByRole('textbox', { name: /last name/i }).fill('Test');
-  await shipping.getByRole('textbox', { name: /^address/i }).fill('123 Test Avenue');
-  await shipping.getByRole('textbox', { name: /city/i }).fill('Cape Town');
-  await shipping.getByRole('combobox', { name: /state|province|county/i }).selectOption({ label: 'Western Cape' });
-  await shipping.getByRole('textbox', { name: /postal code/i }).fill('7300');
-  await shipping.getByRole('textbox', { name: /phone/i }).fill('0210000000');
+  const country = shipping.getByLabel(/country\/region/i);
+  const editBtn = shipping.getByRole('button', { name: /edit shipping address/i });
+  // Wait for the address block to settle into one of its two states: editable fields
+  // (guest) or a collapsed saved address behind an "Edit" button (logged-in).
+  await Promise.race([
+    country.waitFor({ state: 'visible', timeout: 15_000 }).catch(() => {}),
+    editBtn.waitFor({ state: 'visible', timeout: 15_000 }).catch(() => {}),
+  ]);
+  // A collapsed saved address hides the fields — expand it so they're editable.
+  if (await editBtn.isVisible().catch(() => false)) {
+    await editBtn.click();
+    await country.waitFor({ state: 'visible', timeout: 10_000 }).catch(() => {});
+  }
+  // Fill only when the country selector is actually editable/visible.
+  if (await country.isVisible().catch(() => false)) {
+    await country.selectOption({ label: 'South Africa' });
+    await shipping.getByRole('textbox', { name: /first name/i }).fill('Zared');
+    await shipping.getByRole('textbox', { name: /last name/i }).fill('Test');
+    await shipping.getByRole('textbox', { name: /^address/i }).fill('123 Test Avenue');
+    await shipping.getByRole('textbox', { name: /city/i }).fill('Cape Town');
+    await shipping.getByRole('combobox', { name: /state|province|county/i }).selectOption({ label: 'Western Cape' });
+    await shipping.getByRole('textbox', { name: /postal code/i }).fill('7300');
+    await shipping.getByRole('textbox', { name: /phone/i }).fill('0210000000');
+  }
+  // Logged-in checkout may show a separate (empty) billing form; ensure billing
+  // reuses the shipping address so it doesn't block submission.
+  const sameBilling = page.getByRole('checkbox', { name: /use same address for billing/i });
+  if ((await sameBilling.count()) > 0 && !(await sameBilling.isChecked().catch(() => true))) {
+    await sameBilling.check();
+  }
   await waitForStoreApi(page);
   // Shipping rates recalculate async on the slow staging site — wait for a
   // selectable rate before the caller submits, or Place Order fires with no
