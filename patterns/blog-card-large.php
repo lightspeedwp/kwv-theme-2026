@@ -18,7 +18,7 @@
 <div class="wp-block-group blog-card-large__media" style="padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- wp:post-featured-image {"isLink":true,"aspectRatio":"1","className":"is-style-default"} /-->
 
 <!-- wp:group {"metadata":{"name":"Author"},"style":{"spacing":{"blockGap":"var:preset|spacing|5"}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group"><!-- wp:post-author-name {"style":{"typography":{"fontWeight":"600","lineHeight":"var:custom|line-height|heading","textTransform":"uppercase","fontStyle":"normal"}},"fontSize":"300","fontFamily":"heading"} /-->
+<div class="wp-block-group"><!-- wp:post-author-name {"style":{"typography":{"fontWeight":"var:custom|font-weight|semi-bold","lineHeight":"var:custom|line-height|heading","textTransform":"uppercase","fontStyle":"normal"}},"fontSize":"300","fontFamily":"heading"} /-->
 
 <!-- wp:paragraph {"metadata":{"name":"Author Role","bindings":{"content":{"source":"kwv/author-role"}}},"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"neutral-700","fontSize":"300"} -->
 <p class="has-neutral-700-color has-text-color has-300-font-size" style="margin-top:0;margin-bottom:0"><?php esc_html_e( 'Role', 'kwv' ); ?></p>

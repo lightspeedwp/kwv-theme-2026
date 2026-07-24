@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed (Patterns audit — posts/blog/index: font-weight tokens; orphans flagged)
+Phase 2 (family: posts/blog/index) of the patterns audit. Full findings: `.github/reports/audit-patterns-posts-index-2026-07-23.md`.
+- **`blog-card-large.php`, `template-index-news.php`, `template-category.php`, `template-single-post.php`** — raw numeric font-weights converted to `var:custom|font-weight|…` tokens (JSON attr + inline style: `600`→semi-bold, `700`→bold, `400`→regular).
+- **Audited clean (no change):** no dev-hardcoding (hero via `get_theme_file_uri`); escaping (pre-escaped hero URL, `esc_url` at use); injection (`require blog-card-large`; `template-single-post` content-only).
+- **Flagged for review (not deleted):** `post-loop-grid-default.php` (orphan + broken dangling `kwv/blog-post-card` ref), `post-loop-grid-custom.php` (orphan; slug/filename mismatch `kwv/post-loop-grid`), `post-loop-list.php` (soft orphan; empty Description).
 ### Changed (Header promo-split + sticky + structural audit)
 Phase 2 (structural family) of the patterns audit, plus the confirmed header composition change. Full findings: `.github/reports/audit-patterns-structural-2026-07-23.md`.
 - **`patterns/header-light.php`** — removed the inline promo bar; the light header is now just the header row. The promo bar is composed as a separate `promo-bar` part in the templates.
