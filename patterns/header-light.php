@@ -2,7 +2,7 @@
 /**
  * Title: Header Light
  * Slug: kwv/header-light
- * Description: Light header with promo bar, logo, navigation, account and cart — for shop, category and product pages.
+ * Description: Light header with logo, navigation, account and cart — for shop, category and product pages. The promo bar is a separate `promo-bar` part composed above this header in the templates.
  * Categories: header
  * Keywords: header, nav, promo, shop, cart, account
  * Viewport Width: 1500
@@ -13,14 +13,6 @@
 ?>
 <!-- wp:group {"metadata":{"name":"Header — Light"},"align":"full","style":{"spacing":{"blockGap":"0"}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull">
-
-	<!-- wp:group {"metadata":{"name":"Promo Bar"},"align":"full","className":"is-style-header-promo-bar","layout":{"type":"constrained"}} -->
-	<div class="wp-block-group alignfull is-style-header-promo-bar">
-		<!-- wp:paragraph {"align":"center","style":{"typography":{"fontStyle":"normal","fontWeight":"500"}},"fontSize":"100"} -->
-		<p class="has-text-align-center has-100-font-size" style="font-style:normal;font-weight:500"><?php esc_html_e( '15% Off All Wine Orders Of R500+ | Use Code: PINOTAGE100', 'kwv' ); ?></p>
-		<!-- /wp:paragraph -->
-	</div>
-	<!-- /wp:group -->
 
 	<!-- wp:group {"metadata":{"name":"Header Row"},"align":"full","className":"is-style-header-row","layout":{"type":"constrained"}} -->
 	<div class="wp-block-group alignfull is-style-header-row">
