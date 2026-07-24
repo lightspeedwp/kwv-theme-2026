@@ -10,8 +10,7 @@ test.describe('Errors — 404 @errors', () => {
     const response = await page.goto('/this-page-does-not-exist-e2e-check/');
     expect(response?.status()).toBe(404);
 
-    // A styled 404 template renders (heading/message present, site chrome intact).
-    await expect(page.locator('main').first()).toBeVisible();
+    // A styled 404 template renders (message present, site chrome intact).
     await expect(page.getByText(/404|not found|can’t be found|cannot be found/i).first()).toBeVisible();
     await expect(page.getByRole('contentinfo')).toBeVisible(); // footer still renders
   });

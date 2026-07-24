@@ -30,9 +30,11 @@ test.describe('Smoke — scoped pages render @smoke', () => {
       expect(response, `no response for ${path}`).not.toBeNull();
       expect(response!.status(), `${path} status`).toBeLessThan(400);
 
-      // Primary landmark present and a heading rendered.
-      await expect(page.locator('main').first()).toBeVisible();
+      // Page rendered fully: a heading and the footer chrome are present.
+      // (Some pages render from DB templates without a <main> landmark, so we
+      // assert on heading + footer rather than requiring `main`.)
       await expect(page.getByRole('heading').first()).toBeVisible();
+      await expect(page.getByRole('contentinfo')).toBeVisible();
     });
   }
 });

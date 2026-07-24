@@ -17,9 +17,9 @@ test.describe('Content pages @content', () => {
     // CONT-TC1
     test(`CONT-TC1 ${label} renders a heading and body content`, async ({ page }) => {
       await page.goto(path);
-      await expect(page.getByRole('heading').first()).toBeVisible();
-      // Body copy present (more than just chrome).
-      await expect(page.locator('main').first()).toContainText(/\w{40,}/);
+      await expect(page.getByRole('heading', { level: 1 }).first()).toBeVisible();
+      // Body copy present (a paragraph with substantial text).
+      await expect(page.locator('p').filter({ hasText: /\w{40,}/ }).first()).toBeVisible();
     });
   }
 
