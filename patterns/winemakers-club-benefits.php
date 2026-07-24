@@ -40,8 +40,8 @@
 <!-- /wp:column -->
 
 <!-- wp:column {"verticalAlignment":"center"} -->
-<div class="wp-block-column is-vertically-aligned-center"><!-- wp:image {"id":265,"sizeSlug":"full","linkDestination":"none"} -->
-<figure class="wp-block-image size-full"><img src="http://localhost:8901/wp-content/uploads/2026/06/wineclub-boxes-mockup.png" alt="KWV Winemaker’s Selection delivery boxes" class="wp-image-265"/></figure>
+<div class="wp-block-column is-vertically-aligned-center"><!-- wp:image {"sizeSlug":"full","linkDestination":"none"} -->
+<figure class="wp-block-image size-full"><img src="/wp-content/uploads/2026/06/wineclub-boxes-mockup.png" alt="KWV Winemaker’s Selection delivery boxes"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>

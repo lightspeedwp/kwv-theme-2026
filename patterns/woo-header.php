@@ -17,8 +17,8 @@
 	<div class="wp-block-group alignfull has-neutral-300-color has-contrast-background-color has-text-color has-background" style="padding-top:1rem;padding-right:var(--wp--preset--spacing--20);padding-bottom:1rem;padding-left:var(--wp--preset--spacing--20)">
 		<!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"fontSize":"100","layout":{"type":"flex","justifyContent":"center"}} -->
 		<div class="wp-block-group alignwide has-100-font-size">
-			<!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"500"},"elements":{"link":{"color":{"text":"var:preset|color|base"}}}},"textColor":"base"} -->
-			<p class="has-base-color has-text-color has-link-color" style="font-style:normal;font-weight:500"><?php esc_html_e( 'Save 25% off during our Winter Sale! Use code SELLWISE25', 'kwv' ); ?></p>
+			<!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"var:custom|font-weight|medium"},"elements":{"link":{"color":{"text":"var:preset|color|base"}}}},"textColor":"base"} -->
+			<p class="has-base-color has-text-color has-link-color" style="font-style:normal;font-weight:var(--wp--custom--font-weight--medium)"><?php esc_html_e( 'Save 25% off during our Winter Sale! Use code SELLWISE25', 'kwv' ); ?></p>
 			<!-- /wp:paragraph -->
 		</div>
 		<!-- /wp:group -->
