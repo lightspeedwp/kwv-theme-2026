@@ -12,8 +12,8 @@
 <!-- wp:group {"metadata":{"name":"Introducing"},"align":"full","className":"is-style-light-page-section","layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull is-style-light-page-section"><!-- wp:columns {"verticalAlignment":"center","align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|70"}}} -->
 <div class="wp-block-columns alignwide are-vertically-aligned-center"><!-- wp:column {"verticalAlignment":"center"} -->
-<div class="wp-block-column is-vertically-aligned-center"><!-- wp:image {"id":261,"sizeSlug":"full","linkDestination":"none","style":{"border":{"radius":"8px"}}} -->
-<figure class="wp-block-image size-full has-custom-border"><img src="http://localhost:8901/wp-content/uploads/2026/06/wineclub-edition-13-box.jpg" alt="KWV Winemaker’s Selection Edition 13 box and bottles" class="wp-image-261" style="border-radius:8px"/></figure>
+<div class="wp-block-column is-vertically-aligned-center"><!-- wp:image {"sizeSlug":"full","linkDestination":"none","style":{"border":{"radius":"8px"}}} -->
+<figure class="wp-block-image size-full has-custom-border"><img src="/wp-content/uploads/2026/06/wineclub-edition-13-box.jpg" alt="KWV Winemaker’s Selection Edition 13 box and bottles" style="border-radius:8px"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:column -->
 

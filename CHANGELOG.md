@@ -14,6 +14,10 @@ Phase 2 (structural family) of the patterns audit, plus the confirmed header com
 - **Sticky header** (core `position:sticky`, no CSS) on **shop** (`archive-product`), **product-brand** (`taxonomy-product_brand`), **product-category** (`taxonomy-product_cat`), and `single-product` (matched to live). `single.html`/`single-kwv_event.html` use the dark header and are unchanged.
 - **Structural pattern fixes:** `template-page-404` raw font-weight → `var:custom|font-weight|bold`; `template-page-full` gained the missing `Viewport Width`; `woo-header` raw font-weight → `var:custom|font-weight|medium`.
 - **Flagged (not changed):** `footer.php` Gravity Forms block raw hex (third-party attrs, no token support); `woo-header.php` orphan candidate; cross-cutting `Categories: hidden` on template shells.
+### Changed (Patterns audit — winemakers-club: de-hardcoded images)
+Phase 2 (family: winemakers-club) of the patterns audit. Full findings: `.github/reports/audit-patterns-winemakers-club-2026-07-22.md`.
+- **`winemakers-club-hero.php`, `-intro.php`, `-gallery.php` (×3), `-benefits.php`** — 7 images de-hardcoded (`http://localhost:8901/…` → root-relative; `id`/`wp-image-*` attachment refs dropped).
+- **Audited clean (no change):** sections are static (no escaping surface); `page-winemakers-club` requires all 7 sections via `require`; metadata + tokens clean.
 
 ### Changed (Parts audit — reconciled template parts with live dev, de-hardcoded, registered)
 Phase 1 of the parts/patterns/templates audit. Reconciled the theme's template parts against the live dev DB, removed dev-site hardcoding, fixed token literals, and registered previously-unregistered parts. Full findings: `.github/reports/audit-parts-2026-07-22.md`.
