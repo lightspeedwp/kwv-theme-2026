@@ -16,11 +16,17 @@ export const PRODUCT = {
 export const COUPON = process.env.KWV_COUPON_CODE ?? '';
 
 /**
- * True only when the environment is safe for order-placing / account-mutating
- * cases: sandbox mode on AND a test card available. Payment-completion cases skip otherwise.
+ * Sandbox is on when gateways are in test mode. PayFast is in TEST mode on dev and
+ * its sandbox completes WITHOUT a real card, so this flag alone enables end-to-end
+ * order placement via PayFast. Set KWV_SANDBOX=1 to opt in.
  */
-export const STATEFUL_READY =
-  process.env.KWV_SANDBOX === '1' && !!process.env.KWV_TEST_CARD_NUMBER;
+export const SANDBOX_READY = process.env.KWV_SANDBOX === '1';
+
+/**
+ * Only needed for the Payflex (BNPL) capture path, which requires a gateway
+ * sandbox test card. PayFast sandbox does not need this.
+ */
+export const STATEFUL_READY = SANDBOX_READY && !!process.env.KWV_TEST_CARD_NUMBER;
 
 /**
  * Opt-in guard for cases that submit real forms (Contact, Visit Us) on the target

@@ -1,7 +1,7 @@
 import {
   test,
   expect,
-  STATEFUL_READY,
+  SANDBOX_READY,
   TEST_CUSTOMER,
   addSeededProductToCart,
   waitForStoreApi,
@@ -11,14 +11,15 @@ import {
  * RQ-004 / RQ-005 / RQ-009 — Complete checkout and place an order.
  * Pack: reports/test-packs/checkout-2026-07-24.md
  *
- * @stateful — these CREATE ORDERS. They run ONLY against a sandbox-mode
- * environment with a test card (KWV_SANDBOX=1 + KWV_TEST_CARD_NUMBER). They are
- * excluded from read-only smoke runs and skip until those are provided (G2).
+ * @stateful — these CREATE ORDERS. Completion uses **PayFast sandbox**, which is in
+ * TEST mode on dev and needs NO real card. They run only when KWV_SANDBOX=1 and are
+ * excluded from read-only smoke runs. (The Payflex/BNPL capture path would need a
+ * gateway test card — out of scope for these cases.)
  */
 test.describe('Place order @checkout @stateful', () => {
   test.skip(
-    !STATEFUL_READY,
-    'Requires sandbox mode + a test card (set KWV_SANDBOX=1 and KWV_TEST_CARD_NUMBER).',
+    !SANDBOX_READY,
+    'Requires sandbox mode (set KWV_SANDBOX=1). PayFast sandbox needs no card.',
   );
 
   async function fillShipping(page: import('@playwright/test').Page) {
@@ -41,14 +42,22 @@ test.describe('Place order @checkout @stateful', () => {
 
     await page.getByRole('textbox', { name: /email address/i }).fill('guest+e2e@example.test');
     await fillShipping(page);
-    await page.getByRole('radio', { name: /payflex/i }).check();
+    await page.getByRole('radio', { name: /payfast/i }).check();
 
     await page.getByRole('button', { name: /place order/i }).click();
 
-    // Reaches the gateway/redirect or the order-received page (sandbox — no real charge).
-    await expect(page).toHaveURL(/order-received|checkout\/order|payflex|payfast/i, {
-      timeout: 45_000,
-    });
+    // Redirects to the PayFast sandbox payment page (no real charge).
+    await expect(page).toHaveURL(/payfast|order-pay|order-received/i, { timeout: 45_000 });
+    // Complete the simulated sandbox payment if the sandbox control is shown,
+    // then land on order-received. (Sandbox page markup is finalised at execution.)
+    const complete = page
+      .getByRole('button', { name: /complete payment|pay now|complete/i })
+      .or(page.getByRole('link', { name: /complete payment|pay now|complete/i }))
+      .first();
+    if (await complete.count()) {
+      await complete.click();
+      await expect(page).toHaveURL(/order-received|order-confirmation|thank/i, { timeout: 45_000 });
+    }
   });
 
   // TC-011 — Logged-in checkout
@@ -65,7 +74,7 @@ test.describe('Place order @checkout @stateful', () => {
 
     // Contact/address may be prefilled from the account; ensure required fields are set.
     await fillShipping(page);
-    await page.getByRole('radio', { name: /payflex/i }).check();
+    await page.getByRole('radio', { name: /payfast/i }).check();
     await page.getByRole('button', { name: /place order/i }).click();
 
     await expect(page).toHaveURL(/order-received|checkout\/order|payflex|payfast/i, {
