@@ -41,7 +41,7 @@ test.describe('Place order @checkout @stateful', () => {
     await page.getByRole('button', { name: /place order/i }).click();
 
     // Redirects to the PayFast sandbox payment page (no real charge).
-    await expect(page).toHaveURL(/payfast|order-pay|order-received/i, { timeout: 45_000 });
+    await expect(page).toHaveURL(/payfast|order-pay|order-received/i, { timeout: 60_000 });
     // Complete the simulated sandbox payment if the sandbox control is shown,
     // then land on order-received. (Sandbox page markup is finalised at execution.)
     const complete = page
@@ -50,7 +50,7 @@ test.describe('Place order @checkout @stateful', () => {
       .first();
     if (await complete.count()) {
       await complete.click();
-      await expect(page).toHaveURL(/order-received|order-confirmation|thank/i, { timeout: 45_000 });
+      await expect(page).toHaveURL(/order-received|order-confirmation|thank/i, { timeout: 60_000 });
     }
   });
 
@@ -68,7 +68,7 @@ test.describe('Place order @checkout @stateful', () => {
     await page.getByRole('button', { name: /place order/i }).click();
 
     await expect(page).toHaveURL(/order-received|checkout\/order|payflex|payfast/i, {
-      timeout: 45_000,
+      timeout: 60_000,
     });
   });
 });

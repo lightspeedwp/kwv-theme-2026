@@ -117,6 +117,12 @@ export async function fillCheckoutAddress(page: Page): Promise<void> {
   await shipping.getByRole('textbox', { name: /postal code/i }).fill('7300');
   await shipping.getByRole('textbox', { name: /phone/i }).fill('0210000000');
   await waitForStoreApi(page);
+  // Shipping rates recalculate async on the slow staging site — wait for a
+  // selectable rate before the caller submits, or Place Order fires with no
+  // shipping method and the order never completes.
+  await expect(
+    page.getByRole('group', { name: /shipping options/i }).getByRole('radio').first(),
+  ).toBeVisible({ timeout: 45_000 });
 }
 
 /**
