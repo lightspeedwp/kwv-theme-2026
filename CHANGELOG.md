@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed (Header promo-split + sticky + structural audit)
+Phase 2 (structural family) of the patterns audit, plus the confirmed header composition change. Full findings: `.github/reports/audit-patterns-structural-2026-07-23.md`.
+- **`patterns/header-light.php`** — removed the inline promo bar; the light header is now just the header row. The promo bar is composed as a separate `promo-bar` part in the templates.
+- **16 light-header templates** — now compose `promo-bar` part + `header` part at the top (`archive-product`, `single-product`, `taxonomy-product_cat`, `taxonomy-product_brand`, `page-cart`, `order-confirmation`, `product-search-results`, `404`, `index`, `category`, `page`, `page-faq`, `search`, `archive`, `page-with-sidebar`, `page-no-title`).
+- **Sticky header** (core `position:sticky`, no CSS) on **shop** (`archive-product`), **product-brand** (`taxonomy-product_brand`), **product-category** (`taxonomy-product_cat`), and `single-product` (matched to live). `single.html`/`single-kwv_event.html` use the dark header and are unchanged.
+- **Structural pattern fixes:** `template-page-404` raw font-weight → `var:custom|font-weight|bold`; `template-page-full` gained the missing `Viewport Width`; `woo-header` raw font-weight → `var:custom|font-weight|medium`.
+- **Flagged (not changed):** `footer.php` Gravity Forms block raw hex (third-party attrs, no token support); `woo-header.php` orphan candidate; cross-cutting `Categories: hidden` on template shells.
 ### Changed (Patterns audit — winemakers-club: de-hardcoded images)
 Phase 2 (family: winemakers-club) of the patterns audit. Full findings: `.github/reports/audit-patterns-winemakers-club-2026-07-22.md`.
 - **`winemakers-club-hero.php`, `-intro.php`, `-gallery.php` (×3), `-benefits.php`** — 7 images de-hardcoded (`http://localhost:8901/…` → root-relative; `id`/`wp-image-*` attachment refs dropped).
