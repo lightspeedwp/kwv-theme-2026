@@ -1,0 +1,19 @@
+{
+  "name": "kwv-e2e",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Playwright E2E tests for the KWV 2026 site (WooCommerce checkout flow). Self-contained: install and run from this directory.",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:checkout": "playwright test checkout",
+    "test:cart": "playwright test cart",
+    "test:auth": "playwright test --project=chromium-auth --workers=1",
+    "report": "playwright show-report",
+    "codegen": "playwright codegen $KWV_BASE_URL"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0",
+    "dotenv": "^16.4.5"
+  }
+}
