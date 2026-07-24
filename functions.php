@@ -136,6 +136,9 @@ function pattern_categories() {
 		'kwv/card'           => array(
 			'label' => __( 'Cards', 'kwv' ),
 		),
+		'kwv/product-card'   => array(
+			'label' => __( 'Product Cards', 'kwv' ),
+		),
 		'kwv/call-to-action' => array(
 			'label' => __( 'Call To Action', 'kwv' ),
 		),
@@ -171,6 +174,9 @@ function pattern_categories() {
 		),
 		'kwv/winemakers-club' => array(
 			'label' => __( 'Winemaker’s Club', 'kwv' ),
+		),
+		'kwv/woocommerce'    => array(
+			'label' => __( 'WooCommerce', 'kwv' ),
 		),
 	);
 

@@ -11,6 +11,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Phase 2 (family: home-hero) of the patterns audit — the final pattern family. Full findings: `.github/reports/audit-patterns-home-hero-2026-07-23.md`.
 - **`patterns/home-hero.php`** — dropped the `id:182457`/`wp-image-182457` attachment refs on the hero cover (its URL was already root-relative). Completes de-hardcoding for the hero.
 - **Audited clean (no change):** no dev-hardcoding, no raw color/font tokens; the baked transparent header + nav refs (182338/182351) are the intended design.
+### Changed (Patterns audit — WooCommerce: category registration, de-hardcode, font-weight tokens)
+Phase 2 (family: WooCommerce) of the patterns audit. Full findings: `.github/reports/audit-patterns-woo-2026-07-23.md`.
+- **`functions.php`** — registered two previously-missing pattern categories: `kwv/woocommerce` (used by every woo page pattern) and `kwv/product-card` (used by the product-card patterns). They were falling into "Uncategorized".
+- **`patterns/woo-product-search.php`** — de-hardcoded the hero image (`https://kwv.lightspeedwp.dev/…` → root-relative; dropped `id:182430`/`wp-image-182430`).
+- **`patterns/woo-product-archive.php`, `woo-product-search.php`, `woo-single-product.php`** — raw font-weights → `var:custom|font-weight|…` tokens.
+- **Audited clean (no change):** `term-banner-hero`/`shop-hero` dynamic PHP correctly escaped (`esc_url`/`(int)`); injection (`require term-banner-hero`; content-only patterns confirmed; coming-soon/checkout as designed).
+- **Flagged for review (not deleted):** orphans `woo-product-archive-sidebar` (also stale header/footer + raw hex), `woo-product-card` (alt of the used `woo-product-card-bordered`), `shop-hero`; plus `woo-product-search` static-hero + `ref:182452` and `woo-order-confirmation` `page:"cart"` context.
+### Changed (Patterns audit — posts/blog/index: font-weight tokens; orphans flagged)
+Phase 2 (family: posts/blog/index) of the patterns audit. Full findings: `.github/reports/audit-patterns-posts-index-2026-07-23.md`.
+- **`blog-card-large.php`, `template-index-news.php`, `template-category.php`, `template-single-post.php`** — raw numeric font-weights converted to `var:custom|font-weight|…` tokens (JSON attr + inline style: `600`→semi-bold, `700`→bold, `400`→regular).
+- **Audited clean (no change):** no dev-hardcoding (hero via `get_theme_file_uri`); escaping (pre-escaped hero URL, `esc_url` at use); injection (`require blog-card-large`; `template-single-post` content-only).
+- **Flagged for review (not deleted):** `post-loop-grid-default.php` (orphan + broken dangling `kwv/blog-post-card` ref), `post-loop-grid-custom.php` (orphan; slug/filename mismatch `kwv/post-loop-grid`), `post-loop-list.php` (soft orphan; empty Description).
+### Changed (Header promo-split + sticky + structural audit)
+Phase 2 (structural family) of the patterns audit, plus the confirmed header composition change. Full findings: `.github/reports/audit-patterns-structural-2026-07-23.md`.
+- **`patterns/header-light.php`** — removed the inline promo bar; the light header is now just the header row. The promo bar is composed as a separate `promo-bar` part in the templates.
+- **16 light-header templates** — now compose `promo-bar` part + `header` part at the top (`archive-product`, `single-product`, `taxonomy-product_cat`, `taxonomy-product_brand`, `page-cart`, `order-confirmation`, `product-search-results`, `404`, `index`, `category`, `page`, `page-faq`, `search`, `archive`, `page-with-sidebar`, `page-no-title`).
+- **Sticky header** (core `position:sticky`, no CSS) on **shop** (`archive-product`), **product-brand** (`taxonomy-product_brand`), **product-category** (`taxonomy-product_cat`), and `single-product` (matched to live). `single.html`/`single-kwv_event.html` use the dark header and are unchanged.
+- **Structural pattern fixes:** `template-page-404` raw font-weight → `var:custom|font-weight|bold`; `template-page-full` gained the missing `Viewport Width`; `woo-header` raw font-weight → `var:custom|font-weight|medium`.
+- **Flagged (not changed):** `footer.php` Gravity Forms block raw hex (third-party attrs, no token support); `woo-header.php` orphan candidate; cross-cutting `Categories: hidden` on template shells.
+### Changed (Patterns audit — winemakers-club: de-hardcoded images)
+Phase 2 (family: winemakers-club) of the patterns audit. Full findings: `.github/reports/audit-patterns-winemakers-club-2026-07-22.md`.
+- **`winemakers-club-hero.php`, `-intro.php`, `-gallery.php` (×3), `-benefits.php`** — 7 images de-hardcoded (`http://localhost:8901/…` → root-relative; `id`/`wp-image-*` attachment refs dropped).
+- **Audited clean (no change):** sections are static (no escaping surface); `page-winemakers-club` requires all 7 sections via `require`; metadata + tokens clean.
 
 ### Changed (Parts audit — reconciled template parts with live dev, de-hardcoded, registered)
 Phase 1 of the parts/patterns/templates audit. Reconciled the theme's template parts against the live dev DB, removed dev-site hardcoding, fixed token literals, and registered previously-unregistered parts. Full findings: `.github/reports/audit-parts-2026-07-22.md`.

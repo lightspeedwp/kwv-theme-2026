@@ -9,6 +9,7 @@
  * Template Types: page
  * Post Types: wp_template
  * Inserter: false
+ * Viewport Width: 1500
  */
 ?>
 
