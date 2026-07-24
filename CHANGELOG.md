@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed (Patterns audit — home-hero: dropped attachment refs)
+Phase 2 (family: home-hero) of the patterns audit — the final pattern family. Full findings: `.github/reports/audit-patterns-home-hero-2026-07-23.md`.
+- **`patterns/home-hero.php`** — dropped the `id:182457`/`wp-image-182457` attachment refs on the hero cover (its URL was already root-relative). Completes de-hardcoding for the hero.
+- **Audited clean (no change):** no dev-hardcoding, no raw color/font tokens; the baked transparent header + nav refs (182338/182351) are the intended design.
 ### Changed (Patterns audit — WooCommerce: category registration, de-hardcode, font-weight tokens)
 Phase 2 (family: WooCommerce) of the patterns audit. Full findings: `.github/reports/audit-patterns-woo-2026-07-23.md`.
 - **`functions.php`** — registered two previously-missing pattern categories: `kwv/woocommerce` (used by every woo page pattern) and `kwv/product-card` (used by the product-card patterns). They were falling into "Uncategorized".
