@@ -19,8 +19,8 @@
 <!-- /wp:column -->
 
 <!-- wp:column {"verticalAlignment":"stretch","width":"","style":{"spacing":{"padding":{"top":"0","right":"0","bottom":"0","left":"0"}}}} -->
-<div class="wp-block-column is-vertically-aligned-stretch" style="padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- wp:image {"id":182430,"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://kwv.lightspeedwp.dev/wp-content/uploads/2026/07/shop-hero-image-1-1200x301.png" alt="" class="wp-image-182430"/></figure>
+<div class="wp-block-column is-vertically-aligned-stretch" style="padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="/wp-content/uploads/2026/07/shop-hero-image-1-1200x301.png" alt=""/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>
@@ -36,8 +36,8 @@
 <!-- wp:columns {"align":"wide","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|30","left":"var:preset|spacing|70"}}}} -->
 <div class="wp-block-columns alignwide"><!-- wp:column {"width":"22%","metadata":{"name":"Filters Sidebar"}} -->
 <div class="wp-block-column" style="flex-basis:22%"><!-- wp:woocommerce/product-filters {"className":"kwv-shop-filters","style":{"spacing":{"blockGap":"var:preset|spacing|30"}}} -->
-<div class="wp-block-woocommerce-product-filters wc-block-product-filters kwv-shop-filters"><!-- wp:heading {"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|20"}},"typography":{"fontStyle":"normal","fontWeight":"400","letterSpacing":"0.05em"}},"fontSize":"400"} -->
-<h2 class="wp-block-heading has-400-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--20);font-style:normal;font-weight:400;letter-spacing:0.05em">Filters</h2>
+<div class="wp-block-woocommerce-product-filters wc-block-product-filters kwv-shop-filters"><!-- wp:heading {"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|20"}},"typography":{"fontStyle":"normal","fontWeight":"var:custom|font-weight|regular","letterSpacing":"0.05em"}},"fontSize":"400"} -->
+<h2 class="wp-block-heading has-400-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--20);font-style:normal;font-weight:var(--wp--custom--font-weight--regular);letter-spacing:0.05em">Filters</h2>
 <!-- /wp:heading -->
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|5"}},"layout":{"type":"constrained"}} -->
