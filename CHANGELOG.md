@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed (Shop filters — empty filter sections no longer render)
+A filter with nothing to offer for the current result set (a taxonomy/attribute with no matching terms, or a price range where min === max) rendered in the shop sidebar as a bare heading and `+` glyph that expanded to nothing. WooCommerce already hides those server-side — each `product-filter-*` block marks its wrapper `hidden` + `.wc-block-product-filter--hidden`, hidden by a single-class `display: none` — but the collapsible sidebar's fold rule set `display: grid` on *every* section at (0,4,0), outranking that (and beating the UA `[hidden]` rule, as any author `display` does), so the empty sections came back.
+- **`assets/styles/woocommerce-shop-filters.css`** — the fold rule now carries the same `:not([hidden]):not(.wc-block-product-filter--hidden)` guard the divider rule above it already had, so hidden sections fall out of the match entirely rather than being re-hidden at a higher specificity (no dependence on rule ordering). Covers all five filter types, and holds across Interactivity re-renders since WooCommerce re-emits the attribute server-side. Single-option filters are unaffected — WooCommerce counts one available term as non-empty, and those still render by design.
+
 ### Changed (Patterns audit — home-hero: dropped attachment refs)
 Phase 2 (family: home-hero) of the patterns audit — the final pattern family. Full findings: `.github/reports/audit-patterns-home-hero-2026-07-23.md`.
 - **`patterns/home-hero.php`** — dropped the `id:182457`/`wp-image-182457` attachment refs on the hero cover (its URL was already root-relative). Completes de-hardcoding for the hero.
