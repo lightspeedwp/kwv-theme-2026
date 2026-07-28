@@ -98,9 +98,20 @@
    while folded so the CSS price slider still measures correctly on expand. Each
    section has exactly two children — heading + content — so the second track
    maps to the collapsible content. minmax(0, …) lets that track reach a true
-   zero when folded; a bare `0fr` floors at the content's padding-top sliver. */
+   zero when folded; a bare `0fr` floors at the content's padding-top sliver.
+
+   The `:not([hidden]):not(.wc-block-product-filter--hidden)` guard is load-
+   bearing, not decorative: when a filter has nothing to offer for the current
+   result set (no terms, or a price range where min === max) WooCommerce renders
+   the section with `hidden` + `.wc-block-product-filter--hidden` and hides it
+   via `.wc-block-product-filter--hidden{display:none}`. That's a single class
+   (0,1,0), so an unguarded `display: grid` here would outrank it — and any
+   author `display` also beats the UA `[hidden]` rule — resurfacing the empty
+   section as a bare heading and `+` glyph with nothing behind it. Excluding the
+   hidden sections from the match (rather than re-asserting `display: none` at a
+   higher specificity) keeps this independent of rule ordering. */
 .kwv-shop-filters.kwv-filters-collapsible
-	[data-block-name^="woocommerce/product-filter-"]:has(> .wp-block-heading) {
+	[data-block-name^="woocommerce/product-filter-"]:not([hidden]):not(.wc-block-product-filter--hidden):has(> .wp-block-heading) {
 	display: grid;
 	grid-template-rows: auto minmax(0, 1fr);
 	transition: grid-template-rows 0.25s ease;
