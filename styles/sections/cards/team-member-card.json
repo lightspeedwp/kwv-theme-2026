@@ -8,6 +8,20 @@
 		"spacing": {
 			"margin": {
 				"top": "0"
+			},
+			"core/post-title": {
+				"spacing": {
+					"margin": {
+						"top": "0",
+						"bottom": "0"
+					}
+				},
+				"typography": {
+					"fontSize": "var:preset|font-size|200",
+					"fontWeight": "var:custom|font-weight|regular",
+					"textTransform": "none"
+				},
+				"css": "& a{transition:color 0.25s ease}"
 			}
 		},
 		"css": "&{position:relative;overflow:hidden}& .team-member-card__media{position:relative;overflow:hidden}& .team-member-card__media .wp-block-post-featured-image{margin:0}& .team-member-card__media img{display:block;object-fit:cover}& .team-member-card__overlay{position:absolute;inset:0;background-color:color-mix(in srgb, var(--wp--preset--color--contrast) 65%, transparent);overflow-y:auto}"
