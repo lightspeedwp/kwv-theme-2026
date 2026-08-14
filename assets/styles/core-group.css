@@ -52,6 +52,50 @@
 }
 
 /**
+ * Blog Card — post title drops down from behind the image.
+ *
+ * Structure (the `.blog-card__title` clipping wrapper and its top padding) lives
+ * in the section style styles/sections/cards/blog-card.json; the reveal itself
+ * lives here as plain CSS because the block-style-variation compiler drops
+ * `:hover`/`:focus-within` from that JSON and wraps it at `:where()` zero
+ * specificity (see the theme AGENTS.md "Styling lives in JSON" rule).
+ *
+ * Resting state: the title is translated up past the wrapper's top edge — its
+ * own height plus the wrapper's top padding — so it sits hidden behind the
+ * image. The wrapper still reserves the title's height, so nothing shifts and
+ * the grid rows stay even. On hover it slides back into place.
+ */
+.is-style-blog-card .blog-card__title > .wp-block-post-title {
+	transform: translateY( calc( -100% - var( --wp--preset--spacing--20 ) ) );
+	transition: transform 320ms ease;
+}
+
+.is-style-blog-card:hover .blog-card__title > .wp-block-post-title,
+.is-style-blog-card:focus-within .blog-card__title > .wp-block-post-title {
+	transform: translateY( 0 );
+}
+
+/*
+ * Keep the title permanently visible in the editor so it can be selected and
+ * edited without a hover. `.editor-styles-wrapper` only exists in the editor
+ * iframe, so the front end stays hidden-until-hover.
+ */
+.editor-styles-wrapper .is-style-blog-card .blog-card__title > .wp-block-post-title {
+	transform: none;
+}
+
+/*
+ * No hover to trigger the reveal on touch, and a reduced-motion visitor should
+ * not have to hover to read a post title — show it outright in both cases.
+ */
+@media ( hover: none ), ( prefers-reduced-motion: reduce ) {
+	.is-style-blog-card .blog-card__title > .wp-block-post-title {
+		transform: none;
+		transition: none;
+	}
+}
+
+/**
  * Team Member Card — bio overlay reveal animation.
  *
  * Structure (card/media/overlay layout + background) lives in the section

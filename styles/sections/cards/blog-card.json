@@ -36,6 +36,12 @@
 				}
 			},
 			"core/post-title": {
+				"spacing": {
+					"margin": {
+						"top": "0",
+						"bottom": "0"
+					}
+				},
 				"typography": {
 					"fontSize": "var:preset|font-size|200",
 					"fontWeight": "var:custom|font-weight|regular",
@@ -44,6 +50,6 @@
 				"css": "& a{transition:color 0.25s ease}"
 			}
 		},
-		"css": "& {position:relative;transition:all 0.25s ease}& .blog-card__media{position:relative;overflow:hidden}& .blog-card__media img{display:block;width:100%;object-fit:cover}"
+		"css": "& {position:relative;transition:all 0.25s ease}& .blog-card__media{position:relative;overflow:hidden}& .blog-card__media img{display:block;width:100%;object-fit:cover}& .blog-card__title{overflow:hidden;padding-top:var(--wp--preset--spacing--20)}& .blog-card__title>.wp-block-post-title{margin:0}"
 	}
 }

@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed (Blog Card — title drop-down reveal replaces the image hover zoom)
+Client request: drop the featured-image zoom on the blog card and instead have the post title look like it drops down from behind the image on hover (the treatment the team member card uses). Post-title typography is unchanged.
+- **`patterns/blog-card.php`** — removed `is-style-image-hover-zoom` from the featured image; the post title is now wrapped in a `.blog-card__title` group and the card `blockGap` is `0` so the title emerges directly from the image's bottom edge.
+- **`templates/front-page.html`** — the "Latest News" query loop has the card markup baked in, so the same change was applied there.
+- **`styles/sections/cards/blog-card.json`** — `.blog-card__title` gets `overflow:hidden` plus the former card gap as `padding-top` (spacing `20`), so the wrapper is the mask and still reserves the title's height (no layout shift, grid rows stay even).
+- **`assets/styles/core-group.css`** — the reveal itself: title translated up by its own height + the wrapper padding at rest, back to `0` on `:hover`/`:focus-within`. Lives in CSS because the block-style-variation compiler strips `:hover` from the JSON `css` field. Title is shown outright in the editor (`.editor-styles-wrapper`), on touch (`hover: none`), and under `prefers-reduced-motion` — a post title must not be hover-only.
+- `blog-card-large` (news/category archives) and `event-card` keep their hover zoom — not part of the request.
+
 ### Added (E2E — console-error quality gate + full-run/agent evaluation)
 Full end-to-end run of the LightSpeed **Playwright Testing Agent** (v2.0.0, `.github@develop` incl. PR #1392) against the theme and the dev site, with live Playwright + Chrome DevTools MCPs. Suite result: **66 passed / 0 failed / 5 skipped** (guest 57, new gate 5, auth 4) — no flakes, no retries.
 - **`tests/e2e/quality/console-errors.spec.ts`** (new) — `TC-QG1`, tagged `@console`: asserts **no new** console errors against a recorded baseline across `/`, `/shop/`, single product, `/cart/`, `/checkout/`. Validated with a negative control (removing a baseline entry makes it fail with the real error text), so the gate is not vacuous.
