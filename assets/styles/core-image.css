@@ -30,3 +30,133 @@ html .is-layout-flex .wp-block-image {
 .kwv-avatar-row > figure:not(:first-child) {
 	margin-left: -10px !important;
 }
+
+
+/* Lightbox — enlarge to the whole image, not a bigger version of the card
+---------------------------------------------------------------------------
+Core builds the lightbox as a *zoom of the element you clicked*: it copies the
+card's inline styles onto the overlay image and sizes the box from its own
+`--wp--lightbox-image-*` vars. On the History timeline that means the
+enlargement inherits the card's 1:1 crop, its 240px width and its rounded
+corners — the client asked for the full, uncropped, square-cornered image.
+
+`min-width` is what actually pins the image (core sets
+`min-width: var(--wp--lightbox-image-width)`), so `width: auto` alone does
+nothing here. `!important` is needed because the radius, `aspect-ratio` and
+`width` arrive as *inline* styles copied off the card, and an important author
+declaration outranks a style attribute.
+
+Applies to any image with `lightbox.enabled` — currently the timeline only. --*/
+
+/*
+ * `max-content`, not `auto`: the container is absolutely positioned at
+ * `left: 50%`, so an `auto` width shrink-to-fits against the space *right of
+ * centre* — half the viewport — and the image comes out half size on narrow
+ * screens (core sidesteps this by setting an explicit width from its vars).
+ * The caps are in viewport units for the same reason: a percentage max-height
+ * against a content-sized container resolves to `none`, so a tall image would
+ * run off screen.
+ */
+.wp-lightbox-overlay .lightbox-image-container {
+	width: max-content;
+	height: max-content;
+	max-width: calc(100vw - 10vmin);
+	max-height: calc(100vh - 10vmin);
+	overflow: visible;
+}
+
+.wp-lightbox-overlay .wp-block-image,
+.wp-lightbox-overlay .wp-block-image img {
+	min-width: 0 !important;
+	min-height: 0 !important;
+	width: auto !important;
+	height: auto !important;
+	max-width: calc(100vw - 10vmin);
+	max-height: calc(100vh - 10vmin);
+	aspect-ratio: auto !important;
+	object-fit: contain !important;
+	border-radius: 0 !important;
+}
+
+/*
+ * Lighter scrim than core's near-opaque 0.9, so the page reads as being behind
+ * an overlay rather than replaced by a blank one.
+ *
+ * The transparency has to live in the *colour*, not in `opacity`: core animates
+ * the scrim's opacity in and out (`turn-on-visibility` / `turn-off-visibility`,
+ * both `forwards`), and animations outrank normal author declarations — an
+ * `opacity` here would either be ignored on the way in or, with `!important`,
+ * outrank the animation and kill the fade on the way out. `!important` is still
+ * needed on the colour because core prints it inline from Global Styles
+ * `color.background`, which is the same `base` token used here.
+ */
+.wp-lightbox-overlay .scrim {
+	background-color: color-mix(in srgb, var(--wp--preset--color--base) 82%, transparent) !important;
+	backdrop-filter: blur(6px);
+}
+
+/*
+ * Keep the clicked card visible. Core hides it (`img.hide`) so the zoom looks
+ * like the image lifted off the page; with a cross-fade and a scrim you can now
+ * see through, that just reads as a hole in the carousel.
+ */
+.wp-lightbox-container img.hide {
+	visibility: visible !important;
+}
+
+/*
+ * Cross-fade in place of core's `lightbox-zoom-in`. The zoom is transform-only
+ * and cheap, but its first frame is the container sitting on the card's rect,
+ * scaled by `--wp--lightbox-scale` — an illusion that only holds while the
+ * overlay shows the same crop as the card. Now that it doesn't, there is no
+ * continuous morph between the two shapes and the zoom snaps. This animates
+ * `opacity` + `transform` only (no layout, no paint), keeps core's centring
+ * translate so nothing drifts, and reads none of the origin-rect vars, so card
+ * and overlay geometry can diverge freely. Core's own scrim fade is untouched.
+ *
+ * The `visibility` frames on the way out are not decoration: the overlay is
+ * `visibility: hidden` without `.active`, and core leans on `lightbox-zoom-out`
+ * to keep the image painted while it closes.
+ */
+@media not (prefers-reduced-motion) {
+
+	.wp-lightbox-overlay.zoom.active .lightbox-image-container {
+		animation: kwv-lightbox-in 240ms cubic-bezier(0.2, 0, 0.2, 1) both;
+	}
+
+	.wp-lightbox-overlay.zoom.show-closing-animation:not(.active) .lightbox-image-container {
+		animation: kwv-lightbox-out 200ms cubic-bezier(0.4, 0, 1, 1) both;
+	}
+}
+
+@keyframes kwv-lightbox-in {
+
+	from {
+		opacity: 0;
+		transform: translate(-50%, -50%) scale(0.97);
+	}
+
+	to {
+		opacity: 1;
+		transform: translate(-50%, -50%) scale(1);
+	}
+}
+
+@keyframes kwv-lightbox-out {
+
+	0% {
+		visibility: visible;
+		opacity: 1;
+		transform: translate(-50%, -50%) scale(1);
+	}
+
+	99% {
+		visibility: visible;
+		opacity: 0;
+	}
+
+	100% {
+		visibility: hidden;
+		opacity: 0;
+	}
+}
