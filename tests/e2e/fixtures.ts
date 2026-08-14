@@ -180,4 +180,53 @@ export async function loginCustomer(page: Page): Promise<void> {
   await expect(page.getByRole('link', { name: /log out/i }).first()).toBeVisible({ timeout: 20_000 });
 }
 
+/**
+ * Console-error budget (QG-R1, test pack test-packs/quality-gates-2026-07-31.md).
+ *
+ * Errors already present on the target environment, captured 2026-07-31 against
+ * https://kwv.lightspeedwp.dev — NOT invented. The gate asserts "no NEW errors
+ * against this baseline", never zero outright, so it can land while the known
+ * errors are still open.
+ *
+ * Never widen this list to make a run pass. A new error is a finding: report it.
+ * Each entry names the owner so it can be deleted once the owner fixes it.
+ */
+export const CONSOLE_ERROR_BASELINE: Record<string, RegExp[]> = {
+  '/': [],
+  '/cart/': [],
+  '/shop/': [
+    // FND-3 — woocommerce-google-analytics-pro (third-party plugin), not theme code.
+    // trackEvents() binds to an element that isn't on the shop template.
+    /Cannot read properties of null \(reading 'addEventListener'\)/,
+  ],
+  '/checkout/': [
+    // FND-3 — same plugin; fires inside conversion tracking on the order path.
+    /Cannot read properties of undefined \(reading 'ajax'\)/,
+  ],
+};
+
+/** JQMIGRATE announces itself as a console.log on every page — excluded by level, not by allowlist. */
+
+export type ConsoleWatcher = { errors: () => string[] };
+
+/**
+ * Start collecting console errors and uncaught page exceptions. Attach BEFORE
+ * navigating — errors thrown during load are missed otherwise. Uncaught
+ * TypeErrors arrive via `pageerror`, explicit console.error via `console`.
+ */
+export function watchConsoleErrors(page: Page): ConsoleWatcher {
+  const errors: string[] = [];
+  page.on('console', (msg) => {
+    if (msg.type() === 'error') errors.push(msg.text());
+  });
+  page.on('pageerror', (err) => errors.push(err.message));
+  return { errors: () => [...errors] };
+}
+
+/** Errors observed that the recorded baseline for `pageKey` does not already account for. */
+export function newConsoleErrors(observed: string[], pageKey: string): string[] {
+  const allowed = CONSOLE_ERROR_BASELINE[pageKey] ?? [];
+  return observed.filter((text) => !allowed.some((re) => re.test(text)));
+}
+
 export { expect };
