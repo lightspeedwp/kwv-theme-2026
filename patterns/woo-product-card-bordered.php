@@ -10,7 +10,7 @@
  * Viewport Width: 600
  */
 ?>
-<!-- wp:group {"metadata":{"name":"KWV Product Card"},"className":"is-style-product-card","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","verticalAlignment":"space-between"}} -->
+<!-- wp:group {"metadata":{"name":"KWV Product Card"},"className":"is-style-product-card","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","verticalAlignment":"top"}} -->
 <div class="wp-block-group is-style-product-card">
 	<!-- wp:group {"metadata":{"name":"Media"},"className":"product-card__media","style":{"spacing":{"blockGap":"0","padding":{"top":"0","right":"0","bottom":"0","left":"0"}}},"layout":{"type":"constrained"}} -->
 	<div class="wp-block-group product-card__media">

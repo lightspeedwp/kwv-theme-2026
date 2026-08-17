@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed (Product Card — equal-height cards per grid row, Add to Cart pinned to the bottom)
+Client request: every product card in a row should be as tall as the tallest card in that row, with the extra height absorbed between the bottle-size/price row and the Add to Cart button so the button always sits on the card's bottom edge.
+- **`patterns/woo-product-card-bordered.php`** — card group `verticalAlignment` changed from `space-between` to `top`. Once the card is taller than its content, `space-between` would spread the slack between *every* child (packshot, divider, title, meta); `top` collects it in one place, which `margin-top:auto` on the button then claims.
+- **`assets/styles/woocommerce-product-grid.css`** — `li.wc-block-product` already stretches to the row height, but the template part wrapping the card only grew to its own content height. The li → `.wp-block-template-part` → `.is-style-product-card` chain is now a column flex box with each level growing, so the card fills the row; `margin-top:auto` on `woocommerce/product-button` pushes the button to the bottom. Height has no `theme.json` equivalent, so this lives in CSS per AGENTS.md → "Styling lives in JSON". Scoped with `:has(.is-style-product-card)` so other Woo product templates are untouched.
+- Verified live on `kwv.lightspeedwp.dev/shop/` at 1600px (3-up: all cards in a row equal height, button 21px — the spacing-30 bottom padding — from the card edge in every card; 1-line-title cards absorb ~26px between meta and button, 2-line-title cards absorb 0) and at 390px (1-up: cards size to their own content, button still flush). Applies equally to the product category, product brand, search and related-products grids, which share the pattern.
+
 ### Fixed (Team Member Card — post title no longer underlines on hover)
 - **`styles/sections/cards/team-member-card.json`** — the `core/post-title` node was nested inside `styles.spacing` instead of `styles.blocks`, so none of its title styling was compiling. Moved it under `styles.blocks` and added `textDecoration: none`.
 - **`assets/styles/core-post-title.css`** — added `.is-style-team-member-card` alongside the existing career-card selector. `theme.json` underlines `core/post-title` links on `:hover` globally, and both that rule and a section style's `:hover` compile to zero-specificity `:root :where(…)`, so the removal needs real specificity in CSS. Comment generalised from "Career Card" to "Card".

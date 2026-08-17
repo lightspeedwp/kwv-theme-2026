@@ -104,6 +104,42 @@
    reapplied here with enough specificity to beat WooCommerce's own button rules.
    ============================================ */
 
+/* Equal-height cards: every card in a grid row is as tall as the tallest one,
+   with the Add to Cart control pinned to the bottom.
+
+   The grid/flex item (li.wc-block-product) already stretches to the row height,
+   but its content — a template part wrapping the card group — only grows to its
+   own content height. Making that chain a column flex box with each level
+   growing lets the card fill the row. :has() scopes this to the KWV product
+   card, so any other Woo product template on the site is untouched.
+
+   Height has no theme.json equivalent, so this lives here rather than in
+   styles/sections/cards/product-card.json, per AGENTS.md → "Styling lives in
+   JSON". The card group's own layout is verticalAlignment:"top" (flex-start) in
+   the pattern, so the slack collects in one place instead of being spread
+   between every child. */
+.wc-block-product-template .wc-block-product:has( .is-style-product-card ) {
+	display: flex;
+	flex-direction: column;
+}
+
+.wc-block-product-template .wc-block-product > .wp-block-template-part:has( > .is-style-product-card ) {
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 auto;
+}
+
+.wc-block-product-template .wc-block-product .is-style-product-card {
+	flex: 1 1 auto;
+}
+
+/* All of that slack lands between the bottle-size/price row and the button, so
+   the Add to Cart control sits on the card's bottom padding edge in every card
+   regardless of how many lines the title wraps to. */
+.wc-block-product-template .is-style-product-card .wc-block-components-product-button {
+	margin-top: auto;
+}
+
 /* Inset brand divider: full width within its spacing-20 padded wrapper.
    (Separator width has no theme.json equivalent, so it lives here — a genuine
    css-selector rule, per AGENTS.md → "Styling lives in JSON".) */
