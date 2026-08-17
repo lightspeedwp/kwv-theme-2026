@@ -8,7 +8,9 @@
 		"spacing": {
 			"margin": {
 				"top": "0"
-			},
+			}
+		},
+		"blocks": {
 			"core/post-title": {
 				"spacing": {
 					"margin": {
@@ -19,7 +21,8 @@
 				"typography": {
 					"fontSize": "var:preset|font-size|200",
 					"fontWeight": "var:custom|font-weight|regular",
-					"textTransform": "none"
+					"textTransform": "none",
+					"textDecoration": "none"
 				},
 				"css": "& a{transition:color 0.25s ease}"
 			}

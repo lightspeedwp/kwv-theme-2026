@@ -1,13 +1,15 @@
-/* Post Title - Career Card hover
+/* Post Title - Card hover
 ---------------------------------------------
-theme.json sets core/post-title's link to underline on :hover globally. On a
-Career Card (styles/sections/cards/career-card.json) the linked role title
-should stay clean — no underline on hover. Both the global rule and a section
-style's `:hover` compile to `:root :where(…)` (zero specificity), so removing
-the underline is done here with real specificity to win reliably. The card's
-static title styling (medium weight, no capitalisation, no resting underline)
-lives in career-card.json. */
+theme.json sets core/post-title's link to underline on :hover globally. On the
+card section styles (styles/sections/cards/*.json) the linked title should stay
+clean — no underline on hover. Both the global rule and a section style's
+`:hover` compile to `:root :where(…)` (zero specificity), so removing the
+underline is done here with real specificity to win reliably. Each card's
+static title styling (weight, capitalisation, no resting underline) lives in
+its own section-style JSON. */
 .is-style-career-card .wp-block-post-title a:hover,
-.is-style-career-card .wp-block-post-title a:focus {
+.is-style-career-card .wp-block-post-title a:focus,
+.is-style-team-member-card .wp-block-post-title a:hover,
+.is-style-team-member-card .wp-block-post-title a:focus {
 	text-decoration: none;
 }

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed (Team Member Card — post title no longer underlines on hover)
+- **`styles/sections/cards/team-member-card.json`** — the `core/post-title` node was nested inside `styles.spacing` instead of `styles.blocks`, so none of its title styling was compiling. Moved it under `styles.blocks` and added `textDecoration: none`.
+- **`assets/styles/core-post-title.css`** — added `.is-style-team-member-card` alongside the existing career-card selector. `theme.json` underlines `core/post-title` links on `:hover` globally, and both that rule and a section style's `:hover` compile to zero-specificity `:root :where(…)`, so the removal needs real specificity in CSS. Comment generalised from "Career Card" to "Card".
+
 ### Changed (Blog Card — title drop-down reveal replaces the image hover zoom)
 Client request: drop the featured-image zoom on the blog card and instead have the post title look like it drops down from behind the image on hover (the treatment the team member card uses). Post-title typography is unchanged.
 - **`patterns/blog-card.php`** — removed `is-style-image-hover-zoom` from the featured image; the post title is now wrapped in a `.blog-card__title` group and the card `blockGap` is `0` so the title emerges directly from the image's bottom edge.
