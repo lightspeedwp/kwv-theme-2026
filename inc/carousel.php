@@ -18,7 +18,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-const STYLE_HANDLE = 'kwv-carousel-block';
+const STYLE_HANDLE  = 'kwv-carousel-block';
+const SCRIPT_HANDLE = 'kwv-hero-slider';
 
 /**
  * Attach the carousel nav-arrow stylesheet to the plugin's carousel block.
@@ -37,3 +38,32 @@ function register_assets() {
 	);
 }
 add_action( 'init', __NAMESPACE__ . '\register_assets' );
+
+/**
+ * Load the hero slideshow's reduced-motion script, and only for that carousel.
+ *
+ * The plugin has no reduced-motion handling, so the autoplaying home hero needs a
+ * few lines of JS (see assets/js/hero-slider.js). The three brand carousels don't
+ * autoplay, so this is gated on the hero's own `cb-hero-slider` class rather than
+ * attached to every `cb/carousel-v2` on the site.
+ *
+ * @param string $block_content Rendered block HTML.
+ * @return string Unchanged block HTML.
+ */
+function enqueue_hero_script( $block_content ) {
+
+	if ( false === strpos( (string) $block_content, 'cb-hero-slider' ) ) {
+		return $block_content;
+	}
+
+	wp_enqueue_script(
+		SCRIPT_HANDLE,
+		get_theme_file_uri( 'assets/js/hero-slider.js' ),
+		array(),
+		\Kwv\asset_version( 'assets/js/hero-slider.js' ),
+		true
+	);
+
+	return $block_content;
+}
+add_filter( 'render_block_cb/carousel-v2', __NAMESPACE__ . '\enqueue_hero_script' );

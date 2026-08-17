@@ -13,7 +13,8 @@
  *
  * Scope: `.alignfull:not(.cb-hero-slider)` targets the three front-page brand
  * carousels (Wine / Spirits / Agency), which sit under an `is-style-section-header`
- * title group. The full-bleed hero (`.cb-hero-slider`) keeps its centred arrows.
+ * title group. The full-bleed hero (`.cb-hero-slider`) runs arrow-less on autoplay
+ * and is styled separately at the bottom of this file.
  *
  * @package kwv
  */
@@ -69,4 +70,132 @@
 .wp-block-cb-carousel-v2.alignfull:not( .cb-hero-slider ) .cb-button-prev {
 	left: auto;
 	right: calc( var( --kwv-carousel-nav-inset ) + var( --wp--preset--spacing--80 ) );
+}
+
+/* Home hero slideshow — kwv/home-hero
+--------------------------------------------- */
+
+/**
+ * The hero is a `cb/carousel-v2` of full-bleed Cover slides sitting *under* a
+ * static transparent header, a static scroll-down chevron and static pagination
+ * dots. Only the slides cycle; everything layered over them stays put.
+ *
+ * Structure produced by the pattern:
+ *
+ *   .kwv-hero-carousel            (core/group — the stacking context)
+ *   ├── .is-style-header-transparent   logo / nav / account / cart
+ *   ├── .cb-hero-slider               the carousel (2+ Cover slides)
+ *   └── .kwv-scroll-indicator         bottom-right chevron → #content
+ *
+ * The header and the carousel are stacked into a single CSS grid cell rather than
+ * absolutely positioned, so the header keeps its natural height and its bottom
+ * border, and the imagery still runs full-bleed behind it.
+ *
+ * These rules live in CSS, not in a section-style JSON `css` field, because they
+ * have to out-specify core's layout rules (`:where(.is-layout-flow) > *` margins)
+ * — the block-style-variation compiler emits the JSON `css` field at `:where()`
+ * zero specificity, so it would lose.
+ */
+
+.wp-block-group.kwv-hero-carousel {
+	/*
+	 * Height of the transparent header, re-reserved inside each slide (see the
+	 * inner-container rule below). The header is stacked out of the slides' flow,
+	 * so without this the slide copy would ride up underneath the nav. Tuned
+	 * against the rendered header (site logo 96px + spacing|20 top/bottom + the
+	 * 1px bottom border); adjust here if the header's logo size or padding changes.
+	 */
+	--kwv-hero-header-height: 92px;
+
+	position: relative;
+	display: grid;
+	grid-template-columns: 100%;
+}
+
+/* Stack every direct child into the same grid cell. */
+.wp-block-group.kwv-hero-carousel > * {
+	grid-area: 1 / 1;
+	margin-block: 0;
+}
+
+/* Header on top of the imagery, pinned to the top of the cell. */
+.wp-block-group.kwv-hero-carousel > .is-style-header-transparent {
+	z-index: 3;
+	align-self: start;
+}
+
+/*
+ * Guarantee a dark ground under the header regardless of which slide is showing,
+ * so the light nav/logo never washes out mid-transition. Sits above the slides
+ * but below the header.
+ */
+.wp-block-group.kwv-hero-carousel::before {
+	content: "";
+	position: absolute;
+	z-index: 2;
+	inset: 0 0 auto;
+	height: calc(var(--kwv-hero-header-height) * 2);
+	background: linear-gradient(to bottom, rgb(0 0 0 / 45%), rgb(0 0 0 / 0%));
+	pointer-events: none;
+}
+
+/* Slides sit at the bottom of the stack. */
+.wp-block-group.kwv-hero-carousel > .cb-hero-slider {
+	z-index: 1;
+}
+
+/*
+ * The plugin reserves a strip below `.swiper` for its pagination (bullet size x 4).
+ * The hero's dots sit over the slides instead, so that strip would only make the
+ * hero taller than its slides. Selector mirrors the plugin's own specificity
+ * (`[data-cb-pagination]`) so it wins regardless of stylesheet order.
+ */
+.wp-block-cb-carousel-v2.cb-hero-slider[data-cb-pagination="true"] .swiper-horizontal {
+	margin-block-end: 0;
+}
+
+/* Keep every slide the same height so the carousel doesn't jump between them. */
+.cb-hero-slider .cb-slide {
+	height: auto;
+}
+
+.cb-hero-slider .cb-slide > .wp-block-cover {
+	height: 100%;
+}
+
+/* Re-reserve the stacked-out header's height inside each slide. */
+.cb-hero-slider .wp-block-cover__inner-container {
+	padding-block-start: var(--kwv-hero-header-height);
+}
+
+/*
+ * Pagination dots: lifted up inside the slides (the plugin parks them 35px *below*
+ * by default) and recoloured for a dark hero, centred on the bottom edge clear of
+ * the bottom-right scroll chevron.
+ *
+ * Driven through the plugin's own custom properties rather than by overriding its
+ * selectors — those run up to (0,5,0), so a selector fight would be a losing game.
+ * Same approach as the nav-arrow block at the top of this file.
+ */
+.wp-block-cb-carousel-v2.cb-hero-slider {
+	--wp--custom--carousel-block--pagination-bottom: clamp(20px, 4vw, 40px);
+	--wp--custom--carousel-block--pagination-bullet-size: 10px;
+	--wp--custom--carousel-block--pagination-bullet-horizontal-gap: 5px;
+	--wp--custom--carousel-block--pagination-bullet-inactive-color: var(--wp--preset--color--base);
+	--wp--custom--carousel-block--pagination-bullet-inactive-opacity: 0.45;
+	--wp--custom--carousel-block--pagination-bullet-inactive-hover-opacity: 0.75;
+	--wp--custom--carousel-block--pagination-bullet-active-color: var(--wp--preset--color--base);
+	--wp--custom--carousel-block--pagination-bullet-active-opacity: 1;
+}
+
+/* Keyboard affordance — Swiper makes the bullets focusable buttons. */
+.wp-block-cb-carousel-v2.cb-hero-slider .cb-pagination .cb-pagination-bullet:focus-visible {
+	outline: 2px solid var(--wp--preset--color--base);
+	outline-offset: 3px;
+}
+
+@media (max-width: 781px) {
+	.wp-block-group.kwv-hero-carousel {
+		--kwv-hero-header-height: 84px;
+	}
 }

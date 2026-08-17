@@ -2,15 +2,16 @@
 /**
  * Title: Home Hero
  * Slug: kwv/home-hero
- * Description: Full-bleed hero — large background image with the transparent header over it, a heading, call-to-action, and a bottom-right scroll-down chevron that jumps to the page content (#content). Reusable across templates, not just the homepage.
+ * Description: Full-bleed hero slideshow — an autoplaying carousel of image slides, each with its own heading and call-to-action. The transparent header, the scroll-down chevron and the pagination dots stay static while only the slides cycle behind them.
  * Categories: kwv/hero
- * Keywords: hero, cover, banner, header, transparent, scroll, landing
+ * Keywords: hero, cover, banner, header, transparent, scroll, landing, carousel, slider, slideshow
  * Viewport Width: 1500
  * Inserter: true
  */
+
 ?>
-<!-- wp:cover {"url":"/wp-content/uploads/2026/07/Wine-Hero-Image.png","dimRatio":20,"overlayColor":"contrast","isUserOverlayColor":true,"focalPoint":{"x":0.25,"y":0.5},"minHeight":720,"minHeightUnit":"px","contentPosition":"top center","sizeSlug":"full","align":"full","className":"is-style-default","style":{"spacing":{"padding":{"top":"var:preset|spacing|0","right":"var:preset|spacing|0","bottom":"var:preset|spacing|0","left":"var:preset|spacing|0"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-cover alignfull has-custom-content-position is-position-top-center is-style-default" style="padding-top:var(--wp--preset--spacing--0);padding-right:var(--wp--preset--spacing--0);padding-bottom:var(--wp--preset--spacing--0);padding-left:var(--wp--preset--spacing--0);min-height:720px"><img class="wp-block-cover__image-background size-full" alt="" src="/wp-content/uploads/2026/07/Wine-Hero-Image.png" style="object-position:25% 50%" data-object-fit="cover" data-object-position="25% 50%"/><span aria-hidden="true" class="wp-block-cover__background has-contrast-background-color has-background-dim-20 has-background-dim"></span><div class="wp-block-cover__inner-container"><!-- wp:group {"metadata":{"name":"Header Transparent","patternName":"kwv/header-transparent","description":"Transparent header with logo, navigation, account and cart — sits over large hero sections.","categories":["header"]},"align":"full","className":"is-style-header-transparent","style":{"border":{"bottom":{"color":"var:preset|color|brand-200","width":"1px"},"top":[],"right":[],"left":[]},"spacing":{"padding":{"right":"var:preset|spacing|0","left":"var:preset|spacing|0"}}},"layout":{"type":"constrained"}} -->
+<!-- wp:group {"metadata":{"name":"Home Hero Slideshow"},"align":"full","className":"kwv-hero-carousel","layout":{"type":"default"}} -->
+<div class="wp-block-group alignfull kwv-hero-carousel"><!-- wp:group {"metadata":{"name":"Header Transparent","patternName":"kwv/header-transparent","description":"Transparent header with logo, navigation, account and cart — sits over large hero sections.","categories":["header"]},"align":"full","className":"is-style-header-transparent","style":{"border":{"bottom":{"color":"var:preset|color|brand-200","width":"1px"},"top":[],"right":[],"left":[]},"spacing":{"padding":{"right":"var:preset|spacing|0","left":"var:preset|spacing|0"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull is-style-header-transparent" style="border-bottom-color:var(--wp--preset--color--brand-200);border-bottom-width:1px;padding-right:var(--wp--preset--spacing--0);padding-left:var(--wp--preset--spacing--0)"><!-- wp:group {"align":"wide","style":{"elements":{"link":{"color":{"text":"var:preset|color|base"}}}},"textColor":"base","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between","verticalAlignment":"center"}} -->
 <div class="wp-block-group alignwide has-base-color has-text-color has-link-color"><!-- wp:site-logo {"width":96,"shouldSyncIcon":false} /-->
 
@@ -28,21 +29,43 @@
 <!-- /wp:group --></div>
 <!-- /wp:group -->
 
-<!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|70","padding":{"top":"16em"}}},"layout":{"type":"constrained","justifyContent":"left"}} -->
+<!-- wp:cb/carousel-v2 {"slidesPerView":1,"spaceBetween":0,"speed":800,"navigation":false,"autoplay":true,"autoplaySpeed":6000,"pauseOnMouseEnter":true,"loop":true,"resizeObserver":true,"align":"full","className":"cb-hero-slider"} -->
+<div class="wp-block-cb-carousel-v2 alignfull cb-carousel-block cb-single-slide cb-hero-slider" data-cb-slides-per-view="1" data-cb-slides-per-group="1" data-cb-space-between="0" data-cb-speed="800" data-cb-pagination="true" data-cb-loop="true" data-cb-autoplay="true" data-cb-autoplay-speed="6000" data-cb-pause-on-mouse-enter="true" data-cb-resize-observer="true" data-cb-breakpoints="{&quot;768&quot;:{&quot;slidesPerView&quot;:1,&quot;slidesPerGroup&quot;:1}}"><div class="swiper"><div class="cb-wrapper swiper-wrapper"><!-- wp:cb/slide-v2 -->
+<div class="wp-block-cb-slide-v2 cb-slide swiper-slide"><!-- wp:cover {"url":"/wp-content/uploads/2026/07/Wine-Hero-Image.png","dimRatio":20,"overlayColor":"contrast","isUserOverlayColor":true,"focalPoint":{"x":0.25,"y":0.5},"minHeight":720,"minHeightUnit":"px","contentPosition":"top center","sizeSlug":"full","align":"full","className":"is-style-default","style":{"spacing":{"padding":{"top":"var:preset|spacing|0","right":"var:preset|spacing|0","bottom":"var:preset|spacing|0","left":"var:preset|spacing|0"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-cover alignfull has-custom-content-position is-position-top-center is-style-default" style="padding-top:var(--wp--preset--spacing--0);padding-right:var(--wp--preset--spacing--0);padding-bottom:var(--wp--preset--spacing--0);padding-left:var(--wp--preset--spacing--0);min-height:720px"><img class="wp-block-cover__image-background size-full" alt="" src="/wp-content/uploads/2026/07/Wine-Hero-Image.png" style="object-position:25% 50%" data-object-fit="cover" data-object-position="25% 50%"/><span aria-hidden="true" class="wp-block-cover__background has-contrast-background-color has-background-dim-20 has-background-dim"></span><div class="wp-block-cover__inner-container"><!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|70","padding":{"top":"16em"}}},"layout":{"type":"constrained","justifyContent":"left"}} -->
 <div class="wp-block-group alignwide" style="padding-top:16em"><!-- wp:heading {"level":1,"style":{"typography":{"fontWeight":"var:custom|font-weight|bold","lineHeight":"var:custom|line-height|heading","textTransform":"uppercase"}},"textColor":"base","fontSize":"700","fontFamily":"heading"} -->
 <h1 class="wp-block-heading has-base-color has-text-color has-heading-font-family has-700-font-size" style="font-weight:var(--wp--custom--font-weight--bold);line-height:var(--wp--custom--line-height--heading);text-transform:uppercase">OVER 100 YEARS <br>OF WINEMAKING</h1>
 <!-- /wp:heading -->
 
 <!-- wp:buttons -->
 <div class="wp-block-buttons"><!-- wp:button {"className":"is-style-fill"} -->
-<div class="wp-block-button is-style-fill"><a class="wp-block-button__link wp-element-button" href="#content">Learn more</a></div>
+<div class="wp-block-button is-style-fill"><a class="wp-block-button__link wp-element-button" href="/about">Learn more</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
-<!-- /wp:group -->
+<!-- /wp:group --></div></div>
+<!-- /wp:cover --></div>
+<!-- /wp:cb/slide-v2 -->
+
+<!-- wp:cb/slide-v2 -->
+<div class="wp-block-cb-slide-v2 cb-slide swiper-slide"><!-- wp:cover {"url":"/wp-content/uploads/2026/07/home-hero-image-full.png","dimRatio":20,"overlayColor":"contrast","isUserOverlayColor":true,"focalPoint":{"x":0.5,"y":0.5},"minHeight":720,"minHeightUnit":"px","contentPosition":"top center","sizeSlug":"full","align":"full","className":"is-style-default","style":{"spacing":{"padding":{"top":"var:preset|spacing|0","right":"var:preset|spacing|0","bottom":"var:preset|spacing|0","left":"var:preset|spacing|0"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-cover alignfull has-custom-content-position is-position-top-center is-style-default" style="padding-top:var(--wp--preset--spacing--0);padding-right:var(--wp--preset--spacing--0);padding-bottom:var(--wp--preset--spacing--0);padding-left:var(--wp--preset--spacing--0);min-height:720px"><img class="wp-block-cover__image-background size-full" alt="" src="/wp-content/uploads/2026/07/home-hero-image-full.png" style="object-position:50% 50%" data-object-fit="cover" data-object-position="50% 50%"/><span aria-hidden="true" class="wp-block-cover__background has-contrast-background-color has-background-dim-20 has-background-dim"></span><div class="wp-block-cover__inner-container"><!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|70","padding":{"top":"16em"}}},"layout":{"type":"constrained","justifyContent":"left"}} -->
+<div class="wp-block-group alignwide" style="padding-top:16em"><!-- wp:heading {"level":2,"style":{"typography":{"fontWeight":"var:custom|font-weight|bold","lineHeight":"var:custom|line-height|heading","textTransform":"uppercase"}},"textColor":"base","fontSize":"700","fontFamily":"heading"} -->
+<h2 class="wp-block-heading has-base-color has-text-color has-heading-font-family has-700-font-size" style="font-weight:var(--wp--custom--font-weight--bold);line-height:var(--wp--custom--line-height--heading);text-transform:uppercase">Home of the world’s <br>most awarded brandy</h2>
+<!-- /wp:heading -->
+
+<!-- wp:buttons -->
+<div class="wp-block-buttons"><!-- wp:button {"className":"is-style-fill"} -->
+<div class="wp-block-button is-style-fill"><a class="wp-block-button__link wp-element-button" href="/about">Learn more</a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons --></div>
+<!-- /wp:group --></div></div>
+<!-- /wp:cover --></div>
+<!-- /wp:cb/slide-v2 --></div></div><div class="cb-pagination swiper-pagination"></div></div>
+<!-- /wp:cb/carousel-v2 -->
 
 <!-- wp:buttons {"className":"kwv-scroll-indicator","layout":{"type":"flex","justifyContent":"center"}} -->
 <div class="wp-block-buttons kwv-scroll-indicator"><!-- wp:button -->
 <div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="#content">Scroll to content</a></div>
 <!-- /wp:button --></div>
-<!-- /wp:buttons --></div></div>
-<!-- /wp:cover -->
+<!-- /wp:buttons --></div>
+<!-- /wp:group -->
