@@ -19,6 +19,11 @@
    but not the `product-filters` container. The fold behaviour is gated on
    `.kwv-filters-collapsible`, which the script adds, so without JS every section
    stays open and fully accessible.
+
+   Two invariants carry the whole behaviour and are each stated exactly once
+   below — an empty filter never renders, and open/folded differences live in
+   custom properties. Everything else only reads them. Read those two comments
+   before editing any selector here.
    ============================================ */
 
 /* WooCommerce puts a grey top border + top padding/margin on the overlay
@@ -83,12 +88,56 @@
 	font-size: var(--wp--preset--font-size--100);
 }
 
-/* Divider below every visible section (skip the empty/hidden ones WooCommerce
-   marks with [hidden] / .wc-block-product-filter--hidden). Section spacing is the
-   padding-block + divider only; zero the block-gap margin the constrained layout
-   otherwise stacks between sections (esp. in the mobile overlay). */
+/* --- Invariant 1: a filter WooCommerce marked empty never renders ----------
+   When a filter has nothing to offer for the current result set (a taxonomy or
+   attribute with no matching terms, or a price range where min === max)
+   WooCommerce marks the section `hidden` + `.wc-block-product-filter--hidden`
+   and hides it via `.wc-block-product-filter--hidden{display:none}`. That is a
+   single class (0,1,0), so any author `display` on a section outranks it — and
+   an author `display` also beats the UA `[hidden]` rule — resurfacing the empty
+   section as a bare heading and `+` glyph with nothing behind it.
+
+   Previously every rule that touched a section carried a matching
+   `:not([hidden]):not(.wc-block-product-filter--hidden)` guard. That
+   duplication is what broke the fold: a guard added to one rule of a
+   hand-maintained pair silently out-specified its twin. State the invariant
+   once instead, `!important`, so it survives any specificity drift below and no
+   rule here has to repeat it. WooCommerce drops the attribute and class as soon
+   as the filter has items, so sections re-appear by themselves across
+   Interactivity re-renders. */
 .kwv-shop-filters
-	[data-block-name^="woocommerce/product-filter-"]:not([hidden]):not(.wc-block-product-filter--hidden):has(> .wp-block-heading) {
+	[data-block-name^="woocommerce/product-filter-"]:is([hidden], .wc-block-product-filter--hidden) {
+	display: none !important;
+}
+
+/* --- Invariant 2: fold state is declared in exactly one place --------------
+   Everything that differs between an open and a folded section — the height of
+   the content track, the heading↔content gap, the disclosure glyph — is a
+   custom property. The defaults (open) sit on the container and inherit down;
+   a folded section redeclares them on itself, and a declared value always beats
+   an inherited one, so the two rules never compete on specificity. The rules
+   further down only ever *read* these properties, which means their selectors
+   can be edited — guards added, structure tightened — without any risk of
+   disabling the fold. Adding a state should mean adding a property here, never
+   a second copy of a consumer rule. */
+.kwv-shop-filters.kwv-filters-collapsible {
+	--kwv-filter-content-track: minmax(0, 1fr);
+	--kwv-filter-heading-gap: var(--wp--preset--spacing--20);
+	--kwv-filter-glyph: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Crect%20x='4'%20y='11'%20width='16'%20height='2'/%3E%3C/svg%3E");
+}
+
+.kwv-shop-filters.kwv-filters-collapsible .kwv-filter-collapsed {
+	--kwv-filter-content-track: minmax(0, 0fr);
+	--kwv-filter-heading-gap: 0;
+	--kwv-filter-glyph: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Crect%20x='11'%20y='4'%20width='2'%20height='16'/%3E%3Crect%20x='4'%20y='11'%20width='16'%20height='2'/%3E%3C/svg%3E");
+}
+
+/* Divider below every section. Section spacing is the padding-block + divider
+   only; zero the block-gap margin the constrained layout otherwise stacks
+   between sections (esp. in the mobile overlay). Empty sections are covered by
+   Invariant 1, so no guard is needed here. */
+.kwv-shop-filters
+	[data-block-name^="woocommerce/product-filter-"]:has(> .wp-block-heading) {
 	border-bottom: 1px solid var(--wp--preset--color--neutral-700);
 	padding-block: var(--wp--preset--spacing--30);
 	margin-block: 0;
@@ -99,27 +148,20 @@
    section has exactly two children — heading + content — so the second track
    maps to the collapsible content. minmax(0, …) lets that track reach a true
    zero when folded; a bare `0fr` floors at the content's padding-top sliver.
-
-   The `:not([hidden]):not(.wc-block-product-filter--hidden)` guard is load-
-   bearing, not decorative: when a filter has nothing to offer for the current
-   result set (no terms, or a price range where min === max) WooCommerce renders
-   the section with `hidden` + `.wc-block-product-filter--hidden` and hides it
-   via `.wc-block-product-filter--hidden{display:none}`. That's a single class
-   (0,1,0), so an unguarded `display: grid` here would outrank it — and any
-   author `display` also beats the UA `[hidden]` rule — resurfacing the empty
-   section as a bare heading and `+` glyph with nothing behind it. Excluding the
-   hidden sections from the match (rather than re-asserting `display: none` at a
-   higher specificity) keeps this independent of rule ordering. */
+   The track itself comes from Invariant 2, so this is the only rule in the file
+   that sets `grid-template-rows`. */
 .kwv-shop-filters.kwv-filters-collapsible
-	[data-block-name^="woocommerce/product-filter-"]:not([hidden]):not(.wc-block-product-filter--hidden):has(> .wp-block-heading) {
+	[data-block-name^="woocommerce/product-filter-"]:has(> .wp-block-heading) {
 	display: grid;
-	grid-template-rows: auto minmax(0, 1fr);
+	grid-template-rows: auto var(--kwv-filter-content-track);
 	transition: grid-template-rows 0.25s ease;
 }
 
-.kwv-shop-filters.kwv-filters-collapsible
-	[data-block-name^="woocommerce/product-filter-"].kwv-filter-collapsed {
-	grid-template-rows: auto minmax(0, 0fr);
+@media (prefers-reduced-motion: reduce) {
+	.kwv-shop-filters.kwv-filters-collapsible
+		[data-block-name^="woocommerce/product-filter-"]:has(> .wp-block-heading) {
+		transition: none;
+	}
 }
 
 /* The content row — clipped so it disappears completely when the track hits 0.
@@ -146,11 +188,13 @@
 	padding-inline-end: var(--wp--preset--spacing--10);
 }
 
-/* The heading is the disclosure control. */
+/* The heading is the disclosure control. The gap below it folds away with the
+   section (Invariant 2); `!important` is still needed because the pattern sets
+   `margin-bottom` inline, which no selector can outrank. */
 .kwv-shop-filters.kwv-filters-collapsible
 	[data-block-name^="woocommerce/product-filter-"] > .wp-block-heading {
 	position: relative;
-	margin-bottom: 0 !important;   /* overrides the pattern's inline margin so a folded section is flush */
+	margin-bottom: var(--kwv-filter-heading-gap) !important;
 	padding-inline-start: var(--wp--preset--spacing--10);
 	padding-inline-end: 1.75em;    /* room for the +/- glyph */
 	text-transform: none;          /* theme.json uppercases all headings; filter names read better cased */
@@ -160,15 +204,10 @@
 	user-select: none;
 }
 
-/* Gap between heading and content only while open (folds away when shut). */
-.kwv-shop-filters.kwv-filters-collapsible
-	[data-block-name^="woocommerce/product-filter-"]:not(.kwv-filter-collapsed) > .wp-block-heading {
-	margin-bottom: var(--wp--preset--spacing--20) !important;
-}
-
 /* +/- glyph — a single masked pseudo-element that swaps a plus SVG for a minus
-   SVG on expand. A whole-icon swap (no scaling bars, no transforms) so there is
-   no drift or odd motion; `currentColor` tints it via the mask. */
+   SVG on expand (the swap is Invariant 2's `--kwv-filter-glyph`). A whole-icon
+   swap (no scaling bars, no transforms) so there is no drift or odd motion;
+   `currentColor` tints it via the mask. */
 .kwv-shop-filters.kwv-filters-collapsible
 	[data-block-name^="woocommerce/product-filter-"] > .wp-block-heading::after {
 	content: "";
@@ -179,15 +218,8 @@
 	block-size: 0.75em;
 	transform: translateY(-50%);
 	background-color: currentColor;
-	-webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Crect%20x='11'%20y='4'%20width='2'%20height='16'/%3E%3Crect%20x='4'%20y='11'%20width='16'%20height='2'/%3E%3C/svg%3E") center / contain no-repeat;
-	mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Crect%20x='11'%20y='4'%20width='2'%20height='16'/%3E%3Crect%20x='4'%20y='11'%20width='16'%20height='2'/%3E%3C/svg%3E") center / contain no-repeat;
-}
-
-/* Expanded → swap the plus for a minus. */
-.kwv-shop-filters.kwv-filters-collapsible
-	[data-block-name^="woocommerce/product-filter-"]:not(.kwv-filter-collapsed) > .wp-block-heading::after {
-	-webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Crect%20x='4'%20y='11'%20width='16'%20height='2'/%3E%3C/svg%3E");
-	mask-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Crect%20x='4'%20y='11'%20width='16'%20height='2'/%3E%3C/svg%3E");
+	-webkit-mask: var(--kwv-filter-glyph) center / contain no-repeat;
+	mask: var(--kwv-filter-glyph) center / contain no-repeat;
 }
 
 /* Keyboard focus affordance on the heading control. */
