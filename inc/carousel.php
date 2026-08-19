@@ -18,8 +18,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-const STYLE_HANDLE  = 'kwv-carousel-block';
-const SCRIPT_HANDLE = 'kwv-hero-slider';
+const STYLE_HANDLE   = 'kwv-carousel-block';
+const SCRIPT_HANDLE  = 'kwv-hero-slider';
+const MARQUEE_HANDLE = 'kwv-brand-marquee';
 
 /**
  * Attach the carousel nav-arrow stylesheet to the plugin's carousel block.
@@ -67,3 +68,34 @@ function enqueue_hero_script( $block_content ) {
 	return $block_content;
 }
 add_filter( 'render_block_cb/carousel-v2', __NAMESPACE__ . '\enqueue_hero_script' );
+
+/**
+ * Load the brand-marquee script, and only for the homepage brand rows.
+ *
+ * The three "Wine / Spirits / Agency Brands" carousels drift continuously and
+ * counter-scroll, neither of which the plugin can express. Gated on the block's
+ * own `kwv-brand-marquee` class, the same way the hero script is gated, so no
+ * other carousel on the site pays for it. See assets/js/brand-marquee.js.
+ *
+ * @param string $block_content Rendered block HTML.
+ * @return string Unchanged block HTML.
+ */
+function enqueue_marquee_script( $block_content ) {
+
+	if ( false === strpos( (string) $block_content, 'kwv-brand-marquee' ) ) {
+		return $block_content;
+	}
+
+	wp_enqueue_script(
+		MARQUEE_HANDLE,
+		get_theme_file_uri( 'assets/js/brand-marquee.js' ),
+		// The plugin's own Swiper bundle; depending on it both orders the two
+		// scripts and drops ours entirely if the plugin is ever deactivated.
+		array( 'cb-slider-script' ),
+		\Kwv\asset_version( 'assets/js/brand-marquee.js' ),
+		true
+	);
+
+	return $block_content;
+}
+add_filter( 'render_block_cb/carousel-v2', __NAMESPACE__ . '\enqueue_marquee_script' );

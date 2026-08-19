@@ -72,6 +72,28 @@
 	right: calc( var( --kwv-carousel-nav-inset ) + var( --wp--preset--spacing--80 ) );
 }
 
+/*
+ * RTL rows (the block's "RTL (Right-to-Left)" toggle, which is how the middle
+ * brand row counter-scrolls). Swiper flips what next/prev *do* — `slideNext`
+ * now moves the cards rightward — but the arrows sit outside `.swiper`, so they
+ * never pick up Swiper's own `.swiper-rtl` treatment. Swap the two buttons over
+ * and mirror their chevrons, so the arrow a reader clicks still points the way
+ * the cards will travel.
+ */
+.wp-block-cb-carousel-v2.alignfull.cb-rtl:not( .cb-hero-slider ) .cb-button-next {
+	right: calc( var( --kwv-carousel-nav-inset ) + var( --wp--preset--spacing--80 ) );
+}
+
+.wp-block-cb-carousel-v2.alignfull.cb-rtl:not( .cb-hero-slider ) .cb-button-prev {
+	right: var( --kwv-carousel-nav-inset );
+}
+
+.wp-block-cb-carousel-v2.cb-rtl .cb-button-prev::after,
+.wp-block-cb-carousel-v2.cb-rtl .cb-button-next::after {
+	display: inline-block;
+	transform: scaleX( -1 );
+}
+
 /* Home hero slideshow — kwv/home-hero
 --------------------------------------------- */
 
@@ -198,4 +220,96 @@
 	.wp-block-group.kwv-hero-carousel {
 		--kwv-hero-header-height: 84px;
 	}
+}
+
+/* Homepage brand marquees — kwv/front-page
+--------------------------------------------- */
+
+/**
+ * The three brand rows (Wine / Spirits / Agency) are ordinary `cb/carousel-v2`
+ * blocks. Their behaviour — autoplay, speed, pause-on-hover, arrows, loop, and
+ * each row's scroll direction via the block's "RTL (Right-to-Left)" toggle —
+ * is all set in the editor and is not overridden anywhere.
+ *
+ * What the block cannot express is card *sizing*: it saves a single breakpoint,
+ * so it can only say "two across below 1024, five above", which is what made
+ * the cards jump size across that boundary. assets/js/brand-marquee.js hands
+ * sizing over by switching Swiper to `slidesPerView: "auto"`, at which point
+ * Swiper stops writing an inline width per slide and the `clamp()` below
+ * decides how many cards land on screen.
+ *
+ * If that script does not run, Swiper's inline width overrides these rules and
+ * the row falls back to the plugin's paged behaviour, as configured.
+ */
+
+.kwv-brand-marquee {
+	/*
+	 * Gap between cards — constant at every viewport. A literal rather than a
+	 * spacing preset because Swiper takes `spaceBetween` as a plain number, and
+	 * this has to stay in step with the block's "Space between slides" setting.
+	 * Matches the upper bound of spacing|20.
+	 */
+	--kwv-marquee-gap: 20px;
+
+	/*
+	 * Card width bounds. The floor is a two-up card on a 375px viewport
+	 * ( ( 375 - 20 ) / 2 ); the ceiling is the design's largest brand card.
+	 */
+	--kwv-marquee-card-min: 177px;
+	--kwv-marquee-card-max: 420px;
+
+	/* Cards across at the design's desktop width. */
+	--kwv-marquee-cards: 5;
+
+	/*
+	 * Gives the `cqw` unit below the width of the full-bleed block itself,
+	 * which — unlike `vw` — excludes the scrollbar.
+	 */
+	container-type: inline-size;
+
+	/*
+	 * Constant-velocity drift. Swiper reads its own custom property here, so
+	 * this does not have to out-specify the vendor stylesheet.
+	 */
+	--swiper-wrapper-transition-timing-function: linear;
+}
+
+/*
+ * Card width. Five across at desktop widths; below that the clamp floor holds
+ * the card at its two-up phone size and above it the 420px ceiling holds, so a
+ * wider viewport shows *more* cards rather than fatter ones. The gap never
+ * changes, at any width.
+ */
+.kwv-brand-marquee .cb-slide {
+	width: clamp(
+		var( --kwv-marquee-card-min ),
+		calc(
+			( 100cqw - ( var( --kwv-marquee-cards ) - 1 ) * var( --kwv-marquee-gap ) ) /
+				var( --kwv-marquee-cards )
+		),
+		var( --kwv-marquee-card-max )
+	);
+	height: auto;
+}
+
+/*
+ * The image fills the card. Every brand block supplied by KWV is 1.438:1
+ * (345x240, 719x500 and 1438x1000 all reduce to it), so `cover` crops nothing
+ * on correctly-sized artwork and only guards against an odd one out.
+ */
+.kwv-brand-marquee .wp-block-image {
+	margin-block: 0;
+}
+
+.kwv-brand-marquee .wp-block-image,
+.kwv-brand-marquee .wp-block-image > a {
+	display: block;
+}
+
+.kwv-brand-marquee .wp-block-image img {
+	display: block;
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+	aspect-ratio: 719 / 500;
 }
