@@ -74,11 +74,18 @@
 
 /*
  * RTL rows (the block's "RTL (Right-to-Left)" toggle, which is how the middle
- * brand row counter-scrolls). Swiper flips what next/prev *do* — `slideNext`
- * now moves the cards rightward — but the arrows sit outside `.swiper`, so they
- * never pick up Swiper's own `.swiper-rtl` treatment. Swap the two buttons over
- * and mirror their chevrons, so the arrow a reader clicks still points the way
- * the cards will travel.
+ * brand row counter-scrolls).
+ *
+ * The plugin already handles the arrows correctly for `.cb-rtl`: it moves
+ * `next` to the left slot and `prev` to the right, and mirrors each chevron so
+ * both still point outward. The net effect is arrows that look and behave
+ * exactly like the LTR rows — the right-hand arrow brings in new cards from the
+ * right in both cases. Nothing about that needs changing, and mirroring the
+ * `::after` here as well only cancelled the plugin's own flip and left the two
+ * chevrons pointing at each other.
+ *
+ * All that is needed is to keep them on the KWV inset rather than the plugin's
+ * default 10px side offset, which is what these two rules restate for RTL.
  */
 .wp-block-cb-carousel-v2.alignfull.cb-rtl:not( .cb-hero-slider ) .cb-button-next {
 	right: calc( var( --kwv-carousel-nav-inset ) + var( --wp--preset--spacing--80 ) );
@@ -88,11 +95,6 @@
 	right: var( --kwv-carousel-nav-inset );
 }
 
-.wp-block-cb-carousel-v2.cb-rtl .cb-button-prev::after,
-.wp-block-cb-carousel-v2.cb-rtl .cb-button-next::after {
-	display: inline-block;
-	transform: scaleX( -1 );
-}
 
 /* Home hero slideshow — kwv/home-hero
 --------------------------------------------- */
