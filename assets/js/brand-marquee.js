@@ -9,21 +9,42 @@
  * which is what makes the three rows counter-scroll).
  *
  * This file therefore does not build its own carousel. It adopts the instance
- * the plugin already created and adds only the two things the plugin has no
- * setting for:
+ * the plugin already created and adds only what the plugin has no setting for:
  *
  *   1. Card sizing. The block can save exactly one breakpoint, so it can only
  *      express "N across below X, M across above it" — which is what made the
  *      cards jump size mid-range. Switching Swiper to `slidesPerView: 'auto'`
  *      hands sizing to a single `clamp()` in assets/styles/carousel-block.css:
  *      constant gap, a hard 420px ceiling, a two-up floor on phones.
- *   2. A crisp stop. Swiper's pause-on-hover stops *scheduling* the next slide
- *      but lets the transition in flight run to the end — at the slow drift
- *      speed the row keeps gliding for several seconds after the pointer
- *      arrives. Shortening the running transition makes the row settle at once.
+ *   2. A crisp stop on hover, and arrows that respond at a usable speed.
+ *   3. Keeping the drift alive — see "Why the watchdog" below.
  *
  * It also stops the drift for `prefers-reduced-motion`, and while focus is
  * inside the row, so a keyboard user can reach the brand links (WCAG 2.2.2).
+ *
+ * ## Why the watchdog
+ *
+ * Swiper's autoplay does not run on a timer for the whole sequence. It pauses
+ * itself on `beforeTransitionStart` and registers a one-shot `transitionend`
+ * listener; only when that fires does it schedule the next slide. The chain is
+ * therefore exactly as reliable as that single event.
+ *
+ * Anything that replaces the running transition — `swiper.update()`, a
+ * `loopFix()`, a resize — cancels it, and a cancelled transition fires
+ * `transitioncancel`, not `transitionend`. The listener never runs, autoplay
+ * stays `paused` and the row stops for good. With `observer: true` and 38
+ * lazily-loaded brand images, updates fire repeatedly while the page settles,
+ * so this is close to guaranteed rather than a rare edge case.
+ *
+ * (The one handler that resumes unconditionally is Swiper's own `pointerleave`,
+ * which is why a stalled row would mysteriously start moving after the first
+ * hover.)
+ *
+ * Re-kicking after hand-over fixes the load-time case, but not a stall caused
+ * by a resize or a late DOM mutation later on. Rather than try to enumerate
+ * every event that can cancel a transition, the watchdog below simply notices
+ * that a row which should be drifting has been still for a moment, and restarts
+ * it. Lost events become self-healing instead of fatal.
  *
  * If this file fails to load, the row still works: it falls back to the plugin's
  * own paged carousel exactly as configured in the editor.
@@ -35,12 +56,18 @@
 	var BLOCK_SELECTOR = '.kwv-brand-marquee';
 	var MOTION_QUERY = '(prefers-reduced-motion: reduce)';
 
-	/* How quickly a drifting row comes to rest, in ms. */
+	/* How quickly a drifting row glides to rest, in ms. */
 	var SETTLE_SPEED = 320;
 
 	/* One arrow-driven slide, in ms. The drift speed is far too slow for a click
 	 * to feel like a response. */
 	var NUDGE_SPEED = 450;
+
+	/* Watchdog. A healthy row is mid-transition almost permanently — the gap
+	 * between slides is the block's 1ms autoplay delay — so being still for this
+	 * long means the transitionend chain was broken. */
+	var STALL_MS = 400;
+	var WATCH_INTERVAL = 500;
 
 	/**
 	 * Whether the user has asked the OS for reduced motion.
@@ -62,6 +89,12 @@
 		this.swiper = null;
 		this.bound = false;
 		this.nudging = false;
+
+		/* True while the pointer or focus is inside the row. */
+		this.held = false;
+
+		/* When the row was first seen standing still; 0 while it is moving. */
+		this.stillSince = 0;
 	}
 
 	/**
@@ -81,7 +114,7 @@
 		this.swiper = this.viewport.swiper;
 		this.handOverSizing();
 		this.bind();
-		this.syncMotion();
+		this.updateMotion();
 
 		return true;
 	};
@@ -112,14 +145,17 @@
 		 * Swiper stops *writing* inline widths under 'auto' but does not clear
 		 * the ones it already wrote while slidesPerView was a number. Left
 		 * behind they pin every card to whatever width the first layout
-		 * happened to produce, and the clamp below never gets a say.
+		 * happened to produce, and the clamp never gets a say.
 		 */
 		this.clearInlineWidths();
 		swiper.on( 'resize', function () {
 			self.clearInlineWidths();
 		} );
 
+		// This is itself one of the calls that can cancel the running
+		// transition, hence the restart on the next line.
 		swiper.update();
+		this.restartDrift();
 	};
 
 	/**
@@ -144,29 +180,33 @@
 		var self = this;
 
 		/*
-		 * Hover. Swiper has already stopped scheduling by the time this runs
-		 * (its own pause-on-hover listener), so all that is left is to bring the
-		 * transition already in flight to a stop. Gated on the block's own
-		 * setting, so turning "Pause on mouse enter" off in the editor still
-		 * means what it says.
+		 * Hover. Gated on the block's own setting, so turning "Pause on mouse
+		 * enter" off in the editor still means what it says. Listening on the
+		 * block rather than on `.swiper` keeps the row held while the pointer is
+		 * over the arrows, which sit outside the viewport.
 		 */
 		if ( 'true' === this.block.getAttribute( 'data-cb-pause-on-mouse-enter' ) ) {
 			this.block.addEventListener( 'pointerenter', function ( event ) {
 				if ( 'mouse' === event.pointerType ) {
-					self.settle();
+					self.hold();
+				}
+			} );
+
+			this.block.addEventListener( 'pointerleave', function ( event ) {
+				if ( 'mouse' === event.pointerType ) {
+					self.release();
 				}
 			} );
 		}
 
 		/* Keyboard equivalent: stop entirely while focus is inside the row. */
 		this.block.addEventListener( 'focusin', function () {
-			self.settle();
-			self.stop();
+			self.hold();
 		} );
 
 		this.block.addEventListener( 'focusout', function ( event ) {
 			if ( ! self.block.contains( event.relatedTarget ) ) {
-				self.syncMotion();
+				self.release();
 			}
 		} );
 
@@ -195,15 +235,55 @@
 	};
 
 	/**
-	 * Bring a drifting row gracefully to rest.
+	 * Stop, because the pointer or focus is inside the row.
+	 */
+	Marquee.prototype.hold = function () {
+		this.held = true;
+		this.settle();
+		this.stopDrift();
+	};
+
+	/**
+	 * Resume, because the pointer or focus has left.
+	 */
+	Marquee.prototype.release = function () {
+		this.held = false;
+		this.updateMotion();
+	};
+
+	/**
+	 * Bring a drifting row gracefully to rest on its current target.
 	 *
-	 * Re-declaring the transition duration mid-flight restarts it from wherever
-	 * the row has got to, toward the same target, over the shorter time.
+	 * Re-declaring `transition-duration` alone does not retarget a transition
+	 * that is already running, so this ends the running one at the row's live
+	 * position and starts a genuinely new, short transition to the same target.
+	 * Finishing on the target rather than freezing mid-card keeps the row on its
+	 * snap grid, so the next slide after a resume covers a full card at the
+	 * authored speed instead of crawling through whatever distance was left.
 	 */
 	Marquee.prototype.settle = function () {
-		if ( this.swiper && this.swiper.animating ) {
-			this.swiper.setTransition( SETTLE_SPEED );
+		var swiper = this.swiper;
+
+		if ( ! swiper || ! swiper.animating ) {
+			return;
 		}
+
+		var target = swiper.translate;
+		var live = swiper.getTranslate();
+
+		if ( Math.abs( target - live ) < 1 ) {
+			return;
+		}
+
+		swiper.setTransition( 0 );
+		swiper.setTranslate( live );
+
+		// Force a reflow, so the translate below is a new transition rather than
+		// being coalesced into the one just cancelled.
+		void swiper.wrapperEl.offsetHeight;
+
+		swiper.setTransition( SETTLE_SPEED );
+		swiper.setTranslate( target );
 	};
 
 	/**
@@ -253,34 +333,88 @@
 	};
 
 	/**
+	 * Whether this row is supposed to be drifting right now.
+	 *
+	 * @return {boolean} True when the drift should be running.
+	 */
+	Marquee.prototype.shouldDrift = function () {
+		var swiper = this.swiper;
+
+		if ( ! swiper || ! swiper.autoplay ) {
+			return false;
+		}
+
+		// Autoplay switched off in the editor stays off.
+		if ( ! swiper.params.autoplay || ! swiper.params.autoplay.enabled ) {
+			return false;
+		}
+
+		return ! this.held && ! prefersReducedMotion();
+	};
+
+	/**
 	 * Stop the drift.
 	 */
-	Marquee.prototype.stop = function () {
+	Marquee.prototype.stopDrift = function () {
 		if ( this.swiper && this.swiper.autoplay ) {
 			this.swiper.autoplay.stop();
+		}
+
+		this.stillSince = 0;
+	};
+
+	/**
+	 * Restart the drift from a known state.
+	 *
+	 * `stop()` then `start()` rather than `resume()`, because a row that lost its
+	 * `transitionend` is left `running` but permanently `paused` — resuming from
+	 * there depends on the very state that is broken.
+	 */
+	Marquee.prototype.restartDrift = function () {
+		if ( ! this.shouldDrift() ) {
+			return;
+		}
+
+		this.swiper.autoplay.stop();
+		this.swiper.autoplay.start();
+		this.stillSince = 0;
+	};
+
+	/**
+	 * Start or stop the drift to match hover, focus and reduced-motion state.
+	 */
+	Marquee.prototype.updateMotion = function () {
+		if ( this.shouldDrift() ) {
+			this.restartDrift();
+		} else {
+			this.settle();
+			this.stopDrift();
 		}
 	};
 
 	/**
-	 * Start or stop the drift to match the current reduced-motion setting.
+	 * Notice a row that has stalled, and restart it. See "Why the watchdog".
+	 *
+	 * @param {number} now Current timestamp in ms.
 	 */
-	Marquee.prototype.syncMotion = function () {
-		var swiper = this.swiper;
-
-		if ( ! swiper || ! swiper.autoplay ) {
+	Marquee.prototype.watch = function ( now ) {
+		if ( ! this.shouldDrift() ) {
+			this.stillSince = 0;
 			return;
 		}
 
-		// Autoplay off in the editor stays off.
-		if ( ! swiper.params.autoplay || ! swiper.params.autoplay.enabled ) {
+		if ( this.swiper.animating ) {
+			this.stillSince = 0;
 			return;
 		}
 
-		if ( prefersReducedMotion() ) {
-			this.settle();
-			swiper.autoplay.stop();
-		} else {
-			swiper.autoplay.start();
+		if ( ! this.stillSince ) {
+			this.stillSince = now;
+			return;
+		}
+
+		if ( now - this.stillSince > STALL_MS ) {
+			this.restartDrift();
 		}
 	};
 
@@ -312,9 +446,7 @@
 	/**
 	 * Keep retrying until the plugin's view script has built every carousel.
 	 *
-	 * Both scripts run on DOMContentLoaded and ours depends on the plugin's, so
-	 * it should be ready first — the retry only covers a carousel added later by
-	 * the plugin's own mutation observer.
+	 * @param {number} attemptsLeft Remaining animation frames to wait.
 	 */
 	function bootUntilReady( attemptsLeft ) {
 		if ( boot() || attemptsLeft <= 0 ) {
@@ -327,11 +459,11 @@
 	}
 
 	/**
-	 * Re-check the reduced-motion setting on every row.
+	 * Re-check every row's motion state.
 	 */
 	function syncAll() {
 		marquees.forEach( function ( marquee ) {
-			marquee.syncMotion();
+			marquee.updateMotion();
 		} );
 	}
 
@@ -346,6 +478,18 @@
 	window.addEventListener( 'load', function () {
 		bootUntilReady( 120 );
 	} );
+
+	window.setInterval( function () {
+		if ( document.hidden ) {
+			return;
+		}
+
+		var now = Date.now();
+
+		marquees.forEach( function ( marquee ) {
+			marquee.watch( now );
+		} );
+	}, WATCH_INTERVAL );
 
 	if ( window.matchMedia ) {
 		var list = window.matchMedia( MOTION_QUERY );

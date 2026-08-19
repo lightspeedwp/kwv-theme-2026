@@ -1,10 +1,12 @@
 <?php
 /**
- * Gravity Forms integration: KWV newsletter form styling, scoped to form id 2.
+ * Gravity Forms integration: newsletter and "Book Experience" form styling.
  *
  * assets/styles/gravity-forms.css styles the newsletter form (`#gform_wrapper_2`,
- * the same form id on local + dev). Tied to the `gravityforms/form` block with
- * wp_enqueue_block_style(), so it lazy-loads whenever the block renders.
+ * the same form id on local + dev) and the three venue booking forms (matched by
+ * the `kwv-booking-form` class set in each form's "Form CSS Class Name" setting,
+ * since their form ids differ per environment). Tied to the `gravityforms/form`
+ * block with wp_enqueue_block_style(), so it lazy-loads whenever the block renders.
  *
  * The careers job-application form is styled separately by the KWV Enhancements
  * plugin (it renders that form via the [kwv_career_form] shortcode and is deployable

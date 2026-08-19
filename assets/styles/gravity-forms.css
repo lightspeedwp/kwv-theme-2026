@@ -1,9 +1,11 @@
 /**
- * "KWV Newsletter" Gravity Forms styling, scoped to form id 2.
+ * Gravity Forms styling: the "KWV Newsletter" form and the "Book Experience" forms.
  *
  * Gravity Forms wraps each form in `#gform_wrapper_{id}`, so `#gform_wrapper_2`
  * targets the newsletter form on both local and dev (same form id on each).
- * Registered and enqueued in inc/gravity-forms.php.
+ * The three booking forms are matched by the `kwv-booking-form` class set in their
+ * Gravity Forms "Form CSS Class Name" setting — one class for three forms whose ids
+ * differ per environment. Registered and enqueued in inc/gravity-forms.php.
  *
  * (The careers job-application form is styled separately by the KWV Enhancements
  * plugin — assets/careers-form.css — because the plugin renders that form via
@@ -105,4 +107,44 @@
 	background-color: var(--wp--preset--color--contrast) !important;
 	color: var(--wp--preset--color--base) !important;
 	border-color: var(--wp--preset--color--contrast) !important;
+}
+
+/* -------------------------------------------------------------------------
+   "Book Experience" forms (kwv-booking-form) — the Date + Time row.
+   ---------------------------------------------------------------------- */
+
+/* Date and Time each occupy half of Gravity Forms' 12-column field grid, but
+   neither control fills its column: the datepicker input is sized to its content
+   (`--gf-local-width: auto`) and each time sub-input is pinned to
+   `--gf-field-time-width` (110px), so both sit stranded at the left of their half.
+   Stretch both to the full column so the two halves read as one even row.
+
+   The date container is a flex row of [input][calendar toggle], and the toggle
+   carries GF's own -22px translate to overlay the input. Taking it out of flow
+   (absolute, translate cleared) lets the input claim the whole column while the
+   icon stays inside its right edge. */
+.kwv-booking-form .gfield--input-type-datepicker .ginput_container_date {
+	position: relative !important;
+}
+
+/* !important on the custom property too: GF's `--gf-local-width: auto` rule has the
+   same specificity, so without it the winner would depend on stylesheet order. */
+.kwv-booking-form .gfield--input-type-datepicker .ginput_container_date input {
+	--gf-local-width: 100% !important;
+	flex: 1 1 auto !important;
+	min-inline-size: 0 !important;
+}
+
+.kwv-booking-form .gfield--input-type-datepicker .ginput_container_date .gform-datepicker-toggle {
+	position: absolute !important;
+	inset-inline-end: 12px !important;
+	margin: 0 !important;
+	transform: none !important;
+}
+
+/* Hour and minute split the Time column evenly (the colon separator between them
+   is hidden in 24-hour mode, so there are only the two). */
+.kwv-booking-form .gfield--type-time .ginput_container_time {
+	flex: 1 1 0 !important;
+	inline-size: auto !important;
 }
