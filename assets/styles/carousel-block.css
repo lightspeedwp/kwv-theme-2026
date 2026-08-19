@@ -233,10 +233,12 @@
  *
  * What the block cannot express is card *sizing*: it saves a single breakpoint,
  * so it can only say "two across below 1024, five above", which is what made
- * the cards jump size across that boundary. assets/js/brand-marquee.js hands
+ * the cards jump size across that boundary — ballooning to ~500px just under
+ * 1024 and shrinking to ~190px just over it. assets/js/brand-marquee.js hands
  * sizing over by switching Swiper to `slidesPerView: "auto"`, at which point
  * Swiper stops writing an inline width per slide and the `clamp()` below
- * decides how many cards land on screen.
+ * decides how many cards land on screen. That is the only thing overridden;
+ * all motion is the block's own.
  *
  * If that script does not run, Swiper's inline width overrides these rules and
  * the row falls back to the plugin's paged behaviour, as configured.
@@ -266,12 +268,6 @@
 	 * which — unlike `vw` — excludes the scrollbar.
 	 */
 	container-type: inline-size;
-
-	/*
-	 * Constant-velocity drift. Swiper reads its own custom property here, so
-	 * this does not have to out-specify the vendor stylesheet.
-	 */
-	--swiper-wrapper-transition-timing-function: linear;
 }
 
 /*
