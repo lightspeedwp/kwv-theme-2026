@@ -155,11 +155,20 @@ body.rtl .wp-block-navigation__responsive-container.is-menu-open .wp-block-navig
 
 /* Dedicated Mobile Menu — `is-style-mobile-navigation`
 --------------------------------------------------------------------------- */
-/* The `parts/mobile-menu.html` template part renders a navigation block with
-   `overlayMenu:"always"`, so it is always a hamburger that opens an off-canvas
-   drawer. These rules build on the shared `.is-menu-open` styles above but are
-   scoped to `.is-style-mobile-navigation` so they never touch the main header
-   nav's own responsive overlay. Tokens only — spacing/colour/shadow presets. */
+/* The header's mobile navigation block carries `overlayMenu:"always"`, so it is
+   always a hamburger, and Ollie Menu Designer's `mobileMenuSlug` injects the
+   `parts/mobile-menu.html` template part (logo + search + the vertical menu)
+   into that overlay as the drawer's contents. These rules build on the shared
+   `.is-menu-open` styles above but are scoped to `.is-style-mobile-navigation`
+   so they never touch the main header nav's own responsive overlay. Tokens
+   only — spacing/colour/shadow presets.
+
+   Note: the shared `.wp-block-navigation-submenu__toggle[aria-expanded="true"]`
+   rules above are what open a drawer submenu. Inside the overlay core binds
+   that attribute to the *overlay's* open state, so `assets/js/mobile-menu.js`
+   takes those toggles off the Interactivity runtime and drives the attribute
+   itself — see that file and `inc/mobile-menu.php`. Don't re-key these rules
+   off anything else without reading it first. */
 
 /* Hamburger trigger: clean and borderless, distinct from the boxed default. */
 .is-style-mobile-navigation .wp-block-navigation__responsive-container-open {

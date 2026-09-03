@@ -241,6 +241,11 @@ require_once get_template_directory() . '/inc/mega-menu.php';
 require_once get_template_directory() . '/inc/search.php';
 
 /**
+ * Load the mobile menu drawer (collapsible submenus + close-button colour).
+ */
+require_once get_template_directory() . '/inc/mobile-menu.php';
+
+/**
  * Load the carousel block (cb/carousel-v2) nav-arrow styling.
  */
 require_once get_template_directory() . '/inc/carousel.php';
