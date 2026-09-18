@@ -44,6 +44,24 @@
 	display: none;
 }
 
+/* …but hiding the title leaves its spacing behind. Three top paddings stack
+   above the LOGIN / REGISTER headings on this screen (~240px at desktop):
+   the page template's `main` padding-top (spacing 80), the blockGap the
+   hidden title's wrapper still hands to .wp-block-post-content (spacing 50),
+   and the light-page-section's own padding-top (spacing 70) — on top of the
+   .woocommerce padding-block below. Collapse the two that only exist because
+   the title is hidden; `main`'s padding-top plus the .woocommerce padding is
+   the intended offset. Scoped to the logged-out login screen, so the
+   dashboard and lost-password endpoint keep the default page rhythm. */
+.woocommerce-account:not(.woocommerce-lost-password):not(.logged-in) .wp-block-post-content {
+	margin-block-start: 0;
+}
+
+.woocommerce-account:not(.woocommerce-lost-password):not(.logged-in)
+	.wp-block-post-content > .is-style-light-page-section {
+	padding-top: 0;
+}
+
 .woocommerce-account:not(.logged-in) .woocommerce {
 	max-width: 860px;
 	margin-inline: auto;

@@ -261,44 +261,51 @@
 	row-gap: 2em;
 }
 
-/* Keep product cards large: never narrower than 300px.
+/* Keep product cards large: never narrower than 260px.
    WooCommerce's responsive (shrinkColumns) grid floors each column at 150px
    — `minmax(max(150px, calc(<n>% - gap)), 1fr)` — which lets cards get too
-   small on mid-size viewports. Raise the floor to 300px while preserving each
+   small on mid-size viewports. Raise the floor to 260px while preserving each
    pattern's intended column cap (the `calc(<n>% - gap)` term still wins on wide
-   screens, so archive stays 4-up / sidebar-archive 3-up). auto-fill then drops
-   the column count as the container narrows, so cards stay >=300px instead of
-   shrinking. `min(300px, 100%)` prevents horizontal overflow on phones whose
-   content column is itself narrower than 300px (it falls back to one full card).
-   The column gap is WooCommerce's default 1.25em (only row-gap is themed above). */
+   screens, so a columns-4 archive really renders 4-up). auto-fill then drops
+   the column count as the container narrows, so cards stay >=260px instead of
+   shrinking. `min(260px, 100%)` prevents horizontal overflow on phones whose
+   content column is itself narrower than 260px (it falls back to one full card).
+   The column gap is WooCommerce's default 1.25em (only row-gap is themed above).
+
+   Why 260px and not 300px: the product column on Shop / category / brand
+   measures ~1180px, where the 4-column cap `calc(25% - 0.9375em)` works out to
+   ~280px. A 300px floor beat that term, so auto-fill only fitted three tracks
+   and a `columns-4` archive still rendered 3-up. 260px sits below the cap, so
+   the cap governs again and the archives render 4-up as designed
+   (client request, 2026-09-18). */
 .wc-block-product-template__responsive.columns-2 {
-	grid-template-columns: repeat( auto-fill, minmax( max( min( 300px, 100% ), calc( 50% - 0.625em ) ), 1fr ) );
+	grid-template-columns: repeat( auto-fill, minmax( max( min( 260px, 100% ), calc( 50% - 0.625em ) ), 1fr ) );
 }
 
 .wc-block-product-template__responsive.columns-3 {
-	grid-template-columns: repeat( auto-fill, minmax( max( min( 300px, 100% ), calc( 33.33333% - 0.83333em ) ), 1fr ) );
+	grid-template-columns: repeat( auto-fill, minmax( max( min( 260px, 100% ), calc( 33.33333% - 0.83333em ) ), 1fr ) );
 }
 
 .wc-block-product-template__responsive.columns-4 {
-	grid-template-columns: repeat( auto-fill, minmax( max( min( 300px, 100% ), calc( 25% - 0.9375em ) ), 1fr ) );
+	grid-template-columns: repeat( auto-fill, minmax( max( min( 260px, 100% ), calc( 25% - 0.9375em ) ), 1fr ) );
 }
 
 .wc-block-product-template__responsive.columns-5 {
-	grid-template-columns: repeat( auto-fill, minmax( max( min( 300px, 100% ), calc( 20% - 1em ) ), 1fr ) );
+	grid-template-columns: repeat( auto-fill, minmax( max( min( 260px, 100% ), calc( 20% - 1em ) ), 1fr ) );
 }
 
 .wc-block-product-template__responsive.columns-6 {
-	grid-template-columns: repeat( auto-fill, minmax( max( min( 300px, 100% ), calc( 16.66667% - 1.04167em ) ), 1fr ) );
+	grid-template-columns: repeat( auto-fill, minmax( max( min( 260px, 100% ), calc( 16.66667% - 1.04167em ) ), 1fr ) );
 }
 
-/* Same 300px floor for the non-responsive flex layout (shrinkColumns:false,
+/* Same 260px floor for the non-responsive flex layout (shrinkColumns:false,
    e.g. the "You may also like" related-products grid on the single-product
    page). WooCommerce hands each item a fixed fractional width above 600px,
-   which can fall below 300px on mid-size screens; min-width holds the floor and
+   which can fall below 260px on mid-size screens; min-width holds the floor and
    flex-wrap reflows to fewer columns, while flex-grow lets a short final row
-   fill the width. min(300px, 100%) again avoids overflow on narrow phones. */
+   fill the width. min(260px, 100%) again avoids overflow on narrow phones. */
 .wc-block-product-template.is-flex-container > li {
-	min-width: min( 300px, 100% );
+	min-width: min( 260px, 100% );
 	flex-grow: 1;
 }
 

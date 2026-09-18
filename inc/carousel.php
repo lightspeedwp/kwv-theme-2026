@@ -72,10 +72,12 @@ add_filter( 'render_block_cb/carousel-v2', __NAMESPACE__ . '\enqueue_hero_script
 /**
  * Load the brand-marquee script, and only for the homepage brand rows.
  *
- * The three "Wine / Spirits / Agency Brands" carousels drift continuously and
- * counter-scroll, neither of which the plugin can express. Gated on the block's
- * own `kwv-brand-marquee` class, the same way the hero script is gated, so no
- * other carousel on the site pays for it. See assets/js/brand-marquee.js.
+ * The three "Wine / Spirits / Agency Brands" carousels size their cards with
+ * `slidesPerView: 'auto'`, which the block's editor settings can't express.
+ * Gated on the block's own `kwv-brand-marquee` class, the same way the hero
+ * script is gated, so no other carousel on the site pays for it. These rows do
+ * not autoplay (client request, 2026-09-18) — the script only does sizing.
+ * See assets/js/brand-marquee.js.
  *
  * @param string $block_content Rendered block HTML.
  * @return string Unchanged block HTML.

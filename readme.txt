@@ -10,7 +10,7 @@ License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 == Description ==
 
-The KWV 2026 WordPress block theme — a WooCommerce-ready Full Site Editing theme for KWV, a South African wine and spirits brand. KWV 2026 is driven by a Figma-authored design system: brand colours, typography (Poppins + Bodoni Moda), spacing, radius, and shadow tokens are extracted into theme.json so the site stays in sync with the design source of truth.
+The KWV 2026 WordPress block theme — a WooCommerce-ready Full Site Editing theme for KWV, a South African wine and spirits brand. KWV 2026 is driven by a Figma-authored design system: brand colours, typography (Lato + Poppins + Bodoni Moda), spacing, radius, and shadow tokens are extracted into theme.json so the site stays in sync with the design source of truth.
 
 == Changelog ==
 
@@ -36,5 +36,6 @@ GNU General Public License for more details.
 
 == Fonts ==
 
+Lato is licensed under the SIL Open Font License 1.1: https://github.com/googlefonts/LatoGFVersion/blob/main/OFL.txt
 Poppins is licensed under the SIL Open Font License 1.1: https://github.com/itfoundry/Poppins/blob/master/OFL.txt
 Bodoni Moda is licensed under the SIL Open Font License 1.1: https://github.com/googlefonts/BodoniModa/blob/main/OFL.txt

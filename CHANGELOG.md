@@ -7,6 +7,55 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed (Shop mega menu — deep sub-menus fell out of the bottom of the panel, 2026-09-18)
+
+The Shop mega menu's fold-out columns (`is-style-mega-menu-nav`) are `position:absolute` so they sit co-planar, all anchored to the top of the nav. Being out of flow they cannot grow the panel around them, so `.kwv-mega-menu-nav-wrap` carried a hard-coded `min-block-size: 26rem` — a guess at the deepest branch. Adding the Lifestyle tree pushed two columns past it: **Glassware & Barware** and **Wine Accessories** are eight rows each, and the row padding is a fluid `clamp()`, so the taller the viewport width the worse it got. Measured on `kwv.lightspeedwp.dev` at 1920×1080: the panel's content box is 364px and those columns are 394px — **30px hanging below the white panel**. (At 1280 they cleared it by a single pixel, which is why it looked fine until Lifestyle landed.)
+
+Replaced the guess with a measurement:
+
+- **`assets/js/mega-menu-panel.js`** (new) — measures every column in the nav (the level-1 list and every submenu container at every depth, all of which are top-aligned to the nav) and publishes the tallest as `--kwv-mega-menu-panel-block-size` on the nav element. A `ResizeObserver` keeps it honest across late web fonts, viewport changes and editor-side DOM changes. Height is taken as the first row's top to the last row's bottom, **not** `offsetHeight`: the level-1 list is a flex item that stretches to the nav, so reading its box back would feed our own answer into the next measurement and the panel could never grow past its starting floor.
+- **`assets/styles/ollie-mega-menu.css`** — `min-block-size` moves off `.kwv-mega-menu-nav-wrap` and onto the nav as `var(--kwv-mega-menu-panel-block-size, 26rem)`. The old fixed value survives as the no-JS fallback, so a scripting-off visitor sees exactly today's panel.
+- **`inc/mega-menu.php`** — enqueues the script from `render_block_ollie/mega-menu`, gated on the `kwv-mega-menu-nav-wrap` class the same way the carousel scripts are gated, so the shortcode variant and the other Ollie dropdowns don't pay for it.
+
+Verified against the live dev site by injecting the same CSS + measurement into the rendered page: the value settles at the tallest column in one pass (proved by seeding a deliberately wrong 200px floor), the panel grows from 416px to 441px at 1280 / 446px at 1920, and no column ends below the panel. The theme files themselves reach dev on the next deploy.
+
+### Fixed (My Account — too much space above the Login / Register columns, 2026-09-18)
+
+The logged-out My Account screen hides its page title (the design shows only the LOGIN / REGISTER headings), but the spacing the title used to occupy stayed behind, so three top paddings stacked above the columns — roughly 240px at desktop and 150px on mobile:
+
+- `main` in `patterns/template-page-centered.php`: `padding-top: spacing 80`
+- `.wp-block-post-content`: `margin-block-start: spacing 50`, the template's blockGap, still handed over by the hidden title's (now empty, zero-height) wrapper group
+- `.is-style-light-page-section`: `padding-top: spacing 70`, the section style wrapping the shortcode in the page content
+- `.woocommerce`: `padding-block: spacing 40`, from this sheet
+
+**`assets/styles/woocommerce-account.css`** now zeroes the middle two — the blockGap and the section-style padding — for `.woocommerce-account:not(.woocommerce-lost-password):not(.logged-in)`, leaving `main`'s padding-top plus the `.woocommerce` padding (~120px desktop / ~74px mobile) as the intended offset. Both rules are (0,4,0), so they clear the generated layout rule (0,2,0) and the section-style rule (0,1,0) without `!important`. The logged-in dashboard and the `/lost-password/` endpoint keep the page title and the default rhythm, so they are untouched.
+
+Not yet verified in a browser — both MCP browser profiles were held by another session at the time of the change. Reaches dev on the next theme deploy.
+
+
+### Fixed (Dark header — the hamburger bars were invisible, 2026-09-18)
+
+On the dark header (`is-style-header-dark`, contrast/black background — the header the `page` template composes, so My Account, About Us and every standard content page) the mobile hamburger rendered black on black. `assets/styles/core-navigation.css` gives the boxed default open/close buttons `background: neutral-200; color: contrast`, and the `is-style-mobile-navigation` override that follows resets the background to transparent but left `color` alone — so the bars stayed `contrast`. Measured on `kwv.lightspeedwp.dev/my-account/` at 390×844: button colour and icon fill `rgb(0, 0, 0)` on a `rgb(0, 0, 0)` header.
+
+This only surfaced on the dark header because Ollie Menu Designer paints the icon from the nav block's `mobileIconColor` with an `#id … !important` fill rule (see the mobile-menu entry below), and the dark header's nav is the one that does **not** set it — the light header's sets `contrast`, the home hero's sets `base`. With no plugin rule the icon falls back to core's `fill: currentColor`, i.e. straight onto the wrong stylesheet default.
+
+- **`assets/styles/core-navigation.css`** — `.is-style-mobile-navigation .wp-block-navigation__responsive-container-open` now sets `color: inherit`, so the bars take the surrounding header's own text colour: `base` (white) on the dark header, `contrast` on the light one. Where `mobileIconColor` *is* set the plugin's `!important` fill still wins, so the light and transparent headers are untouched. The close button keeps its own `contrast` rule — it sits inside the light drawer.
+
+Verified against the live dev DOM at 390×844 with the rule injected: on `/my-account/` (dark header) the button measures `rgb(255, 255, 255)` on `rgb(0, 0, 0)` and the bars are visible; on `/shop/` (light header) it still measures `rgb(0, 0, 0)` on a white header row. Reaches dev on the next theme deploy.
+
+
+### Changed (Client adjustments, 2026-09-18)
+
+Four adjustments requested by the client. Two of them (the carousels and the mega menu) are DB entities, so they were applied on `kwv.lightspeedwp.dev` as well as here; the other two are theme-only and reach dev on the next deploy.
+
+**Homepage Wine / Spirits / Agency rows no longer auto-scroll.** The three brand carousels in `templates/front-page.html` drop `autoplay` / `autoplaySpeed` from the block attributes and `data-cb-autoplay` / `data-cb-autoplay-speed` from the saved markup. `pauseOnMouseEnter` and `loop` are left in place so the setting survives if autoplay is ever turned back on, and each row keeps its arrows, its loop and (on Spirits) its RTL order. The hero slideshow is a separate block in `patterns/home-hero.php` and still autoplays. `inc/carousel.php` had a docblock claiming these rows "drift continuously and counter-scroll" — that stopped being true when the marquee experiment was reverted; it now describes what the script actually does (card sizing only).
+
+**Body copy is Lato at the base size.** `theme.json`'s `body` font family becomes Lato (self-hosted, five faces at `assets/fonts/lato/`) and `styles.typography.fontSize` moves from `300` (1.20rem) to `200` (1rem / the "Base" preset). Headings stay Poppins — only the `body` preset changed. Lato ships **100 / 300 / 400 / 700 / 900** and has no 200, 500, 600 or 800 face, so the `medium` (500) and `semi-bold` (600) weight tokens now resolve by CSS font matching rather than to a real face; headings, which carry most of the weight variation, are unaffected. Credited under `== Fonts ==` in `readme.txt`.
+
+**Product cards are narrower so the archives render 4-up.** The card floor in `assets/styles/woocommerce-product-grid.css` drops from 300px to 260px. The product column on Shop / category / brand measures ~1180px, where the four-column cap `calc(25% - 0.9375em)` works out to ~280px — so the 300px floor beat the cap and `auto-fill` only ever fitted three tracks, which is why a template already set to `columns: 4` still rendered 3-up. `patterns/woo-product-archive.php` also moves from `columns: 3` to `columns: 4`, since all four product archive templates compose it. Measured on dev: 4-up from ~1100px, 3-up to ~900px, 2-up to ~600px, one card below 480px, and no card narrower than 260px at any width.
+
+**The Lifestyle menu moved into the Shop mega menu.** The standalone Lifestyle header dropdown was removed by the client; its five categories (Apparel, Bags & Carriers, Glassware & Barware, Wine Accessories, Food & Treats) are now a fourth top-level column in the Shop mega menu, directly under Mixers, with the parent linking to `/product-category/lifestyle/`. Menu content is a DB entity (`wp_navigation` **182539** on dev), so nothing ships in the theme for this one.
+
 ### Fixed (Mobile menu — submenus were stuck open, and the close button was invisible on the home page)
 
 Two separate faults in the off-canvas drawer, both traced to the same root: the drawer is Ollie Menu Designer's `mobileMenuSlug` feature, which injects the `mobile-menu` template part **inside** the header navigation's own overlay (`omd-mobile-menu-filter.php` → `.wp-block-navigation__mobile-menu-content`), so the drawer's navigation block ends up nested in another navigation block's Interactivity context and inline styles.

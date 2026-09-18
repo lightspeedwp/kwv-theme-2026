@@ -176,16 +176,15 @@
 }
 
 /* The wrap is a core/columns block (70% nav | 30% search). Columns own the
-   row layout + gap; we only constrain the width, centre it, pad it, align the
-   columns to the top, and reserve height for the absolutely-positioned flyout
-   columns (which are out of flow, so the row can't grow to contain them). */
+   row layout + gap; we only constrain the width, centre it, pad it and align the
+   columns to the top. The panel's height comes from the nav below, not from
+   here — see the min-block-size note there. */
 .kwv-mega-menu-nav-wrap {
 	align-items: flex-start;
 	max-width: var(--wp--style--global--wide-size, 1280px);
 	margin-inline: auto;
 	padding-block: var(--wp--preset--spacing--40);
 	padding-inline: var(--wp--preset--spacing--30);
-	min-block-size: 26rem;
 }
 
 /* The nav is pinned to a single column's width so its fold-out flyouts
@@ -195,6 +194,18 @@
 .kwv-mega-menu-nav-wrap .wp-block-navigation.is-style-mega-menu-nav {
 	width: 13.75rem;
 	flex: 0 0 auto;
+	/* The fold-out columns are position:absolute (co-planar, all anchored to the
+	   top of this nav), so they are out of flow and can never grow the panel that
+	   has to contain them. A hard-coded height here is a guess about the deepest
+	   branch and goes stale the moment an editor adds a category — which is how
+	   Lifestyle > Glassware & Barware / Wine Accessories ended up hanging out of
+	   the bottom of the panel.
+
+	   assets/js/mega-menu-panel.js measures the tallest column and publishes it
+	   here as --kwv-mega-menu-panel-block-size, so the panel fits whatever the
+	   client puts in the menu. The fallback is the old fixed floor, which is what
+	   a no-JS visitor gets. */
+	min-block-size: var(--kwv-mega-menu-panel-block-size, 26rem);
 }
 
 /* Search fills its 30% column; underline field, no right-margin hack needed. */

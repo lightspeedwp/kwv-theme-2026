@@ -201,7 +201,7 @@
 			"lineHeight": {
 				"snug": "1.125",
 				"heading": "1.25",
-				"button": "1.35",	
+				"button": "1.35",
 				"body": "1.5"
 			},
 			"letterSpacing": {
@@ -422,9 +422,56 @@
 					]
 				},
 				{
-					"fontFamily": "Poppins, sans-serif",
-					"name": "Poppins",
-					"slug": "body"
+					"fontFamily": "Lato, sans-serif",
+					"name": "Lato",
+					"slug": "body",
+					"fontFace": [
+						{
+							"fontDisplay": "swap",
+							"fontFamily": "Lato",
+							"fontStyle": "normal",
+							"fontWeight": "100",
+							"src": [
+								"file:./assets/fonts/lato/Lato-100-normal.woff2"
+							]
+						},
+						{
+							"fontDisplay": "swap",
+							"fontFamily": "Lato",
+							"fontStyle": "normal",
+							"fontWeight": "300",
+							"src": [
+								"file:./assets/fonts/lato/Lato-300-normal.woff2"
+							]
+						},
+						{
+							"fontDisplay": "swap",
+							"fontFamily": "Lato",
+							"fontStyle": "normal",
+							"fontWeight": "400",
+							"src": [
+								"file:./assets/fonts/lato/Lato-400-normal.woff2"
+							]
+						},
+						{
+							"fontDisplay": "swap",
+							"fontFamily": "Lato",
+							"fontStyle": "normal",
+							"fontWeight": "700",
+							"src": [
+								"file:./assets/fonts/lato/Lato-700-normal.woff2"
+							]
+						},
+						{
+							"fontDisplay": "swap",
+							"fontFamily": "Lato",
+							"fontStyle": "normal",
+							"fontWeight": "900",
+							"src": [
+								"file:./assets/fonts/lato/Lato-900-normal.woff2"
+							]
+						}
+					]
 				},
 				{
 					"fontFamily": "\"Bodoni Moda\", serif",
@@ -1061,7 +1108,7 @@
 		},
 		"typography": {
 			"fontFamily": "var:preset|font-family|body",
-			"fontSize": "var:preset|font-size|300",
+			"fontSize": "var:preset|font-size|200",
 			"fontWeight": "var:custom|font-weight|regular",
 			"lineHeight": "var:custom|line-height|body"
 		}

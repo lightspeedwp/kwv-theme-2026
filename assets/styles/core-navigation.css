@@ -170,9 +170,16 @@ body.rtl .wp-block-navigation__responsive-container.is-menu-open .wp-block-navig
    itself — see that file and `inc/mobile-menu.php`. Don't re-key these rules
    off anything else without reading it first. */
 
-/* Hamburger trigger: clean and borderless, distinct from the boxed default. */
+/* Hamburger trigger: clean and borderless, distinct from the boxed default.
+   `color: inherit` is deliberate — the boxed default above hard-codes
+   `color: contrast`, which renders black bars on the dark header
+   (`is-style-header-dark`, contrast background). Inheriting instead takes the
+   surrounding header's own text colour: base (white) on the dark header,
+   contrast on the light one. Core sets `fill: currentColor` on the icon, so the
+   bars follow. */
 .is-style-mobile-navigation .wp-block-navigation__responsive-container-open {
 	background: transparent;
+	color: inherit;
 	padding: var(--wp--preset--spacing--5);
 }
 
