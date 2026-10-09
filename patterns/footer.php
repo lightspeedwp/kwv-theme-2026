@@ -112,7 +112,7 @@
 
 <!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"default"}} -->
 <div class="wp-block-group alignwide"><!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|40"}},"typography":{"textAlign":"center"}},"fontSize":"300"} -->
-<p class="has-text-align-center has-300-font-size" style="margin-top:var(--wp--preset--spacing--40)">PLEASE DRINK RESPONSIBLY</p>
+<p class="has-text-align-center has-300-font-size" style="margin-top:var(--wp--preset--spacing--40)">Not intended for persons under the legal alcohol age limit or in countries with restrictions on alcohol advertising.<br>Please drink responsibly.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:separator {"align":"wide","className":"is-style-separator-thin","backgroundColor":"neutral-700"} -->

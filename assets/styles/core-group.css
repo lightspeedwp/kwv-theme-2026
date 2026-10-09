@@ -134,48 +134,84 @@
 }
 
 /**
- * Timeline Milestone — round image with a hover slide-out info panel.
+ * Timeline Milestone — round image + year, with a hover overlay info panel.
  *
- * The structure (round media crop, layout, typography) lives in the section
- * style styles/sections/cards/timeline-milestone.json so it renders in the
- * editor. The collapse/expand reveal lives here as plain CSS because the
- * block-style-variation compiler drops `:hover`/`:focus-within` from that JSON
- * and wraps it at `:where()` zero specificity (see the theme AGENTS.md
- * "Styling lives in JSON" rule).
+ * The structure (round media crop, typography) AND the panel's resting state
+ * (absolutely positioned, base background, radius, shadow, hidden) live in the
+ * section style styles/sections/cards/timeline-milestone.json so they render in
+ * the editor. Only the pieces the block-style-variation compiler cannot hold
+ * live here: the `:hover`/`:focus-within` reveal (it strips pseudo-classes and
+ * wraps the rest at `:where()` zero specificity), the transition, the
+ * `.swiper` overflow override and the touch / editor / reduced-motion
+ * adaptations (see the theme AGENTS.md "Styling lives in JSON" rule).
  *
- * The panel uses a grid-template-rows 0fr -> 1fr transition so the info slides
- * open from behind the year and pushes nothing else around. The child needs
- * min-height:0 + overflow:hidden for the collapsed row to actually clip it.
+ * Mechanism: `.timeline-milestone__info` is `position:absolute` with no `top`,
+ * so it sits at its static position — directly under the year — and takes no
+ * space in the flow. Revealing it therefore moves nothing: no layout shift, no
+ * extra document height. The image and the year stay visible; the panel
+ * overlays whatever is below the card (the section's bottom padding).
  */
 .is-style-timeline-milestone .timeline-milestone__info {
-	display: grid;
-	grid-template-rows: 0fr;
-	transition: grid-template-rows 320ms ease;
+	transform: translateY( calc( -1 * var( --wp--preset--spacing--10 ) ) );
+	transition: opacity 240ms ease, transform 240ms ease;
 }
 
-.is-style-timeline-milestone .timeline-milestone__info > * {
-	min-height: 0;
-	overflow: hidden;
-}
-
-/* Reveal on hover / keyboard focus within the milestone. */
+/* Reveal on hover / keyboard focus within the milestone. The lightbox trigger
+   button inside the image is the focusable element that drives :focus-within. */
 .is-style-timeline-milestone:hover .timeline-milestone__info,
 .is-style-timeline-milestone:focus-within .timeline-milestone__info {
-	grid-template-rows: 1fr;
+	opacity: 1;
+	transform: none;
+	pointer-events: auto;
 }
 
 /*
- * Keep the slide-out permanently open inside the editor so the info text can be
- * selected and edited without a hover. `.editor-styles-wrapper` only exists in
- * the editor iframe, so the front end stays collapsed-until-hover. The extra
- * class also out-specifies the resting rule above.
+ * Swiper clips its slides with `overflow: hidden`, which would cut the overlay
+ * off at the bottom of the card. Slides must still be clipped horizontally, so
+ * clip only the x axis (`overflow-x: clip` lets y stay visible, unlike
+ * `hidden`). Scoped to a carousel that contains milestone cards.
  */
-.editor-styles-wrapper .is-style-timeline-milestone .timeline-milestone__info {
-	grid-template-rows: 1fr;
+.swiper:has( .is-style-timeline-milestone ) {
+	overflow-x: clip;
+	overflow-y: visible;
 }
 
-@media (prefers-reduced-motion: reduce) {
+/*
+ * Touch / no-hover devices cannot trigger the reveal reliably, so show the text
+ * outright as a normal in-flow block under the year (no overlay, no shadow).
+ * The card then just grows; nothing to hover, so nothing can jump.
+ */
+@media ( hover: none ) {
 	.is-style-timeline-milestone .timeline-milestone__info {
+		position: static;
+		opacity: 1;
+		transform: none;
+		pointer-events: auto;
+		box-shadow: none;
+		background-color: transparent;
+		padding: 0;
+		text-align: center;
+	}
+}
+
+/*
+ * Editor: keep the panel permanently open AND in flow, so the info text can be
+ * selected and edited without a hover and the absolute overlay never covers
+ * the blocks around it. `.editor-styles-wrapper` only exists in the editor
+ * iframe, so the front end keeps the overlay. The extra class also
+ * out-specifies the resting rules above.
+ */
+.editor-styles-wrapper .is-style-timeline-milestone .timeline-milestone__info {
+	position: static;
+	opacity: 1;
+	transform: none;
+	pointer-events: auto;
+	box-shadow: none;
+}
+
+@media ( prefers-reduced-motion: reduce ) {
+	.is-style-timeline-milestone .timeline-milestone__info {
+		transform: none;
 		transition-duration: 1ms;
 	}
 }

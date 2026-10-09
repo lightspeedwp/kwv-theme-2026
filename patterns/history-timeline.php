@@ -2,7 +2,7 @@
 /**
  * Title: History — Timeline
  * Slug: kwv/history-timeline
- * Description: Heritage timeline — a Carousel Block of round year "milestone" images. Hovering (or keyboard-focusing) a milestone slides out a short history note. Clicking a milestone image opens it in the WordPress core lightbox. Uses the kwv/timeline-milestone group block style.
+ * Description: Heritage timeline — a Carousel Block of round year "milestone" images. Hovering (or keyboard-focusing) a milestone reveals a short history note in an overlay panel (no layout shift). Slides run most recent to oldest. Clicking a milestone image opens it in the WordPress core lightbox. Uses the kwv/timeline-milestone group block style.
  * Categories: kwv/features, kwv/history, kwv/pages
  * Keywords: history, timeline, carousel, milestone, years, heritage, slider, lightbox
  * Viewport Width: 1500
@@ -17,6 +17,10 @@
  * do NOT rebuild this as a PHP loop over a milestone table. Generated block
  * markup does not round-trip through the editor, so the pattern could not be
  * edited or re-synced. Add further milestones as further wp:cb/slide-v2 blocks.
+ *
+ * Slide order is MOST RECENT -> OLDEST (reverse chronological): put newer
+ * milestones before older ones. Only the 1918 sample ships here, so the order
+ * only matters in the dev synced pattern / page content.
  */
 ?>
 <!-- wp:group {"metadata":{"name":"History Timeline"},"align":"full","className":"is-style-light-page-section","style":{"spacing":{"padding":{"top":"var:preset|spacing|100","bottom":"var:preset|spacing|90"}}},"layout":{"type":"constrained"}} -->

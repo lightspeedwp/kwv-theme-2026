@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed (Client change requests — header padding, footer notice, legacy video, history timeline, 2026-10-09)
+
+Approved change-request estimate.
+
+- **Header horizontal padding (bug).** The homepage transparent header carried an inline `padding-left/right: spacing|0` that beat the section style, so below the 1520px wide size the logo sat flush against the viewport edge. Removed it at source in `patterns/home-hero.php`. All three header section styles (`styles/sections/header-transparent.json`, `header-dark.json`, `header-row.json`) now also pin horizontal padding to `--wp--style--root--padding-left/right` in their `css` field, so headers always align with the body gutter. This includes DB-baked header markup.
+- **Footer responsible-drinking notice.** `patterns/footer.php`: "PLEASE DRINK RESPONSIBLY" → "Not intended for persons under the legal alcohol age limit or in countries with restrictions on alcohol advertising. / Please drink responsibly."
+- **Homepage "Our Legacy" video.** `templates/front-page.html`: the legacy band is now a Cover **video** background (720p H.264, no audio, about 11 MB, down from 93 MB), with the previous image as its `poster`. New `inc/lazy-video.php` adds a `render_block_core/cover` filter for Covers with the `kwv-lazy-video` class. At render time it swaps `src` → `data-src`, sets `preload="none"`, drops `autoplay` and marks the video decorative. New `assets/js/lazy-video.js` loads and plays the video near the viewport, pauses it off-screen, and never plays it under `prefers-reduced-motion` (poster only). Without the module, the saved markup is still a plain autoplaying Cover video.
+- **History timeline hover reveal.** The milestone text (`.timeline-milestone__info`) is now an absolutely positioned overlay panel (base background, `border-radius--300`, `shadow--400`). It fades in on `:hover`/`:focus-within`, so it no longer pushes the page down (`styles/sections/cards/timeline-milestone.json`, `assets/styles/core-group.css`). The Swiper track clips only horizontally so the panel isn't cut off. Touch devices (`hover: none`) show the text in flow, and the editor keeps the panel open in flow for editing.
+- **History timeline order** is now newest → oldest. The slides live in the dev DB page content (`history`, ID 31339), not the theme pattern, so the reorder was made there.
+
 ### Fixed (Shop mega menu — deep sub-menus fell out of the bottom of the panel, 2026-09-18)
 
 The Shop mega menu's fold-out columns (`is-style-mega-menu-nav`) are `position:absolute` so they sit co-planar, all anchored to the top of the nav. Being out of flow they cannot grow the panel around them, so `.kwv-mega-menu-nav-wrap` carried a hard-coded `min-block-size: 26rem` — a guess at the deepest branch. Adding the Lifestyle tree pushed two columns past it: **Glassware & Barware** and **Wine Accessories** are eight rows each, and the row padding is a fluid `clamp()`, so the taller the viewport width the worse it got. Measured on `kwv.lightspeedwp.dev` at 1920×1080: the panel's content box is 364px and those columns are 394px — **30px hanging below the white panel**. (At 1280 they cleared it by a single pixel, which is why it looked fine until Lifestyle landed.)
