@@ -146,14 +146,20 @@
  * adaptations (see the theme AGENTS.md "Styling lives in JSON" rule).
  *
  * Mechanism: `.timeline-milestone__info` is `position:absolute` with no `top`,
- * so it sits at its static position — directly under the year — and takes no
- * space in the flow. Revealing it therefore moves nothing: no layout shift, no
- * extra document height. The image and the year stay visible; the panel
- * overlays whatever is below the card (the section's bottom padding).
+ * so it sits at its static position — directly under the image + year — and
+ * takes no space in the flow. Revealing it therefore moves nothing: no layout
+ * shift, no extra document height. The image and the year stay visible; the
+ * panel slides down beneath them, over whatever is below the card.
+ *
+ * Slide-down: the hidden panel is clipped to a zero-height strip along its top
+ * edge and nudged up; on reveal the clip opens downward while the panel drops
+ * into place. The side/bottom insets are negative so the open state doesn't
+ * clip the panel's own shadow.
  */
 .is-style-timeline-milestone .timeline-milestone__info {
+	clip-path: inset( 0 -2rem 100% -2rem );
 	transform: translateY( calc( -1 * var( --wp--preset--spacing--10 ) ) );
-	transition: opacity 240ms ease, transform 240ms ease;
+	transition: clip-path 320ms ease, transform 320ms ease, opacity 320ms ease;
 }
 
 /* Reveal on hover / keyboard focus within the milestone. The lightbox trigger
@@ -161,6 +167,7 @@
 .is-style-timeline-milestone:hover .timeline-milestone__info,
 .is-style-timeline-milestone:focus-within .timeline-milestone__info {
 	opacity: 1;
+	clip-path: inset( 0 -2rem -2rem -2rem );
 	transform: none;
 	pointer-events: auto;
 }
@@ -185,6 +192,7 @@
 	.is-style-timeline-milestone .timeline-milestone__info {
 		position: static;
 		opacity: 1;
+		clip-path: none;
 		transform: none;
 		pointer-events: auto;
 		box-shadow: none;
@@ -204,6 +212,7 @@
 .editor-styles-wrapper .is-style-timeline-milestone .timeline-milestone__info {
 	position: static;
 	opacity: 1;
+	clip-path: none;
 	transform: none;
 	pointer-events: auto;
 	box-shadow: none;
@@ -212,6 +221,7 @@
 @media ( prefers-reduced-motion: reduce ) {
 	.is-style-timeline-milestone .timeline-milestone__info {
 		transform: none;
+		clip-path: inset( 0 -2rem -2rem -2rem );
 		transition-duration: 1ms;
 	}
 }
