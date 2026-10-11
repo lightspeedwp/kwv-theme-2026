@@ -9,9 +9,9 @@
 			"core/post-title": {
 				"typography": {
 					"fontFamily": "var:preset|font-family|body",
-					"fontSize": "var:preset|font-size|200",
-					"fontWeight": "var:custom|font-weight|medium",
-					"lineHeight": "var:custom|line-height|body",
+					"fontSize": "var:preset|font-size|300",
+					"fontWeight": "var:custom|font-weight|semi-bold",
+					"lineHeight": "var:custom|line-height|snug",
 					"textTransform": "none",
 					"textDecoration": "none"
 				}
