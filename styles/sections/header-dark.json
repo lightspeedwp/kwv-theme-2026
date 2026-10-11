@@ -23,6 +23,7 @@
 					"text": "var:preset|color|base"
 				}
 			}
-		}
+		},
+		"css": "& { padding-left: var(--wp--style--root--padding-left) !important; padding-right: var(--wp--style--root--padding-right) !important; }"
 	}
 }
