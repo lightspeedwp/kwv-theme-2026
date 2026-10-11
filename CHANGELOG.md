@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed (Careers — "Read More" opens the job modal, 2026-10-11)
+
+Client change request (quoted and approved separately). The jobs-board behaviour lives in the **KWV Enhancements** plugin (`CareersModal`, LinkedIn Easy Apply field, simplified application form, notifications, expiry fix — see its CHANGELOG); the theme side is small:
+
+- **`patterns/career-card.php`** — the card's `core/read-more` reads **"Read More"** (was "Click here"). The block and its `is-style-career-card` hover styling are unchanged: the plugin tags the link (and the linked title) with `data-kwv-career-open`, so a click opens the modal, and without JavaScript the link still goes to the single job.
+- **`patterns/careers-positions.php`, `patterns/template-single-career.php`** — descriptions/comments updated: the single-job template's `[kwv_career_form]` now renders the whole apply panel (LinkedIn Easy Apply button when set, then the form, or a "closed" notice). No markup change — and the plugin now expands that shortcode inside the pattern, which WordPress otherwise skips in block templates (it only worked on dev because DB override 182318 is flattened).
+- **`tests/e2e/careers/careers.spec.ts`** — TC2 follows the job link's `href` (a click now opens the modal); new **CAREERS-TC3** opens the modal from "Read More" and checks the job heading, apply heading, Name/Surname/Email/Phone/CV fields, Escape-to-close and focus return.
+
+**On dev (database, not theme files):** the Careers **page** (36807) holds its own copy of the job loop, and DB template `page-careers` (182319) another; both had their read-more `"content":"Click here"` → `"Read More"` (backups in options `kwv_backup_careers-page-36807_20261011` / `kwv_backup_page-careers_20261011`). Note 182319's card has diverged from the theme file (extra fontSize/colour attributes) — delete it on theme deploy as already planned.
+
 ### Fixed (Shop mega menu — deep sub-menus fell out of the bottom of the panel, 2026-09-18)
 
 The Shop mega menu's fold-out columns (`is-style-mega-menu-nav`) are `position:absolute` so they sit co-planar, all anchored to the top of the nav. Being out of flow they cannot grow the panel around them, so `.kwv-mega-menu-nav-wrap` carried a hard-coded `min-block-size: 26rem` — a guess at the deepest branch. Adding the Lifestyle tree pushed two columns past it: **Glassware & Barware** and **Wine Accessories** are eight rows each, and the row padding is a fluid `clamp()`, so the taller the viewport width the worse it got. Measured on `kwv.lightspeedwp.dev` at 1920×1080: the panel's content box is 364px and those columns are 394px — **30px hanging below the white panel**. (At 1280 they cleared it by a single pixel, which is why it looked fine until Lifestyle landed.)
