@@ -3,7 +3,7 @@
  * Title: Single Event
  * Slug: kwv/template-single-event
  * Template Types: single
- * Description: The KWV single event layout — dark header, a two-column article header (a "back to visit" link, event title and the event date/time beside a square featured image), the event body and previous/next navigation. Mirrors the Single Post template but shows the event date and time in place of the author/date byline.
+ * Description: The KWV single event layout — dark header, a two-column article header (a "back to visit" link, event title and the event date/time beside a square featured image), the event body, an "Accommodation nearby" card grid (the KWV Enhancements kwv/event-accommodation block — hidden when the event lists no accommodation) and previous/next navigation. Mirrors the Single Post template but shows the event date and time in place of the author/date byline.
  * Categories: kwv/visit
  * Keywords: event, single, visit, tour, upcoming
  * Viewport Width: 1500
@@ -43,6 +43,8 @@
 <!-- /wp:group -->
 
 <!-- wp:post-content {"layout":{"type":"constrained"}} /-->
+
+<!-- wp:kwv/event-accommodation {"metadata":{"name":"Accommodation Nearby"}} /-->
 
 <!-- wp:separator {"className":"is-style-separator-thin","style":{"spacing":{"margin":{"top":"var:preset|spacing|30","bottom":"var:preset|spacing|30"}}},"backgroundColor":"neutral-300"} -->
 <hr class="wp-block-separator has-text-color has-neutral-300-color has-alpha-channel-opacity has-neutral-300-background-color has-background is-style-separator-thin" style="margin-top:var(--wp--preset--spacing--30);margin-bottom:var(--wp--preset--spacing--30)"/>

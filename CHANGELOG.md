@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added (Events — "Accommodation nearby", 2026-10-11)
+
+Client change request (quoted and approved separately). The data and rendering live in the **KWV Enhancements** plugin (new *Accommodation nearby* repeater on events and the dynamic `kwv/event-accommodation` block; see its CHANGELOG). The theme change is small:
+
+- **`patterns/template-single-event.php`**: places `<!-- wp:kwv/event-accommodation /-->` between the event body and the previous/next navigation. It renders an "Accommodation nearby" heading and a grid of cards, up to four per row and one column on phones, and outputs nothing for events without accommodation. The cards reuse the existing **Event Card** section style (`styles/sections/cards/event-card.json`) and **Image Hover Zoom**, so no new styles were needed.
+
+**On dev (database, not theme files):** the single-event page renders from DB template `single-kwv_event` (183000), which has diverged from this file (brand terms, icons, a Book now button, and no separator). The block has to be added there too, between the "Article Header" group and the "Event Navigation" group, or that DB template removed on theme deploy. Without the plugin active, the block renders nothing.
+
 ### Changed (Careers — "Read More" opens the job modal, 2026-10-11)
 
 Client change request (quoted and approved separately). The jobs-board behaviour lives in the **KWV Enhancements** plugin (`CareersModal`, LinkedIn Easy Apply field, simplified application form, notifications, expiry fix — see its CHANGELOG); the theme side is small:
