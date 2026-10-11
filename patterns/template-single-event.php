@@ -31,7 +31,25 @@
 <!-- wp:paragraph {"metadata":{"name":"Event Time","bindings":{"content":{"source":"core/post-meta","args":{"key":"kwv_event_time"}}}},"style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"fontStyle":"normal","fontWeight":"400","textTransform":"uppercase"}},"textColor":"neutral-700","fontSize":"200"} -->
 <p class="has-neutral-700-color has-text-color has-200-font-size" style="margin-top:0;margin-bottom:0;font-style:normal;font-weight:400;text-transform:uppercase"><?php esc_html_e( 'Time', 'kwv' ); ?></p>
 <!-- /wp:paragraph --></div>
-<!-- /wp:group --></div>
+<!-- /wp:group -->
+
+<!-- wp:buttons {"metadata":{"name":"Book now"}} -->
+<div class="wp-block-buttons"><!-- wp:button {"metadata":{"name":"Book now — KWV Emporium","bindings":{"url":{"source":"kwv/event-booking-url","args":{"path":"/visit/kwv/"}}}},"className":"is-style-cta","blockVisibility":{"controlSets":[{"id":1,"enable":true,"controls":{"location":{"ruleSets":[{"enable":true,"rules":[{"field":"postTaxonomy","subField":"kwv_brand","operator":"atLeastOne","value":["kwv-emporium"]}]}],"hideOnRuleSets":false}}}]}} -->
+<div class="wp-block-button is-style-cta"><a class="wp-block-button__link wp-element-button" href="/visit/kwv/"><?php esc_html_e( 'Book now', 'kwv' ); ?></a></div>
+<!-- /wp:button -->
+
+<!-- wp:button {"metadata":{"name":"Book now — Cathedral Cellar","bindings":{"url":{"source":"kwv/event-booking-url","args":{"path":"/visit/cellar/"}}}},"className":"is-style-cta","blockVisibility":{"controlSets":[{"id":1,"enable":true,"controls":{"location":{"ruleSets":[{"enable":true,"rules":[{"field":"postTaxonomy","subField":"kwv_brand","operator":"atLeastOne","value":["cathedral-cellar"]}]}],"hideOnRuleSets":false}}}]}} -->
+<div class="wp-block-button is-style-cta"><a class="wp-block-button__link wp-element-button" href="/visit/cellar/"><?php esc_html_e( 'Book now', 'kwv' ); ?></a></div>
+<!-- /wp:button -->
+
+<!-- wp:button {"metadata":{"name":"Book now — House of Fire","bindings":{"url":{"source":"kwv/event-booking-url","args":{"path":"/visit/fire/"}}}},"className":"is-style-cta","blockVisibility":{"controlSets":[{"id":1,"enable":true,"controls":{"location":{"ruleSets":[{"enable":true,"rules":[{"field":"postTaxonomy","subField":"kwv_brand","operator":"atLeastOne","value":["house-of-fire"]}]}],"hideOnRuleSets":false}}}]}} -->
+<div class="wp-block-button is-style-cta"><a class="wp-block-button__link wp-element-button" href="/visit/fire/"><?php esc_html_e( 'Book now', 'kwv' ); ?></a></div>
+<!-- /wp:button -->
+
+<!-- wp:button {"metadata":{"name":"Book now — Event enquiry (no venue)","bindings":{"url":{"source":"kwv/event-booking-url","args":{"path":"/visit/event-enquiry/"}}}},"className":"is-style-cta","blockVisibility":{"controlSets":[{"id":1,"enable":true,"controls":{"location":{"ruleSets":[{"enable":true,"rules":[{"field":"postTaxonomy","subField":"kwv_brand","operator":"noTerms"}]}],"hideOnRuleSets":false}}}]}} -->
+<div class="wp-block-button is-style-cta"><a class="wp-block-button__link wp-element-button" href="/visit/event-enquiry/"><?php esc_html_e( 'Book now', 'kwv' ); ?></a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>
 <!-- /wp:column -->
