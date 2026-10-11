@@ -2,7 +2,7 @@
 /**
  * Title: Template: Single Job
  * Slug: kwv/template-single-career
- * Description: Single Careers (kwv_career) template body — the Careers hero (with its own transparent header) over a two-column layout: the role, its reference number, the job details (location, department, closing date) and description on the left, the Gravity Forms application form on the right, then the dark footer.
+ * Description: Single Careers (kwv_career) template body — the Careers hero (with its own transparent header) over a two-column layout: the role, its reference number, the job details (location, department, closing date) and description on the left, the apply panel (LinkedIn Easy Apply button when set, then the Gravity Forms application form) on the right, then the dark footer.
  * Categories: hidden
  * Keywords: template, careers, job, single, application, form
  * Template Types: single
@@ -15,11 +15,14 @@
 // header — mirroring template-careers.php.
 require __DIR__ . '/careers-hero.php';
 
-// The application form is embedded via the [kwv_career_form] shortcode (KWV
-// Enhancements plugin): it resolves the per-job "Application Form" field
-// (kwv_career_form_id), falling back to the shared installed form. Two hidden
-// fields on that form record the job being applied for, resolved from the embed
-// post ({embed_post:post_title} / {custom_field:kwv_career_reference}).
+// The apply panel is embedded via the [kwv_career_form] shortcode (KWV
+// Enhancements plugin): the job's "Easy Apply with LinkedIn" button when its
+// LinkedIn Easy Apply field is set, then the application form — the per-job
+// "Application Form" field (kwv_career_form_id), falling back to the shared
+// installed form — or a "closed" notice once the closing date has passed. The
+// form's hidden Job ID field defaults to {embed_post:ID}; the plugin fills the
+// rest of the job's details (title, reference, link, …) server-side on submit.
+// The same content opens in a modal from the Careers listing.
 ?>
 
 <!-- wp:group {"tagName":"main","metadata":{"name":"Single Job"},"anchor":"content","align":"full","style":{"spacing":{"blockGap":"var:preset|spacing|0","margin":{"top":"0"}}},"layout":{"type":"constrained"}} -->

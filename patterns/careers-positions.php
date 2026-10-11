@@ -2,7 +2,7 @@
 /**
  * Title: Careers — Available Positions
  * Slug: kwv/careers-positions
- * Description: "Available positions" job board — a centred heading over a brand rule, a Title / Date / Details header row, then a query loop of Careers (kwv_career) posts rendered as the kwv/career-card (role linked to the job, its reference number, the posted date and an outlined "Click here" link).
+ * Description: "Available positions" job board — a centred heading over a brand rule, a Title / Date / Details header row, then a query loop of Careers (kwv_career) posts rendered as the kwv/career-card (role linked to the job, its reference number, the posted date and an outlined "Read More" link that opens the job modal).
  * Categories: kwv/pages
  * Keywords: careers, positions, jobs, vacancies, query, loop
  * Viewport Width: 1500

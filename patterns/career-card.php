@@ -2,7 +2,7 @@
 /**
  * Title: Careers — Job Card
  * Slug: kwv/career-card
- * Description: A single job row for the Careers query loop — the role (linked to the job), its reference number (kwv_career_reference meta via block bindings), the posted date and an outlined "Click here" link. Carries the "Career Card" section style (medium-weight, non-capitalised, no-underline title). Designed to sit inside a Query Loop post-template over kwv_career.
+ * Description: A single job row for the Careers query loop — the role (linked to the job), its reference number (kwv_career_reference meta via block bindings), the posted date and an outlined "Read More" link. With the KWV Enhancements plugin active, the title and "Read More" open the job modal (description, LinkedIn Easy Apply, application form); without JavaScript they link to the single job. Carries the "Career Card" section style (medium-weight, non-capitalised, no-underline title). Designed to sit inside a Query Loop post-template over kwv_career.
  * Categories: kwv/pages
  * Keywords: careers, job, card, position, vacancy, query, loop
  * Block Types: core/post-template
@@ -26,6 +26,6 @@
 <!-- /wp:column -->
 
 <!-- wp:column {"verticalAlignment":"center","width":"15%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:15%"><!-- wp:read-more {"content":"Click here"} /--></div>
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:15%"><!-- wp:read-more {"content":"Read More"} /--></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns -->
