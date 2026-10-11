@@ -251,6 +251,11 @@ require_once get_template_directory() . '/inc/mobile-menu.php';
 require_once get_template_directory() . '/inc/carousel.php';
 
 /**
+ * Load the lazy-loaded Cover background video (poster + deferred src).
+ */
+require_once get_template_directory() . '/inc/lazy-video.php';
+
+/**
  * Load Gravity Forms newsletter sign-up styling.
  */
 require_once get_template_directory() . '/inc/gravity-forms.php';

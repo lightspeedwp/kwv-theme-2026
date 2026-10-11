@@ -18,9 +18,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-const STYLE_HANDLE   = 'kwv-carousel-block';
-const SCRIPT_HANDLE  = 'kwv-hero-slider';
-const MARQUEE_HANDLE = 'kwv-brand-marquee';
+const STYLE_HANDLE    = 'kwv-carousel-block';
+const SCRIPT_HANDLE   = 'kwv-hero-slider';
+const MARQUEE_HANDLE  = 'kwv-brand-marquee';
+const TIMELINE_HANDLE = 'kwv-timeline-milestone';
 
 /**
  * Attach the carousel nav-arrow stylesheet to the plugin's carousel block.
@@ -101,3 +102,33 @@ function enqueue_marquee_script( $block_content ) {
 	return $block_content;
 }
 add_filter( 'render_block_cb/carousel-v2', __NAMESPACE__ . '\enqueue_marquee_script' );
+
+/**
+ * Load the timeline-milestone script, and only for the History timeline.
+ *
+ * Clicking a milestone image opens the core lightbox; on close the pointer is
+ * still over the card, so the `:hover` info panel would stay open. The script
+ * dismisses the panel on click until the pointer leaves the card. Gated on the
+ * milestone cards' `is-style-timeline-milestone` class (the cards render inside
+ * this carousel, as synced-pattern instances). See assets/js/timeline-milestone.js.
+ *
+ * @param string $block_content Rendered block HTML.
+ * @return string Unchanged block HTML.
+ */
+function enqueue_timeline_script( $block_content ) {
+
+	if ( false === strpos( (string) $block_content, 'is-style-timeline-milestone' ) ) {
+		return $block_content;
+	}
+
+	wp_enqueue_script(
+		TIMELINE_HANDLE,
+		get_theme_file_uri( 'assets/js/timeline-milestone.js' ),
+		array(),
+		\Kwv\asset_version( 'assets/js/timeline-milestone.js' ),
+		true
+	);
+
+	return $block_content;
+}
+add_filter( 'render_block_cb/carousel-v2', __NAMESPACE__ . '\enqueue_timeline_script' );
