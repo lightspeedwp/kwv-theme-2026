@@ -24,8 +24,8 @@
 <!-- /wp:group -->
 
 <!-- wp:columns {"align":"wide","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|30","left":"var:preset|spacing|70"}}}} -->
-<div class="wp-block-columns alignwide"><!-- wp:column {"width":"22%","metadata":{"name":"Filters Sidebar"}} -->
-<div class="wp-block-column" style="flex-basis:22%"><!-- wp:woocommerce/product-filters {"className":"kwv-shop-filters","style":{"spacing":{"blockGap":"var:preset|spacing|30"}}} -->
+<div class="wp-block-columns alignwide"><!-- wp:column {"width":"16%","metadata":{"name":"Filters Sidebar"}} -->
+<div class="wp-block-column" style="flex-basis:16%"><!-- wp:woocommerce/product-filters {"className":"kwv-shop-filters","style":{"spacing":{"blockGap":"var:preset|spacing|30"}}} -->
 <div class="wp-block-woocommerce-product-filters wc-block-product-filters kwv-shop-filters"><!-- wp:heading {"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|20"}},"typography":{"fontStyle":"normal","fontWeight":"var:custom|font-weight|regular","letterSpacing":"0.05em"}},"fontSize":"400"} -->
 <h2 class="wp-block-heading has-400-font-size" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--20);font-style:normal;font-weight:var(--wp--custom--font-weight--regular);letter-spacing:0.05em">Filters</h2>
 <!-- /wp:heading -->
@@ -88,8 +88,8 @@
 <!-- /wp:woocommerce/product-filters --></div>
 <!-- /wp:column -->
 
-<!-- wp:column {"width":"78%","metadata":{"name":"Product Grid Column"},"style":{"spacing":{"blockGap":"var:preset|spacing|30"}}} -->
-<div class="wp-block-column" style="flex-basis:78%"><!-- wp:woocommerce/product-results-count {"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|20"}}},"fontSize":"300"} /-->
+<!-- wp:column {"metadata":{"name":"Product Grid Column"},"style":{"spacing":{"blockGap":"var:preset|spacing|30"}}} -->
+<div class="wp-block-column"><!-- wp:woocommerce/product-results-count {"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|20"}}},"fontSize":"300"} /-->
 
 <!-- wp:woocommerce/product-collection {"queryId":0,"query":{"woocommerceAttributes":[],"woocommerceStockStatus":["instock","outofstock","onbackorder"],"taxQuery":[],"isProductCollectionBlock":true,"perPage":8,"pages":0,"offset":0,"postType":"product","order":"asc","orderBy":"title","author":"","search":"","exclude":[],"sticky":"","inherit":true,"featured":false,"woocommerceOnSale":false,"woocommerceHandPickedProducts":[],"filterable":true,"relatedBy":{"categories":true,"tags":true}},"tagName":"div","displayLayout":{"type":"flex","columns":4,"shrinkColumns":true},"dimensions":{"widthType":"fill","fixedWidth":""},"queryContextIncludes":["collection"],"forcePageReload":true,"__privatePreviewState":{"isPreview":false,"previewMessage":"Actual products will vary depending on the page being viewed."},"align":"wide"} -->
 <div class="wp-block-woocommerce-product-collection alignwide"><!-- wp:woocommerce/product-template -->
