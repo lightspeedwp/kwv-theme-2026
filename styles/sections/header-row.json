@@ -31,6 +31,6 @@
 				}
 			}
 		},
-		"css": "& { padding-left: var(--wp--style--root--padding-left) !important; padding-right: var(--wp--style--root--padding-right) !important; }"
+		"css": "& { padding-left: calc(var(--wp--style--root--padding-left) + 1em) !important; padding-right: calc(var(--wp--style--root--padding-right) + 1em) !important; }"
 	}
 }
