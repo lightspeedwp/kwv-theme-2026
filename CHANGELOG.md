@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added (Events — "Accommodation nearby" and "Book now" routing, 2026-10-11)
+
+Client change request (quoted and approved separately). The data and rendering live in the **KWV Enhancements** plugin (new *Accommodation nearby* repeater on events and the dynamic `kwv/event-accommodation` block; see its CHANGELOG). The theme change is small:
+
+- **`patterns/template-single-event.php`**: places `<!-- wp:kwv/event-accommodation /-->` between the event body and the previous/next navigation. It renders an "Accommodation nearby" heading and a grid of cards, up to four per row and one column on phones, and outputs nothing for events without accommodation. The cards reuse the existing **Event Card** section style (`styles/sections/cards/event-card.json`) and **Image Hover Zoom**, so no new styles were needed.
+
+- **`patterns/template-single-event.php` — "Book now" per venue.** A Buttons block with four `is-style-cta` buttons under the event date/time, of which only one renders. Block Visibility's *Post Taxonomy → Brand* rule picks it: KWV Emporium → `/visit/kwv/`, Cathedral Cellar → `/visit/cellar/`, House of Fire → `/visit/fire/`, and *Post has no taxonomy terms* → `/visit/event-enquiry/` (the generic form for external events). Each button's URL is bound to the plugin's `kwv/event-booking-url` source, which appends `?event=` and `?event_url=` so the destination form pre-selects or pre-fills the event. The rules use term **slugs** (`has_term()` accepts slugs), so the file works on any environment. Dev's DB copy uses term **IDs** 272–274, the format the Block Visibility editor writes; if the client re-picks terms in the editor it saves IDs, which is fine.
+
+**On dev (database, not theme files):** the single-event page renders from DB template `single-kwv_event` (183000), which has diverged from this file (brand terms, icons, a Book now button, and no separator). The block has to be added there too, between the "Article Header" group and the "Event Navigation" group, or that DB template removed on theme deploy. Without the plugin active, the block renders nothing.
+
 ### Changed (Careers — "Read More" opens the job modal, 2026-10-11)
 
 Client change request (quoted and approved separately). The jobs-board behaviour lives in the **KWV Enhancements** plugin (`CareersModal`, LinkedIn Easy Apply field, simplified application form, notifications, expiry fix — see its CHANGELOG); the theme side is small:
