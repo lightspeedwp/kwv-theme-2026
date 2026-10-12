@@ -146,6 +146,18 @@
 .wp-block-group.kwv-hero-carousel > .is-style-header-transparent {
 	z-index: 3;
 	align-self: start;
+	/*
+	 * Match the side gutter of the featured-image heroes (Visit, History,
+	 * Careers). There the header sits inside a Cover, and core's default Cover
+	 * padding (`.wp-block-cover { padding: 1em }`) adds to the header's root
+	 * padding. Here the header is a direct child of the full-bleed carousel, so
+	 * that 1em has to be added explicitly. `!important` because the
+	 * header-transparent section style pins the horizontal padding to the root
+	 * padding with `!important` (which is also why the editor's padding control
+	 * has no effect on this group).
+	 */
+	padding-left: calc(var(--wp--style--root--padding-left) + 1em) !important;
+	padding-right: calc(var(--wp--style--root--padding-right) + 1em) !important;
 }
 
 /*
