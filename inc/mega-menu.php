@@ -29,6 +29,7 @@ const STORE       = 'kwv/megamenu';
 const MODULE_ID   = 'kwv-mega-menu';
 const STYLE_HANDLE = 'kwv-mega-menu';
 const PANEL_HANDLE = 'kwv-mega-menu-panel';
+const HOVER_HANDLE = 'kwv-mega-menu-hover';
 
 /**
  * Register the Interactivity API view module and the mega-menu stylesheet.
@@ -58,19 +59,21 @@ function register_assets() {
 add_action( 'init', __NAMESPACE__ . '\register_assets' );
 
 /**
- * Load the panel-height script, and only for the native-nav mega menu.
+ * Load the native-nav mega menu's scripts, and only for that variant.
  *
  * The nav variant's fold-out columns are absolutely positioned, so nothing in
  * flow can size the panel around them. assets/js/mega-menu-panel.js measures the
  * tallest column and publishes it as a custom property the stylesheet reads —
- * which is what keeps the panel fitting as the client adds categories. Gated on
- * the wrapper's own class, the same way the carousel scripts are gated, so the
- * shortcode variant and the other Ollie dropdowns don't pay for it.
+ * which is what keeps the panel fitting as the client adds categories.
+ * assets/js/mega-menu-hover.js keeps a column open until another row is hovered,
+ * so a short column opened from a low row can still be reached. Gated on the
+ * wrapper's own class, the same way the carousel scripts are gated, so the
+ * shortcode variant and the other Ollie dropdowns don't pay for them.
  *
  * @param string $block_content Rendered block HTML.
  * @return string Unchanged block HTML.
  */
-function enqueue_panel_script( $block_content ) {
+function enqueue_nav_scripts( $block_content ) {
 
 	if ( false === strpos( (string) $block_content, 'kwv-mega-menu-nav-wrap' ) ) {
 		return $block_content;
@@ -87,9 +90,20 @@ function enqueue_panel_script( $block_content ) {
 		)
 	);
 
+	wp_enqueue_script(
+		HOVER_HANDLE,
+		get_theme_file_uri( 'assets/js/mega-menu-hover.js' ),
+		array(),
+		\Kwv\asset_version( 'assets/js/mega-menu-hover.js' ),
+		array(
+			'in_footer' => true,
+			'strategy'  => 'defer',
+		)
+	);
+
 	return $block_content;
 }
-add_filter( 'render_block_ollie/mega-menu', __NAMESPACE__ . '\enqueue_panel_script' );
+add_filter( 'render_block_ollie/mega-menu', __NAMESPACE__ . '\enqueue_nav_scripts' );
 
 /**
  * Register the [kwv_mega_menu] shortcode.

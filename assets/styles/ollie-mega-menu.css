@@ -265,12 +265,14 @@
 }
 
 .is-style-mega-menu-nav .wp-block-navigation-item:hover,
-.is-style-mega-menu-nav .wp-block-navigation-item:focus-within {
+.is-style-mega-menu-nav .wp-block-navigation-item:focus-within,
+.is-style-mega-menu-nav .wp-block-navigation-item.is-kwv-open {
 	border-bottom-color: var(--wp--preset--color--brand-500);
 }
 
 .is-style-mega-menu-nav .wp-block-navigation-item:hover > .wp-block-navigation-item__content,
-.is-style-mega-menu-nav .wp-block-navigation-item:focus-within > .wp-block-navigation-item__content {
+.is-style-mega-menu-nav .wp-block-navigation-item:focus-within > .wp-block-navigation-item__content,
+.is-style-mega-menu-nav .wp-block-navigation-item.is-kwv-open > .wp-block-navigation-item__content {
 	color: var(--wp--preset--color--brand-600);
 	text-decoration: none !important;
 }
@@ -279,23 +281,35 @@
    Scoped to an OPEN panel (toggle aria-expanded="true") so these visibility
    overrides never fire while the panel is closed — otherwise they'd flip a
    column back to visibility:visible against the plugin's visibility:hidden
-   close, leaving it hit-testable and keyboard-focusable inside a "closed" menu. */
-[aria-expanded="true"] ~ .wp-block-ollie-mega-menu__menu-container .is-style-mega-menu-nav .wp-block-navigation-item:hover > .wp-block-navigation__submenu-container,
-[aria-expanded="true"] ~ .wp-block-ollie-mega-menu__menu-container .is-style-mega-menu-nav .wp-block-navigation-item:focus-within > .wp-block-navigation__submenu-container {
+   close, leaving it hit-testable and keyboard-focusable inside a "closed" menu.
+
+   These :hover rules are the no-JS fallback. Once assets/js/mega-menu-hover.js
+   marks the nav `has-hover-intent`, the open row's `is-kwv-open` class drives
+   the reveal instead (next rule), so a column stays open after the pointer
+   leaves its row and only closes when a sibling row is hovered. Pure :hover
+   dropped the column the moment the pointer crossed to it — co-planar columns
+   are top-aligned, so a low row's short column is never next to the row. */
+[aria-expanded="true"] ~ .wp-block-ollie-mega-menu__menu-container .is-style-mega-menu-nav:not(.has-hover-intent) .wp-block-navigation-item:hover > .wp-block-navigation__submenu-container,
+[aria-expanded="true"] ~ .wp-block-ollie-mega-menu__menu-container .is-style-mega-menu-nav:not(.has-hover-intent) .wp-block-navigation-item:focus-within > .wp-block-navigation__submenu-container {
+	visibility: visible;
+	opacity: 1;
+}
+
+[aria-expanded="true"] ~ .wp-block-ollie-mega-menu__menu-container .is-style-mega-menu-nav.has-hover-intent .wp-block-navigation-item.is-kwv-open > .wp-block-navigation__submenu-container {
 	visibility: visible;
 	opacity: 1;
 }
 
 /* Pre-open the first parent's column by default (only while the panel is open).
    Lives here (not in the block style) because WordPress strips :first-child out
-   of the css field. */
-[aria-expanded="true"] ~ .wp-block-ollie-mega-menu__menu-container .is-style-mega-menu-nav .wp-block-navigation__container > .wp-block-navigation-item:first-child > .wp-block-navigation__submenu-container {
+   of the css field. No-JS only — the hover script opens the first parent itself. */
+[aria-expanded="true"] ~ .wp-block-ollie-mega-menu__menu-container .is-style-mega-menu-nav:not(.has-hover-intent) .wp-block-navigation__container > .wp-block-navigation-item:first-child > .wp-block-navigation__submenu-container {
 	visibility: visible;
 	opacity: 1;
 }
 
 /* Hide the pre-opened first column once another parent is the one being hovered. */
-[aria-expanded="true"] ~ .wp-block-ollie-mega-menu__menu-container .is-style-mega-menu-nav .wp-block-navigation__container:hover > .wp-block-navigation-item:first-child:not(:hover):not(:focus-within) > .wp-block-navigation__submenu-container {
+[aria-expanded="true"] ~ .wp-block-ollie-mega-menu__menu-container .is-style-mega-menu-nav:not(.has-hover-intent) .wp-block-navigation__container:hover > .wp-block-navigation-item:first-child:not(:hover):not(:focus-within) > .wp-block-navigation__submenu-container {
 	visibility: hidden;
 	opacity: 0;
 }

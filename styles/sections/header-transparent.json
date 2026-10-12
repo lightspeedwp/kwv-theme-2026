@@ -23,6 +23,6 @@
 				}
 			}
 		},
-		"css": "& { padding-left: var(--wp--style--root--padding-left) !important; padding-right: var(--wp--style--root--padding-right) !important; }"
+		"css": "& { padding-left: var(--wp--style--root--padding-left) !important; padding-right: var(--wp--style--root--padding-right) !important; border-image-source: linear-gradient(to top, var(--wp--preset--color--brand-200) 1px, color-mix(in srgb, var(--wp--preset--color--contrast) 30%, transparent) 1px); border-image-slice: 0 fill; border-image-width: 0; border-image-outset: 0 100vw; }"
 	}
 }
