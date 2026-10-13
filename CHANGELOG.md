@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed (Client review — header side padding, 2026-10-13)
+
+- **More header side padding, all headers.** Client asked for the logo to sit a little further from the viewport edge on every header. New `theme.json` token `settings.custom.spacing.header-inset` (`spacing|20`, 14–20px → `--wp--custom--spacing--header-inset`) is added on top of each header's existing gutter, so there is one knob to tune: `header-row.json` and the homepage carousel header (`carousel-block.css`) go from `root + 1em` to `root + 1em + inset`; `header-transparent.json` goes from `root` to `root + inset` (on the Cover heroes the Cover's own 1em still adds, so it lands on the same total as the homepage); `header-dark.json` (single post / event) goes from bare `root` — the one header that never got the 1em — to `root + 1em + inset`, matching the rest. Net at 1440: ~36px → ~56px from the edge (dark header: 20px → ~56px).
+
 ### Changed (Client review — transparent header overlay, header spacing, sticky mega menu, 2026-10-12)
 
 Approved change-request extension.

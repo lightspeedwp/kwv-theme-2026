@@ -214,7 +214,8 @@
 				"button": {
 					"padding-horizontal": "clamp(32px, 14vw, 48px)",
 					"padding-vertical": "clamp(14px, 10vw, 18px)"
-				}
+				},
+				"header-inset": "var(--wp--preset--spacing--20)"
 			}
 		},
 		"layout": {

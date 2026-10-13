@@ -156,8 +156,8 @@
 	 * padding with `!important` (which is also why the editor's padding control
 	 * has no effect on this group).
 	 */
-	padding-left: calc(var(--wp--style--root--padding-left) + 1em) !important;
-	padding-right: calc(var(--wp--style--root--padding-right) + 1em) !important;
+	padding-left: calc(var(--wp--style--root--padding-left) + 1em + var(--wp--custom--spacing--header-inset)) !important;
+	padding-right: calc(var(--wp--style--root--padding-right) + 1em + var(--wp--custom--spacing--header-inset)) !important;
 }
 
 /*
