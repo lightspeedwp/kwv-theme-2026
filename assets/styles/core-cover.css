@@ -7,6 +7,30 @@
 	}
 }
 
+/* Featured-image heroes (Visit Us, History, Careers) — the transparent header
+   sits inside the Cover and the Cover is top-anchored, so any spare height
+   (min-height 600/720px) pooled *below* the title and pushed it up. Make the
+   inner container fill the Cover as a column and push everything after the
+   header to the bottom, so the title sits the same distance from the hero's
+   bottom edge as the homepage slides (~85–95px desktop, 74px mobile).
+--------------------------------------------- */
+
+.wp-block-cover:has(> .wp-block-cover__inner-container > .is-style-header-transparent) > .wp-block-cover__inner-container {
+	display: flex;
+	flex-direction: column;
+	align-self: stretch;
+}
+
+.wp-block-cover__inner-container > .is-style-header-transparent + * {
+	margin-top: auto;
+}
+
+@media (min-width: 782px) {
+	.wp-block-cover:has(> .wp-block-cover__inner-container > .is-style-header-transparent) > .wp-block-cover__inner-container {
+		padding-bottom: var(--wp--preset--spacing--90);
+	}
+}
+
 /* Scroll-down indicator — used by the kwv/home-hero pattern.
    Bottom-right of the hero, aligned to the wide content edge,
    clamped 40px in from the right and bottom. Pure CSS chevron,

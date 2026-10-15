@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed (Hero title position — Visit Us, History, Careers, 2026-10-15)
+
+- **Hero titles sat too high.** On the featured-image heroes the transparent header sits inside a top-anchored Cover, so the Cover's spare `min-height` collected under the title (~158px gap at 1440 against ~87px on the homepage). `assets/styles/core-cover.css` now makes the Cover's inner container a full-height column, pushes the content after the header to the bottom, and adds `spacing|90` bottom padding from 782px up. Measured on dev with the CSS injected: 93px at 1024/1440/1920 (homepage 85–97px) and 74px at 390 (homepage 74px). The Careers title moves up about 56px to the same line.
+
 ### Changed (Visit Us — venue carousels, 2026-10-15)
 
 Copy from *Website Feedback R6*; images from the *Visit Us Assets* pack.
