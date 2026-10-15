@@ -21,6 +21,12 @@
 	align-self: stretch;
 }
 
+/* As flex items, the auto side margins of the constrained layout would
+   shrink-wrap and centre the wide content groups; keep them full width. */
+.wp-block-cover:has(> .wp-block-cover__inner-container > .is-style-header-transparent) > .wp-block-cover__inner-container > .alignwide {
+	width: 100%;
+}
+
 .wp-block-cover__inner-container > .is-style-header-transparent + * {
 	margin-top: auto;
 }
