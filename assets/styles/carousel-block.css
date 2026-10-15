@@ -323,3 +323,115 @@
 	object-fit: cover;
 	aspect-ratio: 719 / 500;
 }
+
+/* Visit venue carousels — kwv/visit-venues
+--------------------------------------------- */
+
+/**
+ * Each venue on Visit Us (KWV Emporium, Cathedral Cellar, House of Fire) is a
+ * one-slide-at-a-time `cb/carousel-v2` of image/text column slides. Arrows on,
+ * dots off and no autoplay are all block settings; this only places the arrows.
+ *
+ * Desktop: the carousel is padded in from the alignwide edges by a gutter on
+ * each side and the arrows sit centred in those gutters, beside the slide
+ * rather than over it.
+ *
+ * Phones (≤781px, where core stacks the columns): no side gutters, so the
+ * slide gets the full width, and the arrows drop into a strip beneath it as a
+ * centred pair.
+ *
+ * Driven through the plugin's custom properties where it has them, as with
+ * the brand rows above.
+ */
+
+.wp-block-cb-carousel-v2.kwv-venue-carousel {
+	--wp--custom--carousel-block--navigation-size: var( --wp--preset--spacing--30 );
+	--wp--custom--carousel-block--navigation-color: var( --wp--preset--color--neutral-800 );
+	--wp--custom--carousel-block--navigation-hover-color: var( --wp--preset--color--neutral-900 );
+
+	/* Arrow hit area — larger than the glyph so it stays an easy tap target. */
+	--kwv-venue-nav-hit: var( --wp--preset--spacing--50 );
+
+	/* Space reserved either side of the slide for the arrows. */
+	--kwv-venue-nav-gutter: var( --wp--preset--spacing--80 );
+
+	padding-inline: var( --kwv-venue-nav-gutter );
+}
+
+/*
+ * Slides share the tallest slide's height, so the section doesn't jump, and
+ * shorter slides centre their columns in that height rather than riding up.
+ */
+.wp-block-cb-carousel-v2.kwv-venue-carousel .cb-slide {
+	display: flex;
+	align-items: center;
+	height: auto;
+}
+
+.wp-block-cb-carousel-v2.kwv-venue-carousel .cb-slide > .wp-block-columns {
+	flex: 1;
+}
+
+/*
+ * Every slide image fills its column at the same 3:2, whatever its source
+ * size — otherwise a smaller upload renders at its natural width and the
+ * slides don't line up as you page through.
+ */
+.wp-block-cb-carousel-v2.kwv-venue-carousel .wp-block-image img {
+	width: 100%;
+}
+
+.wp-block-cb-carousel-v2.kwv-venue-carousel .cb-button-prev,
+.wp-block-cb-carousel-v2.kwv-venue-carousel .cb-button-next {
+	width: var( --kwv-venue-nav-hit );
+	height: var( --kwv-venue-nav-hit );
+	margin-top: calc( var( --kwv-venue-nav-hit ) / -2 );
+}
+
+.wp-block-cb-carousel-v2.kwv-venue-carousel .cb-button-prev::after,
+.wp-block-cb-carousel-v2.kwv-venue-carousel .cb-button-next::after {
+	-webkit-text-stroke: 0.04em currentColor;
+	text-stroke: 0.04em currentColor;
+}
+
+/* Centred in the side gutters. */
+.wp-block-cb-carousel-v2.kwv-venue-carousel .cb-button-prev {
+	left: calc( ( var( --kwv-venue-nav-gutter ) - var( --kwv-venue-nav-hit ) ) / 2 );
+	right: auto;
+}
+
+.wp-block-cb-carousel-v2.kwv-venue-carousel .cb-button-next {
+	left: auto;
+	right: calc( ( var( --kwv-venue-nav-gutter ) - var( --kwv-venue-nav-hit ) ) / 2 );
+}
+
+.wp-block-cb-carousel-v2.kwv-venue-carousel .cb-button-prev:focus-visible,
+.wp-block-cb-carousel-v2.kwv-venue-carousel .cb-button-next:focus-visible {
+	outline: 2px solid var( --wp--preset--color--brand-500 );
+	outline-offset: 2px;
+}
+
+@media (max-width: 781px) {
+	.wp-block-cb-carousel-v2.kwv-venue-carousel {
+		/* Gap between the pair of arrows beneath the slide. */
+		--kwv-venue-nav-gap: var( --wp--preset--spacing--20 );
+
+		padding-inline: 0;
+		padding-block-end: calc( var( --kwv-venue-nav-hit ) + var( --wp--preset--spacing--30 ) );
+	}
+
+	.wp-block-cb-carousel-v2.kwv-venue-carousel .cb-button-prev,
+	.wp-block-cb-carousel-v2.kwv-venue-carousel .cb-button-next {
+		top: auto;
+		bottom: 0;
+		margin-top: 0;
+	}
+
+	.wp-block-cb-carousel-v2.kwv-venue-carousel .cb-button-prev {
+		left: calc( 50% - var( --kwv-venue-nav-hit ) - var( --kwv-venue-nav-gap ) / 2 );
+	}
+
+	.wp-block-cb-carousel-v2.kwv-venue-carousel .cb-button-next {
+		right: calc( 50% - var( --kwv-venue-nav-hit ) - var( --kwv-venue-nav-gap ) / 2 );
+	}
+}
