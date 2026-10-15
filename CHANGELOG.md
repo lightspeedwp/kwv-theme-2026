@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed (Visit Us — venue carousels, 2026-10-15)
+
+Copy from *Website Feedback R6*; images from the *Visit Us Assets* pack.
+
+- **`patterns/visit-venues.php`** — each venue (KWV Emporium, Cathedral Cellar, House of Fire) is now a single-slide `cb/carousel-v2` instead of one static image/text row. Slide 1 keeps the venue's existing title, copy, and Book / Menu buttons. The later slides add the tours and tastings: Emporium has 4 slides, Cathedral Cellar 3, House of Fire 3. Every slide keeps the same alternating column order, section style, and Book / Menu buttons. Slide titles are `h3`s under the venue `h2`, styled to match it. The carousel uses arrows only: no dots, no autoplay, no loop. These are block settings, so they can still be changed in the editor. The pattern now matches dev's newer copy and button markup: `is-style-cta` buttons, `/visit/{kwv,cellar,fire}` booking links, and the Popup Maker "Menu" popups 182953–182955. The image IDs/URLs and popup IDs are dev DB entities and must be remapped on production.
+- **`assets/styles/carousel-block.css`** — new `.kwv-venue-carousel` block. On desktop the carousel is padded in by a `spacing|80` gutter on each side, with the arrows centred in it beside the slide. At ≤781px, where the columns stack, the gutters drop away and the arrows become a centred pair beneath the slide. The arrow hit area is `spacing|50` (33–50px). Slides share the tallest slide's height and centre their columns in it. Slide images fill their column at 3:2.
+- **Dev:** the three venue sections of the DB page override `/visit/` (30587) were replaced with the same markup (byte-checked against the pattern output). Backup is in option `kwv_backup_visit_30587_20261015`. New media: 183708–183716. The CSS above reaches dev on the next theme deploy. Until then the carousels work there, but the arrows sit at the plugin's default position.
+
 ### Changed (Client review — header side padding, 2026-10-13)
 
 - **More header side padding, all headers.** Client asked for the logo to sit a little further from the viewport edge on every header. New `theme.json` token `settings.custom.spacing.header-inset` (`spacing|20`, 14–20px → `--wp--custom--spacing--header-inset`) is added on top of each header's existing gutter, so there is one knob to tune: `header-row.json` and the homepage carousel header (`carousel-block.css`) go from `root + 1em` to `root + 1em + inset`; `header-transparent.json` goes from `root` to `root + inset` (on the Cover heroes the Cover's own 1em still adds, so it lands on the same total as the homepage); `header-dark.json` (single post / event) goes from bare `root` — the one header that never got the 1em — to `root + 1em + inset`, matching the rest. Net at 1440: ~36px → ~56px from the edge (dark header: 20px → ~56px).
