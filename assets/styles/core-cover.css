@@ -27,6 +27,15 @@
 	width: 100%;
 }
 
+/* Hero content inset: root padding + spacing|20 (~28–30px from the viewport
+   edge below the wide size) on the homepage slides and the featured-image
+   heroes alike. The Covers themselves carry no side padding. */
+.kwv-hero-carousel .wp-block-cover__inner-container > .alignwide,
+.wp-block-cover:has(> .wp-block-cover__inner-container > .is-style-header-transparent) > .wp-block-cover__inner-container > .alignwide {
+	padding-left: var(--wp--preset--spacing--20);
+	padding-right: var(--wp--preset--spacing--20);
+}
+
 .wp-block-cover__inner-container > .is-style-header-transparent + * {
 	margin-top: auto;
 }
