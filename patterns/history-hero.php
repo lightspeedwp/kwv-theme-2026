@@ -7,7 +7,10 @@
  * Keywords: history, hero, cover, heritage, legacy, banner
  * Viewport Width: 1500
  * Inserter: true
+ *
+ * @package kwv
  */
+
 ?>
 <!-- wp:cover {"url":"http://localhost:8901/wp-content/uploads/2026/06/home-hero-image-full.png","dimRatio":40,"overlayColor":"contrast","isUserOverlayColor":true,"focalPoint":{"x":0.5,"y":0.4},"minHeight":720,"minHeightUnit":"px","contentPosition":"bottom left","sizeSlug":"full","align":"full","layout":{"type":"constrained"}} -->
 <div class="wp-block-cover alignfull has-custom-content-position is-position-bottom-left" style="min-height:720px"><img class="wp-block-cover__image-background size-full" alt="" src="http://localhost:8901/wp-content/uploads/2026/06/home-hero-image-full.png" style="object-position:50% 40%" data-object-fit="cover" data-object-position="50% 40%"/><span aria-hidden="true" class="wp-block-cover__background has-contrast-background-color has-background-dim-40 has-background-dim"></span><div class="wp-block-cover__inner-container"><!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"bottom":"var:preset|spacing|60"}}},"layout":{"type":"constrained","justifyContent":"left"}} -->

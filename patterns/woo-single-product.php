@@ -8,7 +8,10 @@
  * Template Types: single-product
  * Inserter: false
  * Viewport Width: 1500
+ *
+ * @package kwv
  */
+
 ?>
 
 <!-- wp:group {"tagName":"main","metadata":{"name":"Main Content"},"className":"is-style-light-page-section","layout":{"inherit":true,"type":"constrained"}} -->

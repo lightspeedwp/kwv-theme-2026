@@ -7,7 +7,10 @@
  * Keywords: winemaker, wine club, edition, bordeaux, inside the box, contents
  * Viewport Width: 1500
  * Inserter: true
+ *
+ * @package kwv
  */
+
 ?>
 <!-- wp:group {"metadata":{"name":"Edition Details"},"align":"full","className":"is-style-dark-page-section","layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull is-style-dark-page-section"><!-- wp:columns {"verticalAlignment":"top","align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|70"}}} -->

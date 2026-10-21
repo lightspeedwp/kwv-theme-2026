@@ -10,7 +10,10 @@
  * Post Types: wp_template
  * Inserter: false
  * Viewport Width: 1500
+ *
+ * @package kwv
  */
+
 ?>
 
 <!-- wp:group {"tagName":"main","align":"full","style":{"spacing":{"margin":{"top":"0"}}},"layout":{"type":"constrained"}} -->

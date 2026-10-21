@@ -9,6 +9,8 @@
  * Template Types: page
  * Post Types: wp_template
  * Inserter: false
+ *
+ * @package kwv
  */
 
 // The Careers hero embeds its own transparent header (like the home hero), so

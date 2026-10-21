@@ -10,7 +10,10 @@
  * Post Types: wp_template
  * Inserter: false
  * Viewport Width: 1500
+ *
+ * @package kwv
  */
+
 ?>
 
 <!-- wp:group {"tagName":"main","metadata":{"name":"Search Results"},"align":"full","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|80","bottom":"var:preset|spacing|80"},"blockGap":"var:preset|spacing|60"}},"layout":{"type":"constrained"}} -->

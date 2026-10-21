@@ -7,6 +7,8 @@
  * Keywords: history, timeline, carousel, milestone, years, heritage, slider, lightbox
  * Viewport Width: 1500
  * Inserter: true
+ *
+ * @package kwv
  */
 
 /*

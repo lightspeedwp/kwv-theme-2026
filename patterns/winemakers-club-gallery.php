@@ -7,7 +7,10 @@
  * Keywords: winemaker, wine club, gallery, images, photos
  * Viewport Width: 1500
  * Inserter: true
+ *
+ * @package kwv
  */
+
 ?>
 <!-- wp:columns {"align":"full","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|20","left":"var:preset|spacing|20"},"margin":{"top":"0","bottom":"0"}}}} -->
 <div class="wp-block-columns alignfull" style="margin-top:0;margin-bottom:0"><!-- wp:column -->

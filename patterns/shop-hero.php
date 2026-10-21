@@ -9,6 +9,8 @@
  * Template Types: archive-product, taxonomy-product_cat
  * Inserter: true
  * Viewport Width: 1500
+ *
+ * @package kwv
  */
 
 $kwv_hero    = get_posts(

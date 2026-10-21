@@ -7,7 +7,10 @@
  * Keywords: winemaker, wine club, hero, selection, membership
  * Viewport Width: 1500
  * Inserter: true
+ *
+ * @package kwv
  */
+
 ?>
 <!-- wp:cover {"url":"/wp-content/uploads/2026/06/wineclub-hero-bg.png","dimRatio":40,"overlayColor":"contrast","isUserOverlayColor":true,"focalPoint":{"x":0.5,"y":0.4},"minHeight":760,"minHeightUnit":"px","contentPosition":"center center","align":"full","layout":{"type":"constrained"}} -->
 <div class="wp-block-cover alignfull has-custom-content-position is-position-center-center" style="min-height:760px"><img class="wp-block-cover__image-background size-full" alt="" src="/wp-content/uploads/2026/06/wineclub-hero-bg.png" style="object-position:50% 40%" data-object-fit="cover" data-object-position="50% 40%"/><span aria-hidden="true" class="wp-block-cover__background has-contrast-background-color has-background-dim-40 has-background-dim"></span>

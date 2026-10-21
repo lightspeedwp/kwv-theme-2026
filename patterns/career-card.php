@@ -8,7 +8,10 @@
  * Block Types: core/post-template
  * Viewport Width: 1200
  * Inserter: true
+ *
+ * @package kwv
  */
+
 ?>
 <!-- wp:columns {"verticalAlignment":"center","className":"is-style-career-card","style":{"spacing":{"blockGap":{"left":"var:preset|spacing|40"}},"border":{"bottom":{"color":"var:preset|color|neutral-100","width":"1px"},"top":{},"right":{},"left":{}}}} -->
 <div class="wp-block-columns are-vertically-aligned-center is-style-career-card" style="border-bottom-color:var(--wp--preset--color--neutral-100);border-bottom-width:1px"><!-- wp:column {"verticalAlignment":"center","width":"50%"} -->

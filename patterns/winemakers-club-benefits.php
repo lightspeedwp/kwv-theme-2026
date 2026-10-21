@@ -7,7 +7,10 @@
  * Keywords: winemaker, wine club, benefits, membership, sign up, boxes
  * Viewport Width: 1500
  * Inserter: true
+ *
+ * @package kwv
  */
+
 ?>
 <!-- wp:group {"metadata":{"name":"Benefits"},"align":"full","className":"is-style-light-page-section","layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull is-style-light-page-section"><!-- wp:columns {"verticalAlignment":"center","align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|70"}}} -->

@@ -9,7 +9,10 @@
  * Block Types: core/post-template
  * Post Types: post
  * Inserter: true
+ *
+ * @package kwv
  */
+
 ?>
 <!-- wp:group {"metadata":{"name":"Blog Card"},"className":"is-style-blog-card","style":{"spacing":{"blockGap":"0"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch"}} -->
 <div class="wp-block-group is-style-blog-card">

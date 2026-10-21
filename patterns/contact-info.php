@@ -9,7 +9,10 @@
  * Post Types: page
  * Viewport Width: 1500
  * Inserter: true
+ *
+ * @package kwv
  */
+
 ?>
 <!-- wp:group {"metadata":{"name":"Contact Info Directory"},"align":"full","className":"is-style-tinted-page-section","layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull is-style-tinted-page-section"><!-- wp:columns {"align":"wide","className":"kwv-contact-directory","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|40","left":"var:preset|spacing|50"}}}} -->

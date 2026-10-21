@@ -9,6 +9,8 @@
  * Post Types: page
  * Viewport Width: 1500
  * Inserter: true
+ *
+ * @package kwv
  */
 
 // Inline each History section pattern. WordPress does not resolve a `wp:pattern`

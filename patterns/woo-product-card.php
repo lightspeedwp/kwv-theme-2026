@@ -8,7 +8,10 @@
  * Block Types: core/query/woocommerce/product-query 
  * Inserter: false
  * Viewport Width: 600
+ *
+ * @package kwv
  */
+
 ?>
 <!-- wp:group {"metadata":{"name":"Product Card"},"className":"kwv-product-button-hover","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"constrained"}} -->
 	<div class="wp-block-group kwv-product-button-hover">

@@ -7,6 +7,8 @@
  * Keywords: history, archives, news, grid, gallery, cards, read more
  * Viewport Width: 1500
  * Inserter: true
+ *
+ * @package kwv
  */
 
 /* Four archive cards, built from a local table (see history-timeline.php). */

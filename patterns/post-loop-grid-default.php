@@ -9,7 +9,10 @@
  * Block Types: core/query
  * Post Types: 
  * Inserter: false
+ *
+ * @package kwv
  */
+
 ?>
 <!-- wp:query {"query":{"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":true,"taxQuery":null,"parents":[]},"align":"full","layout":{"type":"default"}} -->
 	<div class="wp-block-query alignfull">

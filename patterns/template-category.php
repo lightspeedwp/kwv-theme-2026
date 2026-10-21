@@ -10,6 +10,8 @@
  * Post Types: wp_template
  * Inserter: false
  * Viewport Width: 1500
+ *
+ * @package kwv
  */
 
 $kwv_hero_image = esc_url( get_theme_file_uri( 'assets/images/wine-hero.png' ) );

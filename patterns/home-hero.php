@@ -7,6 +7,8 @@
  * Keywords: hero, cover, banner, header, transparent, scroll, landing, carousel, slider, slideshow
  * Viewport Width: 1500
  * Inserter: true
+ *
+ * @package kwv
  */
 
 ?>

@@ -8,7 +8,10 @@
  * Template Types: archive-product, taxonomy-product_cat, taxonomy-product_brand
  * Inserter: false
  * Viewport Width: 1500
+ *
+ * @package kwv
  */
+
 ?>
 
 <!-- wp:group {"tagName":"main","metadata":{"name":"Main Content"},"style":{"spacing":{"margin":{"top":"0","bottom":"0"},"blockGap":"0"}},"layout":{"inherit":true,"type":"constrained"}} -->

@@ -9,7 +9,10 @@
  * Block Types: core/template-part/header
  * Post Types: wp_template
  * Inserter: true
+ *
+ * @package kwv
  */
+
 ?>
 <!-- wp:group {"metadata":{"name":"Header — Dark"},"align":"full","className":"is-style-header-dark","layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull is-style-header-dark">

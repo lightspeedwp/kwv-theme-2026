@@ -9,7 +9,10 @@
  * Block Types: core/template-part/header
  * Post Types: wp_template
  * Inserter: true
+ *
+ * @package kwv
  */
+
 ?>
 <!-- wp:group {"metadata":{"name":"Header Transparent","patternName":"kwv/header-transparent","description":"Transparent header with logo, navigation, account and cart — sits over large hero sections.","categories":["header"]},"align":"full","className":"is-style-header-transparent","style":{"border":{"bottom":{"color":"var:preset|color|brand-200","width":"1px"},"top":{},"right":{},"left":{}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull is-style-header-transparent" style="border-bottom-color:var(--wp--preset--color--brand-200);border-bottom-width:1px"><!-- wp:group {"align":"wide","style":{"elements":{"link":{"color":{"text":"var:preset|color|base"}}}},"textColor":"base","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between","verticalAlignment":"center"}} -->

@@ -7,7 +7,10 @@
  * Keywords: careers, hero, cover, banner, header, transparent, scroll
  * Viewport Width: 1500
  * Inserter: true
+ *
+ * @package kwv
  */
+
 ?>
 <!-- wp:cover {"url":"http://localhost:8901/wp-content/uploads/2026/06/home-hero-image-full.png","id":145,"dimRatio":20,"overlayColor":"contrast","isUserOverlayColor":true,"focalPoint":{"x":0.3,"y":0.5},"minHeight":600,"minHeightUnit":"px","contentPosition":"top center","sizeSlug":"full","align":"full","className":"is-style-default","style":{"spacing":{"padding":{"top":"var:preset|spacing|0","right":"var:preset|spacing|0","bottom":"var:preset|spacing|0","left":"var:preset|spacing|0"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-cover alignfull has-custom-content-position is-position-top-center is-style-default"

@@ -8,6 +8,8 @@
  * Template Types: archive-product, taxonomy-product_cat, taxonomy-product_brand
  * Inserter: false
  * Viewport Width: 1500
+ *
+ * @package kwv
  */
 
 // The image src baked below is the shared fallback (the shop-hero-image

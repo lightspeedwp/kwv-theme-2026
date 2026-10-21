@@ -7,6 +7,8 @@
  * Keywords: careers, team, winemakers, people, staff, cards
  * Viewport Width: 1500
  * Inserter: true
+ *
+ * @package kwv
  */
 
 $kwv_careers_team = array(

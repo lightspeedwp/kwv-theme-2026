@@ -7,7 +7,10 @@
  * Keywords: careers, positions, jobs, vacancies, query, loop
  * Viewport Width: 1500
  * Inserter: true
+ *
+ * @package kwv
  */
+
 ?>
 <!-- wp:group {"metadata":{"name":"Careers Available Positions"},"anchor":"positions","align":"full","className":"is-style-light-page-section","layout":{"type":"constrained"}} -->
 <div id="positions" class="wp-block-group alignfull is-style-light-page-section"><!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|50"}},"layout":{"type":"default"}} -->

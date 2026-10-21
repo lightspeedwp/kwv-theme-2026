@@ -7,7 +7,10 @@
  * Keywords: visit, hero, banner, brandy, emporium
  * Viewport Width: 1500
  * Inserter: true
+ *
+ * @package kwv
  */
+
 ?>
 <!-- wp:cover {"url":"https://kwv.lightspeedwp.dev/wp-content/uploads/2026/07/home-hero-image-full.png","id":182362,"dimRatio":25,"overlayColor":"contrast","isUserOverlayColor":true,"focalPoint":{"x":0.6,"y":0.5},"minHeight":600,"minHeightUnit":"px","contentPosition":"center center","align":"full","layout":{"type":"constrained"}} -->
 <div class="wp-block-cover alignfull has-custom-content-position is-position-center-center" style="min-height:600px"><img class="wp-block-cover__image-background wp-image-182362 size-full" alt="<?php esc_attr_e( 'KWV Twenty XXO brandy on a barrel in the KWV cellar', 'kwv' ); ?>" src="https://kwv.lightspeedwp.dev/wp-content/uploads/2026/07/home-hero-image-full.png" style="object-position:60% 50%" data-object-fit="cover" data-object-position="60% 50%"/><span aria-hidden="true" class="wp-block-cover__background has-contrast-background-color has-background-dim-25 has-background-dim"></span>

@@ -8,7 +8,10 @@
  * Template Types: coming-soon
  * Inserter: false
  * Viewport Width: 1500
+ *
+ * @package kwv
  */
+
 ?>
 <!-- wp:woocommerce/coming-soon {"storeOnly":true,"className":"woocommerce-coming-soon-store-only"} -->
 <div class="wp-block-woocommerce-coming-soon woocommerce-coming-soon-store-only">

@@ -7,7 +7,10 @@
  * Keywords: faq, questions, grid, intro, kwv
  * Viewport Width: 1500
  * Inserter: true
+ *
+ * @package kwv
  */
+
 ?>
 <!-- wp:group {"metadata":{"name":"FAQ Intro Grid"},"align":"full","className":"is-style-light-page-section","layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull is-style-light-page-section"><!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|80"}},"layout":{"type":"constrained"}} -->

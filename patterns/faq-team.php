@@ -7,6 +7,8 @@
  * Keywords: faq, team, winemakers, people, staff, cards
  * Viewport Width: 1500
  * Inserter: true
+ *
+ * @package kwv
  */
 
 $kwv_faq_team = array(

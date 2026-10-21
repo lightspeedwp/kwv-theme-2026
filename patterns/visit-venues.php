@@ -17,7 +17,10 @@
  * IDs/URLs and the Popup Maker "Menu" popups (182953 Emporium, 182954 Cathedral
  * Cellar, 182955 House of Fire) are DB entities and must be remapped on
  * production.
+ *
+ * @package kwv
  */
+
 ?>
 <!-- wp:group {"tagName":"section","metadata":{"name":"Visit — KWV Emporium"},"align":"full","className":"is-style-light-page-section","layout":{"type":"constrained"}} -->
 <section class="wp-block-group alignfull is-style-light-page-section"><!-- wp:cb/carousel-v2 {"slidesPerView":1,"spaceBetween":40,"speed":500,"pagination":false,"resizeObserver":true,"align":"wide","className":"kwv-venue-carousel"} -->

@@ -8,6 +8,8 @@
  * Keywords: post, single, blog, news, article
  * Viewport Width: 1500
  * Inserter: true
+ *
+ * @package kwv
  */
 
 $kwv_news_url = get_option( 'page_for_posts' )

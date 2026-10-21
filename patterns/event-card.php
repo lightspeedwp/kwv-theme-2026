@@ -9,7 +9,10 @@
  * Block Types: core/post-template
  * Post Types: kwv_event
  * Inserter: true
+ *
+ * @package kwv
  */
+
 ?>
 <!-- wp:group {"metadata":{"name":"Event Card"},"className":"is-style-event-card","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch"}} -->
 <div class="wp-block-group is-style-event-card">

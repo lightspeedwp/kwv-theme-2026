@@ -8,7 +8,10 @@
  * Keywords: event, single, visit, tour, upcoming
  * Viewport Width: 1500
  * Inserter: true
+ *
+ * @package kwv
  */
+
 ?>
 
 <!-- wp:group {"tagName":"main","metadata":{"name":"Article"},"align":"full","className":"is-style-light-page-section","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"blockGap":"var:preset|spacing|70"}},"layout":{"type":"constrained","contentSize":"1100px","wideSize":"1520px"}} -->

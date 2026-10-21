@@ -9,7 +9,10 @@
  * Block Types: core/post-template
  * Post Types: post
  * Inserter: true
+ *
+ * @package kwv
  */
+
 ?>
 <!-- wp:group {"metadata":{"name":"Blog Card Large"},"className":"is-style-blog-card-large","style":{"spacing":{"margin":{"bottom":"var:preset|spacing|60"},"padding":{"bottom":"var:preset|spacing|40"}},"border":{"bottom":{"color":"var:preset|color|brand-500","width":"1px"}}},"layout":{"type":"default"}} -->
 <div class="wp-block-group is-style-blog-card-large" style="border-bottom-color:var(--wp--preset--color--brand-500);border-bottom-width:1px;margin-bottom:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--40)"><!-- wp:columns {"verticalAlignment":"top","style":{"spacing":{"blockGap":{"left":"var:preset|spacing|50"}}}} -->

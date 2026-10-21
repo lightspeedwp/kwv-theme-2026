@@ -9,6 +9,8 @@
  * Post Types: page
  * Viewport Width: 1500
  * Inserter: true
+ *
+ * @package kwv
  */
 
 // Inline each FAQ section pattern. WordPress does not resolve a `wp:pattern`

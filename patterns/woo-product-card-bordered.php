@@ -8,7 +8,10 @@
  * Block Types: core/query/woocommerce/product-query
  * Inserter: false
  * Viewport Width: 600
+ *
+ * @package kwv
  */
+
 ?>
 <!-- wp:group {"metadata":{"name":"KWV Product Card"},"className":"is-style-product-card","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","verticalAlignment":"top"}} -->
 <div class="wp-block-group is-style-product-card">

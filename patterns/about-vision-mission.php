@@ -7,7 +7,10 @@
  * Keywords: about, vision, mission, dark, statement
  * Viewport Width: 1500
  * Inserter: true
+ *
+ * @package kwv
  */
+
 ?>
 <!-- wp:group {"metadata":{"name":"Vision & Mission"},"align":"full","className":"is-style-dark-page-section","layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull is-style-dark-page-section"><!-- wp:group {"align":"wide","className":"is-style-section-header","layout":{"type":"constrained"}} -->

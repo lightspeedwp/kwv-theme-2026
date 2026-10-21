@@ -9,7 +9,10 @@
  * Template Types: page
  * Post Types: wp_template
  * Inserter: false
+ *
+ * @package kwv
  */
+
 ?>
 
 <!-- wp:group {"tagName":"main","align":"full","style":{"spacing":{"margin":{"top":"0"}}},"layout":{"type":"constrained"}} -->
