@@ -157,7 +157,7 @@
    styles/blocks/button/add-to-cart.json for core/button + add-to-cart-with-options.
 
    Design: a black "button" plate (rounded only bottom-left, matching the card
-   corner) + a spacing-20 gap + a static gold circular 44px "+" icon. On hover the
+   corner) + a spacing-20 gap + a static gold circular 50px "+" icon. On hover the
    plate flips — background to base, border and text to contrast — icon static. */
 .is-style-product-card .wc-block-components-product-button.is-style-add-to-cart {
 	position: relative;
@@ -182,9 +182,9 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	/* Same height as the 44px "+" icon: the height is set directly and the
+	/* Same height as the 50px "+" icon: the height is set directly and the
 	   global vertical button padding is dropped, so the two always match. */
-	min-height: 44px;
+	min-height: 50px;
 	padding-block: 0;
 	padding-inline: var(--wp--preset--spacing--10);
 	background-color: var(--wp--preset--color--contrast);
@@ -196,8 +196,8 @@
 	font-weight: var(--wp--custom--font-weight--semi-bold);
 	text-transform: uppercase;
 	letter-spacing: 0.075em;
-	/* Keep "Add to cart" on one line: in a 4-up grid the plate is only ~168px
-	   beside the 44px icon and its spacing-20 gap. */
+	/* Keep "Add to cart" on one line: in a 4-up grid the plate is only ~162px
+	   beside the 50px icon and its spacing-20 gap. */
 	white-space: nowrap;
 	transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
@@ -211,10 +211,10 @@
 
 .is-style-product-card .wc-block-components-product-button.is-style-add-to-cart::after {
 	content: "";
-	flex: 0 0 44px;
+	flex: 0 0 50px;
 	align-self: center;
-	width: 44px;
-	height: 44px;
+	width: 50px;
+	height: 50px;
 	background-color: var(--wp--preset--color--brand-500);
 	-webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2045%2045'%20fill='none'%3E%3Ccircle%20cx='22.5'%20cy='22.5'%20r='22'%20stroke='%23000'/%3E%3Cline%20x1='22.5'%20y1='6'%20x2='22.5'%20y2='39'%20stroke='%23000'/%3E%3Cline%20x1='5.5'%20y1='23'%20x2='38.5'%20y2='23'%20stroke='%23000'/%3E%3C/svg%3E") center / contain no-repeat;
 	mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2045%2045'%20fill='none'%3E%3Ccircle%20cx='22.5'%20cy='22.5'%20r='22'%20stroke='%23000'/%3E%3Cline%20x1='22.5'%20y1='6'%20x2='22.5'%20y2='39'%20stroke='%23000'/%3E%3Cline%20x1='5.5'%20y1='23'%20x2='38.5'%20y2='23'%20stroke='%23000'/%3E%3C/svg%3E") center / contain no-repeat;
