@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed (Product card Add to Cart wrapping, 2026-10-21)
+
+- **"Add to cart" wrapped to two lines on Shop and category grids.** In the 4-up grid at about 1440px, the black plate was only 154px wide beside the 52px "+" icon and its gap. It also had 20px side padding, while the label needs about 119px. `assets/styles/woocommerce-product-grid.css` now uses a 40px icon. The plate gets `min-height: 40px` and `padding-block: 0` so its height matches the icon (about 61px before). `white-space: nowrap` keeps the label on one line. The plate is now 166px at the tightest width, with about 31px to spare. The single-product page's 52px plate and icon (`woocommerce-single-product.css`) are unchanged.
+- **Dev:** the DB template part `product-card` (183572) had `spacing|30` side padding on the product button; it's now `spacing|10`. That alone stops the wrap on dev. The CSS above reaches dev on the next theme deploy. The dev→theme sync of parts should carry the `spacing|10` padding into the theme.
+
 ### Fixed (Hero title position — Visit Us, History, Careers, 2026-10-15)
 
 - **Hero titles sat too high.** On the featured-image heroes the transparent header sits inside a top-anchored Cover, so the Cover's spare `min-height` collected under the title (~158px gap at 1440 against ~87px on the homepage). `assets/styles/core-cover.css` now makes the Cover's inner container a full-height column, pushes the content after the header to the bottom, and adds `spacing|90` bottom padding from 782px up. The `alignwide` groups are kept at `width: 100%`; as flex items their auto side margins would otherwise shrink-wrap and centre the title. Hero content (homepage slides and these heroes) is inset by an extra `spacing|20` each side, so titles sit root + `spacing|20` (~28px at 390 and 1440) from the edge. This relies on the hero Covers having `spacing|0` side padding. Dev's Visit Us page (30587) still has core's default 1em and needs that set (backup in option `kwv_backup_page_30587_2026-10-15`). Measured on dev with the CSS injected: 93px at 1024/1440/1920 (homepage 85–97px) and 74px at 390 (homepage 74px). The Careers title moves up about 56px to the same line.

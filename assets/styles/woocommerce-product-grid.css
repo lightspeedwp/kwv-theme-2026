@@ -182,7 +182,10 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	min-height: 45px;
+	/* Plate height matches the 40px "+" icon; vertical padding is dropped so
+	   the global button padding doesn't push it taller. */
+	min-height: 40px;
+	padding-block: 0;
 	background-color: var(--wp--preset--color--contrast);
 	color: var(--wp--preset--color--base);
 	border: 1px solid var(--wp--preset--color--contrast);
@@ -192,6 +195,9 @@
 	font-weight: var(--wp--custom--font-weight--semi-bold);
 	text-transform: uppercase;
 	letter-spacing: 0.075em;
+	/* Keep "Add to cart" on one line: in a 4-up grid the plate is only ~166px
+	   beside the 40px icon. Side padding is spacing-10 on the block itself. */
+	white-space: nowrap;
 	transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
@@ -204,10 +210,10 @@
 
 .is-style-product-card .wc-block-components-product-button.is-style-add-to-cart::after {
 	content: "";
-	flex: 0 0 52px;
+	flex: 0 0 40px;
 	align-self: center;
-	width: 52px;
-	height: 52px;
+	width: 40px;
+	height: 40px;
 	background-color: var(--wp--preset--color--brand-500);
 	-webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2045%2045'%20fill='none'%3E%3Ccircle%20cx='22.5'%20cy='22.5'%20r='22'%20stroke='%23000'/%3E%3Cline%20x1='22.5'%20y1='6'%20x2='22.5'%20y2='39'%20stroke='%23000'/%3E%3Cline%20x1='5.5'%20y1='23'%20x2='38.5'%20y2='23'%20stroke='%23000'/%3E%3C/svg%3E") center / contain no-repeat;
 	mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2045%2045'%20fill='none'%3E%3Ccircle%20cx='22.5'%20cy='22.5'%20r='22'%20stroke='%23000'/%3E%3Cline%20x1='22.5'%20y1='6'%20x2='22.5'%20y2='39'%20stroke='%23000'/%3E%3Cline%20x1='5.5'%20y1='23'%20x2='38.5'%20y2='23'%20stroke='%23000'/%3E%3C/svg%3E") center / contain no-repeat;
