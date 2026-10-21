@@ -14,12 +14,12 @@
  * @package kwv
  */
 
-$kwv_hero_image = esc_url( get_theme_file_uri( 'assets/images/wine-hero.png' ) );
+$kwv_hero_image = get_theme_file_uri( 'assets/images/wine-hero.png' );
 ?>
 
 <!-- wp:group {"tagName":"main","metadata":{"name":"News"},"align":"full","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"blockGap":"0"}},"layout":{"type":"constrained"},"anchor":"content"} -->
-<main class="wp-block-group alignfull" id="content" style="margin-top:0;margin-bottom:0"><!-- wp:cover {"url":"<?php echo $kwv_hero_image; ?>","dimRatio":30,"overlayColor":"neutral-700","isUserOverlayColor":true,"minHeight":400,"minHeightUnit":"px","contentPosition":"center center","sizeSlug":"full","align":"full","layout":{"type":"constrained"}} -->
-<div class="wp-block-cover alignfull" style="min-height:400px"><img class="wp-block-cover__image-background size-full" alt="" src="<?php echo $kwv_hero_image; ?>" data-object-fit="cover"/><span aria-hidden="true" class="wp-block-cover__background has-neutral-700-background-color has-background-dim-30 has-background-dim"></span><div class="wp-block-cover__inner-container"><!-- wp:group {"align":"wide","layout":{"type":"constrained"}} -->
+<main class="wp-block-group alignfull" id="content" style="margin-top:0;margin-bottom:0"><!-- wp:cover {"url":"<?php echo esc_url( $kwv_hero_image ); ?>","dimRatio":30,"overlayColor":"neutral-700","isUserOverlayColor":true,"minHeight":400,"minHeightUnit":"px","contentPosition":"center center","sizeSlug":"full","align":"full","layout":{"type":"constrained"}} -->
+<div class="wp-block-cover alignfull" style="min-height:400px"><img class="wp-block-cover__image-background size-full" alt="" src="<?php echo esc_url( $kwv_hero_image ); ?>" data-object-fit="cover"/><span aria-hidden="true" class="wp-block-cover__background has-neutral-700-background-color has-background-dim-30 has-background-dim"></span><div class="wp-block-cover__inner-container"><!-- wp:group {"align":"wide","layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignwide"><!-- wp:query-title {"type":"archive","showPrefix":false,"level":1,"align":"wide","textColor":"base","fontSize":"800","style":{"typography":{"fontStyle":"normal","fontWeight":"var:custom|font-weight|semi-bold","letterSpacing":"0.03em"}}} /--></div>
 <!-- /wp:group --></div></div>
 <!-- /wp:cover -->

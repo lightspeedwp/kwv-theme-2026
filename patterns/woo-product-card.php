@@ -5,7 +5,7 @@
  * Description: Product card with hover add to cart button in pill overlay
  * Categories: kwv/card, kwv/product-card
  * Keywords: product,  card,  image,  text,  button,  woocommerce
- * Block Types: core/query/woocommerce/product-query 
+ * Block Types: core/query/woocommerce/product-query
  * Inserter: false
  * Viewport Width: 600
  *
