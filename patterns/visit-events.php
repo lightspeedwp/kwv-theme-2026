@@ -7,10 +7,13 @@
  * Keywords: visit, events, upcoming, tours, cards, news
  * Viewport Width: 1500
  * Inserter: true
+ *
+ * @package kwv
  */
+
 ?>
-<!-- wp:group {"metadata":{"name":"Visit — Upcoming Events"},"tagName":"section","align":"full","className":"is-style-light-page-section","layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignfull is-style-light-page-section"><!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|40"}},"layout":{"type":"constrained"}} -->
+<!-- wp:group {"metadata":{"name":"Visit — Upcoming Events"},"tagName":"section","align":"full","className":"is-style-light-page-section kwv-hide-if-empty","layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull is-style-light-page-section kwv-hide-if-empty"><!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|40"}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignwide"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group"><!-- wp:separator {"className":"kwv-rule-brand","textColor":"brand-500","style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|10","left":"0"}}}} -->
 <hr class="wp-block-separator has-text-color has-brand-500-color has-alpha-channel-opacity kwv-rule-brand" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--10);margin-left:0"/>

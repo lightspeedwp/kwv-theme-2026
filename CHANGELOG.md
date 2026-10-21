@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added (Hide empty Upcoming Events on Visit Us, 2026-10-21)
+
+- **Empty events section now disappears.** New `inc/hide-empty-query.php` adds a `render_block_core/group` filter. A Group with the opt-in class `kwv-hide-if-empty` renders nothing when it contains no Post Template list, which core only outputs when the query returned posts. So with no published events, the whole section disappears, heading and "no results" message included. The editor doesn't run the filter, so the section stays visible and editable there. `patterns/visit-events.php` now carries the class.
+- **Dev:** the Upcoming Events section of the Visit Us page override (30587) has the class (backup option `kwv_backup_visit_30587_20261021b`). All 10 `kwv_event` posts on dev are drafts, so the section disappears once this theme change deploys.
+
 ### Fixed (Product card Add to Cart wrapping, 2026-10-21)
 
 - **"Add to cart" wrapped to two lines on Shop and category grids.** In the 4-up grid at about 1440px, the black plate was only 154px wide beside the 52px "+" icon and its gap. It also had 20px side padding, while the label needs about 119px. `assets/styles/woocommerce-product-grid.css` now uses a 50px icon and a `spacing|20` gap (14px, was `spacing|30`). The plate is the same height as the icon: `min-height: 50px` with `padding-block: 0` (it was about 61px). Side padding is now `spacing|10` in the CSS, so it no longer depends on which DB copy of the part is rendering. `white-space: nowrap` keeps the label on one line. The plate is now about 162px at the tightest width, with about 27px to spare. The single-product page's 52px plate and icon (`woocommerce-single-product.css`) are unchanged.

@@ -201,6 +201,9 @@ add_action( 'wp_head', __NAMESPACE__ . '\is_paginated' );
 
 /**
  * Add a Sidebar template part area
+ *
+ * @param array $areas Registered template part areas.
+ * @return array Areas including the sidebar.
  */
 function template_part_areas( array $areas ) {
 	$areas[] = array(
@@ -254,6 +257,11 @@ require_once get_template_directory() . '/inc/carousel.php';
  * Load the lazy-loaded Cover background video (poster + deferred src).
  */
 require_once get_template_directory() . '/inc/lazy-video.php';
+
+/**
+ * Hide opted-in sections (kwv-hide-if-empty) whose query loop found nothing.
+ */
+require_once get_template_directory() . '/inc/hide-empty-query.php';
 
 /**
  * Load Gravity Forms newsletter sign-up styling.
