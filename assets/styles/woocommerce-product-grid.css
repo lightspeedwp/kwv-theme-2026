@@ -182,10 +182,11 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	/* Never shorter than the 44px "+" icon; vertical padding is the global
-	   button token. */
+	/* Same height as the 44px "+" icon: the height is set directly and the
+	   global vertical button padding is dropped, so the two always match. */
 	min-height: 44px;
-	padding-block: var(--wp--custom--spacing--button--padding-vertical);
+	padding-block: 0;
+	padding-inline: var(--wp--preset--spacing--10);
 	background-color: var(--wp--preset--color--contrast);
 	color: var(--wp--preset--color--base);
 	border: 1px solid var(--wp--preset--color--contrast);
@@ -196,7 +197,7 @@
 	text-transform: uppercase;
 	letter-spacing: 0.075em;
 	/* Keep "Add to cart" on one line: in a 4-up grid the plate is only ~168px
-	   beside the 44px icon. Side padding is spacing-10 on the block itself. */
+	   beside the 44px icon and its spacing-20 gap. */
 	white-space: nowrap;
 	transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
