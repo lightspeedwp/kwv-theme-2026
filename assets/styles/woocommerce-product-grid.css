@@ -157,14 +157,14 @@
    styles/blocks/button/add-to-cart.json for core/button + add-to-cart-with-options.
 
    Design: a black "button" plate (rounded only bottom-left, matching the card
-   corner) + a spacing-20 gap + a static gold circular "+" icon. On hover the
+   corner) + a spacing-20 gap + a static gold circular 44px "+" icon. On hover the
    plate flips — background to base, border and text to contrast — icon static. */
 .is-style-product-card .wc-block-components-product-button.is-style-add-to-cart {
 	position: relative;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	gap: var(--wp--preset--spacing--30);
+	gap: var(--wp--preset--spacing--20);
 }
 
 /* Stretch the link's hit area across the whole row (plate + gap + icon) so a
@@ -182,10 +182,10 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	/* Plate height matches the 40px "+" icon; vertical padding is dropped so
-	   the global button padding doesn't push it taller. */
-	min-height: 40px;
-	padding-block: 0;
+	/* Never shorter than the 44px "+" icon; vertical padding is the global
+	   button token. */
+	min-height: 44px;
+	padding-block: var(--wp--custom--spacing--button--padding-vertical);
 	background-color: var(--wp--preset--color--contrast);
 	color: var(--wp--preset--color--base);
 	border: 1px solid var(--wp--preset--color--contrast);
@@ -195,8 +195,8 @@
 	font-weight: var(--wp--custom--font-weight--semi-bold);
 	text-transform: uppercase;
 	letter-spacing: 0.075em;
-	/* Keep "Add to cart" on one line: in a 4-up grid the plate is only ~166px
-	   beside the 40px icon. Side padding is spacing-10 on the block itself. */
+	/* Keep "Add to cart" on one line: in a 4-up grid the plate is only ~168px
+	   beside the 44px icon. Side padding is spacing-10 on the block itself. */
 	white-space: nowrap;
 	transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
@@ -210,10 +210,10 @@
 
 .is-style-product-card .wc-block-components-product-button.is-style-add-to-cart::after {
 	content: "";
-	flex: 0 0 40px;
+	flex: 0 0 44px;
 	align-self: center;
-	width: 40px;
-	height: 40px;
+	width: 44px;
+	height: 44px;
 	background-color: var(--wp--preset--color--brand-500);
 	-webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2045%2045'%20fill='none'%3E%3Ccircle%20cx='22.5'%20cy='22.5'%20r='22'%20stroke='%23000'/%3E%3Cline%20x1='22.5'%20y1='6'%20x2='22.5'%20y2='39'%20stroke='%23000'/%3E%3Cline%20x1='5.5'%20y1='23'%20x2='38.5'%20y2='23'%20stroke='%23000'/%3E%3C/svg%3E") center / contain no-repeat;
 	mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2045%2045'%20fill='none'%3E%3Ccircle%20cx='22.5'%20cy='22.5'%20r='22'%20stroke='%23000'/%3E%3Cline%20x1='22.5'%20y1='6'%20x2='22.5'%20y2='39'%20stroke='%23000'/%3E%3Cline%20x1='5.5'%20y1='23'%20x2='38.5'%20y2='23'%20stroke='%23000'/%3E%3C/svg%3E") center / contain no-repeat;
