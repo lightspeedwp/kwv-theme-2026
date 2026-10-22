@@ -47,8 +47,8 @@ lands regardless. Keep in sync with outline-dark.json. */
 ---------------------------------------------
 A button with a set width (e.g. the footer's Shop Now / Contact pair) is sized
 by its column, not its text, so the 48px side padding only squeezes the label.
-With the site gutter the footer pair is ~160px wide at 390, which broke
-"CONTACT" mid-word. Trim the side padding there; the box stays the same size. */
+In a narrow column (the footer pair on a phone) that broke "CONTACT"
+mid-word. Trim the side padding there; the box stays the same size. */
 @media (max-width: 781px) {
 	.wp-block-button.has-custom-width .wp-block-button__link {
 		padding-left: var(--wp--preset--spacing--20);

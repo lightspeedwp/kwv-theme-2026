@@ -288,10 +288,12 @@
 	/*
 	 * Hold the cards inside the site gutter instead of running them to the
 	 * viewport edge. The row stays `alignfull`; the padding brings the slider
-	 * back in line with the section headings above it.
+	 * back in line with the section headings above it — the gutter, or the
+	 * wide-size edge once the viewport is wider than that (same inset as the
+	 * arrows, --kwv-carousel-nav-inset).
 	 */
-	padding-left: var(--wp--style--root--padding-left);
-	padding-right: var(--wp--style--root--padding-right);
+	padding-left: max( var( --wp--style--root--padding-left ), calc( ( 100% - var( --wp--style--global--wide-size, 1520px ) ) / 2 ) );
+	padding-right: max( var( --wp--style--root--padding-right ), calc( ( 100% - var( --wp--style--global--wide-size, 1520px ) ) / 2 ) );
 
 	/*
 	 * Gives the `cqw` unit below the width of the full-bleed block itself,
