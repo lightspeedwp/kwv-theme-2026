@@ -29,10 +29,10 @@
 	/*
 	 * Right edge of the next-arrow, aligned to the alignwide content edge. On
 	 * viewports narrower than wideSize the calc goes negative, so max() falls
-	 * back to a small inset.
+	 * back to the site gutter.
 	 */
 	--kwv-carousel-nav-inset: max(
-		var( --wp--preset--spacing--30 ),
+		var( --wp--style--root--padding-right ),
 		calc( ( 100% - var( --wp--style--global--wide-size, 1520px ) ) / 2 )
 	);
 
@@ -40,6 +40,16 @@
 	 * against the rendered header-to-carousel gap to centre them in the title-text
 	 * band; adjust here if the section-header spacing changes. */
 	--kwv-carousel-nav-top: calc( -1 * var( --wp--preset--spacing--90 ) );
+}
+
+/*
+ * The arrows sit in the title row, so the title stops short of them: a long
+ * title ("Spirits Brands" on a phone) wraps instead of running under the
+ * arrows. The padding is inside the section header's bottom rule, which still
+ * runs full width.
+ */
+.is-style-section-header:has( + .wp-block-cb-carousel-v2.alignfull:not( .cb-hero-slider ) ) {
+	padding-right: calc( var( --wp--preset--spacing--80 ) + var( --wp--preset--spacing--30 ) + var( --wp--preset--spacing--10 ) );
 }
 
 /* Lift both arrows out of vertical-centre and up into the header row. */
@@ -147,17 +157,15 @@
 	z-index: 3;
 	align-self: start;
 	/*
-	 * Match the side gutter of the featured-image heroes (Visit, History,
-	 * Careers). There the header sits inside a Cover, and core's default Cover
-	 * padding (`.wp-block-cover { padding: 1em }`) adds to the header's root
-	 * padding. Here the header is a direct child of the full-bleed carousel, so
-	 * that 1em has to be added explicitly. `!important` because the
-	 * header-transparent section style pins the horizontal padding to the root
-	 * padding with `!important` (which is also why the editor's padding control
-	 * has no effect on this group).
+	 * Put the header on the site gutter. On the featured-image heroes (Visit,
+	 * History, Careers) the header sits inside the Cover's inner container,
+	 * which already carries the gutter, so the header-transparent section style
+	 * zeroes its own side padding with `!important` (which is also why the
+	 * editor's padding control has no effect on this group). Here the header is
+	 * a direct child of the full-bleed carousel, so it takes the gutter itself.
 	 */
-	padding-left: calc(var(--wp--style--root--padding-left) + 1em + var(--wp--custom--spacing--header-inset)) !important;
-	padding-right: calc(var(--wp--style--root--padding-right) + 1em + var(--wp--custom--spacing--header-inset)) !important;
+	padding-left: var(--wp--style--root--padding-left) !important;
+	padding-right: var(--wp--style--root--padding-right) !important;
 }
 
 /*
@@ -276,6 +284,14 @@
 
 	/* Cards across at the design's desktop width. */
 	--kwv-marquee-cards: 5;
+
+	/*
+	 * Hold the cards inside the site gutter instead of running them to the
+	 * viewport edge. The row stays `alignfull`; the padding brings the slider
+	 * back in line with the section headings above it.
+	 */
+	padding-left: var(--wp--style--root--padding-left);
+	padding-right: var(--wp--style--root--padding-right);
 
 	/*
 	 * Gives the `cqw` unit below the width of the full-bleed block itself,

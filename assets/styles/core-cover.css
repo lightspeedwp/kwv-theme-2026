@@ -7,6 +7,24 @@
 	}
 }
 
+/* Full-bleed Covers keep content on the site gutter. Core pads every Cover by
+   1em, and a Cover nested in a padded group has its constrained inner
+   container reset to no padding, which put the News, FAQ and Wine Club hero
+   text ~30px outside the rest of the page. The gutter lives on the inner
+   container (as on the featured-image heroes), never on the Cover itself, so
+   it can't double up. Inline side padding set in the editor still adds.
+--------------------------------------------- */
+
+.wp-block-cover.alignfull {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.wp-block-cover.alignfull > .wp-block-cover__inner-container {
+	padding-left: var(--wp--style--root--padding-left);
+	padding-right: var(--wp--style--root--padding-right);
+}
+
 /* Featured-image heroes (Visit Us, History, Careers) — the transparent header
    sits inside the Cover and the Cover is top-anchored, so any spare height
    (min-height 600/720px) pooled *below* the title and pushed it up. Make the
@@ -25,15 +43,6 @@
    shrink-wrap and centre the wide content groups; keep them full width. */
 .wp-block-cover:has(> .wp-block-cover__inner-container > .is-style-header-transparent) > .wp-block-cover__inner-container > .alignwide {
 	width: 100%;
-}
-
-/* Hero content inset: root padding + spacing|20 (~28–30px from the viewport
-   edge below the wide size) on the homepage slides and the featured-image
-   heroes alike. The Covers themselves carry no side padding. */
-.kwv-hero-carousel .wp-block-cover__inner-container > .alignwide,
-.wp-block-cover:has(> .wp-block-cover__inner-container > .is-style-header-transparent) > .wp-block-cover__inner-container > .alignwide {
-	padding-left: var(--wp--preset--spacing--20);
-	padding-right: var(--wp--preset--spacing--20);
 }
 
 .wp-block-cover__inner-container > .is-style-header-transparent + * {

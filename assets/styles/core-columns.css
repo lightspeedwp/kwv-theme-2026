@@ -37,3 +37,15 @@
 		padding-left: 0;
 	}
 }
+
+/* Archive hero (Shop, product categories, brands) — the title and image stay
+   side by side on phones. Keep the title column at least as wide as its
+   longest word so "SHOP" can't break mid-word; the image column gives way. */
+.wp-block-columns.is-not-stacked-on-mobile > .wp-block-column:has(> .wp-block-query-title) {
+	min-width: min-content;
+}
+
+.wp-block-columns.is-not-stacked-on-mobile > .wp-block-column > .wp-block-query-title {
+	overflow-wrap: normal;
+	word-break: normal;
+}

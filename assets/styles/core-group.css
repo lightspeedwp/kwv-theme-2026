@@ -255,3 +255,12 @@
 		transition-delay: 0s !important;
 	}
 }
+
+/* Light page section used as an inner, non-full-width group (the policy pages,
+   History, My Account): the content around it already carries the site
+   gutter, so don't add it a second time (88px a side on a phone). Its
+   background is the page colour, so there's no box edge to pad away from. */
+.has-global-padding > .is-style-light-page-section:not(.alignfull) {
+	padding-left: 0;
+	padding-right: 0;
+}
