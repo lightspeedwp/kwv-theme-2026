@@ -44,7 +44,8 @@
 
 #gform_wrapper_2 .gfield--type-email {
 	flex: 999 1 300px !important;
-	min-width: 300px !important;
+	/* Capped at the row so it can't overflow the gutter on a phone (287px at 390). */
+	min-width: min(300px, 100%) !important;
 }
 
 #gform_wrapper_2 .gfield--type-submit {

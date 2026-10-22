@@ -23,6 +23,6 @@
 				}
 			}
 		},
-		"css": "& { padding-left: calc(var(--wp--style--root--padding-left) + var(--wp--custom--spacing--header-inset)) !important; padding-right: calc(var(--wp--style--root--padding-right) + var(--wp--custom--spacing--header-inset)) !important; border-image-source: linear-gradient(to top, var(--wp--preset--color--brand-200) 1px, color-mix(in srgb, var(--wp--preset--color--contrast) 30%, transparent) 1px); border-image-slice: 0 fill; border-image-width: 0; border-image-outset: 0 100vw; }"
+		"css": "& { margin-left: 0 !important; margin-right: 0 !important; padding-left: 0 !important; padding-right: 0 !important; border-image-source: linear-gradient(to top, var(--wp--preset--color--brand-200) 1px, color-mix(in srgb, var(--wp--preset--color--contrast) 30%, transparent) 1px); border-image-slice: 0 fill; border-image-width: 0; border-image-outset: 0 100vw; }"
 	}
 }
