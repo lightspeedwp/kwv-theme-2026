@@ -34,9 +34,14 @@ async function waitForSlider(page: Page): Promise<void> {
   await expect(slider(page)).toHaveClass(/swiper-initialized/);
 }
 
+/**
+ * The product's position in the brand's list (0-based) for the visible slide.
+ * In loop mode Swiper reorders the slides in the DOM, so this reads Swiper's
+ * own data-swiper-slide-index rather than the DOM position.
+ */
 async function activeIndex(page: Page): Promise<number> {
-  return page.locator('.kwv-brand-slider .wc-block-product').evaluateAll((items) =>
-    items.findIndex((item) => !(item as HTMLElement).inert),
+  return page.locator('.kwv-brand-slider .wc-block-product:not([inert])').evaluateAll((items) =>
+    items.length === 1 ? Number(items[0].getAttribute('data-swiper-slide-index') ?? -1) : -1,
   );
 }
 
@@ -96,7 +101,7 @@ test.describe('Brand page @brand', () => {
   });
 
   // BRAND-TC4 — slider: arrows, keyboard, thumbnails, one product reachable at a time.
-  test('BRAND-TC4 the slider shows one product at a time and moves by arrow, key and thumbnail', async ({ page }) => {
+  test('BRAND-TC4 the slider shows one product at a time, loops endlessly, and moves by arrow, key and thumbnail', async ({ page }) => {
     await openBrand(page, BRAND);
     await waitForSlider(page);
 
@@ -112,6 +117,12 @@ test.describe('Brand page @brand', () => {
     await expect.poll(() => activeIndex(page)).toBe(1);
 
     await page.getByRole('button', { name: /previous product/i }).click();
+    await expect.poll(() => activeIndex(page)).toBe(0);
+
+    // Endless: back from the first product goes to the last, and on again to the first.
+    await page.getByRole('button', { name: /previous product/i }).click();
+    await expect.poll(() => activeIndex(page)).toBe(count - 1);
+    await page.getByRole('button', { name: /next product/i }).click();
     await expect.poll(() => activeIndex(page)).toBe(0);
 
     await slider(page).scrollIntoViewIfNeeded();
@@ -171,10 +182,14 @@ test.describe('Brand page @brand', () => {
     await openBrand(page, BRAND);
     await waitForSlider(page);
 
-    // First slide that can be bought here (in stock, simple product).
-    const index = await slides(page).evaluateAll((items) =>
-      items.findIndex((i) => i.classList.contains('instock') && i.classList.contains('product-type-simple')),
-    );
+    // First product that can be bought here (in stock, simple product), by its
+    // position in the brand's list (Swiper's loop mode reorders the DOM).
+    const index = await slides(page).evaluateAll((items) => {
+      const buyable = items
+        .filter((i) => i.classList.contains('instock') && i.classList.contains('product-type-simple'))
+        .map((i) => Number(i.getAttribute('data-swiper-slide-index')));
+      return buyable.length ? Math.min(...buyable) : -1;
+    });
     test.skip(index < 0, `${BRAND} has no in-stock simple product`);
     if (index > 0) {
       await thumbs(page).nth(index).click();

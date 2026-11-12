@@ -199,8 +199,17 @@
 	display: none;
 }
 
+/* "View product" sits on the Add to Cart row, pushed to the far side. With no
+   button (out of stock, or a product with options) it still holds that side. */
+.kwv-brand-slide__actions .kwv-brand-slide__view {
+	margin-inline-start: auto;
+}
+
+/* Underlined only on hover/focus — a pseudo-state, so it lives here (AGENTS.md
+   → "Styling lives in JSON"); the resting look is in the section style. */
 .kwv-brand-slide__view:is(:hover, :focus-visible) {
 	color: var(--wp--preset--color--contrast);
+	text-decoration: underline;
 }
 
 /* --- Arrows (created by brand-slider.js) -------------------------------- */

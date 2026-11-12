@@ -6,7 +6,8 @@
  * product, each item the editable "Brand Product Slide" template part. This
  * script turns that list into a one-product-at-a-time slider:
  *
- * - previous / next arrows, swipe, and arrow-key navigation;
+ * - previous / next arrows, swipe, and arrow-key navigation, looping endlessly
+ *   in both directions;
  * - a strip of product thumbnails, built from each slide's own product image,
  *   in the "Product Thumbnails" group that follows the slider;
  * - products that are not on screen are made inert, so their links and Add to
@@ -108,8 +109,9 @@
 	 * @param {Object} swiper The main Swiper instance.
 	 */
 	function syncInert( swiper ) {
-		swiper.slides.forEach( function ( slide, index ) {
-			slide.inert = index !== swiper.activeIndex;
+		var active = swiper.slides[ swiper.activeIndex ];
+		swiper.slides.forEach( function ( slide ) {
+			slide.inert = slide !== active;
 		} );
 	}
 
@@ -125,7 +127,7 @@
 		}
 
 		Array.prototype.forEach.call( strip.querySelectorAll( '.kwv-brand-slider__thumb' ), function ( thumb, index ) {
-			if ( index === swiper.activeIndex ) {
+			if ( index === swiper.realIndex ) {
 				thumb.setAttribute( 'aria-current', 'true' );
 			} else {
 				thumb.removeAttribute( 'aria-current' );
@@ -196,6 +198,14 @@
 			spaceBetween: 32,
 			speed: speed,
 			autoHeight: true,
+			// Endless in both directions. Loop mode needs three or more products
+			// (Swiper reorders the slides around the visible one); with exactly two
+			// the arrows wrap round instead.
+			loop: slides.length > 2,
+			// By default a looping Swiper ignores a click while the previous slide
+			// is still moving, so quick double-clicks were lost. Let them through.
+			loopPreventsSliding: false,
+			rewind: slides.length === 2,
 			navigation: { prevEl: prev, nextEl: next },
 			keyboard: { enabled: true, onlyInViewport: true },
 			thumbs: thumbs ? { swiper: thumbs } : undefined,
@@ -217,6 +227,10 @@
 					syncInert( swiper );
 					syncCurrentThumb( swiper, strip );
 				},
+				// Loop mode moves slides around and shifts activeIndex with them.
+				loopFix: function ( swiper ) {
+					syncInert( swiper );
+				},
 			},
 		} );
 
@@ -225,7 +239,7 @@
 		if ( strip ) {
 			Array.prototype.forEach.call( strip.querySelectorAll( '.kwv-brand-slider__thumb' ), function ( thumb, index ) {
 				thumb.addEventListener( 'click', function () {
-					main.slideTo( index );
+					main.slideToLoop( index );
 				} );
 			} );
 		}
