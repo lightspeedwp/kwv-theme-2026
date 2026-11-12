@@ -15,7 +15,6 @@ namespace Kwv\Tests\Integration;
  * @covers ::Kwv\enqueue_custom_block_styles
  * @covers ::Kwv\pattern_categories
  * @covers ::Kwv\is_paginated
- * @covers ::Kwv\template_part_areas
  */
 final class FunctionsTest extends TestCase {
 
@@ -97,11 +96,5 @@ final class FunctionsTest extends TestCase {
 		ob_start();
 		\Kwv\is_paginated();
 		$this->assertSame( '', ob_get_clean() );
-	}
-
-	public function test_the_sidebar_template_part_area_is_registered(): void {
-		$areas = apply_filters( 'default_wp_template_part_areas', array() );
-
-		$this->assertSame( 'sidebar', $areas[0]['area'] );
 	}
 }

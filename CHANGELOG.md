@@ -22,6 +22,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 - **Page (With Sidebar) template** (`templates/page-with-sidebar.html` and its `customTemplates` entry in `theme.json`). Unused, and it referenced a `sidebar` template part that doesn't exist.
+- **Sidebar template part area** (`Kwv\template_part_areas()` in `functions.php`) and the matching `sidebar` entry in `theme.json` `templateParts`. Only the removed template used them, and no `parts/sidebar.html` exists.
+- **`kwv/template-page-right-sidebar` pattern** — the body of the removed template; nothing else used it.
 
 ### Added (Brand page redesign — Estimate 3439, 2026-11-12)
 

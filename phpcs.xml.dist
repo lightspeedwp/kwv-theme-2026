@@ -31,11 +31,20 @@
 		</properties>
 	</rule>
 
+	<!--
+		Globals (functions, hooks, options) must start with kwv_; namespaced code
+		lives under Kwv\. WPCS rejects prefixes shorter than four characters,
+		so the 3-letter root namespace "Kwv" itself (documented in AGENTS.md) is
+		exempted rather than renamed.
+	-->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedNamespaceFound">
+		<exclude-pattern>*</exclude-pattern>
+	</rule>
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<properties>
 			<property name="prefixes" type="array">
-				<element value="kwv"/>
-				<element value="Kwv"/>
+				<element value="kwv_"/>
+				<element value="Kwv\"/>
 			</property>
 		</properties>
 	</rule>

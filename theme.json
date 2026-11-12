@@ -1160,11 +1160,6 @@
 			"area": "footer"
 		},
 		{
-			"name": "sidebar",
-			"title": "Sidebar",
-			"area": "sidebar"
-		},
-		{
 			"name": "shop-mega-menu-dynamic",
 			"title": "Shop Mega Menu (Dynamic)",
 			"area": "menu"

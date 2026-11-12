@@ -12,7 +12,6 @@ use Brain\Monkey\Functions;
 /**
  * @covers ::Kwv\asset_version
  * @covers ::Kwv\setup
- * @covers ::Kwv\template_part_areas
  * @covers ::Kwv\pattern_categories
  */
 final class FunctionsTest extends TestCase {
@@ -46,13 +45,6 @@ final class FunctionsTest extends TestCase {
 		Functions\expect( 'remove_theme_support' )->once()->with( 'core-block-patterns' );
 
 		\Kwv\setup();
-	}
-
-	public function test_template_part_areas_appends_a_sidebar_area(): void {
-		$areas = \Kwv\template_part_areas( array( array( 'area' => 'header' ) ) );
-
-		$this->assertCount( 2, $areas );
-		$this->assertSame( 'sidebar', $areas[1]['area'] );
 	}
 
 	public function test_pattern_categories_are_all_namespaced(): void {
