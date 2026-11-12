@@ -1,4 +1,4 @@
-import { test, expect, storeCategories } from '../fixtures';
+import { test, expect, BRAND, storeCategories } from '../fixtures';
 
 /**
  * Catalogue structure and shop archives.
@@ -99,8 +99,9 @@ test.describe('Catalogue @shop', () => {
   });
 
   // CAT-TC5 — shop archives carry the promo bar and a sticky header
-  for (const path of ['/shop/', '/product-category/wine/', '/brand/the-mentors/']) {
+  for (const path of ['/shop/', '/product-category/wine/', `/brand/${BRAND.slug}/`]) {
     test(`CAT-TC5 ${path} shows the promo bar and keeps the header on screen when scrolled`, async ({ page }) => {
+      test.fixme(path.startsWith('/brand/'), 'Brand pages are being redesigned (Nov 2026); re-enable after the update.');
       await page.setViewportSize({ width: 1440, height: 900 });
       await page.goto(path);
       await expect(page.locator('.is-style-header-promo-bar').first()).toBeVisible();

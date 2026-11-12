@@ -1,4 +1,4 @@
-import { test, expect, PRODUCT } from '../fixtures';
+import { test, expect, PRODUCT, BRAND } from '../fixtures';
 
 /**
  * SHOP-02 — Category/shop filters apply and update results.
@@ -38,7 +38,7 @@ test.describe('Shop discovery @shop', () => {
 
   // SHOP-TC5 — single brand page
   test('SHOP-TC5 a Single Brand page lists that brand’s products', async ({ page }) => {
-    await page.goto('/brand/the-mentors/');
+    await page.goto(`/brand/${BRAND.slug}/`);
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
     await expect(page.getByRole('listitem').filter({ hasText: /R\s?\d/ }).first()).toBeVisible();
   });

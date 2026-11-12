@@ -29,6 +29,11 @@ export default defineConfig({
 
   use: {
     baseURL: BASE_URL,
+    // Installed Google Chrome, not Playwright's bundled Chromium (149 with
+    // @playwright/test 1.61): after a Gravity Forms AJAX validation the bundled
+    // build stops painting frames, so the next click never passes the "stable"
+    // check. Chrome 157 is unaffected. Override with KWV_BROWSER_CHANNEL.
+    channel: process.env.KWV_BROWSER_CHANNEL ?? 'chrome',
     navigationTimeout: 45_000,
     actionTimeout: 20_000,
     trace: 'on-first-retry',

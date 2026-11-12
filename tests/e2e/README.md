@@ -24,6 +24,8 @@ npx playwright install --with-deps chromium
 cp .env.example .env   # then fill values (never commit .env)
 ```
 
+Tests run in the installed **Google Chrome** (`channel: 'chrome'`), not Playwright's bundled Chromium. The bundled build stops painting frames after a Gravity Forms validation error, so form tests time out. Install Chrome, or set `KWV_BROWSER_CHANNEL` (for example `chromium`) to override.
+
 ## Run
 
 ```bash

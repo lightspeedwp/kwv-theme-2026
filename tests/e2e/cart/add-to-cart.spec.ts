@@ -8,8 +8,10 @@ test.describe('Add to cart @cart', () => {
   // TC-001 — Add to cart from Shop
   test('TC-001 adds the seeded product from the Shop grid', async ({ page }) => {
     // The Shop sorts by popularity across ~170 products, so the seeded product is
-    // not reliably on page 1. A product search renders the same archive grid.
-    await page.goto(`/shop/?s=${encodeURIComponent(PRODUCT.name)}&post_type=product`);
+    // not reliably on page 1. A product search renders the same archive grid; it
+    // must match several products, or WooCommerce redirects to the single product.
+    await page.goto(`/shop/?s=${encodeURIComponent(PRODUCT.search)}&post_type=product`);
+    await expect(page).toHaveURL(/[?&]s=/);
 
     const card = page.getByRole('listitem').filter({ hasText: PRODUCT.name }).first();
     await expect(card).toBeVisible();

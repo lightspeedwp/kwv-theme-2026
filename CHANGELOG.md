@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added (E2E launch coverage, 2026-11-12)
+
+- **New E2E specs** for the shop catalogue, single product and internal links on the scoped pages. Tests only, no theme code. (#25)
+- **Extended E2E specs** for cart, checkout, careers, contact, navigation, search, Visit Us, Wine Club, responsive, console errors and smoke pages. Cases are in `tests/e2e/test-packs/launch-coverage-2026-10-22.md`. (#25)
+- **Form submissions in E2E tests are opt-in** with `KWV_ALLOW_FORM_SUBMIT=1`, using `KWV_FORM_TEST_EMAIL` as the submitter. Careers uploads use a dummy PDF. (#25)
+- **E2E product and brand slugs come from the environment** (`KWV_PRODUCT_SLUG`, new `KWV_BRAND_SLUG`) instead of being repeated in specs. (#25)
+
+### Changed (E2E launch coverage, 2026-11-12)
+
+- **E2E tests run in installed Google Chrome**, not Playwright's bundled Chromium, which stops painting after a Gravity Forms validation error. Override with `KWV_BROWSER_CHANNEL`. (#25)
+
+### Fixed (E2E launch coverage, 2026-11-12)
+
+- **Flaky E2E checkout steps:** wait for the PayFast sandbox and its return redirect, empty the account cart reliably, and re-fill the street address if a late Store API response clears it. (#25)
+- **E2E locators that no longer matched the site:** Shop and About mega menus, the mobile drawer, the Wine Club price and the Shop search. (#25)
+
 ### Changed (Client review — site-wide side gutter, homepage brand carousels, 2026-10-22)
 
 - **Content now sits on the header's gutter on every template.** Page content was 14px from the viewport edge while the header logo was ~44px in. The client asked for the header spacing across the whole site, and specifically for the homepage carousels. New `theme.json` token `settings.custom.spacing.gutter` is the root padding (`styles.spacing.padding` left/right), so everything that uses root padding moves with it. After review it is fluid, `clamp(1.375rem, 0.5rem + 2.5vw, 2.75rem)`: 22px on phones (the 44px desktop gutter was too wide there), 27px at 768, 40px at 1280, and 44px from 1440 up. It replaces `custom.spacing.header-inset`, which is removed. The headers point at the root padding instead of adding to it: `header-row.json`, `header-dark.json` and the homepage carousel header (`carousel-block.css`) use the root padding. `header-transparent.json` sets its side padding *and* margin to 0, because on the featured-image heroes it sits inside the Cover's inner container, which already carries the gutter (without the margin reset, core's alignfull bleed pulled the Visit Us logo to the edge). Logo, hero titles and page content share one edge at every width.

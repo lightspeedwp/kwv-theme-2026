@@ -12,6 +12,14 @@ export const PRODUCT = {
   id: process.env.KWV_PRODUCT_ID ?? '181708',
   slug: process.env.KWV_PRODUCT_SLUG ?? 'kwv-classic-chardonnay-2025',
   name: process.env.KWV_PRODUCT_NAME ?? 'KWV Classic Chardonnay 2025',
+  // A search term that matches this product AND others: WooCommerce redirects a
+  // single-result search straight to the product page, skipping the grid.
+  search: process.env.KWV_PRODUCT_SEARCH ?? 'Chardonnay',
+};
+
+/** A product_brand term with published products (Single Brand template). */
+export const BRAND = {
+  slug: process.env.KWV_BRAND_SLUG ?? 'the-mentors',
 };
 
 export const COUPON = process.env.KWV_COUPON_CODE ?? '';
@@ -45,7 +53,7 @@ export const TEST_CUSTOMER = {
 export const SCOPED_PAGES: { path: string; label: string }[] = [
   { path: '/', label: 'Homepage' },
   { path: '/shop/', label: 'Shop' },
-  { path: '/product/kwv-classic-chardonnay-2025/', label: 'Single product' },
+  { path: `/product/${PRODUCT.slug}/`, label: 'Single product' },
   { path: '/cart/', label: 'Cart' },
   { path: '/checkout/', label: 'Checkout' },
   { path: '/my-account/', label: 'Account/Login' },
@@ -57,7 +65,7 @@ export const SCOPED_PAGES: { path: string; label: string }[] = [
   { path: '/visit/', label: 'Visit Us' },
   { path: '/careers/', label: 'Careers' },
   { path: '/news/', label: 'News' },
-  { path: '/brand/the-mentors/', label: 'Single Brand' },
+  { path: `/brand/${BRAND.slug}/`, label: 'Single Brand' },
 ];
 
 /** Submitter address for form-submitting cases (a team inbox, never a client's). */
@@ -134,12 +142,21 @@ export async function addSeededProductToCart(page: Page): Promise<void> {
  */
 export async function emptyCart(page: Page): Promise<void> {
   await page.goto('/cart/');
-  for (let i = 0; i < 15; i++) {
-    const remove = page.getByRole('button', { name: /remove (item|.*from cart)/i }).first();
-    if ((await remove.count()) === 0) break;
-    await remove.click();
+  // The Cart block renders client-side: wait until it shows either line items or
+  // the empty state, otherwise the first count() sees nothing and stops early.
+  // Each removal re-renders the block, so a button counted a moment ago can be
+  // gone by the time it is clicked. Keep removing until the empty state shows.
+  const removeBtn = page
+    .getByRole('button', { name: /remove (item|.*from cart)/i })
+    .filter({ visible: true })
+    .first();
+  const emptyState = page.locator('.wp-block-woocommerce-empty-cart-block').filter({ visible: true });
+  await expect(removeBtn.or(emptyState).first()).toBeVisible({ timeout: 30_000 });
+  for (let i = 0; i < 15 && !(await emptyState.isVisible()); i++) {
+    await removeBtn.click({ timeout: 10_000 }).catch(() => {});
     await waitForStoreApi(page);
   }
+  await expect(emptyState).toBeVisible({ timeout: 20_000 });
 }
 
 /**
@@ -185,6 +202,19 @@ export async function fillCheckoutAddress(page: Page): Promise<void> {
   await expect(
     page.getByRole('group', { name: /shipping options/i }).getByRole('radio').first(),
   ).toBeVisible({ timeout: 45_000 });
+  // On slow dev a late Store API response (from an update sent before the street
+  // was typed) can reset the street field to empty, and Place Order then fails with
+  // "Please enter a valid address". Re-check once everything has settled.
+  const street = shipping.getByRole('textbox', { name: /^address/i });
+  if (await street.isVisible().catch(() => false)) {
+    await expect(async () => {
+      if ((await street.inputValue()) === '') {
+        await street.fill('123 Test Avenue');
+        await waitForStoreApi(page);
+      }
+      await expect(street).not.toHaveValue('', { timeout: 3_000 });
+    }).toPass({ timeout: 30_000 });
+  }
 }
 
 /**

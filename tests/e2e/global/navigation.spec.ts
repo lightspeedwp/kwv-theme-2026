@@ -19,7 +19,13 @@ function megaMenuToggle(page: Page, name: RegExp) {
 }
 
 function openPanelNav(page: Page) {
-  return page.locator('.is-style-mega-menu-nav').filter({ visible: true }).first();
+  // The Shop panel holds several mega-menu navs (nested ones have no rows of their
+  // own), so pick the visible nav whose container has the expandable rows.
+  return page
+    .locator('.is-style-mega-menu-nav')
+    .filter({ visible: true })
+    .filter({ has: page.locator('.wp-block-navigation__container > li.has-child') })
+    .first();
 }
 
 test.describe('Global navigation @global', () => {
@@ -48,9 +54,13 @@ test.describe('Global navigation @global', () => {
     const spiritsColumn = spirits.locator(':scope > ul').first();
     await expect(spiritsColumn).toBeVisible();
 
-    // Parking the pointer on empty panel space keeps the column open.
-    const box = (await panel.boundingBox())!;
-    await page.mouse.move(box.x + box.width - 4, box.y + box.height - 4, { steps: 5 });
+    // Leaving the row for its column keeps the column open. Move sideways first, so
+    // the pointer does not cross a sibling row (hovering a sibling closes the column
+    // by design), then down into the column.
+    const row = (await spirits.boundingBox())!;
+    const col = (await spiritsColumn.boundingBox())!;
+    await page.mouse.move(col.x + 8, row.y + row.height / 2, { steps: 5 });
+    await page.mouse.move(col.x + 8, col.y + col.height - 4, { steps: 5 });
     await expect(spirits).toHaveClass(/is-kwv-open/);
     await expect(spiritsColumn).toBeVisible();
 
@@ -69,9 +79,11 @@ test.describe('Global navigation @global', () => {
     await about.hover();
     await expect(about).toHaveAttribute('aria-expanded', 'true');
 
+    // `has` is resolved inside each mega menu, so it must not start from the page's
+    // header nav (which a mega menu never contains) — match the toggle alone.
     const panelLinks = page
       .locator('.wp-block-ollie-mega-menu')
-      .filter({ has: about })
+      .filter({ has: page.locator('.wp-block-ollie-mega-menu__toggle').filter({ hasText: /^\s*about\s*$/i }) })
       .getByRole('link')
       .filter({ visible: true });
     await expect(panelLinks.first()).toBeVisible();
@@ -118,7 +130,7 @@ test.describe('Global navigation @global', () => {
       await first.click();
       await expect(first).toHaveAttribute('aria-expanded', 'true');
       await expect(second).toHaveAttribute('aria-expanded', 'false');
-      const firstItem = drawer.getByRole('listitem').filter({ has: first });
+      const firstItem = first.locator('xpath=ancestor::li[1]');
       await expect(firstItem.getByRole('list').getByRole('link').first()).toBeVisible();
 
       await close.click();

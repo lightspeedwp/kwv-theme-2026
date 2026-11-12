@@ -42,7 +42,8 @@ test.describe('Wine Club @wineclub', () => {
 
     const card = page.getByRole('listitem').filter({ has: page.getByRole('heading', { name: edition.name }) });
     await expect(card).toBeVisible();
-    await expect(page.getByText(rands(edition)).first()).toBeVisible();
+    // The card's excerpt repeats the price but is visually hidden — check a visible one.
+    await expect(page.getByText(rands(edition)).filter({ visible: true }).first()).toBeVisible();
 
     const signUp = page.getByRole('link', { name: /sign up now/i });
     await expect(signUp.first()).toBeVisible();

@@ -1,4 +1,4 @@
-import { test, expect, PRODUCT, enquiryForm } from '../fixtures';
+import { test, expect, PRODUCT, BRAND, enquiryForm } from '../fixtures';
 
 /**
  * RESP-01 — Key pages display and function on tablet and mobile viewports via
@@ -23,7 +23,7 @@ const PAGES = [
   '/about-us/history/',
   '/careers/',
   '/product-category/wine/',
-  '/brand/the-mentors/',
+  `/brand/${BRAND.slug}/`,
 ];
 
 for (const vp of VIEWPORTS) {
