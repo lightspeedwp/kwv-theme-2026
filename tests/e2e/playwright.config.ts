@@ -42,6 +42,16 @@ export default defineConfig({
       // Guest / unauthenticated — everything except @auth specs.
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
+      grepInvert: /@auth|@mobile/,
+      testIgnore: /auth\.setup\.ts/,
+    },
+    {
+      // Phone — touch + mobile UA for the @mobile interaction cases. Mobile and
+      // tablet are responsive adaptations of the desktop designs, so this runs
+      // only the cases that need a real phone context (RESP-TC2).
+      name: 'mobile-chrome',
+      use: { ...devices['Pixel 7'] },
+      grep: /@mobile/,
       grepInvert: /@auth/,
       testIgnore: /auth\.setup\.ts/,
     },
@@ -55,11 +65,5 @@ export default defineConfig({
       grep: /@auth/,
       dependencies: ['setup'],
     },
-    // Responsive adaptations of the supplied desktop designs are covered under
-    // LS-1175; enable this project when mobile checkout is in scope for a run.
-    // {
-    //   name: 'mobile-chrome',
-    //   use: { ...devices['Pixel 7'] },
-    // },
   ],
 });

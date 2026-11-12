@@ -1,6 +1,7 @@
 import {
   test,
   expect,
+  PRODUCT,
   SANDBOX_READY,
   TEST_CUSTOMER,
   addSeededProductToCart,
@@ -14,8 +15,8 @@ import {
  *
  * @stateful — these CREATE ORDERS. Completion uses **PayFast sandbox**, which is in
  * TEST mode on dev and needs NO real card. They run only when KWV_SANDBOX=1 and are
- * excluded from read-only smoke runs. (The Payflex/BNPL capture path would need a
- * gateway test card — out of scope for these cases.)
+ * excluded from read-only smoke runs. NEVER pay with Payflex here: Payflex on dev
+ * runs in PRODUCTION mode, so a Payflex order would be real.
  */
 test.describe('Place order @checkout @stateful', () => {
   test.skip(
@@ -24,7 +25,7 @@ test.describe('Place order @checkout @stateful', () => {
   );
 
   // TC-010 — Place order (sandbox), guest
-  test('TC-010 places a guest order via Payflex (sandbox)', async ({ page }) => {
+  test('TC-010 places a guest order via PayFast (sandbox) and shows the order confirmation', async ({ page }) => {
     await addSeededProductToCart(page);
     await page.goto('/checkout/');
 
@@ -52,6 +53,12 @@ test.describe('Place order @checkout @stateful', () => {
       await complete.click();
       await expect(page).toHaveURL(/order-received|order-confirmation|thank/i, { timeout: 60_000 });
     }
+    // Order confirmation (order-confirmation template): order number, the line
+    // item and a total. Reached directly or after the sandbox control above.
+    await expect(page).toHaveURL(/order-received/i, { timeout: 60_000 });
+    await expect(page.getByText(/order (number|#)/i).first()).toBeVisible();
+    await expect(page.getByText(PRODUCT.name).first()).toBeVisible();
+    await expect(page.getByText(/total/i).first()).toBeVisible();
   });
 
   // TC-011 — Logged-in checkout (pre-authenticated via saved session)

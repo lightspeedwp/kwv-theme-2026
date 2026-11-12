@@ -1,4 +1,4 @@
-import { test as base, expect, type Page } from '@playwright/test';
+import { test as base, expect, type APIRequestContext, type Page } from '@playwright/test';
 
 /**
  * KWV E2E fixtures & helpers.
@@ -40,6 +40,31 @@ export const TEST_CUSTOMER = {
   email: process.env.KWV_TEST_CUSTOMER_EMAIL ?? '',
   password: process.env.KWV_TEST_CUSTOMER_PASSWORD ?? '',
 };
+
+/** Every scoped page/template (SMK-01); also the seed set for the link crawl. */
+export const SCOPED_PAGES: { path: string; label: string }[] = [
+  { path: '/', label: 'Homepage' },
+  { path: '/shop/', label: 'Shop' },
+  { path: '/product/kwv-classic-chardonnay-2025/', label: 'Single product' },
+  { path: '/cart/', label: 'Cart' },
+  { path: '/checkout/', label: 'Checkout' },
+  { path: '/my-account/', label: 'Account/Login' },
+  { path: '/about-us/', label: 'About' },
+  { path: '/about-us/history/', label: 'About/History' },
+  { path: '/faq/', label: 'FAQs' },
+  { path: '/contact/', label: 'Contact Us' },
+  { path: '/wineclub/', label: 'Wine Club' },
+  { path: '/visit/', label: 'Visit Us' },
+  { path: '/careers/', label: 'Careers' },
+  { path: '/news/', label: 'News' },
+  { path: '/brand/the-mentors/', label: 'Single Brand' },
+];
+
+/** Submitter address for form-submitting cases (a team inbox, never a client's). */
+export const FORM_TEST_EMAIL = process.env.KWV_FORM_TEST_EMAIL ?? '';
+
+/** Marker text on every test submission, so entries are easy to find and purge. */
+export const TEST_MESSAGE = 'E2E test submission (Playwright) - please ignore.';
 
 /**
  * The site shows an Age Gate to visitors without the `age_gate` cookie. A fresh
@@ -178,6 +203,44 @@ export async function loginCustomer(page: Page): Promise<void> {
     'Login failed — KWV_TEST_CUSTOMER_PASSWORD does not match the account for KWV_TEST_CUSTOMER_EMAIL',
   ).toHaveCount(0, { timeout: 10_000 });
   await expect(page.getByRole('link', { name: /log out/i }).first()).toBeVisible({ timeout: 20_000 });
+}
+
+/**
+ * The page's main Gravity Form. Every KWV enquiry/booking form submits with
+ * "SEND MESSAGE"; the footer newsletter is also a Gravity Form, so scope by the
+ * submit button rather than taking the first `form[id^=gform]`.
+ */
+export function enquiryForm(page: Page) {
+  return page.locator('form').filter({ has: page.getByRole('button', { name: /send message/i }) });
+}
+
+/** A date `days` from today as dd/mm/yyyy, the format the booking date pickers use. */
+export function futureDate(days: number): string {
+  const d = new Date(Date.now() + days * 86_400_000);
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return `${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()}`;
+}
+
+type PublishedEvent = { id: number; link: string };
+
+/**
+ * Published `kwv_event` posts, from the public REST API. Event cases adapt to the
+ * live data: with none published, the Visit page must hide its events section and
+ * the single-event cases skip.
+ */
+export async function publishedEvents(request: APIRequestContext): Promise<PublishedEvent[]> {
+  const res = await request.get('/wp-json/wp/v2/kwv_event?per_page=20&_fields=id,link');
+  expect(res.ok(), 'kwv_event REST endpoint').toBeTruthy();
+  return res.json();
+}
+
+type StoreCategory = { id: number; name: string; slug: string; parent: number; count: number; permalink: string };
+
+/** Product categories from the public Store API (empty categories are omitted by the API). */
+export async function storeCategories(request: APIRequestContext): Promise<StoreCategory[]> {
+  const res = await request.get('/wp-json/wc/store/v1/products/categories?per_page=100');
+  expect(res.ok(), 'Store API categories').toBeTruthy();
+  return res.json();
 }
 
 /**

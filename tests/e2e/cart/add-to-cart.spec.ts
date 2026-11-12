@@ -7,7 +7,9 @@ import { test, expect, PRODUCT, cartButton, addSeededProductToCart } from '../fi
 test.describe('Add to cart @cart', () => {
   // TC-001 — Add to cart from Shop
   test('TC-001 adds the seeded product from the Shop grid', async ({ page }) => {
-    await page.goto('/shop/');
+    // The Shop sorts by popularity across ~170 products, so the seeded product is
+    // not reliably on page 1. A product search renders the same archive grid.
+    await page.goto(`/shop/?s=${encodeURIComponent(PRODUCT.name)}&post_type=product`);
 
     const card = page.getByRole('listitem').filter({ hasText: PRODUCT.name }).first();
     await expect(card).toBeVisible();

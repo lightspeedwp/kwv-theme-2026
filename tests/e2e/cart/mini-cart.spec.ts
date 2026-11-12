@@ -23,16 +23,15 @@ test.describe('Mini-cart drawer @cart', () => {
   });
 
   // TC-002 — Mini-cart drawer contents & navigation
-  test('TC-002 shows the line item, subtotal, and cart/checkout links', async ({ page }) => {
+  test('TC-002 shows the line item, subtotal, and the checkout link', async ({ page }) => {
     const drawer = miniCartDrawer(page);
 
     await expect(drawer.getByRole('heading', { name: /your cart/i })).toBeVisible();
     await expect(drawer.getByRole('link', { name: PRODUCT.name })).toBeVisible();
 
-    await expect(drawer.getByRole('link', { name: /view my cart/i })).toHaveAttribute(
-      'href',
-      /\/cart\/?$/,
-    );
+    // "View my cart" is hidden in the mini-cart part by design (blockVisibility off,
+    // 2026-08-04): the drawer offers checkout only.
+    await expect(drawer.getByRole('link', { name: /view my cart/i })).toHaveCount(0);
     await expect(drawer.getByRole('link', { name: /go to checkout/i })).toHaveAttribute(
       'href',
       /\/checkout\/?$/,
