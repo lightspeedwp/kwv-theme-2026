@@ -24,10 +24,7 @@ final class TemplateSmokeTest extends TestCase {
 	 *
 	 * @var array<string,string[]>
 	 */
-	private const KNOWN_DANGLING = array(
-		// parts/sidebar.html does not exist, although functions.php registers a Sidebar area for it.
-		'templates/page-with-sidebar.html' => array( 'part:sidebar' ),
-	);
+	private const KNOWN_DANGLING = array();
 
 	/**
 	 * @return array<string,array{0:string}>

@@ -15,6 +15,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - GitHub Actions workflow `.github/workflows/php-tests.yml` and `tests/README.md`.
 - Dev tooling only; no theme behaviour changed.
 
+### Fixed
+
+- **Careers hero Scroll button** (`patterns/careers-hero.php`, so also `page-careers`, `template-careers` and `template-single-career`): dropped the redundant `"text"` attribute from the button's block comment. WordPress 7.1 validated it against the attribute schema and logged a `_doing_it_wrong` notice on every render. Found by the new pattern smoke test. The button's label comes from its markup, so the output is unchanged.
+
+### Removed
+
+- **Page (With Sidebar) template** (`templates/page-with-sidebar.html` and its `customTemplates` entry in `theme.json`). Unused, and it referenced a `sidebar` template part that doesn't exist.
+
 ### Added (Brand page redesign — Estimate 3439, 2026-11-12)
 
 - **Brand pages (`/brand/…`) have a new layout.** `templates/taxonomy-product_brand.html` now uses the new `kwv/woo-brand-archive` pattern instead of the shared shop archive: the existing per-brand banner, then the brand logo, introduction and awards row, then a product slider in place of the grid, then the brand's social icons and "Visit brand website" link. Filters, results count, breadcrumbs and pagination are gone from brand pages only. Shop and category pages are unchanged.

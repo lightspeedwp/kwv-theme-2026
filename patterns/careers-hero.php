@@ -64,7 +64,7 @@
 		<!-- /wp:columns -->
 
 		<!-- wp:buttons {"className":"kwv-scroll-indicator","layout":{"type":"flex","justifyContent":"center"}} -->
-		<div class="wp-block-buttons kwv-scroll-indicator"><!-- wp:button {"text":"Scroll to content","url":"#content"} -->
+		<div class="wp-block-buttons kwv-scroll-indicator"><!-- wp:button {"url":"#content"} -->
 			<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="#content">Scroll to content</a></div>
 			<!-- /wp:button -->
 		</div>

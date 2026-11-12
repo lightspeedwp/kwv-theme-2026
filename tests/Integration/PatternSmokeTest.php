@@ -23,12 +23,7 @@ final class PatternSmokeTest extends TestCase {
 	 *
 	 * @var array<string,string>
 	 */
-	private const KNOWN_BUGS = array(
-		'careers-hero.php'           => 'core/button "text" attribute in the block comment triggers rest_validate_value_from_schema (_doing_it_wrong).',
-		'page-careers.php'           => 'embeds careers-hero: core/button "text" attribute triggers rest_validate_value_from_schema (_doing_it_wrong).',
-		'template-careers.php'       => 'embeds careers-hero: core/button "text" attribute triggers rest_validate_value_from_schema (_doing_it_wrong).',
-		'template-single-career.php' => 'embeds careers-hero: core/button "text" attribute triggers rest_validate_value_from_schema (_doing_it_wrong).',
-	);
+	private const KNOWN_BUGS = array();
 
 	/**
 	 * One case per pattern file.

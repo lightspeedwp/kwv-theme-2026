@@ -1136,14 +1136,6 @@
 				"page",
 				"post"
 			]
-		},
-		{
-			"name": "page-with-sidebar",
-			"title": "Page (With Sidebar)",
-			"postTypes": [
-				"post",
-				"page"
-			]
 		}
 	],
 	"templateParts": [

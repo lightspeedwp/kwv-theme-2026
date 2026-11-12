@@ -63,12 +63,7 @@ Gravity Forms is commercial and absent on CI. `TestCase::requireGravityForms()` 
 
 ## Known findings (skipped, not fixed)
 
-Reported as skipped tests starting with `BUG:`:
-
-- `careers-hero.php`, `page-careers.php`, `template-careers.php`, `template-single-career.php`: the Scroll button puts `"text"` in the block comment attributes, so WordPress 7.1 raises a `_doing_it_wrong` (`rest_validate_value_from_schema`) every time the pattern renders.
-- `templates/page-with-sidebar.html` references the template part `sidebar`, but `parts/sidebar.html` does not exist.
-
-When one is fixed, delete its entry from `KNOWN_BUGS` in `PatternSmokeTest` or `KNOWN_DANGLING` in `TemplateSmokeTest`.
+None at present. A finding is recorded as a skipped test whose message starts with `BUG:` by adding an entry to `KNOWN_BUGS` in `PatternSmokeTest` (pattern file => reason) or `KNOWN_DANGLING` in `TemplateSmokeTest` (template file => missing references). Delete the entry when it is fixed.
 
 ## CI
 
