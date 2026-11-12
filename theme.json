@@ -1203,6 +1203,11 @@
 			"area": "uncategorized"
 		},
 		{
+			"name": "brand-product-slide",
+			"title": "Brand Product Slide",
+			"area": "uncategorized"
+		},
+		{
 			"name": "simple-product-add-to-cart-with-options",
 			"title": "Simple Product Add to Cart + Options",
 			"area": "add-to-cart-with-options"

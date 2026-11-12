@@ -159,7 +159,7 @@
    Design: a black "button" plate (rounded only bottom-left, matching the card
    corner) + a spacing-20 gap + a static gold circular 50px "+" icon. On hover the
    plate flips — background to base, border and text to contrast — icon static. */
-.is-style-product-card .wc-block-components-product-button.is-style-add-to-cart {
+:is(.is-style-product-card, .kwv-brand-slide) .wc-block-components-product-button.is-style-add-to-cart {
 	position: relative;
 	display: flex;
 	flex-direction: row;
@@ -171,13 +171,13 @@
    tap on the gold icon also adds to cart. The icon (::after below) stays
    pointer-events:none, so clicks over it fall through to this transparent
    overlay; hovering anywhere in the row therefore also triggers the flip. */
-.is-style-product-card .wc-block-components-product-button.is-style-add-to-cart .wp-block-button__link::before {
+:is(.is-style-product-card, .kwv-brand-slide) .wc-block-components-product-button.is-style-add-to-cart .wp-block-button__link::before {
 	content: "";
 	position: absolute;
 	inset: 0;
 }
 
-.is-style-product-card .wc-block-components-product-button.is-style-add-to-cart .wp-block-button__link {
+:is(.is-style-product-card, .kwv-brand-slide) .wc-block-components-product-button.is-style-add-to-cart .wp-block-button__link {
 	flex: 1 1 auto;
 	display: flex;
 	align-items: center;
@@ -202,14 +202,14 @@
 	transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
-.is-style-product-card .wc-block-components-product-button.is-style-add-to-cart .wp-block-button__link:hover,
-.is-style-product-card .wc-block-components-product-button.is-style-add-to-cart .wp-block-button__link:focus-visible {
+:is(.is-style-product-card, .kwv-brand-slide) .wc-block-components-product-button.is-style-add-to-cart .wp-block-button__link:hover,
+:is(.is-style-product-card, .kwv-brand-slide) .wc-block-components-product-button.is-style-add-to-cart .wp-block-button__link:focus-visible {
 	background-color: var(--wp--preset--color--base);
 	color: var(--wp--preset--color--contrast);
 	border-color: var(--wp--preset--color--contrast);
 }
 
-.is-style-product-card .wc-block-components-product-button.is-style-add-to-cart::after {
+:is(.is-style-product-card, .kwv-brand-slide) .wc-block-components-product-button.is-style-add-to-cart::after {
 	content: "";
 	flex: 0 0 50px;
 	align-self: center;
@@ -225,7 +225,7 @@
    button — redundant with the header mini-cart, and it wedges into the flex row
    between the plate and the icon. Hide its whole wrapper (not just the anchor)
    so it leaves no stray flex gap either. */
-.is-style-product-card .wc-block-components-product-button.is-style-add-to-cart > span:has(> .added_to_cart) {
+:is(.is-style-product-card, .kwv-brand-slide) .wc-block-components-product-button.is-style-add-to-cart > span:has(> .added_to_cart) {
 	display: none;
 }
 

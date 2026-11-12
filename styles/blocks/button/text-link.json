@@ -1,0 +1,46 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Text Link",
+	"slug": "text-link",
+	"blockTypes": [ "core/button" ],
+	"description": "A button that reads as an underlined, uppercase text link in the darker brand gold (AA contrast on white) — no plate, border or padding. Turns contrast on hover and focus.",
+	"styles": {
+		"color": {
+			"background": "transparent",
+			"text": "var:preset|color|brand-600"
+		},
+		"border": {
+			"style": "none",
+			"width": "0",
+			"radius": "0"
+		},
+		"spacing": {
+			"padding": {
+				"top": "0",
+				"right": "0",
+				"bottom": "0",
+				"left": "0"
+			}
+		},
+		"typography": {
+			"fontFamily": "var:preset|font-family|heading",
+			"fontSize": "var:preset|font-size|200",
+			"fontWeight": "var:custom|font-weight|semi-bold",
+			"textTransform": "uppercase",
+			"textDecoration": "underline"
+		},
+		":hover": {
+			"color": {
+				"background": "transparent",
+				"text": "var:preset|color|contrast"
+			}
+		},
+		":focus": {
+			"color": {
+				"background": "transparent",
+				"text": "var:preset|color|contrast"
+			}
+		}
+	}
+}

@@ -253,6 +253,12 @@ require_once get_template_directory() . '/inc/mobile-menu.php';
  */
 require_once get_template_directory() . '/inc/carousel.php';
 
+
+/**
+ * Load the brand page (/brand/…) product slider.
+ */
+require_once get_template_directory() . '/inc/brand-page.php';
+
 /**
  * Load the lazy-loaded Cover background video (poster + deferred src).
  */

@@ -1,0 +1,284 @@
+/* ============================================
+   Brand page (/brand/…)
+   Template: templates/taxonomy-product_brand.html → patterns/woo-brand-archive.php
+   Slide:    parts/brand-product-slide.html (+ styles/sections/brand-product-slide.json)
+   Script:   assets/js/brand-slider.js, enqueued by inc/brand-page.php
+
+   Why this is a stylesheet and not a block-style JSON (AGENTS.md → "Styling
+   lives in JSON"): everything here targets either state that only exists at
+   run time (Swiper's classes, WooCommerce's stock/type classes on each product),
+   elements the slider script creates (arrows, thumbnails), image sizing, or
+   pseudo-states — none of which a style variation's `css` field can express.
+   Colours, type and spacing that JSON can hold are in the section style and on
+   the blocks themselves.
+   ============================================ */
+
+.kwv-brand-slider,
+.kwv-brand-slide {
+	/* Height of the packshot area; the arrows centre on it. */
+	--kwv-brand-media-height: clamp(20rem, 46vw, 38rem);
+	/* Must match the slide's column gap (spacing-80 in the template part). */
+	--kwv-brand-column-gap: var(--wp--preset--spacing--80);
+}
+
+/* --- Brand introduction ------------------------------------------------ */
+
+.kwv-brand-intro__logo img {
+	width: auto;
+	max-width: min(100%, 16rem);
+	max-height: 7rem;
+	object-fit: contain;
+}
+
+.kwv-brand-awards__item {
+	margin: 0;
+}
+
+.kwv-brand-awards__item img {
+	display: block;
+	width: auto;
+	height: clamp(4.5rem, 8vw, 6.25rem);
+	object-fit: contain;
+}
+
+/* --- Product list / slider --------------------------------------------- */
+
+.kwv-brand-slider .wc-block-product-template {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+/* Without the slider (no JavaScript, or Swiper unavailable) the products are a
+   stacked list, separated by the same gold rule used elsewhere on the page. */
+.kwv-brand-slider:not(.swiper) .wc-block-product + .wc-block-product {
+	margin-top: var(--wp--preset--spacing--60);
+	padding-top: var(--wp--preset--spacing--60);
+	border-top: 1px solid var(--wp--preset--color--brand-500);
+}
+
+/* With JavaScript on the way, show only the first product until the slider
+   starts, so the stacked list never flashes. inc/brand-page.php sets the class
+   in <head>; the script removes it again if it cannot start. */
+.kwv-brand-slider-js .kwv-brand-slider:not(.swiper):not(.kwv-brand-slider--single) .wc-block-product:not(:first-child) {
+	display: none;
+}
+
+.kwv-brand-slider.swiper .wc-block-product {
+	margin: 0;
+	height: auto;
+}
+
+/* --- One product ------------------------------------------------------- */
+
+.kwv-brand-slide__media .wc-block-components-product-image {
+	margin: 0;
+}
+
+.kwv-brand-slide__media .wc-block-components-product-image a {
+	display: block;
+}
+
+.kwv-brand-slide__media img {
+	display: block;
+	width: 100%;
+	height: var(--kwv-brand-media-height);
+	object-fit: contain;
+}
+
+.kwv-brand-slide .wc-block-components-product-summary > :first-child {
+	margin-top: 0;
+}
+
+.kwv-brand-slide .wc-block-components-product-summary > :last-child {
+	margin-bottom: 0;
+}
+
+/* "Product detail": hide the heading when the product has nothing to list
+   (no attribute marked "Visible on the product page"). */
+.kwv-brand-slide__details:not(:has(.wp-block-woocommerce-product-specifications)) {
+	display: none;
+}
+
+.kwv-brand-slide .wp-block-woocommerce-product-specifications {
+	margin: 0;
+}
+
+.kwv-brand-slide .wp-block-woocommerce-product-specifications table {
+	width: auto;
+	font-size: var(--wp--preset--font-size--200);
+	border: 0;
+	border-collapse: collapse;
+}
+
+.kwv-brand-slide .wp-block-woocommerce-product-specifications :is(th, td) {
+	padding: var(--wp--preset--spacing--5) 0;
+	border: 0;
+	background: none;
+	font-weight: var(--wp--custom--font-weight--regular);
+	text-align: start;
+	vertical-align: top;
+}
+
+.kwv-brand-slide .wp-block-woocommerce-product-specifications th {
+	padding-inline-end: var(--wp--preset--spacing--60);
+	text-transform: uppercase;
+}
+
+.kwv-brand-slide .wp-block-woocommerce-product-specifications td p {
+	margin: 0;
+}
+
+/* Add to Cart sits at its natural width beside the price (in the shop grid the
+   same control stretches to the card). */
+.kwv-brand-slide .wc-block-components-product-button.is-style-add-to-cart {
+	flex: 0 0 auto;
+	margin: 0;
+}
+
+.kwv-brand-slide .wc-block-components-product-button.is-style-add-to-cart .wp-block-button__link {
+	padding-inline: var(--wp--preset--spacing--30);
+}
+
+.kwv-brand-slide .wc-block-components-product-price {
+	margin: 0;
+}
+
+/* Add to Cart is for in-stock simple products only. Anything else — out of
+   stock, or a product with options, a subscription, a grouped or an external
+   product — keeps just the "View product" link (and "Out of stock", which
+   WooCommerce's stock indicator prints by itself). */
+.kwv-brand-slider .wc-block-product:is(.outofstock, :not(.product-type-simple)) .wc-block-components-product-button {
+	display: none;
+}
+
+.kwv-brand-slide .wc-block-components-product-stock-indicator {
+	margin: 0;
+}
+
+.kwv-brand-slide__view:is(:hover, :focus-visible) {
+	color: var(--wp--preset--color--contrast);
+}
+
+/* --- Arrows (created by brand-slider.js) -------------------------------- */
+
+.kwv-brand-slider__arrow {
+	position: absolute;
+	z-index: 2;
+	top: calc(var(--kwv-brand-media-height) / 2);
+	display: grid;
+	place-items: center;
+	width: 2.75rem;
+	height: 4.5rem;
+	padding: 0;
+	border: 0;
+	background: none;
+	color: var(--wp--preset--color--neutral-600);
+	cursor: pointer;
+	transform: translateY(-50%);
+	transition: color 0.2s ease;
+}
+
+.kwv-brand-slider__arrow:is(:hover, :focus-visible) {
+	color: var(--wp--preset--color--contrast);
+}
+
+.kwv-brand-slider__arrow:focus-visible,
+.kwv-brand-slider__thumb:focus-visible {
+	outline: 2px solid var(--wp--preset--color--contrast);
+	outline-offset: 2px;
+}
+
+/* The strip clips its overflow, so the thumbnail's focus ring is drawn inside. */
+.kwv-brand-slider__thumb:focus-visible {
+	outline-offset: -2px;
+}
+
+.kwv-brand-slider__arrow.swiper-button-disabled {
+	opacity: 0.3;
+	cursor: default;
+}
+
+.kwv-brand-slider__arrow--prev {
+	inset-inline-start: 0;
+}
+
+.kwv-brand-slider__arrow--next {
+	inset-inline-end: 0;
+}
+
+.kwv-brand-slider__arrow--next svg {
+	transform: scaleX(-1);
+}
+
+/* Keep the packshot clear of the arrows. */
+.kwv-brand-slider.swiper .kwv-brand-slide__media {
+	padding-inline: 3rem;
+}
+
+/* Side by side (core stacks columns below 782px): the arrows flank the packshot
+   in the left half, centred on the slide. */
+@media (min-width: 782px) {
+
+	.kwv-brand-slider__arrow {
+		top: 50%;
+	}
+
+	.kwv-brand-slider__arrow--next {
+		inset-inline-end: calc(50% + var(--kwv-brand-column-gap) / 2);
+	}
+}
+
+/* --- Thumbnails (created by brand-slider.js) ---------------------------- */
+
+.kwv-brand-slider-thumbs:empty {
+	display: none;
+}
+
+.kwv-brand-slider__thumbs {
+	padding: 2px;
+}
+
+.kwv-brand-slider__thumb {
+	display: block;
+	width: 4.5rem;
+	height: 6.5rem;
+	padding: var(--wp--preset--spacing--5);
+	border: 0;
+	border-bottom: 2px solid transparent;
+	background: none;
+	opacity: 0.55;
+	cursor: pointer;
+	transition: opacity 0.2s ease, border-color 0.2s ease;
+}
+
+.kwv-brand-slider__thumb img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.kwv-brand-slider__thumb:is(:hover, :focus-visible),
+.kwv-brand-slider__thumb.swiper-slide-thumb-active {
+	opacity: 1;
+}
+
+.kwv-brand-slider__thumb.swiper-slide-thumb-active {
+	border-bottom-color: var(--wp--preset--color--brand-500);
+}
+
+/* --- Brand links ------------------------------------------------------- */
+
+.kwv-brand-links .wp-block-separator {
+	width: 100%;
+	max-width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.kwv-brand-slider__arrow,
+	.kwv-brand-slider__thumb {
+		transition: none;
+	}
+}
