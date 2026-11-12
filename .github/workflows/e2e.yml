@@ -1,0 +1,97 @@
+# Playwright end-to-end suite (tests/e2e). Manual, plus an optional nightly run.
+#
+# Targets the dev site by default, which is shared with the client: the suite is
+# read-only unless its opt-in flags are set (KWV_SANDBOX, KWV_ALLOW_FORM_SUBMIT),
+# and this workflow never sets them. Credentials come from repository secrets
+# named as in tests/e2e/.env.example; cases that need a missing one skip.
+#
+# Visual baselines are recorded per OS (darwin locally), so @visual is skipped
+# here unless the run is started with "visual" ticked after Linux baselines exist.
+name: E2E (Playwright)
+
+on:
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: Site to test
+        default: https://kwv.lightspeedwp.dev
+        required: true
+      projects:
+        description: Space-separated Playwright projects
+        default: chromium firefox webkit mobile-chrome mobile-safari
+        required: true
+      visual:
+        description: Include @visual cases (needs Linux baselines)
+        type: boolean
+        default: false
+  # Nightly, read-only, against dev. Remove this block to make the workflow manual-only.
+  schedule:
+    - cron: '0 1 * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: e2e-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  e2e:
+    name: Playwright
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    defaults:
+      run:
+        working-directory: tests/e2e
+    env:
+      KWV_BASE_URL: ${{ inputs.base_url || 'https://kwv.lightspeedwp.dev' }}
+      KWV_TEST_CUSTOMER_EMAIL: ${{ secrets.KWV_TEST_CUSTOMER_EMAIL }}
+      KWV_TEST_CUSTOMER_PASSWORD: ${{ secrets.KWV_TEST_CUSTOMER_PASSWORD }}
+      KWV_ADMIN_EMAIL: ${{ secrets.KWV_ADMIN_EMAIL }}
+      KWV_ADMIN_PASSWORD: ${{ secrets.KWV_ADMIN_PASSWORD }}
+      KWV_COUPON_CODE: ${{ secrets.KWV_COUPON_CODE }}
+      KWV_FORM_TEST_EMAIL: ${{ secrets.KWV_FORM_TEST_EMAIL }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: tests/e2e/package-lock.json
+
+      - name: Install
+        run: npm ci
+
+      - name: Install browsers
+        run: npx playwright install --with-deps chrome firefox webkit
+
+      - name: Run
+        env:
+          PROJECTS: ${{ inputs.projects || 'chromium firefox webkit mobile-chrome mobile-safari' }}
+          VISUAL: ${{ inputs.visual && '1' || '' }}
+        run: |
+          args=()
+          for p in $PROJECTS; do args+=( "--project=$p" ); done
+          # The authenticated project needs the customer secret.
+          if [ -n "$KWV_TEST_CUSTOMER_EMAIL" ]; then args+=( "--project=chromium-auth" ); fi
+          if [ -z "$VISUAL" ]; then args+=( "--grep-invert=@visual" ); fi
+          npx playwright test "${args[@]}"
+
+      - name: Upload HTML report
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: playwright-report
+          path: tests/e2e/playwright-report/
+          retention-days: 14
+
+      - name: Upload failures and screenshot diffs
+        if: failure()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: playwright-test-results
+          path: tests/e2e/test-results/
+          retention-days: 14

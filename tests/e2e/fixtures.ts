@@ -322,4 +322,108 @@ export function newConsoleErrors(observed: string[], pageKey: string): string[] 
   return observed.filter((text) => !allowed.some((re) => re.test(text)));
 }
 
+/**
+ * Accessibility scan targets (A11Y-01). Each is scanned at desktop and phone
+ * width by quality/a11y.spec.ts. `prepare` runs after load, before the scan
+ * (e.g. open the Careers job modal). A path resolver may return null to skip
+ * when the target environment has no such content.
+ */
+export type A11yTarget = {
+  key: string;
+  label: string;
+  path: string | ((request: APIRequestContext) => Promise<string | null>);
+  prepare?: (page: Page) => Promise<boolean>;
+};
+
+export const A11Y_TARGETS: A11yTarget[] = [
+  { key: 'home', label: 'Homepage', path: '/' },
+  { key: 'shop', label: 'Shop', path: '/shop/' },
+  {
+    key: 'category',
+    label: 'Product category',
+    path: async (request) => {
+      const [cat] = (await storeCategories(request)).filter((c) => c.count > 0);
+      return cat ? new URL(cat.permalink).pathname : null;
+    },
+  },
+  { key: 'brand', label: 'Single Brand', path: `/brand/${BRAND.slug}/` },
+  { key: 'product', label: 'Single product', path: `/product/${PRODUCT.slug}/` },
+  { key: 'cart', label: 'Cart', path: '/cart/' },
+  { key: 'checkout', label: 'Checkout', path: '/checkout/' },
+  { key: 'about', label: 'About', path: '/about-us/' },
+  { key: 'visit', label: 'Visit Us', path: '/visit/' },
+  {
+    key: 'careers-modal',
+    label: 'Careers (job modal open)',
+    path: '/careers/',
+    prepare: async (page) => {
+      const open = page.locator('[data-kwv-career-open]').first();
+      if ((await open.count()) === 0) return false;
+      await open.click();
+      await expect(page.getByRole('dialog')).toBeVisible();
+      return true;
+    },
+  },
+  { key: 'wineclub', label: 'Wine Club', path: '/wineclub/' },
+  { key: 'news', label: 'News', path: '/news/' },
+  { key: 'faq', label: 'FAQ', path: '/faq/' },
+  { key: 'contact', label: 'Contact', path: '/contact/' },
+];
+
+/**
+ * Accessibility baseline (A11Y-01): serious/critical axe rule IDs already
+ * present, per target key and width, recorded with `KWV_A11Y_RECORD=1` and
+ * reviewed — see tests/js/README.md and the JS test report. Same contract as
+ * CONSOLE_ERROR_BASELINE: the gate fails on any rule NOT listed here, so new
+ * violations fail while known ones are worked off. Never widen it to make a run
+ * pass; delete an entry once it is fixed.
+ *
+ * Recorded 2026-11-12 against the local Studio site (http://localhost:8901).
+ */
+// A11Y-F2 — WooCommerce mini-cart drawer (body-level portal, every page): the
+// closed drawer is aria-hidden but still holds focusable controls. Reported on
+// some loads and not others depending on hydration timing, so it is allowed on
+// every page rather than left flaky.
+const MINI_CART = 'aria-hidden-focus';
+// A11Y-F3 — header promo bar text fails contrast (WCAG 1.4.3) on WooCommerce templates.
+// A11Y-F4 — centred 100/200 font-size paragraphs (notices/intro copy) fail contrast.
+// A11Y-F5 — homepage hero pagination bullets are under the 24px target size (2.5.8).
+// A11Y-F6 — Contact: brand-500 headings on the details column fail contrast.
+const both = (...ids: string[]) => ({ desktop: [MINI_CART, ...ids], phone: [MINI_CART, ...ids] });
+
+export const A11Y_BASELINE: Record<string, { desktop: string[]; phone: string[] }> = {
+  home: both('target-size'), // F5
+  shop: both('color-contrast'), // F3
+  category: both('color-contrast'), // F3
+  brand: both('color-contrast'), // F3
+  product: both('color-contrast'), // F3
+  cart: both('color-contrast'), // F4
+  checkout: both('color-contrast'), // F4
+  news: both('color-contrast'), // F4
+  faq: both('color-contrast'), // F4
+  contact: both('color-contrast'), // F6
+  // Not recorded (404 or no content locally): about, visit, wineclub, careers-modal.
+  // They run with an empty allow-list, so anything serious there fails.
+};
+
+/** Rule IDs found that the baseline for `key`/`width` does not already account for. */
+export function newA11yViolations(found: string[], key: string, width: 'desktop' | 'phone'): string[] {
+  const allowed = A11Y_BASELINE[key]?.[width] ?? [];
+  return found.filter((id) => !allowed.includes(id));
+}
+
+/**
+ * Regions that legitimately change between runs, masked in visual snapshots
+ * (VIS-01): carousels mid-animation, prices, dates, the cart count and video.
+ */
+export function visualMasks(page: Page) {
+  return [
+    page.locator('.swiper, .cb-carousel-block, .wp-block-cb-carousel-v2'),
+    page.locator('.woocommerce-Price-amount, .wc-block-components-product-price, .price'),
+    page.locator('time, .wp-block-post-date, .wp-block-latest-posts__post-date'),
+    page.locator('.wc-block-mini-cart__badge, .wc-block-mini-cart__amount'),
+    page.locator('video, iframe'),
+  ];
+}
+
 export { expect };
