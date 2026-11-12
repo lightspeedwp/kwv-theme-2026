@@ -1,0 +1,19 @@
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Dependencies
+/vendor/
+/node_modules/
+
+# Build / logs
+*.log
+
+# PHP test tooling (composer.json is dev-only)
+/build/
+/.phpunit.result.cache
+/.phpunit.cache/
+/.phpcs-cache
+/.ci-plugins/

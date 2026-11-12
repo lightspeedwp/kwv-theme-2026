@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added (PHP test tooling)
+
+- PHPUnit unit (Brain Monkey) and integration (real WordPress, WooCommerce, SCF, Gravity Forms when present) suites for `functions.php` and `inc/`, with an 80% line-coverage gate on `inc/` (`composer test:coverage`).
+- Smoke tests: every pattern registers, has `Title`/`Slug` headers (namespaced `kwv/`) and renders; every template and part parses and every pattern/part it references exists.
+- `phpcs.xml.dist` (WordPress standard), `phpstan.neon.dist` with a baseline for existing findings, and the `composer lint` / `analyse` / `wpcs:scan` scripts.
+- GitHub Actions workflow `.github/workflows/php-tests.yml` and `tests/README.md`.
+- Dev tooling only; no theme behaviour changed.
+
 ### Added (Brand page redesign — Estimate 3439, 2026-11-12)
 
 - **Brand pages (`/brand/…`) have a new layout.** `templates/taxonomy-product_brand.html` now uses the new `kwv/woo-brand-archive` pattern instead of the shared shop archive: the existing per-brand banner, then the brand logo, introduction and awards row, then a product slider in place of the grid, then the brand's social icons and "Visit brand website" link. Filters, results count, breadcrumbs and pagination are gone from brand pages only. Shop and category pages are unchanged.

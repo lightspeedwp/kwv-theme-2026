@@ -1,0 +1,105 @@
+name: PHP tests
+
+on:
+  pull_request:
+    branches: [develop, main, master]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: php-tests-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PHP_VERSION: '8.2'
+
+jobs:
+  lint:
+    name: Lint (parallel-lint + PHPCS)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          tools: composer
+
+      - run: composer install --no-interaction --no-progress --prefer-dist
+
+      - name: PHP syntax
+        run: composer lint:syntax
+
+      # The theme has pre-existing WordPress Coding Standards findings (see
+      # tests/README.md). They are reported but do not fail the build yet;
+      # remove continue-on-error once they are cleaned up.
+      - name: WordPress Coding Standards
+        run: composer wpcs:scan
+        continue-on-error: true
+
+  analyse:
+    name: Static analysis (PHPStan)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          tools: composer
+
+      - run: composer install --no-interaction --no-progress --prefer-dist
+
+      - run: composer analyse
+
+  test:
+    name: Unit + integration tests (coverage >= 80%)
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+          MYSQL_DATABASE: kwv_theme_tests
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+    env:
+      WP_TESTS_DB_HOST: 127.0.0.1
+      WP_TESTS_DB_NAME: kwv_theme_tests
+      WP_TESTS_DB_USER: root
+      WP_TESTS_DB_PASSWORD: ''
+      KWV_WP_PLUGINS_DIR: ${{ github.workspace }}/.ci-plugins
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          coverage: pcov
+          extensions: mysqli
+          tools: composer
+
+      - run: composer install --no-interaction --no-progress --prefer-dist
+
+      # Free plugins the integration suite needs. Gravity Forms is commercial and
+      # not installed here: its tests skip themselves (see tests/README.md).
+      - name: Download third-party plugins
+        run: |
+          mkdir -p "$KWV_WP_PLUGINS_DIR"
+          cd "$KWV_WP_PLUGINS_DIR"
+          curl -fsSL -o woocommerce.zip https://downloads.wordpress.org/plugin/woocommerce.10.9.1.zip
+          curl -fsSL -o scf.zip https://downloads.wordpress.org/plugin/secure-custom-fields.latest-stable.zip
+          curl -fsSL -o carousel-block.zip https://downloads.wordpress.org/plugin/carousel-block.latest-stable.zip
+          unzip -q woocommerce.zip
+          unzip -q scf.zip
+          unzip -q carousel-block.zip
+          rm ./*.zip
+
+      - name: Run both suites with coverage
+        run: composer test:coverage
