@@ -156,6 +156,12 @@
 	margin: 0;
 }
 
+/* The stock indicator is only there to say "Out of stock" (or "Available on
+   backorder"); an in-stock product shows nothing, as in the design. */
+.kwv-brand-slider .wc-block-product.instock .wc-block-components-product-stock-indicator {
+	display: none;
+}
+
 .kwv-brand-slide__view:is(:hover, :focus-visible) {
 	color: var(--wp--preset--color--contrast);
 }
