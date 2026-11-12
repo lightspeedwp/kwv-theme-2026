@@ -150,3 +150,48 @@ function enqueue_assets() {
 	);
 }
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_assets', 20 );
+
+/**
+ * Tidy a product's short description inside a brand page slide.
+ *
+ * Short descriptions are often pasted from other sites and carry inline
+ * styles, fixed widths and centring (KWV 10 Year Old Brandy's is a
+ * 1876px-wide table), which broke out of the slide into its neighbours.
+ * On brand pages only, this strips `style`, `width`, `height`, `align` and
+ * pasted `data-*` attributes from everything inside the summary, so the text
+ * takes the slide's own typography. The product data itself is unchanged, and
+ * the single product page still shows it as entered. Table cells are flowed
+ * as plain text by assets/styles/woocommerce-brand-page.css.
+ *
+ * @param string $block_content Rendered Product Summary block.
+ * @return string
+ */
+function clean_product_summary( $block_content ) {
+
+	if ( ! is_brand_page() || '' === (string) $block_content ) {
+		return $block_content;
+	}
+
+	$html  = new \WP_HTML_Tag_Processor( $block_content );
+	$depth = 0;
+
+	while ( $html->next_tag() ) {
+
+		// Leave the block's own two wrappers (and their font-size class) alone.
+		if ( $depth < 2 ) {
+			++$depth;
+			continue;
+		}
+
+		foreach ( array( 'style', 'width', 'height', 'align' ) as $attribute ) {
+			$html->remove_attribute( $attribute );
+		}
+
+		foreach ( (array) $html->get_attribute_names_with_prefix( 'data-' ) as $attribute ) {
+			$html->remove_attribute( $attribute );
+		}
+	}
+
+	return $html->get_updated_html();
+}
+add_filter( 'render_block_woocommerce/product-summary', __NAMESPACE__ . '\clean_product_summary' );

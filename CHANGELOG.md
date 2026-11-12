@@ -18,6 +18,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **New button style "Text Link"** (`styles/blocks/button/text-link.json`) for the website link, in `brand-600` so it meets AA contrast on white.
 - **Tested locally only** (Chrome, 1440 and 390 wide): arrows, keys, thumbnails, Add to Cart with mini-cart count, blank fields, out of stock, single-product brand. Not yet tested: the Site Editor, other browsers, WP Rocket, the dev site.
 - **Deploy note:** dev renders brand archives from DB template 182616, which shadows this file. It has to be deleted (or replaced) for the new layout to show.
+- **Review round 1 (2026-11-12):** WooCommerce breadcrumbs under the hero. The price moves above Add to Cart. The slide's Add to Cart button gets `spacing|50` side padding (the shop grid keeps `spacing|10`). Short description goes up to font size 300, with a `spacing|30` gap under "Product detail". "In stock" is hidden (only "Out of stock" shows). The intro section and its divider hide when a brand has no logo, intro or awards.
+- **Fixed: pasted short descriptions broke out of their slide.** KWV 10 Year Old Brandy's short description is a pasted `<table width="1876">` with inline centring, and it spilled into neighbouring slides. `inc/brand-page.php` now strips `style`/`width`/`height`/`align`/`data-*` inside the Product Summary on brand pages only, the stylesheet flows table cells as text, and slides clip their overflow. Product data and the single product page are unchanged.
+- **Tests:** `tests/e2e/brand/brand-page.spec.ts` (BRAND-TC1–TC10). 10/10 pass on the local preview; on dev's previous build the 4 cases covering this round's fixes fail as expected.
+- **Docs:** technical notes in `kwv-enhancements/docs/brand-pages.md`; client guide in the workspace at `reports/brand-page/kwv-brand-pages-guide.md`.
+- **Dev content:** KWV Brandy (term 255) now has its introduction, three award images cropped from the mockup (184137–184139, low resolution, to be replaced by KWV's artwork), and Facebook and X links taken from the current kwv.co.za brandy page. Instagram and the brand website are left blank: no brand Instagram was found, and the only brand "website" is the old kwv.co.za page.
 
 ### Changed (Client review — site-wide side gutter, homepage brand carousels, 2026-10-22)
 

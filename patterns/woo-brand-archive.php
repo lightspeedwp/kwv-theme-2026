@@ -2,7 +2,7 @@
 /**
  * Title: Brand Archive
  * Slug: kwv/woo-brand-archive
- * Description: Brand page (/brand/…) — the per-brand banner hero, the brand logo, introduction and awards row from the Brand's fields, a one-product-at-a-time slider of the brand's products (each slide is the editable "Brand Product Slide" template part), thumbnails, and the brand's social icons and website link. Fields left blank on the Brand are not shown.
+ * Description: Brand page (/brand/…) — the per-brand banner hero, WooCommerce breadcrumbs, the brand logo, introduction and awards row from the Brand's fields, a one-product-at-a-time slider of the brand's products (each slide is the editable "Brand Product Slide" template part), thumbnails, and the brand's social icons and website link. Fields left blank on the Brand are not shown.
  * Categories: kwv/woocommerce
  * Keywords: brand, archive, slider, products, awards, woocommerce
  * Template Types: taxonomy-product_brand
@@ -16,6 +16,10 @@
 
 <!-- wp:group {"tagName":"main","metadata":{"name":"Main Content"},"style":{"spacing":{"margin":{"top":"0","bottom":"0"},"blockGap":"0"}},"layout":{"inherit":true,"type":"constrained"}} -->
 <main class="wp-block-group" style="margin-top:0;margin-bottom:0"><?php require __DIR__ . '/term-banner-hero.php'; ?>
+
+<!-- wp:group {"metadata":{"name":"Woo Breadcrumbs"},"align":"full","className":"is-style-light-page-section","style":{"spacing":{"padding":{"top":"var:preset|spacing|20","bottom":"0"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull is-style-light-page-section" style="padding-top:var(--wp--preset--spacing--20);padding-bottom:0"><!-- wp:woocommerce/breadcrumbs {"align":"wide","fontSize":"200","textColor":"neutral-800","style":{"elements":{"link":{"color":{"text":"var:preset|color|neutral-800"}}},"spacing":{"margin":{"bottom":"0"}},"typography":{"textTransform":"uppercase","fontStyle":"normal","fontWeight":"var:custom|font-weight|regular"}}} /--></div>
+<!-- /wp:group -->
 
 <!-- wp:group {"metadata":{"name":"Brand Introduction"},"align":"full","className":"is-style-light-page-section kwv-brand-intro","style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|40"},"blockGap":"var:preset|spacing|40"}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull is-style-light-page-section kwv-brand-intro" style="padding-top:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--40)"><!-- wp:image {"metadata":{"name":"Brand Logo","bindings":{"url":{"source":"kwv/brand","args":{"key":"logo"}},"alt":{"source":"kwv/brand","args":{"key":"logo"}}}},"align":"center","className":"kwv-brand-intro__logo"} -->

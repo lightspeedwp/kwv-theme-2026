@@ -59,6 +59,7 @@ and a test card are present — they must never run against production.
 | TC-009 | RQ-005, RQ-010 | `checkout/payment.spec.ts` | ready |
 | TC-010, TC-011 | RQ-004/005/009 | `checkout/place-order.spec.ts` | `@stateful` — passing (PayFast sandbox, card-free) |
 | TC-QG1 | QG-R1 console budget | `quality/console-errors.spec.ts` | passing — baseline in `fixtures.ts` |
+| BRAND-TC1–TC10 | Estimate 3439 brand page | `brand/brand-page.spec.ts` | passing (local, 2026-11-12) — set `KWV_BRAND_SLUG` (brand with content, 2+ products; default `kwv-brandy`) and `KWV_EMPTY_BRAND_SLUG` (brand with no content; default `wild-africa-cream`) |
 
 Cases from the later full-site round (smoke, global, shop, account, content, forms,
 wine club, visit, careers, errors, responsive, emails) are traced in

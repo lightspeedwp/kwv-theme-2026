@@ -34,6 +34,13 @@
 	margin: 0;
 }
 
+/* Nothing entered on the brand (no logo, introduction or awards — each of
+   those blocks renders nothing when its field is blank): drop the whole
+   section, so its gold divider doesn't hang under the breadcrumbs on its own. */
+.kwv-brand-intro:not(:has(> :not(.wp-block-separator))) {
+	display: none;
+}
+
 .kwv-brand-awards__item img {
 	display: block;
 	width: auto;
@@ -67,6 +74,9 @@
 .kwv-brand-slider.swiper .wc-block-product {
 	margin: 0;
 	height: auto;
+	/* Backstop: nothing inside a product (e.g. wide pasted content) may spill
+	   into its neighbours. */
+	overflow: hidden;
 }
 
 /* --- One product ------------------------------------------------------- */
@@ -94,6 +104,24 @@
 	margin-bottom: 0;
 }
 
+/* Short descriptions pasted from elsewhere sometimes arrive as a fixed-width
+   table (KWV 10 Year Old: <table width="1876">). inc/brand-page.php strips the
+   inline styles and size attributes; this lets the cells flow as plain text. */
+.kwv-brand-slide .wc-block-components-product-summary :is(table, thead, tbody, tfoot, tr, th, td) {
+	display: block;
+	width: auto;
+	max-width: 100%;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: none;
+	text-align: inherit;
+}
+
+.kwv-brand-slide .wc-block-components-product-summary {
+	overflow-wrap: break-word;
+}
+
 /* "Product detail": hide the heading when the product has nothing to list
    (no attribute marked "Visible on the product page"). */
 .kwv-brand-slide__details:not(:has(.wp-block-woocommerce-product-specifications)) {
@@ -101,7 +129,8 @@
 }
 
 .kwv-brand-slide .wp-block-woocommerce-product-specifications {
-	margin: 0;
+	/* Keep the block gap above (set on the Product Detail group). */
+	margin-bottom: 0;
 }
 
 .kwv-brand-slide .wp-block-woocommerce-product-specifications table {
@@ -136,12 +165,20 @@
 	margin: 0;
 }
 
-.kwv-brand-slide .wc-block-components-product-button.is-style-add-to-cart .wp-block-button__link {
-	padding-inline: var(--wp--preset--spacing--30);
+/* Roomier than the shop grid, which keeps spacing-10 so four cards fit a row.
+   The extra .kwv-brand-slider out-ranks the shared rule in
+   woocommerce-product-grid.css, which loads later (in the page body). */
+.kwv-brand-slider .kwv-brand-slide .wc-block-components-product-button.is-style-add-to-cart .wp-block-button__link {
+	padding-inline: var(--wp--preset--spacing--50);
 }
 
 .kwv-brand-slide .wc-block-components-product-price {
 	margin: 0;
+}
+
+/* WooCommerce's product-button and stock blocks carry their own margins. */
+.kwv-brand-slide__purchase .wp-block-woocommerce-product-price {
+	margin-block: 0;
 }
 
 /* Add to Cart is for in-stock simple products only. Anything else — out of
