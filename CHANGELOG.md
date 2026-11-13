@@ -7,6 +7,45 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed (E2E checked against dev, 2026-11-13)
+
+- **Accessibility and visual baselines are recorded on dev**, the deploy target, not the local site. Adds four findings: an unnamed header logo link, unnamed homepage links, and contrast in the Careers modal and cart suggestions.
+
+### Fixed (E2E checked against dev, 2026-11-13)
+
+- **Keyboard cases no longer depend on how many links the mega menus hold:** `tabTo` checks the target is a Tab stop from its neighbour instead of walking from the top of the page.
+- **Cross-browser false failures:** the age-gate test waits for its cookie, Add to cart line counts allow sub-pixel offsets, the sticky-header test accepts Firefox's shorter scroll, and the category crawl gets more time.
+- **Visual cases wait for lazy images** to load and decode before the screenshot, so the bottom rows of long pages are no longer captured half-painted.
+
+### Added (JS test foundation, 2026-11-12)
+
+- **Unit tests for every script in `assets/js`** with Vitest and jsdom: 141 cases against real markup captured from the site, about 99.8% coverage, and the run fails below 80%. Tests only; the scripts ship unchanged. See `tests/js/README.md`.
+- **ESLint** with the WordPress recommended rules and the WordPress Prettier fork. Formatting and a few older findings in the shipped scripts are warnings in a reviewed baseline.
+- **A `package.json` for dev tooling** (`npm test`, `npm run lint`, `npm run format`). The front end still has no build step. The unused pattern-watcher packages left in the old lockfile are gone.
+- **Wider E2E suite**: Firefox, WebKit and iPhone 13 projects for the read-only specs; axe-core accessibility scans of 14 templates at desktop and phone width, with a reviewed baseline; keyboard journeys for the menus, search, drawer, filters, brand slider and careers modal; and visual regression baselines for 7 templates.
+- **CI**: lint and unit tests with coverage on pull requests to `develop` and `main`, and a manual or nightly Playwright workflow that uploads its report.
+
+### Changed (JS test foundation, 2026-11-12)
+
+- **JSDoc only** in `assets/js/aws-search.js` (a `@return` description) and `assets/js/term-banner-admin.js` (the `$` parameter). No behaviour change.
+- **E2E**: the Chrome channel now applies to the Chromium projects only, so Firefox and WebKit can run.
+
+### Added (E2E launch coverage, 2026-11-12)
+
+- **New E2E specs** for the shop catalogue, single product and internal links on the scoped pages. Tests only, no theme code. (#25)
+- **Extended E2E specs** for cart, checkout, careers, contact, navigation, search, Visit Us, Wine Club, responsive, console errors and smoke pages. Cases are in `tests/e2e/test-packs/launch-coverage-2026-10-22.md`. (#25)
+- **Form submissions in E2E tests are opt-in** with `KWV_ALLOW_FORM_SUBMIT=1`, using `KWV_FORM_TEST_EMAIL` as the submitter. Careers uploads use a dummy PDF. (#25)
+- **E2E product and brand slugs come from the environment** (`KWV_PRODUCT_SLUG`, new `KWV_BRAND_SLUG`) instead of being repeated in specs. (#25)
+
+### Changed (E2E launch coverage, 2026-11-12)
+
+- **E2E tests run in installed Google Chrome**, not Playwright's bundled Chromium, which stops painting after a Gravity Forms validation error. Override with `KWV_BROWSER_CHANNEL`. (#25)
+
+### Fixed (E2E launch coverage, 2026-11-12)
+
+- **Flaky E2E checkout steps:** wait for the PayFast sandbox and its return redirect, empty the account cart reliably, and re-fill the street address if a late Store API response clears it. (#25)
+- **E2E locators that no longer matched the site:** Shop and About mega menus, the mobile drawer, the Wine Club price and the Shop search. (#25)
+
 ### Changed (Client review — site-wide side gutter, homepage brand carousels, 2026-10-22)
 
 - **Content now sits on the header's gutter on every template.** Page content was 14px from the viewport edge while the header logo was ~44px in. The client asked for the header spacing across the whole site, and specifically for the homepage carousels. New `theme.json` token `settings.custom.spacing.gutter` is the root padding (`styles.spacing.padding` left/right), so everything that uses root padding moves with it. After review it is fluid, `clamp(1.375rem, 0.5rem + 2.5vw, 2.75rem)`: 22px on phones (the 44px desktop gutter was too wide there), 27px at 768, 40px at 1280, and 44px from 1440 up. It replaces `custom.spacing.header-inset`, which is removed. The headers point at the root padding instead of adding to it: `header-row.json`, `header-dark.json` and the homepage carousel header (`carousel-block.css`) use the root padding. `header-transparent.json` sets its side padding *and* margin to 0, because on the featured-image heroes it sits inside the Cover's inner container, which already carries the gutter (without the margin reset, core's alignfull bleed pulled the Visit Us logo to the edge). Logo, hero titles and page content share one edge at every width.

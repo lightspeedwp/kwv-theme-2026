@@ -24,6 +24,27 @@ test.describe('Global search @global', () => {
     ).toBeVisible({ timeout: 20_000 });
   });
 
+  // SRCH-TC1 — live results dropdown (Advanced Woo Search). The dropdown is a
+  // body-level portal (`.aws-search-result`), not a child of the header form.
+  test('SRCH-TC1 header search shows live product results that open the product', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto('/shop/');
+    const search = page.locator('.is-style-kwv-header-search').filter({ visible: true }).first();
+    const toggle = search.getByRole('button', { name: /^search$/i });
+    if (await toggle.isVisible()) await toggle.click();
+
+    await search.getByRole('searchbox').pressSequentially('brandy', { delay: 60 });
+    const results = page.locator('.aws-search-result').filter({ visible: true });
+    await expect(results).toBeVisible({ timeout: 20_000 });
+    const first = results.locator('a[href*="/product/"]').first();
+    await expect(first).toBeVisible();
+
+    const href = await first.getAttribute('href');
+    await first.click();
+    await expect(page).toHaveURL(href!);
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+  });
+
   // NAV-TC5 — no results
   test('NAV-TC5 a no-match query shows the no-results message', async ({ page }) => {
     await page.goto('/?s=zzzqqxnotaproduct&post_type=product');
