@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed (PHP test tooling)
 
-- Order-dependent integration tests: the `woo-cart`/`woo-checkout` patterns now render in a separate process, so WooCommerce's cart/checkout constants no longer leak into later asset tests.
+- Order-dependent integration tests: the `woo-cart`/`woo-checkout` patterns now render in a separate process, so WooCommerce's cart/checkout constants no longer leak into later asset tests. (#26)
 
 ### Fixed
 
