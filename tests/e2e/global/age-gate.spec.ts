@@ -34,16 +34,24 @@ test.describe('Age gate @global @age', () => {
   });
 
   // AGE-TC2 — the acknowledgement persists (no gate on next navigation)
-  test('AGE-TC2 does not re-prompt once acknowledged', async ({ page }) => {
+  test('AGE-TC2 does not re-prompt once acknowledged', async ({ page, context }) => {
     await page.goto('/');
+    const gate = page.locator('.age-gate, .age_gate, [id*="age-gate"], [class*="age-gate"]').first();
     await page
       .getByRole('button', { name: /yes|enter|i am|18|over/i })
       .or(page.getByRole('link', { name: /yes|enter|i am|18|over/i }))
       .first()
       .click();
 
+    // Wait for the acknowledgement to land before navigating. Firefox and WebKit
+    // otherwise leave before the plugin's script stores the cookie, and the next
+    // page is gated again (a race in the test, not a site fault).
+    await expect(gate).toBeHidden();
+    await expect
+      .poll(async () => (await context.cookies()).some((c) => c.name === 'age_gate'), { message: 'age_gate cookie is set' })
+      .toBe(true);
+
     await page.goto('/shop/');
-    const gate = page.locator('.age-gate, .age_gate, [id*="age-gate"], [class*="age-gate"]').first();
     await expect(gate).toBeHidden();
   });
 });

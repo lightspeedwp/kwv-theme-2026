@@ -20,9 +20,11 @@ and run from this directory.
 ```bash
 cd wp-content/themes/kwv-theme-2026/tests/e2e
 npm install
-npx playwright install --with-deps chromium
+npx playwright install --with-deps chromium firefox webkit
 cp .env.example .env   # then fill values (never commit .env)
 ```
+
+Tests run in the installed **Google Chrome** (`channel: 'chrome'`), not Playwright's bundled Chromium. The bundled build stops painting frames after a Gravity Forms validation error, so form tests time out. Install Chrome, or set `KWV_BROWSER_CHANNEL` (for example `chromium`) to override.
 
 ## Run
 
@@ -33,8 +35,63 @@ npm run test:cart        # cart specs
 npm run test:checkout    # checkout specs
 npm run report           # open the HTML report
 
-npx playwright test --project=chromium quality/   # @console quality gate
+npx playwright test --project=chromium quality/   # @console, @a11y and @visual gates
 ```
+
+### Projects
+
+| Project | Browser | Runs |
+|---|---|---|
+| `chromium` | Desktop Chrome | Everything except `@auth` and `@mobile`. |
+| `firefox`, `webkit` | Desktop Firefox, Desktop Safari (WebKit) | The read-only specs (`smoke/`, `global/`, `shop/`, `brand/`, `responsive/`), minus `@auth`, `@stateful`, `@visual`, `@a11y` and `@mobile`. |
+| `mobile-chrome` | Pixel 7 | Every `@mobile` case. |
+| `mobile-safari` | iPhone 13 (WebKit) | The read-only `@mobile` cases. |
+| `chromium-auth` | Desktop Chrome, logged in | `@auth` cases. |
+
+```bash
+npx playwright test smoke global shop responsive \
+  --project=chromium --project=firefox --project=webkit \
+  --project=mobile-chrome --project=mobile-safari      # the cross-browser read-only run
+```
+
+WebKit follows Safari's default of tabbing through form controls only, so the
+keyboard specs press Option+Tab there, as a Safari keyboard user would.
+
+### Accessibility (`@a11y`)
+
+`quality/a11y.spec.ts` scans the main templates with axe-core (WCAG 2.x A/AA)
+at 1440px and 390px, including Careers with a job modal open. It fails on
+serious or critical violations that `A11Y_BASELINE` in `fixtures.ts` doesn't
+list, the same contract as the console-error budget. Pages that return 404 on the
+target skip (page existence is `SMK-TC1`'s job).
+
+To record what a page currently reports, for review before adding to the baseline:
+
+```bash
+KWV_A11Y_RECORD=1 npx playwright test quality/a11y --project=chromium
+```
+
+Never widen the baseline to make a run pass. Delete an entry once it's fixed.
+
+### Visual regression (`@visual`)
+
+`quality/visual.spec.ts` compares full-page screenshots of key templates
+(desktop in `chromium`, phone in `mobile-chrome`) with baselines in
+`quality/visual.spec.ts-snapshots/`. Carousels, prices, dates, the cart count and
+video are masked, and animations are frozen.
+
+Baselines are specific to the environment and OS they were recorded on. The
+committed set is from the local Studio site on macOS. After an intended design
+change:
+
+```bash
+KWV_BASE_URL=http://localhost:8901 npx playwright test quality/visual --update-snapshots
+```
+
+Review the changed PNGs in the diff before committing them. On a failure, the
+HTML report shows the expected, actual and diff images. CI runs on Linux, so its
+E2E workflow skips `@visual` unless Linux baselines are recorded and the run is
+started with "visual" ticked.
 
 **`@stateful`** (order-placing) cases need only `KWV_SANDBOX=1`: PayFast is in TEST
 mode on dev and its sandbox completes **card-free**. `KWV_TEST_CARD_NUMBER` is for the
@@ -56,9 +113,14 @@ and a test card are present — they must never run against production.
 | TC-005, TC-007 | RQ-004, RQ-007 | `checkout/checkout.spec.ts` | ready (mechanics-only VAT — G1) |
 | TC-006 | RQ-006 shipping | `checkout/shipping.spec.ts` | ready (mechanics-only — G1) |
 | TC-008 | RQ-008 coupon | `checkout/coupon.spec.ts` | skips until `KWV_COUPON_CODE` set (G3) |
-| TC-009 | RQ-005, RQ-010 | `checkout/payment.spec.ts` | ready |
+| TC-009 | RQ-005, RQ-010 — Payflex is shown at checkout as a payment method (the only Payflex check since 2026-11) | `checkout/payment.spec.ts` | ready |
+| PDP-TC1 | Add to cart from the product page. No longer expects the Payflex widget there (moved to checkout, see TC-009) | `shop/product.spec.ts` | ready |
 | TC-010, TC-011 | RQ-004/005/009 | `checkout/place-order.spec.ts` | `@stateful` — passing (PayFast sandbox, card-free) |
 | TC-QG1 | QG-R1 console budget | `quality/console-errors.spec.ts` | passing — baseline in `fixtures.ts` |
+| A11Y-TC1 | A11Y-01 axe scan, 14 templates × desktop/phone | `quality/a11y.spec.ts` | passing locally — `A11Y_BASELINE` in `fixtures.ts` |
+| KBD-TC1, KBD-TC3–KBD-TC7 | KBD-01 keyboard journeys (mega menu, search, drawer, filters, brand slider, careers modal) | `global/keyboard.spec.ts` | passing; TC6/TC7 skip without a brand slider / jobs |
+| KBD-TC2 | KBD-01 Escape returns focus to the mega menu toggle | `global/keyboard.spec.ts` | expected failure (`test.fail`) — finding A11Y-F1, Ollie Menu Designer |
+| VIS-TC1, VIS-TC2 | VIS-01 visual regression, desktop/phone | `quality/visual.spec.ts` | passing locally — baselines in `quality/visual.spec.ts-snapshots/` |
 | BRAND-TC1–TC10 | Estimate 3439 brand page | `brand/brand-page.spec.ts` | passing (local, 2026-11-12) — set `KWV_BRAND_SLUG` (brand with content, 2+ products; default `kwv-brandy`) and `KWV_EMPTY_BRAND_SLUG` (brand with no content; default `wild-africa-cream`) |
 
 Cases from the later full-site round (smoke, global, shop, account, content, forms,
@@ -73,6 +135,8 @@ wine club, visit, careers, errors, responsive, emails) are traced in
 - **Store API** recalculates async — specs wait on the mutation/updated element,
   not fixed timeouts. Staging is slow; timeouts are generous.
 - **`@stateful`** tags every order-placing case.
+- **`@a11y`**, **`@keyboard`**, **`@visual`** tag the accessibility, keyboard and
+  visual cases; `@a11y` and `@visual` run in Chromium only.
 
 ## Gaps (as at 2026-07-31 — see `reports/full-run-and-agent-eval-2026-07-31.md`)
 

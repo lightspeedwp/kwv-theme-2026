@@ -1,4 +1,4 @@
-import { test as base, expect, type Page } from '@playwright/test';
+import { test as base, expect, type APIRequestContext, type Page } from '@playwright/test';
 
 /**
  * KWV E2E fixtures & helpers.
@@ -12,6 +12,14 @@ export const PRODUCT = {
   id: process.env.KWV_PRODUCT_ID ?? '181708',
   slug: process.env.KWV_PRODUCT_SLUG ?? 'kwv-classic-chardonnay-2025',
   name: process.env.KWV_PRODUCT_NAME ?? 'KWV Classic Chardonnay 2025',
+  // A search term that matches this product AND others: WooCommerce redirects a
+  // single-result search straight to the product page, skipping the grid.
+  search: process.env.KWV_PRODUCT_SEARCH ?? 'Chardonnay',
+};
+
+/** A product_brand term with published products (Single Brand template). */
+export const BRAND = {
+  slug: process.env.KWV_BRAND_SLUG ?? 'the-mentors',
 };
 
 export const COUPON = process.env.KWV_COUPON_CODE ?? '';
@@ -40,6 +48,31 @@ export const TEST_CUSTOMER = {
   email: process.env.KWV_TEST_CUSTOMER_EMAIL ?? '',
   password: process.env.KWV_TEST_CUSTOMER_PASSWORD ?? '',
 };
+
+/** Every scoped page/template (SMK-01); also the seed set for the link crawl. */
+export const SCOPED_PAGES: { path: string; label: string }[] = [
+  { path: '/', label: 'Homepage' },
+  { path: '/shop/', label: 'Shop' },
+  { path: `/product/${PRODUCT.slug}/`, label: 'Single product' },
+  { path: '/cart/', label: 'Cart' },
+  { path: '/checkout/', label: 'Checkout' },
+  { path: '/my-account/', label: 'Account/Login' },
+  { path: '/about-us/', label: 'About' },
+  { path: '/about-us/history/', label: 'About/History' },
+  { path: '/faq/', label: 'FAQs' },
+  { path: '/contact/', label: 'Contact Us' },
+  { path: '/wineclub/', label: 'Wine Club' },
+  { path: '/visit/', label: 'Visit Us' },
+  { path: '/careers/', label: 'Careers' },
+  { path: '/news/', label: 'News' },
+  { path: `/brand/${BRAND.slug}/`, label: 'Single Brand' },
+];
+
+/** Submitter address for form-submitting cases (a team inbox, never a client's). */
+export const FORM_TEST_EMAIL = process.env.KWV_FORM_TEST_EMAIL ?? '';
+
+/** Marker text on every test submission, so entries are easy to find and purge. */
+export const TEST_MESSAGE = 'E2E test submission (Playwright) - please ignore.';
 
 /**
  * The site shows an Age Gate to visitors without the `age_gate` cookie. A fresh
@@ -109,12 +142,21 @@ export async function addSeededProductToCart(page: Page): Promise<void> {
  */
 export async function emptyCart(page: Page): Promise<void> {
   await page.goto('/cart/');
-  for (let i = 0; i < 15; i++) {
-    const remove = page.getByRole('button', { name: /remove (item|.*from cart)/i }).first();
-    if ((await remove.count()) === 0) break;
-    await remove.click();
+  // The Cart block renders client-side: wait until it shows either line items or
+  // the empty state, otherwise the first count() sees nothing and stops early.
+  // Each removal re-renders the block, so a button counted a moment ago can be
+  // gone by the time it is clicked. Keep removing until the empty state shows.
+  const removeBtn = page
+    .getByRole('button', { name: /remove (item|.*from cart)/i })
+    .filter({ visible: true })
+    .first();
+  const emptyState = page.locator('.wp-block-woocommerce-empty-cart-block').filter({ visible: true });
+  await expect(removeBtn.or(emptyState).first()).toBeVisible({ timeout: 30_000 });
+  for (let i = 0; i < 15 && !(await emptyState.isVisible()); i++) {
+    await removeBtn.click({ timeout: 10_000 }).catch(() => {});
     await waitForStoreApi(page);
   }
+  await expect(emptyState).toBeVisible({ timeout: 20_000 });
 }
 
 /**
@@ -160,6 +202,19 @@ export async function fillCheckoutAddress(page: Page): Promise<void> {
   await expect(
     page.getByRole('group', { name: /shipping options/i }).getByRole('radio').first(),
   ).toBeVisible({ timeout: 45_000 });
+  // On slow dev a late Store API response (from an update sent before the street
+  // was typed) can reset the street field to empty, and Place Order then fails with
+  // "Please enter a valid address". Re-check once everything has settled.
+  const street = shipping.getByRole('textbox', { name: /^address/i });
+  if (await street.isVisible().catch(() => false)) {
+    await expect(async () => {
+      if ((await street.inputValue()) === '') {
+        await street.fill('123 Test Avenue');
+        await waitForStoreApi(page);
+      }
+      await expect(street).not.toHaveValue('', { timeout: 3_000 });
+    }).toPass({ timeout: 30_000 });
+  }
 }
 
 /**
@@ -178,6 +233,44 @@ export async function loginCustomer(page: Page): Promise<void> {
     'Login failed — KWV_TEST_CUSTOMER_PASSWORD does not match the account for KWV_TEST_CUSTOMER_EMAIL',
   ).toHaveCount(0, { timeout: 10_000 });
   await expect(page.getByRole('link', { name: /log out/i }).first()).toBeVisible({ timeout: 20_000 });
+}
+
+/**
+ * The page's main Gravity Form. Every KWV enquiry/booking form submits with
+ * "SEND MESSAGE"; the footer newsletter is also a Gravity Form, so scope by the
+ * submit button rather than taking the first `form[id^=gform]`.
+ */
+export function enquiryForm(page: Page) {
+  return page.locator('form').filter({ has: page.getByRole('button', { name: /send message/i }) });
+}
+
+/** A date `days` from today as dd/mm/yyyy, the format the booking date pickers use. */
+export function futureDate(days: number): string {
+  const d = new Date(Date.now() + days * 86_400_000);
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return `${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()}`;
+}
+
+type PublishedEvent = { id: number; link: string };
+
+/**
+ * Published `kwv_event` posts, from the public REST API. Event cases adapt to the
+ * live data: with none published, the Visit page must hide its events section and
+ * the single-event cases skip.
+ */
+export async function publishedEvents(request: APIRequestContext): Promise<PublishedEvent[]> {
+  const res = await request.get('/wp-json/wp/v2/kwv_event?per_page=20&_fields=id,link');
+  expect(res.ok(), 'kwv_event REST endpoint').toBeTruthy();
+  return res.json();
+}
+
+type StoreCategory = { id: number; name: string; slug: string; parent: number; count: number; permalink: string };
+
+/** Product categories from the public Store API (empty categories are omitted by the API). */
+export async function storeCategories(request: APIRequestContext): Promise<StoreCategory[]> {
+  const res = await request.get('/wp-json/wc/store/v1/products/categories?per_page=100');
+  expect(res.ok(), 'Store API categories').toBeTruthy();
+  return res.json();
 }
 
 /**
@@ -227,6 +320,115 @@ export function watchConsoleErrors(page: Page): ConsoleWatcher {
 export function newConsoleErrors(observed: string[], pageKey: string): string[] {
   const allowed = CONSOLE_ERROR_BASELINE[pageKey] ?? [];
   return observed.filter((text) => !allowed.some((re) => re.test(text)));
+}
+
+/**
+ * Accessibility scan targets (A11Y-01). Each is scanned at desktop and phone
+ * width by quality/a11y.spec.ts. `prepare` runs after load, before the scan
+ * (e.g. open the Careers job modal). A path resolver may return null to skip
+ * when the target environment has no such content.
+ */
+export type A11yTarget = {
+  key: string;
+  label: string;
+  path: string | ((request: APIRequestContext) => Promise<string | null>);
+  prepare?: (page: Page) => Promise<boolean>;
+};
+
+export const A11Y_TARGETS: A11yTarget[] = [
+  { key: 'home', label: 'Homepage', path: '/' },
+  { key: 'shop', label: 'Shop', path: '/shop/' },
+  {
+    key: 'category',
+    label: 'Product category',
+    path: async (request) => {
+      const [cat] = (await storeCategories(request)).filter((c) => c.count > 0);
+      return cat ? new URL(cat.permalink).pathname : null;
+    },
+  },
+  { key: 'brand', label: 'Single Brand', path: `/brand/${BRAND.slug}/` },
+  { key: 'product', label: 'Single product', path: `/product/${PRODUCT.slug}/` },
+  { key: 'cart', label: 'Cart', path: '/cart/' },
+  { key: 'checkout', label: 'Checkout', path: '/checkout/' },
+  { key: 'about', label: 'About', path: '/about-us/' },
+  { key: 'visit', label: 'Visit Us', path: '/visit/' },
+  {
+    key: 'careers-modal',
+    label: 'Careers (job modal open)',
+    path: '/careers/',
+    prepare: async (page) => {
+      const open = page.locator('[data-kwv-career-open]').first();
+      if ((await open.count()) === 0) return false;
+      await open.click();
+      await expect(page.getByRole('dialog')).toBeVisible();
+      return true;
+    },
+  },
+  { key: 'wineclub', label: 'Wine Club', path: '/wineclub/' },
+  { key: 'news', label: 'News', path: '/news/' },
+  { key: 'faq', label: 'FAQ', path: '/faq/' },
+  { key: 'contact', label: 'Contact', path: '/contact/' },
+];
+
+/**
+ * Accessibility baseline (A11Y-01): serious/critical axe rule IDs already
+ * present, per target key and width, recorded with `KWV_A11Y_RECORD=1` and
+ * reviewed — see tests/js/README.md and the JS test report. Same contract as
+ * CONSOLE_ERROR_BASELINE: the gate fails on any rule NOT listed here, so new
+ * violations fail while known ones are worked off. Never widen it to make a run
+ * pass; delete an entry once it is fixed.
+ *
+ * Recorded 2026-11-12 against dev (https://kwv.lightspeedwp.dev), the deploy target.
+ */
+// A11Y-F2 — WooCommerce mini-cart drawer (body-level portal, every page): the
+// closed drawer is aria-hidden but still holds focusable controls. Reported on
+// some loads and not others depending on hydration timing, so it is allowed on
+// every page rather than left flaky.
+const MINI_CART = 'aria-hidden-focus';
+// A11Y-F3 — header promo bar text fails contrast (WCAG 1.4.3).
+// A11Y-F4 — centred 200 font-size paragraphs (intro/notice copy) fail contrast.
+// A11Y-F6 — Contact: brand-500 headings in the details column fail contrast.
+// A11Y-F7 — header logo is an image link with no accessible name (2.4.4/4.1.2), most templates.
+// A11Y-F8 — homepage: five links ending …/ponchos/ have no accessible name.
+// A11Y-F9 — Careers modal: the Easy Apply "or" divider (desktop) and job title (phone) fail contrast.
+// A11Y-F10 — Cart/Checkout: the suggested-product Add to cart links fail contrast.
+const both = (...ids: string[]) => ({ desktop: [MINI_CART, ...ids], phone: [MINI_CART, ...ids] });
+
+export const A11Y_BASELINE: Record<string, { desktop: string[]; phone: string[] }> = {
+  home: both('link-name'), // F8
+  shop: both('color-contrast', 'link-name'), // F3, F7
+  category: both('color-contrast', 'link-name'), // F4, F7
+  brand: both('color-contrast', 'link-name'), // F4, F7
+  product: both('color-contrast', 'link-name'), // F3, F7
+  cart: both('color-contrast', 'link-name'), // F10, F7
+  checkout: both('color-contrast', 'link-name'), // F10, F7
+  about: both('color-contrast', 'link-name'), // F4, F7
+  visit: both(),
+  'careers-modal': both('color-contrast'), // F9
+  wineclub: both('color-contrast', 'link-name'), // F4, F7
+  news: both(),
+  faq: both('color-contrast', 'link-name'), // F4, F7
+  contact: both('color-contrast'), // F6
+};
+
+/** Rule IDs found that the baseline for `key`/`width` does not already account for. */
+export function newA11yViolations(found: string[], key: string, width: 'desktop' | 'phone'): string[] {
+  const allowed = A11Y_BASELINE[key]?.[width] ?? [];
+  return found.filter((id) => !allowed.includes(id));
+}
+
+/**
+ * Regions that legitimately change between runs, masked in visual snapshots
+ * (VIS-01): carousels mid-animation, prices, dates, the cart count and video.
+ */
+export function visualMasks(page: Page) {
+  return [
+    page.locator('.swiper, .cb-carousel-block, .wp-block-cb-carousel-v2'),
+    page.locator('.woocommerce-Price-amount, .wc-block-components-product-price, .price'),
+    page.locator('time, .wp-block-post-date, .wp-block-latest-posts__post-date'),
+    page.locator('.wc-block-mini-cart__badge, .wc-block-mini-cart__amount'),
+    page.locator('video, iframe'),
+  ];
 }
 
 export { expect };

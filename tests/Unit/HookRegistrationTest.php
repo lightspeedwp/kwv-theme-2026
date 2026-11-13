@@ -45,7 +45,7 @@ final class HookRegistrationTest extends TestCase {
 	 * @preserveGlobalState disabled
 	 */
 	public function test_woocommerce_hooks_are_registered_only_when_woocommerce_is_active(): void {
-		class_alias( \stdClass::class, 'WooCommerce' );
+		require_once $this->themeDir() . '/tests/Support/woocommerce-stub.php';
 
 		$this->loadThemeFile( 'inc/woocommerce.php' );
 

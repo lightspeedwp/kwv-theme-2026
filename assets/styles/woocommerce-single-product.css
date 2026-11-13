@@ -146,24 +146,23 @@ label.wp-block-woocommerce-add-to-cart-with-options-variation-selector-attribute
 }
 
 /* ============================================
-   Single Product — Add to Cart controls & Payflex
+   Single Product — Add to Cart controls
    (template: DB single-product / patterns/woo-single-product.php)
 
-   Restyles the three controls in the product-page Add to Cart form to the KWV
+   Restyles the two controls in the product-page Add to Cart form to the KWV
    system WITHOUT changing the supplied layout (button above, stepper below,
    both right-aligned in the sticky info column):
      1. Add to Cart button → the black-plate + gold "+" circle treatment used on
         the product cards (mirrors the is-style-add-to-cart look).
      2. Quantity stepper → the neutral-200 pill + gold (brand-500) number badge
         used in the Mini Cart drawer.
-     3. Payflex "buy now, pay later" widget → moved beneath the product
-        description by assets/js/payflex-relocate.js (which adds
-        .kwv-payflex-moved), then scaled down here.
+   (Payflex is no longer shown on the product page; it is a payment method at
+   checkout.)
 
-   All three are WooCommerce/plugin blocks a block-style JSON can't drive:
+   Both are WooCommerce blocks a block-style JSON can't drive:
    woocommerce/product-button declares __experimentalSelector + skip-serialise
    (the tested exception in AGENTS.md → "Styling lives in JSON"), and the stepper
-   / Payflex are plugin component internals reached by descendant selectors — so
+   is a component internal reached by descendant selectors — so
    they live here, scoped to .single-product. The !important on the button plate
    colours beats WooCommerce's own button styling
    (body.woocommerce-block-theme-has-button-styles), the same reason the classic
@@ -287,13 +286,6 @@ label.wp-block-woocommerce-add-to-cart-with-options-variation-selector-attribute
 .single-product .wp-block-add-to-cart-with-options .wc-block-components-quantity-selector input.wc-block-components-quantity-selector__input:focus {
 	box-shadow: 0 0 0 2px var(--wp--preset--color--brand-700);
 	border-color: transparent;
-}
-
-/* --- Payflex widget: shrunk once relocated below the description --- */
-.single-product .payflexCalculatorWidgetContainer.kwv-payflex-moved {
-	transform: scale(0.82);
-	transform-origin: left top;
-	margin: var(--wp--preset--spacing--10) 0 -14px 0;
 }
 
 /* ============================================

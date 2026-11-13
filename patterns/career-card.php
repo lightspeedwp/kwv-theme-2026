@@ -25,7 +25,7 @@
 <!-- /wp:column -->
 
 <!-- wp:column {"verticalAlignment":"center","width":"25%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:25%"><!-- wp:post-date {"format":"j F Y","fontSize":"200","style":{"typography":{"textTransform":"uppercase","lineHeight":"var:custom|line-height|body"}}} /--></div>
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:25%"><!-- wp:post-date {"format":"j F Y","metadata":{"bindings":{"datetime":{"source":"kwv/meta-date","args":{"key":"kwv_career_closing_date","format":"Y-m-d"}}}},"fontSize":"200","style":{"typography":{"textTransform":"uppercase","lineHeight":"var:custom|line-height|body"}}} /--></div>
 <!-- /wp:column -->
 
 <!-- wp:column {"verticalAlignment":"center","width":"15%"} -->

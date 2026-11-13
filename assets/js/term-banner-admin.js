@@ -8,6 +8,8 @@
  * script only handles the media frame and field state.
  *
  * Localised strings arrive via `kwvTermBanner` (see inc/term-banner.php).
+ *
+ * @param {Object} $ The jQuery function.
  */
 ( function ( $ ) {
 	'use strict';

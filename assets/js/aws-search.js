@@ -20,7 +20,7 @@
 	 *
 	 * @param {string} className Button class (drives the mask via CSS).
 	 * @param {string} label     Accessible label.
-	 * @return {HTMLButtonElement}
+	 * @return {HTMLButtonElement} The button.
 	 */
 	function makeButton( className, label ) {
 		var button = document.createElement( 'button' );

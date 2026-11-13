@@ -17,3 +17,6 @@ Thumbs.db
 /.phpunit.cache/
 /.phpcs-cache
 /.ci-plugins/
+
+# JS tooling (unit tests, lint). The e2e suite keeps its own ignores.
+/coverage/

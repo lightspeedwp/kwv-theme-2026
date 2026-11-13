@@ -7,6 +7,58 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed (dev findings follow-up, 2026-11-13)
+
+- **Payflex product-page relocation.** Payflex is no longer shown on the product page (it is a payment method at checkout), so `assets/js/payflex-relocate.js`, its enqueue in `inc/woocommerce.php`, its CSS in `assets/styles/woocommerce-single-product.css` and its unit test are gone.
+
+### Fixed (dev findings, 2026-11-13)
+
+- **Career cards show the closing date.** The "Closing date" column in `patterns/career-card.php` was a plain Post Date block, so it showed when the job was posted. It now binds the block's `datetime` to the `kwv_career_closing_date` meta through `kwv/meta-date` (kwv-enhancements). The same fix is applied on dev to page 36807 and DB template 182319.
+
+### Changed (dev findings, 2026-11-13)
+
+- **PDP-TC1 no longer expects Payflex on the product page.** The widget moved to checkout, where TC-009 checks the Payflex payment method. The README traceability table and the launch pack are updated.
+- **NEWS-TC1 no longer skips.** It looked for category links on the single post, which the design doesn't show, so it skipped every run. It now opens a year from the category filter on `/news/` and checks the archive.
+- **HIST-TC1 finds the milestone image even when its alt text is empty.** An image with `alt=""` has the presentation role, so `getByRole('img')` missed it. The test now uses a plain `img` locator.
+
+### Changed (E2E checked against dev, 2026-11-13)
+
+- **Accessibility and visual baselines are recorded on dev**, the deploy target, not the local site. Adds four findings: an unnamed header logo link, unnamed homepage links, and contrast in the Careers modal and cart suggestions. (#27)
+
+### Fixed (E2E checked against dev, 2026-11-13)
+
+- **Keyboard cases no longer depend on how many links the mega menus hold:** `tabTo` checks the target is a Tab stop from its neighbour instead of walking from the top of the page. (#27)
+- **Cross-browser false failures:** the age-gate test waits for its cookie, Add to cart line counts allow sub-pixel offsets, the sticky-header test accepts Firefox's shorter scroll, and the category crawl gets more time. (#27)
+- **Visual cases wait for lazy images** to load and decode before the screenshot, so the bottom rows of long pages are no longer captured half-painted. (#27)
+
+### Added (JS test foundation, 2026-11-12)
+
+- **Unit tests for every script in `assets/js`** with Vitest and jsdom: 141 cases against real markup captured from the site, about 99.8% coverage, and the run fails below 80%. Tests only; the scripts ship unchanged. See `tests/js/README.md`.
+- **ESLint** with the WordPress recommended rules and the WordPress Prettier fork. Formatting and a few older findings in the shipped scripts are warnings in a reviewed baseline.
+- **A `package.json` for dev tooling** (`npm test`, `npm run lint`, `npm run format`). The front end still has no build step. The unused pattern-watcher packages left in the old lockfile are gone.
+- **Wider E2E suite**: Firefox, WebKit and iPhone 13 projects for the read-only specs; axe-core accessibility scans of 14 templates at desktop and phone width, with a reviewed baseline; keyboard journeys for the menus, search, drawer, filters, brand slider and careers modal; and visual regression baselines for 7 templates.
+- **CI**: lint and unit tests with coverage on pull requests to `develop` and `main`, and a manual or nightly Playwright workflow that uploads its report.
+
+### Changed (JS test foundation, 2026-11-12)
+
+- **JSDoc only** in `assets/js/aws-search.js` (a `@return` description) and `assets/js/term-banner-admin.js` (the `$` parameter). No behaviour change.
+- **E2E**: the Chrome channel now applies to the Chromium projects only, so Firefox and WebKit can run.
+
+### Added (E2E launch coverage, 2026-11-12)
+
+- **New E2E specs** for the shop catalogue, single product and internal links on the scoped pages. Tests only, no theme code. (#25)
+- **Extended E2E specs** for cart, checkout, careers, contact, navigation, search, Visit Us, Wine Club, responsive, console errors and smoke pages. Cases are in `tests/e2e/test-packs/launch-coverage-2026-10-22.md`. (#25)
+- **Form submissions in E2E tests are opt-in** with `KWV_ALLOW_FORM_SUBMIT=1`, using `KWV_FORM_TEST_EMAIL` as the submitter. Careers uploads use a dummy PDF. (#25)
+- **E2E product and brand slugs come from the environment** (`KWV_PRODUCT_SLUG`, new `KWV_BRAND_SLUG`) instead of being repeated in specs. (#25)
+
+### Changed (E2E launch coverage, 2026-11-12)
+
+- **E2E tests run in installed Google Chrome**, not Playwright's bundled Chromium, which stops painting after a Gravity Forms validation error. Override with `KWV_BROWSER_CHANNEL`. (#25)
+
+### Fixed (E2E launch coverage, 2026-11-12)
+
+- **Flaky E2E checkout steps:** wait for the PayFast sandbox and its return redirect, empty the account cart reliably, and re-fill the street address if a late Store API response clears it. (#25)
+- **E2E locators that no longer matched the site:** Shop and About mega menus, the mobile drawer, the Wine Club price and the Shop search. (#25)
 ### Added (PHP test tooling)
 
 - PHPUnit unit (Brain Monkey) and integration (real WordPress, WooCommerce, SCF, Gravity Forms when present) suites for `functions.php` and `inc/`, with an 80% line-coverage gate on `inc/` (`composer test:coverage`).
@@ -19,6 +71,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed (PHP test tooling)
 
 - Order-dependent integration tests: the `woo-cart`/`woo-checkout` patterns now render in a separate process, so WooCommerce's cart/checkout constants no longer leak into later asset tests. (#26)
+- The WooCommerce hook-registration unit test runs on PHP 8.2: it loads a stub `WooCommerce` class instead of aliasing `stdClass`, which PHP before 8.3 rejects. (#29)
+- After merging `develop`: the WooCommerce integration tests no longer expect the removed Payflex relocation script, `assets/js/brand-slider.js` passes the new ESLint rules (shorthand properties, variables declared after the early returns; no behaviour change), and ESLint ignores `vendor/` and `build/`. (#29)
 
 ### Fixed
 

@@ -112,19 +112,17 @@ final class WooCommerceTest extends TestCase {
 		$this->assertStyle( 'theme-woocommerce-single-product-style', false );
 		$this->assertStyle( 'theme-woocommerce-cart-checkout-style', false );
 		$this->assertStyle( 'theme-woocommerce-order-confirmation-style', false );
-		$this->assertScript( 'theme-payflex-relocate', false );
 		foreach ( array( 'theme-woocommerce-shop-filters-style' ) as $handle ) {
 			$this->assertStyle( $handle, false );
 		}
 		$this->assertScript( 'theme-shop-filters', false );
 	}
 
-	public function test_a_product_page_gets_the_single_product_assets_and_payflex_script(): void {
+	public function test_a_product_page_gets_the_single_product_assets(): void {
 		$this->go_to( get_permalink( $this->makeProduct() ) );
 		$this->runEnqueue();
 
 		$this->assertStyle( 'theme-woocommerce-single-product-style', true );
-		$this->assertScript( 'theme-payflex-relocate', true );
 		$this->assertStyle( 'theme-woocommerce-shop-filters-style', false );
 		$this->assertStyle( 'theme-woocommerce-cart-checkout-style', false );
 	}
@@ -307,7 +305,6 @@ final class WooCommerceTest extends TestCase {
 		$this->assertSame( \Kwv\asset_version( 'assets/styles/woocommerce-single-product.css' ), $style->ver );
 		$this->assertStringContainsString( '/assets/styles/woocommerce-single-product.css', $style->src );
 		$this->assertSame( \Kwv\asset_version( 'assets/styles/woocommerce.css' ), wp_styles()->registered['theme-woocommerce-style']->ver );
-		$this->assertSame( 'defer', wp_scripts()->get_data( 'theme-payflex-relocate', 'strategy' ) );
 	}
 
 	public function test_the_account_and_cart_sheets_depend_on_the_shared_sheet(): void {
@@ -337,7 +334,6 @@ final class WooCommerceTest extends TestCase {
 		foreach ( array( 'theme-woocommerce-account-style', 'theme-woocommerce-single-product-style', 'theme-woocommerce-shop-filters-style', 'theme-woocommerce-cart-checkout-style', 'theme-woocommerce-order-confirmation-style' ) as $handle ) {
 			$this->assertStyle( $handle, false );
 		}
-		$this->assertScript( 'theme-payflex-relocate', false );
 		$this->assertScript( 'theme-shop-filters', false );
 	}
 
@@ -481,7 +477,6 @@ final class WooCommerceTest extends TestCase {
 		$this->runEnqueue();
 
 		$this->assertAsset( 'style', 'theme-woocommerce-single-product-style', 'assets/styles/woocommerce-single-product.css', array( 'theme-woocommerce-style' ) );
-		$this->assertAsset( 'script', 'theme-payflex-relocate', 'assets/js/payflex-relocate.js', array() );
 	}
 
 	public function test_the_shop_filter_assets_have_exact_sources_and_dependencies(): void {

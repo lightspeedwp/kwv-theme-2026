@@ -145,20 +145,6 @@ function enqueue_woocommerce_styles() {
 			asset_version( 'assets/styles/woocommerce-order-confirmation.css' )
 		);
 	}
-
-	// Relocate the Payflex widget beneath the product description — single products only.
-	if ( function_exists( 'is_product' ) && is_product() ) {
-		wp_enqueue_script(
-			'theme-payflex-relocate',
-			get_template_directory_uri() . '/assets/js/payflex-relocate.js',
-			array(),
-			asset_version( 'assets/js/payflex-relocate.js' ),
-			array(
-				'in_footer' => true,
-				'strategy'  => 'defer',
-			)
-		);
-	}
 }
 
 

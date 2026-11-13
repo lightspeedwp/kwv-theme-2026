@@ -118,7 +118,7 @@
 	/**
 	 * Mark the current thumbnail for assistive tech.
 	 *
-	 * @param {Object}      swiper The main Swiper instance.
+	 * @param {Object}       swiper The main Swiper instance.
 	 * @param {Element|null} strip  The thumbnail strip.
 	 */
 	function syncCurrentThumb( swiper, strip ) {
@@ -143,8 +143,6 @@
 	function init( root ) {
 		var list = root.querySelector( '.wc-block-product-template' );
 		var slides = list ? Array.prototype.slice.call( list.children ) : [];
-		var thumbsHost = document.querySelector( '.kwv-brand-slider-thumbs' );
-		var speed = reducedMotion.matches ? 0 : 450;
 		var thumbs = null;
 		var strip = null;
 
@@ -157,6 +155,9 @@
 			root.classList.add( 'kwv-brand-slider--single' );
 			return;
 		}
+
+		var thumbsHost = document.querySelector( '.kwv-brand-slider-thumbs' );
+		var speed = reducedMotion.matches ? 0 : 450;
 
 		root.classList.add( 'swiper' );
 		list.classList.add( 'swiper-wrapper' );
@@ -188,7 +189,7 @@
 				freeMode: true,
 				centerInsufficientSlides: true,
 				watchSlidesProgress: true,
-				speed: speed,
+				speed,
 				a11y: { enabled: false },
 			} );
 		}
@@ -196,7 +197,7 @@
 		var main = new window.Swiper( root, {
 			slidesPerView: 1,
 			spaceBetween: 32,
-			speed: speed,
+			speed,
 			autoHeight: true,
 			// Endless in both directions. Loop mode needs three or more products
 			// (Swiper reorders the slides around the visible one); with exactly two
@@ -219,16 +220,16 @@
 				itemRoleDescriptionMessage: null,
 			},
 			on: {
-				afterInit: function ( swiper ) {
+				afterInit( swiper ) {
 					syncInert( swiper );
 					syncCurrentThumb( swiper, strip );
 				},
-				slideChange: function ( swiper ) {
+				slideChange( swiper ) {
 					syncInert( swiper );
 					syncCurrentThumb( swiper, strip );
 				},
 				// Loop mode moves slides around and shifts activeIndex with them.
-				loopFix: function ( swiper ) {
+				loopFix( swiper ) {
 					syncInert( swiper );
 				},
 			},

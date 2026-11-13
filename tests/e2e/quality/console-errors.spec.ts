@@ -19,7 +19,7 @@ import {
 } from '../fixtures';
 
 test.describe('Console-error budget @console', () => {
-  for (const path of ['/', '/shop/', '/cart/']) {
+  for (const path of ['/', '/shop/', '/cart/', '/visit/', '/wineclub/', '/about-us/history/']) {
     test(`TC-QG1 — no new console errors on ${path}`, async ({ page }) => {
       const watcher = watchConsoleErrors(page);
       await page.goto(path, { waitUntil: 'load' });
