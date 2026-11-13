@@ -378,32 +378,37 @@ export const A11Y_TARGETS: A11yTarget[] = [
  * violations fail while known ones are worked off. Never widen it to make a run
  * pass; delete an entry once it is fixed.
  *
- * Recorded 2026-11-12 against the local Studio site (http://localhost:8901).
+ * Recorded 2026-11-12 against dev (https://kwv.lightspeedwp.dev), the deploy target.
  */
 // A11Y-F2 — WooCommerce mini-cart drawer (body-level portal, every page): the
 // closed drawer is aria-hidden but still holds focusable controls. Reported on
 // some loads and not others depending on hydration timing, so it is allowed on
 // every page rather than left flaky.
 const MINI_CART = 'aria-hidden-focus';
-// A11Y-F3 — header promo bar text fails contrast (WCAG 1.4.3) on WooCommerce templates.
-// A11Y-F4 — centred 100/200 font-size paragraphs (notices/intro copy) fail contrast.
-// A11Y-F5 — homepage hero pagination bullets are under the 24px target size (2.5.8).
-// A11Y-F6 — Contact: brand-500 headings on the details column fail contrast.
+// A11Y-F3 — header promo bar text fails contrast (WCAG 1.4.3).
+// A11Y-F4 — centred 200 font-size paragraphs (intro/notice copy) fail contrast.
+// A11Y-F6 — Contact: brand-500 headings in the details column fail contrast.
+// A11Y-F7 — header logo is an image link with no accessible name (2.4.4/4.1.2), most templates.
+// A11Y-F8 — homepage: five links ending …/ponchos/ have no accessible name.
+// A11Y-F9 — Careers modal: the Easy Apply "or" divider (desktop) and job title (phone) fail contrast.
+// A11Y-F10 — Cart/Checkout: the suggested-product Add to cart links fail contrast.
 const both = (...ids: string[]) => ({ desktop: [MINI_CART, ...ids], phone: [MINI_CART, ...ids] });
 
 export const A11Y_BASELINE: Record<string, { desktop: string[]; phone: string[] }> = {
-  home: both('target-size'), // F5
-  shop: both('color-contrast'), // F3
-  category: both('color-contrast'), // F3
-  brand: both('color-contrast'), // F3
-  product: both('color-contrast'), // F3
-  cart: both('color-contrast'), // F4
-  checkout: both('color-contrast'), // F4
-  news: both('color-contrast'), // F4
-  faq: both('color-contrast'), // F4
+  home: both('link-name'), // F8
+  shop: both('color-contrast', 'link-name'), // F3, F7
+  category: both('color-contrast', 'link-name'), // F4, F7
+  brand: both('color-contrast', 'link-name'), // F4, F7
+  product: both('color-contrast', 'link-name'), // F3, F7
+  cart: both('color-contrast', 'link-name'), // F10, F7
+  checkout: both('color-contrast', 'link-name'), // F10, F7
+  about: both('color-contrast', 'link-name'), // F4, F7
+  visit: both(),
+  'careers-modal': both('color-contrast'), // F9
+  wineclub: both('color-contrast', 'link-name'), // F4, F7
+  news: both(),
+  faq: both('color-contrast', 'link-name'), // F4, F7
   contact: both('color-contrast'), // F6
-  // Not recorded (404 or no content locally): about, visit, wineclub, careers-modal.
-  // They run with an empty allow-list, so anything serious there fails.
 };
 
 /** Rule IDs found that the baseline for `key`/`width` does not already account for. */

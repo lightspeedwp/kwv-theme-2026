@@ -37,6 +37,23 @@ async function snapshot(page: import('@playwright/test').Page, path: string, nam
       await new Promise((r) => setTimeout(r, 50));
     }
     window.scrollTo(0, 0);
+    // Load every image (lazy ones switched to eager) and wait for them to
+    // decode, or the last rows below the fold are captured half-painted.
+    // decode() never settles on an unfetched lazy image, so only loaded images
+    // are decoded and the whole wait is capped at 15s.
+    document.querySelectorAll('img[loading="lazy"]').forEach((img) => ((img as HTMLImageElement).loading = 'eager'));
+    const settled = Promise.all(
+      [...document.images].map(async (img) => {
+        if (!img.complete) {
+          await new Promise((r) => {
+            img.addEventListener('load', r, { once: true });
+            img.addEventListener('error', r, { once: true });
+          });
+        }
+        if (img.naturalWidth > 0) await img.decode().catch(() => {});
+      }),
+    );
+    await Promise.race([settled, new Promise((r) => setTimeout(r, 15_000))]);
   });
   await expect(page).toHaveScreenshot(`${name}.png`, {
     fullPage: true,

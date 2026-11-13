@@ -19,8 +19,23 @@ function tabKey(page: Page): string {
   return page.context().browser()?.browserType().name() === 'webkit' ? 'Alt+Tab' : 'Tab';
 }
 
-/** Press Tab until `target` has focus, failing after `max` presses. */
-async function tabTo(page: Page, target: Locator, max = 60): Promise<void> {
+/**
+ * Assert `target` is a Tab stop reached from the element before it: put focus
+ * on it, step back one stop with Shift+Tab, then press Tab and expect it back.
+ * Walking from the top of the page instead depends on how many links sit in
+ * the header's mega menus (over 100 on dev), not on the component under test.
+ */
+async function tabTo(page: Page, target: Locator): Promise<void> {
+  const key = tabKey(page);
+  await target.focus();
+  await page.keyboard.press(`Shift+${key}`);
+  await expect(target, 'Shift+Tab moved focus off the target').not.toBeFocused();
+  await page.keyboard.press(key);
+  await expect(target, 'Tab from the previous stop lands on the target').toBeFocused();
+}
+
+/** Press Tab (forward only) until `target` has focus; for the header toggles and the open mega menu panel. */
+async function tabFromTop(page: Page, target: Locator, max = 15): Promise<void> {
   for (let i = 0; i < max; i++) {
     if (await target.evaluate((el) => el === document.activeElement).catch(() => false)) return;
     await page.keyboard.press(tabKey(page));
@@ -37,7 +52,7 @@ test.describe('Keyboard journeys @keyboard', () => {
       .locator('.wp-block-ollie-mega-menu__toggle')
       .filter({ hasText: /^\s*shop\s*$/i });
 
-    await tabTo(page, shop);
+    await tabFromTop(page, shop);
     await expect(shop).toHaveAttribute('aria-expanded', 'true');
 
     await page.keyboard.press(tabKey(page));
@@ -48,7 +63,8 @@ test.describe('Keyboard journeys @keyboard', () => {
     const rows = page.locator('.kwv-mega-menu-nav-wrap .is-style-mega-menu-nav .wp-block-navigation__container > li.has-child').filter({ visible: true });
     if ((await rows.count()) > 1) {
       const second = rows.nth(1);
-      await tabTo(page, second.locator('a').first());
+      // Forward only: the panel closes if focus steps back out of it.
+      await tabFromTop(page, second.locator('a').first(), 60);
       await expect(second).toHaveClass(/is-kwv-open/);
       await expect(rows.first()).not.toHaveClass(/is-kwv-open/);
     }
@@ -68,7 +84,7 @@ test.describe('Keyboard journeys @keyboard', () => {
       .getByRole('navigation', { name: 'Navigation', exact: true })
       .locator('.wp-block-ollie-mega-menu__toggle')
       .filter({ hasText: /^\s*shop\s*$/i });
-    await tabTo(page, shop);
+    await tabFromTop(page, shop);
     await page.keyboard.press(tabKey(page));
 
     await page.keyboard.press('Escape');
@@ -130,7 +146,7 @@ test.describe('Keyboard journeys @keyboard', () => {
     await expect(filters).toBeVisible();
     const heading = filters.getByRole('button').filter({ hasText: /\S/ }).first();
 
-    await tabTo(page, heading, 120);
+    await tabTo(page, heading);
     await expect(heading).toHaveAttribute('aria-expanded', 'false');
     await page.keyboard.press('Enter');
     await expect(heading).toHaveAttribute('aria-expanded', 'true');
@@ -147,9 +163,10 @@ test.describe('Keyboard journeys @keyboard', () => {
     const next = slider.locator('.kwv-brand-slider__arrow--next');
     const active = () => slider.locator('.wc-block-product:not([inert])');
     await expect(active()).toHaveCount(1);
-    const first = await active().locator('.wp-block-post-title').innerText();
+    // textContent, not innerText: the title is uppercased by CSS.
+    const first = ((await active().locator('.wp-block-post-title').textContent()) ?? '').trim();
 
-    await tabTo(page, next, 80);
+    await tabTo(page, next);
     await page.keyboard.press('Enter');
     await expect(active().locator('.wp-block-post-title')).not.toHaveText(first);
 
@@ -168,7 +185,7 @@ test.describe('Keyboard journeys @keyboard', () => {
     const link = page.locator('[data-kwv-career-open]').first();
     test.skip((await link.count()) === 0, 'No jobs currently published on the Careers CPT.');
 
-    await tabTo(page, link, 120);
+    await tabTo(page, link);
     await page.keyboard.press('Enter');
     const dialog = page.getByRole('dialog');
     await expect(dialog).toBeVisible();
