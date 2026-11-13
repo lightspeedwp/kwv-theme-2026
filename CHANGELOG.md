@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added (brand page and breadcrumb adjustments, 2026-11-13)
 
 - **Breadcrumbs start with "Back to".** The client found the breadcrumbs too easy to miss, so every trail now reads "Back to Home / Shop / …". `Kwv\breadcrumb_back_to_prefix()` in `inc/woocommerce.php` (on `woocommerce_breadcrumb_defaults`) adds the words inside the breadcrumb's own `<nav>`, so they use the same font, size, colour and case as the links on every page, including templates saved in the Site Editor.
-- **Brand page: "Back to Home" link.** A text-link button in the top left, between the brand introduction's divider and the product slider (`patterns/woo-brand-archive.php`).
+- **Brand page: "Back to Home" link.** A text-link button (without the style's underline) in the top left, between the brand introduction's divider and the product slider (`patterns/woo-brand-archive.php`).
 - **Brand page: "Continue to Shop" button.** An Outline Dark button in the bottom right, under the thumbnails and the brand's social links, linking to `/shop/`.
 
 ### Fixed (theme files synced from dev's Site Editor overrides, 2026-11-13)

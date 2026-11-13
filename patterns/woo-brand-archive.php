@@ -39,8 +39,8 @@
 
 <!-- wp:group {"metadata":{"name":"Brand Products"},"align":"full","className":"is-style-light-page-section","style":{"spacing":{"padding":{"top":"0","bottom":"var:preset|spacing|80"},"blockGap":"var:preset|spacing|40"}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull is-style-light-page-section" style="padding-top:0;padding-bottom:var(--wp--preset--spacing--80)"><!-- wp:buttons {"metadata":{"name":"Back To Home"},"align":"wide","layout":{"type":"flex","justifyContent":"left"}} -->
-<div class="wp-block-buttons alignwide"><!-- wp:button {"className":"is-style-text-link"} -->
-<div class="wp-block-button is-style-text-link"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( '/' ); ?>">&lt; <?php esc_html_e( 'Back to Home', 'kwv' ); ?></a></div>
+<div class="wp-block-buttons alignwide"><!-- wp:button {"className":"is-style-text-link","style":{"typography":{"textDecoration":"none"}}} -->
+<div class="wp-block-button is-style-text-link"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( '/' ); ?>" style="text-decoration:none">&lt; <?php esc_html_e( 'Back to Home', 'kwv' ); ?></a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons -->
 
