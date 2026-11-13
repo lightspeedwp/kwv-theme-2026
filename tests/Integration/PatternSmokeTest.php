@@ -26,6 +26,14 @@ final class PatternSmokeTest extends TestCase {
 	private const KNOWN_BUGS = array();
 
 	/**
+	 * Patterns that contain the Cart or Checkout block. Rendering those makes
+	 * WooCommerce define WOOCOMMERCE_CART / WOOCOMMERCE_CHECKOUT, and a constant
+	 * cannot be undefined: is_cart() and is_checkout() would then return true
+	 * for every later test in the process (WooCommerceTest's asset gating).
+	 */
+	private const ISOLATED = array( 'woo-cart.php', 'woo-checkout.php' );
+
+	/**
 	 * One case per pattern file.
 	 *
 	 * @return array<string,array{0:string}>
@@ -37,6 +45,24 @@ final class PatternSmokeTest extends TestCase {
 		}
 
 		return $cases;
+	}
+
+	/**
+	 * Patterns rendered in the main process.
+	 *
+	 * @return array<string,array{0:string}>
+	 */
+	public function inProcessPatternFiles(): array {
+		return array_diff_key( $this->patternFiles(), array_flip( self::ISOLATED ) );
+	}
+
+	/**
+	 * Patterns rendered in a separate process (see ISOLATED).
+	 *
+	 * @return array<string,array{0:string}>
+	 */
+	public function isolatedPatternFiles(): array {
+		return array_intersect_key( $this->patternFiles(), array_flip( self::ISOLATED ) );
 	}
 
 	/**
@@ -70,9 +96,31 @@ final class PatternSmokeTest extends TestCase {
 	}
 
 	/**
-	 * @dataProvider patternFiles
+	 * @dataProvider inProcessPatternFiles
 	 */
 	public function test_the_pattern_is_registered_and_renders_without_notices( string $file ): void {
+		$this->assertPatternRenders( $file );
+	}
+
+	/**
+	 * @dataProvider isolatedPatternFiles
+	 * @runInSeparateProcess
+	 * @preserveGlobalState disabled
+	 */
+	public function test_the_cart_or_checkout_pattern_renders_without_notices( string $file ): void {
+		$this->assertPatternRenders( $file );
+	}
+
+	public function test_every_isolated_pattern_exists(): void {
+		$this->assertCount( count( self::ISOLATED ), $this->isolatedPatternFiles() );
+	}
+
+	/**
+	 * Register-and-render checks shared by the in-process and isolated tests.
+	 *
+	 * @param string $file Pattern file.
+	 */
+	private function assertPatternRenders( string $file ): void {
 		$headers  = $this->headers( $file );
 		$registry = \WP_Block_Patterns_Registry::get_instance();
 

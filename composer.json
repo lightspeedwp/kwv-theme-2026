@@ -8,6 +8,7 @@
 	},
 	"require-dev": {
 		"brain/monkey": "^2.7",
+		"infection/infection": "^0.32.6",
 		"mockery/mockery": "^1.6",
 		"php-parallel-lint/php-parallel-lint": "^1.4",
 		"php-stubs/woocommerce-stubs": "^10.9",
@@ -34,8 +35,10 @@
 		"allow-plugins": {
 			"dealerdirect/phpcodesniffer-composer-installer": true,
 			"phpstan/extension-installer": true,
-			"roots/wordpress-core-installer": false
-		}
+			"roots/wordpress-core-installer": false,
+			"infection/extension-installer": false
+		},
+		"process-timeout": 0
 	},
 	"scripts": {
 		"test": [
@@ -58,7 +61,13 @@
 		"lint:syntax": "parallel-lint --exclude vendor --exclude build --exclude node_modules --exclude tests/e2e .",
 		"wpcs:scan": "phpcs",
 		"wpcs:fix": "phpcbf",
-		"analyse": "phpstan analyse --memory-limit=1G"
+		"analyse": "phpstan analyse --memory-limit=1G",
+		"test:mutation": [
+			"@test:mutation:unit",
+			"@test:mutation:integration"
+		],
+		"test:mutation:unit": "@php tests/bin/mutation.php unit --min-covered-msi=95",
+		"test:mutation:integration": "@php tests/bin/mutation.php integration"
 	},
 	"scripts-descriptions": {
 		"test": "Run the unit suite, then the integration suite.",
@@ -66,6 +75,9 @@
 		"test:integration": "Run the integration suite against a throwaway WordPress test database.",
 		"test:coverage": "Run both suites with PCOV, merge the coverage and fail below 80% of lines in inc/.",
 		"lint": "PHP syntax check plus WordPress Coding Standards.",
-		"analyse": "PHPStan static analysis (WordPress + WooCommerce stubs)."
+		"analyse": "PHPStan static analysis (WordPress + WooCommerce stubs).",
+		"test:mutation": "Mutation testing (Infection) against both suites. Slow; run before merging a change to inc/.",
+		"test:mutation:unit": "Mutation testing against the unit suite; fails below 95% covered-code MSI.",
+		"test:mutation:integration": "Mutation testing against the integration suite (one test database per thread)."
 	}
 }

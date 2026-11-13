@@ -30,6 +30,22 @@ final class MobileMenuTest extends TestCase {
 		$this->assertStringContainsString( '{ fill: var(--wp--preset--color--base) !important; }', $out );
 	}
 
+	public function test_only_the_first_close_button_rule_is_unpinned(): void {
+		$two = '<style>#nav-1 .a svg, #nav-1 .wp-block-navigation__responsive-container-close svg { fill: red; }</style>'
+			. '<style>#nav-2 .a svg, #nav-2 .wp-block-navigation__responsive-container-close svg { fill: red; }</style>';
+
+		$out = \Kwv\MobileMenu\unpin_close_icon_colour( $two, array( 'blockName' => 'core/navigation' ) );
+
+		$this->assertStringNotContainsString( '#nav-1 .wp-block-navigation__responsive-container-close', $out );
+		$this->assertStringContainsString( '#nav-2 .wp-block-navigation__responsive-container-close svg', $out, 'The limit is one replacement.' );
+	}
+
+	public function test_a_close_button_selector_without_a_following_rule_is_kept(): void {
+		$html = '<p>#nav-1 .wp-block-navigation__responsive-container-close svg</p>';
+
+		$this->assertSame( $html, \Kwv\MobileMenu\unpin_close_icon_colour( $html, array( 'blockName' => 'core/navigation' ) ) );
+	}
+
 	public function test_other_blocks_are_untouched(): void {
 		$this->assertSame(
 			self::RULE,

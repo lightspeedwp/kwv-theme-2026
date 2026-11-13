@@ -45,6 +45,37 @@ abstract class TestCase extends \WP_UnitTestCase {
 	}
 
 	/**
+	 * Run a callback and fail if PHP reports a deprecation while it runs.
+	 *
+	 * WordPress's test case prints deprecations without failing, so a missing
+	 * `(string)` cast on a null block would otherwise go unnoticed.
+	 *
+	 * @param callable $callback Code under test.
+	 * @return mixed What the callback returns.
+	 */
+	protected function withoutDeprecations( callable $callback ) {
+		$deprecations = array();
+		set_error_handler( // phpcs:ignore WordPress.PHP.DevelopmentFunctions.prevent_path_disclosure_error_reporting, WordPress.PHP.DevelopmentFunctions.error_log_set_error_handler
+			static function ( $number, $message ) use ( &$deprecations ) {
+				$deprecations[] = $message;
+
+				return true;
+			},
+			E_DEPRECATED | E_USER_DEPRECATED
+		);
+
+		try {
+			$result = $callback();
+		} finally {
+			restore_error_handler();
+		}
+
+		$this->assertSame( array(), $deprecations, 'No deprecations expected.' );
+
+		return $result;
+	}
+
+	/**
 	 * Forget everything enqueued so far, so each test starts clean.
 	 */
 	protected function resetAssets(): void {

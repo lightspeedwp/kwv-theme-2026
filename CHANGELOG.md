@@ -13,7 +13,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Smoke tests: every pattern registers, has `Title`/`Slug` headers (namespaced `kwv/`) and renders; every template and part parses and every pattern/part it references exists.
 - `phpcs.xml.dist` (WordPress standard), `phpstan.neon.dist` with a baseline for existing findings, and the `composer lint` / `analyse` / `wpcs:scan` scripts.
 - GitHub Actions workflow `.github/workflows/php-tests.yml` and `tests/README.md`.
+- Mutation testing with Infection (`composer test:mutation`), run in a generated copy of the theme because Infection cannot mutate procedural code; tests sharpened from its escaped mutants; CI job for the unit run.
 - Dev tooling only; no theme behaviour changed.
+
+### Fixed (PHP test tooling)
+
+- Order-dependent integration tests: the `woo-cart`/`woo-checkout` patterns now render in a separate process, so WooCommerce's cart/checkout constants no longer leak into later asset tests.
 
 ### Fixed
 

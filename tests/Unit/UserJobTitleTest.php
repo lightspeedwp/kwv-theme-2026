@@ -110,6 +110,49 @@ final class UserJobTitleTest extends TestCase {
 		$html = ob_get_clean();
 
 		$this->assertStringContainsString( 'name="kwv_job_title_field"', $html );
-		$this->assertStringContainsString( 'Cellar', $html );
+		$this->assertStringContainsString( 'value="Cellar &quot;Master&quot;"', $html );
+		$this->assertStringContainsString( '<h2>KWV</h2>', $html );
+		$this->assertStringContainsString( '>Job title</label>', $html );
+		$this->assertStringContainsString( 'placeholder="e.g. Cellar Master"', $html );
+		$this->assertStringContainsString( 'Shown in the byline of posts this user authors.', $html );
+	}
+
+	public function test_binding_passes_integer_ids_and_returns_a_string(): void {
+		$block          = new \stdClass();
+		$block->context = array( 'postId' => '12' );
+		Functions\when( 'get_post_field' )->alias(
+			function ( $field, $post_id ) {
+				$this->assertSame( 'post_author', $field );
+				$this->assertSame( 12, $post_id, 'The context post ID is cast to an integer.' );
+
+				return '3';
+			}
+		);
+		Functions\when( 'get_user_meta' )->alias(
+			function ( $user_id, $key, $single ) {
+				$this->assertSame( 3, $user_id, 'The author ID is cast to an integer.' );
+				$this->assertSame( 'job_title', $key );
+				$this->assertTrue( $single );
+
+				return 42;
+			}
+		);
+
+		$this->assertSame( '42', \Kwv\get_author_role_binding( array(), $block ) );
+	}
+
+	public function test_binding_casts_the_loop_post_id_to_an_integer(): void {
+		$block          = new \stdClass();
+		$block->context = array();
+		Functions\when( 'get_the_ID' )->justReturn( '9' );
+		Functions\when( 'get_post_field' )->alias(
+			function ( $field, $post_id ) {
+				$this->assertSame( 9, $post_id );
+
+				return 0;
+			}
+		);
+
+		$this->assertSame( '', \Kwv\get_author_role_binding( array(), $block ) );
 	}
 }

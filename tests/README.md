@@ -65,6 +65,23 @@ Gravity Forms is commercial and absent on CI. `TestCase::requireGravityForms()` 
 
 None at present. A finding is recorded as a skipped test whose message starts with `BUG:` by adding an entry to `KNOWN_BUGS` in `PatternSmokeTest` (pattern file => reason) or `KNOWN_DANGLING` in `TemplateSmokeTest` (template file => missing references). Delete the entry when it is fixed.
 
+## Mutation testing
+
+Line coverage says code ran; it doesn't say a test would notice if the code were wrong. [Infection](https://infection.github.io/) checks that: it makes small changes to `functions.php` and `inc/` (flips `<` to `<=`, drops a call, negates a condition, changes an array item or a string) and reruns the tests that cover the changed line. A change no test notices ("escaped mutant") points at a missing or weak assertion.
+
+```bash
+composer test:mutation:unit          # fails below the covered-code MSI floor in composer.json
+composer test:mutation:integration   # slower; one throwaway database per thread
+```
+
+Reports go to `build/infection/` (`unit.log`, `integration.log`, copied out of the workspace after each run); each escaped mutant is listed with its diff.
+
+- **Why a workspace.** Infection only mutates code inside class methods; it skips top-level `function` declarations, and this theme is procedural, so run as-is it generates no mutants at all. `tests/bin/mutation.php` therefore first builds `build/mutation-workspace/` (`tests/Support/MutationWorkspace.php`): a copy of the theme in which every function `foo()` becomes a static method of a throwaway class, with a plain `foo()` wrapper that forwards to it. The rewrite adds no lines, so line numbers in the reports match the real files, and callers, hooks and tests see no difference. In the copy only, `@covers` tags are removed from the tests (so each test is credited with every line it runs), the test bootstraps re-point `Kwv\Tests\` at the copied tests, and `patchwork.json` keeps Patchwork (Brain Monkey's engine) away from the theme files, because Patchwork reads files itself and would bypass Infection's include interceptor. Nothing in the real theme or tests is changed.
+- **Load-time code is not mutated.** `add_action()` / `add_filter()` calls and constants sit outside any function, so Infection cannot touch them; the hook-contract table in `tests/Support/ThemeHooks.php` (exact hook, priority and argument count, asserted by both suites) pins them instead.
+- The integration run uses one database per Infection thread (`kwv_theme_tests_t1` … `_t6`). Infection passes each process a `TEST_TOKEN`, `wp-tests-config.php` appends it to the database name, and `tests/bin/mutation-databases.php` creates and installs them first. Mutant runs then set `WP_TESTS_SKIP_INSTALL=1` and reuse them.
+- Expect a few survivors that can't be killed because the mutated code behaves identically: mostly removed `(int)` / `(string)` casts that PHP coerces anyway. Visibility mutators are disabled for the same reason.
+- When you add or change an `inc/` file, run `composer test:mutation:unit` and read any escaped mutants in its file before merging.
+
 ## CI
 
 `.github/workflows/php-tests.yml` runs on pull requests to `develop`, `main` and `master`: lint (PHPCS is `continue-on-error` until the existing findings are cleaned up), PHPStan, and the test job (MySQL 8 service, PHP 8.2, PCOV, WooCommerce 10.9.1 and Secure Custom Fields downloaded from wordpress.org, `composer test:coverage`). No secrets are used.
