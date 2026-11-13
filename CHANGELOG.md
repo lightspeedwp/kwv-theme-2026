@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added (PHP test tooling)
+
+- PHPUnit unit (Brain Monkey) and integration (real WordPress, WooCommerce, SCF, Gravity Forms when present) suites for `functions.php` and `inc/`, with an 80% line-coverage gate on `inc/` (`composer test:coverage`).
+- Smoke tests: every pattern registers, has `Title`/`Slug` headers (namespaced `kwv/`) and renders; every template and part parses and every pattern/part it references exists.
+- `phpcs.xml.dist` (WordPress standard), `phpstan.neon.dist` with a baseline for existing findings, and the `composer lint` / `analyse` / `wpcs:scan` scripts.
+- GitHub Actions workflow `.github/workflows/php-tests.yml` and `tests/README.md`.
+- Mutation testing with Infection (`composer test:mutation`), run in a generated copy of the theme because Infection cannot mutate procedural code; tests sharpened from its escaped mutants; CI job for the unit run.
+- Dev tooling only; no theme behaviour changed.
+
+### Fixed (PHP test tooling)
+
+- Order-dependent integration tests: the `woo-cart`/`woo-checkout` patterns now render in a separate process, so WooCommerce's cart/checkout constants no longer leak into later asset tests. (#26)
+
+### Fixed
+
+- **Careers hero Scroll button** (`patterns/careers-hero.php`, so also `page-careers`, `template-careers` and `template-single-career`): dropped the redundant `"text"` attribute from the button's block comment. WordPress 7.1 validated it against the attribute schema and logged a `_doing_it_wrong` notice on every render. Found by the new pattern smoke test. The button's label comes from its markup, so the output is unchanged.
+
+### Removed
+
+- **Page (With Sidebar) template** (`templates/page-with-sidebar.html` and its `customTemplates` entry in `theme.json`). Unused, and it referenced a `sidebar` template part that doesn't exist.
+- **Sidebar template part area** (`Kwv\template_part_areas()` in `functions.php`) and the matching `sidebar` entry in `theme.json` `templateParts`. Only the removed template used them, and no `parts/sidebar.html` exists.
+- **`kwv/template-page-right-sidebar` pattern** — the body of the removed template; nothing else used it.
+
 ### Added (Brand page redesign — Estimate 3439, 2026-11-12)
 
 - **Brand pages (`/brand/…`) have a new layout.** `templates/taxonomy-product_brand.html` now uses the new `kwv/woo-brand-archive` pattern instead of the shared shop archive: the existing per-brand banner, then the brand logo, introduction and awards row, then a product slider in place of the grid, then the brand's social icons and "Visit brand website" link. Filters, results count, breadcrumbs and pagination are gone from brand pages only. Shop and category pages are unchanged.

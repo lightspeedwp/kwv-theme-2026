@@ -1136,14 +1136,6 @@
 				"page",
 				"post"
 			]
-		},
-		{
-			"name": "page-with-sidebar",
-			"title": "Page (With Sidebar)",
-			"postTypes": [
-				"post",
-				"page"
-			]
 		}
 	],
 	"templateParts": [
@@ -1166,11 +1158,6 @@
 			"name": "footer",
 			"title": "Footer",
 			"area": "footer"
-		},
-		{
-			"name": "sidebar",
-			"title": "Sidebar",
-			"area": "sidebar"
 		},
 		{
 			"name": "shop-mega-menu-dynamic",
