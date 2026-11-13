@@ -95,8 +95,11 @@ test.describe('Content pages @content', () => {
     await first.click();
     await expect(page.getByRole('heading', { level: 1 })).toContainText(title, { ignoreCase: true });
 
-    const category = page.locator('a[rel~="tag"][href*="/category/"]').first();
-    test.skip((await category.count()) === 0, 'Post has no category link.');
+    // Categories (news years) are reached from the year filter on /news/: neither the
+    // single-post template nor the list cards show category links, so this used to skip.
+    await page.goto('/news/');
+    const category = page.locator('a[href*="/category/"]').filter({ visible: true }).first();
+    await expect(category, 'year filter link on /news/').toBeVisible();
     await category.click();
     await expect(page).toHaveURL(/\/category\//);
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();

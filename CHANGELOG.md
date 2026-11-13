@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed (dev findings follow-up, 2026-11-13)
+
+- **Payflex product-page relocation.** Payflex is no longer shown on the product page (it is a payment method at checkout), so `assets/js/payflex-relocate.js`, its enqueue in `inc/woocommerce.php`, its CSS in `assets/styles/woocommerce-single-product.css` and its unit test are gone.
+
 ### Fixed (dev findings, 2026-11-13)
 
 - **Career cards show the closing date.** The "Closing date" column in `patterns/career-card.php` was a plain Post Date block, so it showed when the job was posted. It now binds the block's `datetime` to the `kwv_career_closing_date` meta through `kwv/meta-date` (kwv-enhancements). The same fix is applied on dev to page 36807 and DB template 182319.
@@ -14,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed (dev findings, 2026-11-13)
 
 - **PDP-TC1 no longer expects Payflex on the product page.** The widget moved to checkout, where TC-009 checks the Payflex payment method. The README traceability table and the launch pack are updated.
+- **NEWS-TC1 no longer skips.** It looked for category links on the single post, which the design doesn't show, so it skipped every run. It now opens a year from the category filter on `/news/` and checks the archive.
 - **HIST-TC1 finds the milestone image even when its alt text is empty.** An image with `alt=""` has the presentation role, so `getByRole('img')` missed it. The test now uses a plain `img` locator.
 
 ### Changed (E2E checked against dev, 2026-11-13)

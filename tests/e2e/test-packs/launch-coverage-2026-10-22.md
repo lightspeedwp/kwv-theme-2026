@@ -110,7 +110,7 @@ All locators are accessible-first. Data-dependent cases discover their data at r
 | CONTACT-TC1 (fix) | P1, S | Empty submit shows validation errors. A valid submit (Name, E-mail, Reason, Message) lands on the Contact thank-you page. | `kwv-gravity-forms-contact-booking` |
 | HIST-TC1 | P2 | History timeline: slides render newest first. Clicking a milestone image opens the core lightbox showing that image, and closing it returns to the timeline. | CHANGELOG (timeline lightbox), `kwv-history-timeline-dev-content` |
 | HOME-TC1 | P2 | Homepage: the brand carousels render, and every card links to a `/brand/` or product URL that returns < 400. The "Our Legacy" video has a poster. Load timing is not asserted. | CHANGELOG 2026-10-09, `kwv-carousel-block-markup` |
-| NEWS-TC1 | P3 | News list → category archive highlights the active category → single post renders. | CHANGELOG (category template) |
+| NEWS-TC1 | P3 | News list → single post renders → a year in the `/news/` category filter opens its archive. (Updated 2026-11-13: single posts show no category links by design.) | CHANGELOG (category template) |
 
 ### Careers
 
