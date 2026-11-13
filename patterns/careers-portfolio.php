@@ -12,6 +12,7 @@
  */
 
 ?>
+
 <!-- wp:group {"metadata":{"name":"Careers Brand Portfolio"},"align":"full","className":"is-style-light-page-section","layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull is-style-light-page-section"><!-- wp:columns {"verticalAlignment":"center","align":"wide","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|60","left":"var:preset|spacing|70"}}}} -->
 <div class="wp-block-columns alignwide are-vertically-aligned-center"><!-- wp:column {"verticalAlignment":"center"} -->
@@ -31,8 +32,8 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:buttons -->
-<div class="wp-block-buttons"><!-- wp:button {"className":"is-style-cta"} -->
-<div class="wp-block-button is-style-cta"><a class="wp-block-button__link wp-element-button" href="/shop/">Click here</a></div>
+<div class="wp-block-buttons"><!-- wp:button {"backgroundColor":"base","textColor":"contrast","style":{"border":{"color":"var(\u002d\u002dwp\u002d\u002dpreset\u002d\u002dcolor\u002d\u002dcontrast)","width":"1px","radius":"0px"}}} -->
+<div class="wp-block-button"><a class="wp-block-button__link has-contrast-color has-base-background-color has-text-color has-background has-border-color wp-element-button" href="/shop/" style="border-color:var(--wp--preset--color--contrast);border-width:1px;border-radius:0px">Click here</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:group --></div>

@@ -14,9 +14,11 @@
  */
 
 ?>
-<!-- wp:group {"metadata":{"name":"Footer"},"align":"full","style":{"spacing":{"blockGap":"var:preset|spacing|0"}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignfull"><!-- wp:group {"tagName":"section","metadata":{"name":"Newsletter"},"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|70","padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|30"}}},"layout":{"type":"constrained"}} -->
-<section class="wp-block-group alignwide" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--30)"><!-- wp:group {"align":"wide","layout":{"type":"flex","flexWrap":"wrap"}} -->
+
+<!-- wp:group {"metadata":{"name":"Footer","description":"Dark footer with logo, call-to-action buttons, link columns, responsible-drinking notice and copyright.","categories":["footer"]},"align":"full","style":{"spacing":{"blockGap":"var:preset|spacing|0"},"border":{"top":{"style":"none","width":"0px"},"right":[],"bottom":[],"left":[]}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull" style="border-top-style:none;border-top-width:0px"><!-- wp:group {"metadata":{"name":"Newsletter Frame"},"align":"full","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull"><!-- wp:group {"tagName":"section","metadata":{"name":"Newsletter"},"align":"full","style":{"spacing":{"blockGap":"var:preset|spacing|70","padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|30"}},"border":{"top":{"color":"var:preset|color|neutral-300","width":"1px"},"right":[],"bottom":[],"left":[]}},"layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull" style="border-top-color:var(--wp--preset--color--neutral-300);border-top-width:1px;padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--30)"><!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|40"}},"layout":{"type":"flex","flexWrap":"wrap"}} -->
 <div class="wp-block-group alignwide"><!-- wp:heading {"style":{"spacing":{"padding":{"bottom":"var:preset|spacing|30"}}}} -->
 <h2 class="wp-block-heading" style="padding-bottom:var(--wp--preset--spacing--30)">
 				Subscribe to Our Newsletter</h2>
@@ -26,6 +28,7 @@
 <div class="wp-block-group"><!-- wp:gravityforms/form {"formId":"2","title":false,"description":false,"theme":"orbital","inputSize":"lg","inputBorderRadius":"8","inputBorderColor":"#B29143","inputBackgroundColor":"#E9DEB9","inputPrimaryColor":"#876E35","labelFontSize":"16","descriptionFontSize":"16","buttonPrimaryBackgroundColor":"#0B0905"} /--></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></section>
+<!-- /wp:group --></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"metadata":{"name":"Footer","description":"Dark footer with logo, call-to-action buttons, link columns, responsible-drinking notice and copyright.","categories":["footer"]},"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|80","bottom":"var:preset|spacing|30"},"blockGap":"var:preset|spacing|80"}},"backgroundColor":"contrast","textColor":"base","layout":{"type":"constrained"}} -->
@@ -91,7 +94,7 @@
 <div class="wp-block-columns is-not-stacked-on-mobile"><!-- wp:column -->
 <div class="wp-block-column"><!-- wp:group {"metadata":{"name":"Noteworthy"},"style":{"spacing":{"blockGap":"var:preset|spacing|50"}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group"><!-- wp:heading {"level":3,"textColor":"base","fontSize":"300"} -->
-<h3 class="wp-block-heading has-base-color has-text-color has-300-font-size">NOTEWORTHY</h3>
+<h3 class="wp-block-heading has-base-color has-text-color has-300-font-size">NOTE-WORTHY</h3>
 <!-- /wp:heading -->
 
 <!-- wp:navigation {"ref":182563,"overlayMenu":"never","className":"is-style-footer-navigation","style":{"spacing":{"blockGap":"var:preset|spacing|20"}},"layout":{"type":"flex","orientation":"vertical"}} /--></div>

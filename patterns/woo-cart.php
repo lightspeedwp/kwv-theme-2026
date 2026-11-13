@@ -25,8 +25,8 @@
 
 <!-- wp:column {"verticalAlignment":"bottom","metadata":{"name":"Search Column"},"style":{"spacing":{"padding":{"bottom":"var:preset|spacing|5"}}}} -->
 <div class="wp-block-column is-vertically-aligned-bottom" style="padding-bottom:var(--wp--preset--spacing--5)"><!-- wp:buttons {"layout":{"type":"flex","justifyContent":"right"}} -->
-<div class="wp-block-buttons"><!-- wp:button {"className":"is-style-button-light is-style-cta","fontSize":"200"} -->
-<div class="wp-block-button is-style-button-light is-style-cta"><a class="wp-block-button__link has-200-font-size has-custom-font-size wp-element-button" href="/shop">Continue Shopping</a></div>
+<div class="wp-block-buttons"><!-- wp:button {"className":"is-style-button-light is-style-outline-dark","style":{"spacing":{"padding":{"left":"var:preset|spacing|50","right":"var:preset|spacing|50","top":"var:preset|spacing|20","bottom":"var:preset|spacing|20"}}},"fontSize":"100"} -->
+<div class="wp-block-button is-style-button-light is-style-outline-dark"><a class="wp-block-button__link has-100-font-size has-custom-font-size wp-element-button" href="/shop" style="padding-top:var(--wp--preset--spacing--20);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--20);padding-left:var(--wp--preset--spacing--50)">Continue Shopping</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:column --></div>
@@ -115,7 +115,7 @@
 <h2 class="wp-block-heading with-empty-cart-icon wc-block-cart__empty-cart__title">Your cart is currently empty!</h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"align":"center","style":{"typography":{"textAlign":"center"}}} -->
+<!-- wp:paragraph {"style":{"typography":{"textAlign":"center"}}} -->
 <p class="has-text-align-center"><a href="/shop/">Browse store</a></p>
 <!-- /wp:paragraph -->
 
@@ -133,4 +133,3 @@
 <!-- /wp:group -->
 <!-- /wp:woocommerce/page-content-wrapper --></div>
 <!-- /wp:group -->
-

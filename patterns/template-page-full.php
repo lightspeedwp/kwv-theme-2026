@@ -17,8 +17,5 @@
 ?>
 
 <!-- wp:group {"tagName":"main","align":"full","style":{"spacing":{"margin":{"top":"0"}}},"layout":{"type":"constrained"}} -->
-<main class="wp-block-group alignfull" style="margin-top:0">
-	<!-- wp:post-content {"align":"full","layout":{"type":"constrained"}} /-->
-</main>
+<main class="wp-block-group alignfull" style="margin-top:0"><!-- wp:post-content {"align":"full","layout":{"type":"constrained"}} /--></main>
 <!-- /wp:group -->
-

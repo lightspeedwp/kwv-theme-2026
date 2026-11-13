@@ -13,7 +13,7 @@
  * gutters and the phone layout live in assets/styles/carousel-block.css under
  * `.kwv-venue-carousel`.
  *
- * Environment-specific values mirrored from kwv.lightspeedwp.dev: the image
+ * Environment-specific values mirrored from the dev site: the image
  * IDs/URLs and the Popup Maker "Menu" popups (182953 Emporium, 182954 Cathedral
  * Cellar, 182955 House of Fire) are DB entities and must be remapped on
  * production.
@@ -50,7 +50,7 @@
 
 <!-- wp:column {"verticalAlignment":"center"} -->
 <div class="wp-block-column is-vertically-aligned-center"><!-- wp:image {"id":159837,"aspectRatio":"3/2","scale":"cover","sizeSlug":"full","linkDestination":"none","className":"is-style-default"} -->
-<figure class="wp-block-image size-full is-style-default"><img src="<?php echo esc_url( 'https://kwv.lightspeedwp.dev/wp-content/uploads/2024/09/Emporium_Square_1.png' ); ?>" alt="<?php esc_attr_e( 'The KWV Emporium entrance', 'kwv' ); ?>" class="wp-image-159837" style="aspect-ratio:3/2;object-fit:cover"/></figure>
+<figure class="wp-block-image size-full is-style-default"><img src="<?php echo esc_url( '/wp-content/uploads/2024/09/Emporium_Square_1.png' ); ?>" alt="<?php esc_attr_e( 'The KWV Emporium entrance', 'kwv' ); ?>" class="wp-image-159837" style="aspect-ratio:3/2;object-fit:cover"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>
@@ -82,7 +82,7 @@
 
 <!-- wp:column {"verticalAlignment":"center"} -->
 <div class="wp-block-column is-vertically-aligned-center"><!-- wp:image {"id":183708,"aspectRatio":"3/2","scale":"cover","sizeSlug":"full","linkDestination":"none","className":"is-style-default"} -->
-<figure class="wp-block-image size-full is-style-default"><img src="<?php echo esc_url( 'https://kwv.lightspeedwp.dev/wp-content/uploads/2026/10/visit-emporium-cap-classique-macarons.webp' ); ?>" alt="<?php esc_attr_e( 'Laborie Cap Classique being poured into a row of tasting flutes, each paired with a macaron on a wooden board', 'kwv' ); ?>" class="wp-image-183708" style="aspect-ratio:3/2;object-fit:cover"/></figure>
+<figure class="wp-block-image size-full is-style-default"><img src="<?php echo esc_url( '/wp-content/uploads/2026/10/visit-emporium-cap-classique-macarons.webp' ); ?>" alt="<?php esc_attr_e( 'Laborie Cap Classique being poured into a row of tasting flutes, each paired with a macaron on a wooden board', 'kwv' ); ?>" class="wp-image-183708" style="aspect-ratio:3/2;object-fit:cover"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>
@@ -114,7 +114,7 @@
 
 <!-- wp:column {"verticalAlignment":"center"} -->
 <div class="wp-block-column is-vertically-aligned-center"><!-- wp:image {"id":183709,"aspectRatio":"3/2","scale":"cover","sizeSlug":"full","linkDestination":"none","className":"is-style-default"} -->
-<figure class="wp-block-image size-full is-style-default"><img src="<?php echo esc_url( 'https://kwv.lightspeedwp.dev/wp-content/uploads/2026/10/visit-emporium-brandy-chocolates.webp' ); ?>" alt="<?php esc_attr_e( 'KWV 10, 12, 15 and 20 year old brandies behind a tasting flight of four glasses, each paired with a Belgian chocolate', 'kwv' ); ?>" class="wp-image-183709" style="aspect-ratio:3/2;object-fit:cover"/></figure>
+<figure class="wp-block-image size-full is-style-default"><img src="<?php echo esc_url( '/wp-content/uploads/2026/10/visit-emporium-brandy-chocolates.webp' ); ?>" alt="<?php esc_attr_e( 'KWV 10, 12, 15 and 20 year old brandies behind a tasting flight of four glasses, each paired with a Belgian chocolate', 'kwv' ); ?>" class="wp-image-183709" style="aspect-ratio:3/2;object-fit:cover"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>
@@ -146,7 +146,7 @@
 
 <!-- wp:column {"verticalAlignment":"center"} -->
 <div class="wp-block-column is-vertically-aligned-center"><!-- wp:image {"id":183710,"aspectRatio":"3/2","scale":"cover","sizeSlug":"full","linkDestination":"none","className":"is-style-default"} -->
-<figure class="wp-block-image size-full is-style-default"><img src="<?php echo esc_url( 'https://kwv.lightspeedwp.dev/wp-content/uploads/2026/10/visit-emporium-wine-brandy-tastings.webp' ); ?>" alt="<?php esc_attr_e( 'A host pours red wine for guests seated at a long tasting table at the KWV Emporium', 'kwv' ); ?>" class="wp-image-183710" style="aspect-ratio:3/2;object-fit:cover"/></figure>
+<figure class="wp-block-image size-full is-style-default"><img src="<?php echo esc_url( '/wp-content/uploads/2026/10/visit-emporium-wine-brandy-tastings.webp' ); ?>" alt="<?php esc_attr_e( 'A host pours red wine for guests seated at a long tasting table at the KWV Emporium', 'kwv' ); ?>" class="wp-image-183710" style="aspect-ratio:3/2;object-fit:cover"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>
@@ -160,7 +160,7 @@
 <div class="wp-block-cb-slide-v2 cb-slide swiper-slide"><!-- wp:columns {"verticalAlignment":"center","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|40","left":"var:preset|spacing|70"}}}} -->
 <div class="wp-block-columns are-vertically-aligned-center"><!-- wp:column {"verticalAlignment":"center"} -->
 <div class="wp-block-column is-vertically-aligned-center"><!-- wp:image {"id":183711,"aspectRatio":"3/2","scale":"cover","sizeSlug":"full","linkDestination":"none","className":"is-style-default"} -->
-<figure class="wp-block-image size-full is-style-default"><img src="<?php echo esc_url( 'https://kwv.lightspeedwp.dev/wp-content/uploads/2026/10/visit-cathedral-cellar.webp' ); ?>" alt="<?php esc_attr_e( 'Carved oak vats lining the KWV Cathedral Cellar beneath paper lanterns', 'kwv' ); ?>" class="wp-image-183711" style="aspect-ratio:3/2;object-fit:cover"/></figure>
+<figure class="wp-block-image size-full is-style-default"><img src="<?php echo esc_url( '/wp-content/uploads/2026/10/visit-cathedral-cellar.webp' ); ?>" alt="<?php esc_attr_e( 'Carved oak vats lining the KWV Cathedral Cellar beneath paper lanterns', 'kwv' ); ?>" class="wp-image-183711" style="aspect-ratio:3/2;object-fit:cover"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:column -->
 
@@ -192,7 +192,7 @@
 <div class="wp-block-cb-slide-v2 cb-slide swiper-slide"><!-- wp:columns {"verticalAlignment":"center","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|40","left":"var:preset|spacing|70"}}}} -->
 <div class="wp-block-columns are-vertically-aligned-center"><!-- wp:column {"verticalAlignment":"center"} -->
 <div class="wp-block-column is-vertically-aligned-center"><!-- wp:image {"id":183712,"aspectRatio":"3/2","scale":"cover","sizeSlug":"full","linkDestination":"none","className":"is-style-default"} -->
-<figure class="wp-block-image size-full is-style-default"><img src="<?php echo esc_url( 'https://kwv.lightspeedwp.dev/wp-content/uploads/2026/10/visit-cathedral-cellar-technical-wines-tour.webp' ); ?>" alt="<?php esc_attr_e( 'Red wine drawn straight from a steel tank into a tasting glass during the KWV Technical Wines Tour', 'kwv' ); ?>" class="wp-image-183712" style="aspect-ratio:3/2;object-fit:cover"/></figure>
+<figure class="wp-block-image size-full is-style-default"><img src="<?php echo esc_url( '/wp-content/uploads/2026/10/visit-cathedral-cellar-technical-wines-tour.webp' ); ?>" alt="<?php esc_attr_e( 'Red wine drawn straight from a steel tank into a tasting glass during the KWV Technical Wines Tour', 'kwv' ); ?>" class="wp-image-183712" style="aspect-ratio:3/2;object-fit:cover"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:column -->
 
@@ -224,7 +224,7 @@
 <div class="wp-block-cb-slide-v2 cb-slide swiper-slide"><!-- wp:columns {"verticalAlignment":"center","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|40","left":"var:preset|spacing|70"}}}} -->
 <div class="wp-block-columns are-vertically-aligned-center"><!-- wp:column {"verticalAlignment":"center"} -->
 <div class="wp-block-column is-vertically-aligned-center"><!-- wp:image {"id":183713,"aspectRatio":"3/2","scale":"cover","sizeSlug":"full","linkDestination":"none","className":"is-style-default"} -->
-<figure class="wp-block-image size-full is-style-default"><img src="<?php echo esc_url( 'https://kwv.lightspeedwp.dev/wp-content/uploads/2026/10/visit-cathedral-cellar-tours.webp' ); ?>" alt="<?php esc_attr_e( 'Guests in safety vests taste wine among the steel tanks on a KWV cellar tour', 'kwv' ); ?>" class="wp-image-183713" style="aspect-ratio:3/2;object-fit:cover"/></figure>
+<figure class="wp-block-image size-full is-style-default"><img src="<?php echo esc_url( '/wp-content/uploads/2026/10/visit-cathedral-cellar-tours.webp' ); ?>" alt="<?php esc_attr_e( 'Guests in safety vests taste wine among the steel tanks on a KWV cellar tour', 'kwv' ); ?>" class="wp-image-183713" style="aspect-ratio:3/2;object-fit:cover"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:column -->
 
@@ -282,7 +282,7 @@
 
 <!-- wp:column {"verticalAlignment":"center"} -->
 <div class="wp-block-column is-vertically-aligned-center"><!-- wp:image {"id":183714,"aspectRatio":"3/2","scale":"cover","sizeSlug":"full","linkDestination":"none","className":"is-style-default"} -->
-<figure class="wp-block-image size-full is-style-default"><img src="<?php echo esc_url( 'https://kwv.lightspeedwp.dev/wp-content/uploads/2026/10/visit-house-of-fire.webp' ); ?>" alt="<?php esc_attr_e( 'A KWV brandy master nosing a glass beside a barrel set with KWV aged brandies in the House of Fire', 'kwv' ); ?>" class="wp-image-183714" style="aspect-ratio:3/2;object-fit:cover"/></figure>
+<figure class="wp-block-image size-full is-style-default"><img src="<?php echo esc_url( '/wp-content/uploads/2026/10/visit-house-of-fire.webp' ); ?>" alt="<?php esc_attr_e( 'A KWV brandy master nosing a glass beside a barrel set with KWV aged brandies in the House of Fire', 'kwv' ); ?>" class="wp-image-183714" style="aspect-ratio:3/2;object-fit:cover"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>
@@ -314,7 +314,7 @@
 
 <!-- wp:column {"verticalAlignment":"center"} -->
 <div class="wp-block-column is-vertically-aligned-center"><!-- wp:image {"id":183715,"aspectRatio":"3/2","scale":"cover","sizeSlug":"full","linkDestination":"none","className":"is-style-default"} -->
-<figure class="wp-block-image size-full is-style-default"><img src="<?php echo esc_url( 'https://kwv.lightspeedwp.dev/wp-content/uploads/2026/10/visit-house-of-fire-tour.webp' ); ?>" alt="<?php esc_attr_e( 'A hand cradling a KWV-branded snifter of brandy', 'kwv' ); ?>" class="wp-image-183715" style="aspect-ratio:3/2;object-fit:cover"/></figure>
+<figure class="wp-block-image size-full is-style-default"><img src="<?php echo esc_url( '/wp-content/uploads/2026/10/visit-house-of-fire-tour.webp' ); ?>" alt="<?php esc_attr_e( 'A hand cradling a KWV-branded snifter of brandy', 'kwv' ); ?>" class="wp-image-183715" style="aspect-ratio:3/2;object-fit:cover"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>
@@ -346,7 +346,7 @@
 
 <!-- wp:column {"verticalAlignment":"center"} -->
 <div class="wp-block-column is-vertically-aligned-center"><!-- wp:image {"id":183716,"aspectRatio":"3/2","scale":"cover","sizeSlug":"full","linkDestination":"none","className":"is-style-default"} -->
-<figure class="wp-block-image size-full is-style-default"><img src="<?php echo esc_url( 'https://kwv.lightspeedwp.dev/wp-content/uploads/2026/10/visit-house-of-fire-brandy-blending.webp' ); ?>" alt="<?php esc_attr_e( 'Copper pot stills and the brick-floored distillery hall of the KWV House of Fire', 'kwv' ); ?>" class="wp-image-183716" style="aspect-ratio:3/2;object-fit:cover"/></figure>
+<figure class="wp-block-image size-full is-style-default"><img src="<?php echo esc_url( '/wp-content/uploads/2026/10/visit-house-of-fire-brandy-blending.webp' ); ?>" alt="<?php esc_attr_e( 'Copper pot stills and the brick-floored distillery hall of the KWV House of Fire', 'kwv' ); ?>" class="wp-image-183716" style="aspect-ratio:3/2;object-fit:cover"/></figure>
 <!-- /wp:image --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>

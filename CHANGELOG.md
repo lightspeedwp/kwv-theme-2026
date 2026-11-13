@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed (theme files synced from dev's Site Editor overrides, 2026-11-13)
+
+- **The theme now matches what dev shows.** 26 templates and template parts on dev rendered from database copies saved in the Site Editor, which had drifted from the theme files. Their markup is now in the theme, so dev can drop the copies and render from git. Each file was diffed against dev's saved copy. The only differences left are the ones listed below.
+- **Templates and template bodies:** front page and home hero, 404, page, page (no title), page (no header), news index, blog category, single post, single event, single job, Careers, cart, checkout, single product, shop and product-category archives, and product search results.
+- **Parts and part patterns:** header (light and dark), footer, promo bar, mobile menu, Shop mega-menu nav, product card, simple-product add to cart, Careers sections and job card, large blog card.
+- **New Lifestyle Dropdown Menu part** (`parts/lifestyle-dropdown-menu.html`, registered in `theme.json`). It used to exist only in dev's database.
+- **Page (No Header) shows the page content.** The theme file only had the footer.
+- **Shop and product-category archives share one pattern again.** The Wine Club button shows only on the Wine category, through a Block Visibility URL rule (its "CLub" typo is fixed). Both archives get separate desktop and mobile pagination. The Shop hero is written out in full in the archive pattern, so the brand archive keeps `kwv/term-banner-hero` unchanged.
+- **Product search results** take dev's breadcrumbs, "Search results for" title, sort control, numbered pagination and no-results message, and keep the theme's filters sidebar, which the PRD requires.
+- **No hard-coded hosts.** Media URLs that pointed at `localhost:8901` or the dev domain are now root-relative. That covers the About, History, Careers and Visit heroes, the executive team, the archives and the Visit venues. The About, History and archive images point at the paths and attachment IDs that exist on dev.
+- **The Careers and transparent headers' navigation** pointed at a local-only menu (`ref` 4). It now uses the main menu (182338), as dev does.
+- **Kept from the theme where dev's copy was older:** the promo bar above the header on 404, cart and search; the 404 button's link home (dev's had no link); the Careers hero without the `text` attribute that caused a PHP notice; the promo-bar font-weight token; translated strings and `require`d sub-patterns.
+
 ### Removed (dev findings follow-up, 2026-11-13)
 
 - **Payflex product-page relocation.** Payflex is no longer shown on the product page (it is a payment method at checkout), so `assets/js/payflex-relocate.js`, its enqueue in `inc/woocommerce.php`, its CSS in `assets/styles/woocommerce-single-product.css` and its unit test are gone.

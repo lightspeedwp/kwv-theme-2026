@@ -15,31 +15,30 @@
 
 ?>
 
-<!-- wp:group {"tagName":"main","metadata":{"name":"404"},"align":"full","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|80","bottom":"var:preset|spacing|80"},"blockGap":"var:preset|spacing|40"}},"layout":{"type":"constrained","contentSize":"640px"}} -->
-<main class="wp-block-group alignfull" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--80);padding-bottom:var(--wp--preset--spacing--80)">
+<!-- wp:group {"tagName":"main","metadata":{"name":"404"},"align":"full","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|80","bottom":"var:preset|spacing|80"},"blockGap":"var:preset|spacing|60"}},"layout":{"type":"constrained","contentSize":"640px"}} -->
+<main class="wp-block-group alignfull" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--80);padding-bottom:var(--wp--preset--spacing--80)"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|5"}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group"><!-- wp:heading {"level":1,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"textAlign":"center"}},"textColor":"brand-600","fontSize":"900"} -->
+<h1 class="wp-block-heading has-text-align-center has-brand-600-color has-text-color has-900-font-size" style="margin-top:0;margin-bottom:0">404</h1>
+<!-- /wp:heading -->
 
-	<!-- wp:heading {"textAlign":"center","level":1,"fontFamily":"heading","fontSize":"800","textColor":"brand-500","style":{"typography":{"fontWeight":"var:custom|font-weight|black","lineHeight":"var:custom|line-height|heading","textTransform":"uppercase"},"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
-	<h1 class="wp-block-heading has-text-align-center has-brand-500-color has-text-color has-heading-font-family has-800-font-size" style="margin-top:0;margin-bottom:0;font-weight:var(--wp--custom--font-weight--black);line-height:var(--wp--custom--line-height--heading);text-transform:uppercase">404</h1>
-	<!-- /wp:heading -->
-
-	<!-- wp:heading {"textAlign":"center","level":2,"fontFamily":"heading","fontSize":"500","textColor":"contrast","style":{"typography":{"fontWeight":"var:custom|font-weight|bold","textTransform":"uppercase"},"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
-	<h2 class="wp-block-heading has-text-align-center has-contrast-color has-text-color has-heading-font-family has-500-font-size" style="margin-top:0;margin-bottom:0;font-weight:var(--wp--custom--font-weight--bold);text-transform:uppercase"><?php esc_html_e( 'Page not found', 'kwv' ); ?></h2>
-	<!-- /wp:heading -->
-
-	<!-- wp:paragraph {"align":"center","textColor":"neutral-700","fontSize":"300","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
-	<p class="has-text-align-center has-neutral-700-color has-text-color has-300-font-size" style="margin-top:0;margin-bottom:0"><?php esc_html_e( 'The page you are looking for could not be found. It may have moved, or the link may be broken. Try a search, or head back to the homepage.', 'kwv' ); ?></p>
-	<!-- /wp:paragraph -->
-
-	<!-- wp:search {"label":"<?php echo esc_attr_x( 'Search', 'search form label', 'kwv' ); ?>","showLabel":false,"placeholder":"<?php echo esc_attr_x( 'Search the site…', 'search form placeholder', 'kwv' ); ?>","buttonText":"<?php echo esc_attr_x( 'Search', 'search form button', 'kwv' ); ?>","buttonPosition":"button-inside","align":"center"} /-->
-
-	<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
-	<div class="wp-block-buttons">
-		<!-- wp:button {"backgroundColor":"brand-500","textColor":"base","style":{"typography":{"fontWeight":"var:custom|font-weight|bold","textTransform":"uppercase"}}} -->
-		<div class="wp-block-button"><a class="wp-block-button__link has-base-color has-brand-500-background-color has-text-color has-background wp-element-button" href="<?php echo esc_url( home_url( '/' ) ); ?>" style="font-weight:var(--wp--custom--font-weight--bold);text-transform:uppercase"><?php esc_html_e( 'Back to homepage', 'kwv' ); ?></a></div>
-		<!-- /wp:button -->
-	</div>
-	<!-- /wp:buttons -->
-
-</main>
+<!-- wp:heading {"style":{"typography":{"textAlign":"center"}},"textColor":"contrast"} -->
+<h2 class="wp-block-heading has-text-align-center has-contrast-color has-text-color"><?php esc_html_e( 'Page not found', 'kwv' ); ?></h2>
+<!-- /wp:heading --></div>
 <!-- /wp:group -->
 
+<!-- wp:paragraph {"className":"has-neutral-700-color has-text-color","style":{"typography":{"textAlign":"center"}},"textColor":"neutral-700","fontSize":"300"} -->
+<p class="has-text-align-center has-neutral-700-color has-text-color has-300-font-size"><?php esc_html_e( 'The page you are looking for could not be found. It may have moved, or the link may be broken. Try a search, or head back to the homepage.', 'kwv' ); ?></p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"layout":{"type":"constrained"}} -->
+<div class="wp-block-group"><!-- wp:search {"label":"<?php echo esc_attr_x( 'Search', 'search form label', 'kwv' ); ?>","showLabel":false,"placeholder":"<?php echo esc_attr_x( 'Search the site…', 'search form placeholder', 'kwv' ); ?>","buttonText":"<?php echo esc_attr_x( 'Search', 'search form button', 'kwv' ); ?>","buttonPosition":"button-inside","buttonUseIcon":true,"align":"center","className":"is-style-kwv-megamenu-search","fontSize":"200"} /--></div>
+<!-- /wp:group -->
+
+<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
+<div class="wp-block-buttons"><!-- wp:button {"className":"is-style-cta"} -->
+<div class="wp-block-button is-style-cta"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Back to Homepage', 'kwv' ); ?></a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons --></main>
+<!-- /wp:group -->

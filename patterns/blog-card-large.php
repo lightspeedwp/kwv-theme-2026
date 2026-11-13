@@ -14,17 +14,18 @@
  */
 
 ?>
+
 <!-- wp:group {"metadata":{"name":"Blog Card Large"},"className":"is-style-blog-card-large","style":{"spacing":{"margin":{"bottom":"var:preset|spacing|60"},"padding":{"bottom":"var:preset|spacing|40"}},"border":{"bottom":{"color":"var:preset|color|brand-500","width":"1px"}}},"layout":{"type":"default"}} -->
 <div class="wp-block-group is-style-blog-card-large" style="border-bottom-color:var(--wp--preset--color--brand-500);border-bottom-width:1px;margin-bottom:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--40)"><!-- wp:columns {"verticalAlignment":"top","style":{"spacing":{"blockGap":{"left":"var:preset|spacing|50"}}}} -->
 <div class="wp-block-columns are-vertically-aligned-top"><!-- wp:column {"verticalAlignment":"top","width":"33.33%"} -->
 <div class="wp-block-column is-vertically-aligned-top" style="flex-basis:33.33%"><!-- wp:group {"metadata":{"name":"Media"},"className":"blog-card-large__media","style":{"spacing":{"blockGap":"var:preset|spacing|20","padding":{"top":"0","right":"0","bottom":"0","left":"0"}}}} -->
 <div class="wp-block-group blog-card-large__media" style="padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- wp:post-featured-image {"isLink":true,"aspectRatio":"1","className":"is-style-default"} /-->
 
-<!-- wp:group {"metadata":{"name":"Author"},"style":{"spacing":{"blockGap":"var:preset|spacing|5"}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group"><!-- wp:post-author-name {"style":{"typography":{"fontWeight":"var:custom|font-weight|semi-bold","lineHeight":"var:custom|line-height|heading","textTransform":"uppercase","fontStyle":"normal"}},"fontSize":"300","fontFamily":"heading"} /-->
+<!-- wp:group {"metadata":{"name":"Author","blockVisibility":false},"style":{"spacing":{"blockGap":"var:preset|spacing|5"}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group"><!-- wp:post-author-name {"style":{"typography":{"fontWeight":"600","lineHeight":"var:custom|line-height|heading","textTransform":"uppercase","fontStyle":"normal"}},"fontSize":"300","fontFamily":"heading"} /-->
 
 <!-- wp:paragraph {"metadata":{"name":"Author Role","bindings":{"content":{"source":"kwv/author-role"}}},"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"neutral-700","fontSize":"300"} -->
-<p class="has-neutral-700-color has-text-color has-300-font-size" style="margin-top:0;margin-bottom:0"><?php esc_html_e( 'Role', 'kwv' ); ?></p>
+<p class="has-neutral-700-color has-text-color has-300-font-size" style="margin-top:0;margin-bottom:0">Role</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>

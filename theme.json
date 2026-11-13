@@ -1180,6 +1180,11 @@
 			"area": "menu"
 		},
 		{
+			"name": "lifestyle-dropdown-menu",
+			"title": "Lifestyle Dropdown Menu",
+			"area": "menu"
+		},
+		{
 			"name": "promo-bar",
 			"title": "Promo Bar",
 			"area": "header"

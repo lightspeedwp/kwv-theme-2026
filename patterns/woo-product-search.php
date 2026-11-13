@@ -2,7 +2,7 @@
 /**
  * Title: Product Search Results
  * Slug: kwv/woo-product-search
- * Description: Product search results page with grid layout and pagination
+ * Description: Product search results — breadcrumbs and a "Search results for" title, a filters sidebar beside a results bar (count and sorting) and a three-column product grid using the Product Card, with numbered pagination and a no-results message.
  * Categories: kwv/woocommerce
  * Keywords: product, search, woocommerce, grid
  * Template Types: product-search-results
@@ -15,24 +15,16 @@
 ?>
 
 <!-- wp:group {"tagName":"main","metadata":{"name":"Main Content"},"style":{"spacing":{"margin":{"top":"0","bottom":"0"},"blockGap":"0"}},"layout":{"inherit":true,"type":"constrained"}} -->
-<main class="wp-block-group" style="margin-top:0;margin-bottom:0"><!-- wp:group {"metadata":{"name":"Shop Hero"},"align":"full","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"0","right":"0","bottom":"0","left":"0"},"blockGap":"0"},"dimensions":{"minHeight":"0px"}},"backgroundColor":"brand-100","layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignfull has-brand-100-background-color has-background" style="min-height:0px;margin-top:0;margin-bottom:0;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- wp:columns {"verticalAlignment":"stretch","align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|0","bottom":"var:preset|spacing|0"},"blockGap":{"left":"var:preset|spacing|30"}}}} -->
-<div class="wp-block-columns alignwide are-vertically-aligned-stretch" style="margin-top:var(--wp--preset--spacing--0);margin-bottom:var(--wp--preset--spacing--0)"><!-- wp:column {"verticalAlignment":"center","width":"33.33%","style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|60","right":"var:preset|spacing|40"}}}} -->
-<div class="wp-block-column is-vertically-aligned-center" style="padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--60);flex-basis:33.33%"><!-- wp:query-title {"type":"archive","showPrefix":false,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"textColor":"contrast","fontSize":"600"} /--></div>
-<!-- /wp:column -->
+<main class="wp-block-group" style="margin-top:0;margin-bottom:0"><!-- wp:group {"metadata":{"name":"Search Results Header"},"align":"full","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"var:preset|spacing|30","bottom":"var:preset|spacing|100"},"blockGap":"var:preset|spacing|80"}},"backgroundColor":"brand-100","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull has-brand-100-background-color has-background" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--100)"><!-- wp:group {"align":"wide","style":{"spacing":{"blockGap":"var:preset|spacing|60"}},"layout":{"type":"constrained","justifyContent":"left"}} -->
+<div class="wp-block-group alignwide"><!-- wp:woocommerce/breadcrumbs {"fontSize":"200","textColor":"neutral-800","style":{"elements":{"link":{"color":{"text":"var:preset|color|neutral-800"}}},"spacing":{"margin":{"bottom":"var:preset|spacing|20"}},"typography":{"textTransform":"uppercase","fontStyle":"normal","fontWeight":"400"}}} /-->
 
-<!-- wp:column {"verticalAlignment":"stretch","width":"","style":{"spacing":{"padding":{"top":"0","right":"0","bottom":"0","left":"0"}}}} -->
-<div class="wp-block-column is-vertically-aligned-stretch" style="padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="/wp-content/uploads/2026/07/shop-hero-image-1-1200x301.png" alt=""/></figure>
-<!-- /wp:image --></div>
-<!-- /wp:column --></div>
-<!-- /wp:columns --></div>
+<!-- wp:query-title {"type":"search","fontSize":"500"} /--></div>
+<!-- /wp:group --></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"metadata":{"name":"Product Grid Section"},"align":"full","className":"is-style-light-page-section","layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignfull is-style-light-page-section"><!-- wp:block {"ref":182452} /-->
-
-<!-- wp:group {"metadata":{"name":"Store Notices Container"},"align":"wide","style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|20"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull is-style-light-page-section"><!-- wp:group {"metadata":{"name":"Store Notices Container"},"align":"wide","style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|20"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignwide" style="margin-top:0;margin-bottom:var(--wp--preset--spacing--20)"><!-- wp:woocommerce/store-notices /--></div>
 <!-- /wp:group -->
 
@@ -92,31 +84,39 @@
 <!-- /wp:column -->
 
 <!-- wp:column {"width":"78%","metadata":{"name":"Product Grid Column"},"style":{"spacing":{"blockGap":"var:preset|spacing|30"}}} -->
-<div class="wp-block-column" style="flex-basis:78%"><!-- wp:woocommerce/product-results-count {"style":{"spacing":{"margin":{"top":"0","bottom":"var:preset|spacing|20"}}},"fontSize":"300"} /-->
+<div class="wp-block-column" style="flex-basis:78%"><!-- wp:group {"metadata":{"name":"Results Bar"},"className":"alignwide","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between"}} -->
+<div class="wp-block-group alignwide" style="margin-top:0;margin-bottom:0"><!-- wp:woocommerce/product-results-count {"fontSize":"300"} /-->
+
+<!-- wp:woocommerce/catalog-sorting /--></div>
+<!-- /wp:group -->
 
 <!-- wp:woocommerce/product-collection {"queryId":0,"query":{"woocommerceAttributes":[],"woocommerceStockStatus":["instock","outofstock","onbackorder"],"taxQuery":[],"isProductCollectionBlock":true,"perPage":8,"pages":0,"offset":0,"postType":"product","order":"asc","orderBy":"title","author":"","search":"","exclude":[],"sticky":"","inherit":true,"featured":false,"woocommerceOnSale":false,"woocommerceHandPickedProducts":[],"filterable":true,"relatedBy":{"categories":true,"tags":true}},"tagName":"div","displayLayout":{"type":"flex","columns":3,"shrinkColumns":true},"dimensions":{"widthType":"fill","fixedWidth":""},"queryContextIncludes":["collection"],"forcePageReload":true,"__privatePreviewState":{"isPreview":false,"previewMessage":"Actual products will vary depending on the page being viewed."},"align":"wide"} -->
 <div class="wp-block-woocommerce-product-collection alignwide"><!-- wp:woocommerce/product-template -->
-<!-- wp:template-part {"slug":"product-card","theme":"kwv-theme-2026"} /-->
+<!-- wp:template-part {"slug":"product-card"} /-->
 <!-- /wp:woocommerce/product-template -->
 
-<!-- wp:group {"metadata":{"name":"Pagination"},"style":{"spacing":{"margin":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|20"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--50);margin-bottom:var(--wp--preset--spacing--20)"><!-- wp:query-pagination {"paginationArrow":"chevron","layout":{"type":"flex","justifyContent":"center"}} -->
-<!-- wp:query-pagination-previous /-->
+<!-- wp:group {"metadata":{"name":"Pagination"},"style":{"spacing":{"margin":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40"},"padding":{"right":"var:preset|spacing|40","left":"var:preset|spacing|40"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--40);margin-bottom:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)"><!-- wp:query-pagination {"paginationArrow":"chevron","align":"wide","layout":{"type":"flex","justifyContent":"space-between"}} -->
+<!-- wp:query-pagination-previous {"label":"Previous Page","backgroundColor":"neutral-200"} /-->
 
 <!-- wp:query-pagination-numbers /-->
 
-<!-- wp:query-pagination-next /-->
+<!-- wp:query-pagination-next {"label":"Next Page"} /-->
 <!-- /wp:query-pagination --></div>
 <!-- /wp:group -->
 
 <!-- wp:woocommerce/product-collection-no-results -->
-<!-- wp:group {"metadata":{"name":"No Results Message"},"style":{"spacing":{"blockGap":"var:preset|spacing|20","padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50","left":"var:preset|spacing|30","right":"var:preset|spacing|30"}},"border":{"radius":{"topLeft":"var:preset|border-radius|200","topRight":"var:preset|border-radius|200","bottomLeft":"var:preset|border-radius|200","bottomRight":"var:preset|border-radius|200"}}},"backgroundColor":"brand-100","layout":{"type":"flex","orientation":"vertical","justifyContent":"center","flexWrap":"wrap"}} -->
-<div class="wp-block-group has-brand-100-background-color has-background" style="border-top-left-radius:var(--wp--preset--border-radius--200);border-top-right-radius:var(--wp--preset--border-radius--200);border-bottom-left-radius:var(--wp--preset--border-radius--200);border-bottom-right-radius:var(--wp--preset--border-radius--200);padding-top:var(--wp--preset--spacing--50);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--50);padding-left:var(--wp--preset--spacing--30)"><!-- wp:paragraph {"style":{"typography":{"textAlign":"center"}},"fontSize":"400"} -->
-<p class="has-text-align-center has-400-font-size"><strong>No products found</strong></p>
+<!-- wp:group {"metadata":{"name":"No Results Message"},"style":{"spacing":{"blockGap":"var:preset|spacing|20","padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50","left":"var:preset|spacing|30","right":"var:preset|spacing|30"}},"border":{"radius":{"topLeft":"var:preset|border-radius|sm","topRight":"var:preset|border-radius|sm","bottomLeft":"var:preset|border-radius|sm","bottomRight":"var:preset|border-radius|sm"}}},"backgroundColor":"neutral-200","layout":{"type":"flex","orientation":"vertical","justifyContent":"center","flexWrap":"wrap"}} -->
+<div class="wp-block-group has-neutral-200-background-color has-background" style="border-top-left-radius:var(--wp--preset--border-radius--sm);border-top-right-radius:var(--wp--preset--border-radius--sm);border-bottom-left-radius:var(--wp--preset--border-radius--sm);border-bottom-right-radius:var(--wp--preset--border-radius--sm);padding-top:var(--wp--preset--spacing--50);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--50);padding-left:var(--wp--preset--spacing--30)"><!-- wp:outermost/icon-block {"iconName":"kwv-phosphor-magnifying-glass","iconBackgroundColor":"main","iconBackgroundColorValue":"#15110F","iconColor":"base","iconColorValue":"#fff","width":"42px","style":{"border":{"radius":"10px"},"spacing":{"padding":{"top":"10px","bottom":"10px","left":"10px","right":"10px"}}}} -->
+<div class="wp-block-outermost-icon-block"><div class="icon-container has-icon-color has-icon-background-color has-contrast-background-color has-base-color" style="background-color:#15110F;color:#fff;width:42px;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;border-radius:10px;transform:rotate(0deg) scaleX(1) scaleY(1)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg></div></div>
+<!-- /wp:outermost/icon-block -->
+
+<!-- wp:paragraph {"style":{"typography":{"textAlign":"center"}},"fontSize":"400"} -->
+<p class="has-text-align-center has-400-font-size"><strong>No results found</strong></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph {"className":"has-neutral-700-color has-text-color has-link-color","style":{"elements":{"link":{"color":{"text":"var:preset|color|brand-500"}}},"typography":{"textAlign":"center"}},"textColor":"neutral-700"} -->
-<p class="has-text-align-center has-neutral-700-color has-text-color has-link-color">Try <a href="#" class="wc-link-clear-any-filters">clearing any filters</a> or head to our <a href="#" class="wc-link-stores-home">store home</a>.</p>
+<!-- wp:paragraph {"className":"has-neutral-700-color has-text-color has-link-color","style":{"elements":{"link":{"color":{"text":"var:preset|color|neutral-700"}}},"typography":{"textAlign":"center"}},"textColor":"neutral-700"} -->
+<p class="has-text-align-center has-neutral-700-color has-text-color has-link-color">You can try <a href="#" class="wc-link-clear-any-filters">clearing any filters</a> or head to our <a href="#" class="wc-link-stores-home">store's home</a>.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 <!-- /wp:woocommerce/product-collection-no-results --></div>

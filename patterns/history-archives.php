@@ -14,24 +14,24 @@
 /* Four archive cards, built from a local table (see history-timeline.php). */
 $kwv_archives = array(
 	array(
-		'image'   => 'KWV-Classic-Shiraz-1000x1000px.jpeg',
+		'image'   => '2026/08/KWV-Classic-Shiraz-1000x1000px.jpeg',
 		'caption' => __( 'Cathedral Cellar Shiraz 2024', 'kwv' ),
 	),
 	array(
-		'image'   => 'The-Mentors_Pinotage-2.jpg',
+		'image'   => '2026/08/The-Mentors_Pinotage-2.jpg',
 		'caption' => __( 'The Mentors Cabernet Sauvignon 2022', 'kwv' ),
 	),
 	array(
-		'image'   => 'Laborie_MCC_Brut.jpg',
+		'image'   => '2026/10/Laborie_MCC_Brut.jpg',
 		'caption' => __( 'Laborie Brut Rosé', 'kwv' ),
 	),
 	array(
-		'image'   => 'wineclub-edition-13-box.jpg',
+		'image'   => '2026/07/wineclub-edition-13-box.jpg',
 		'caption' => __( 'Winemaker’s Selection Edition 12', 'kwv' ),
 	),
 );
 
-$kwv_uploads = 'http://localhost:8901/wp-content/uploads/2026/06/';
+$kwv_uploads = '/wp-content/uploads/';
 ?>
 <!-- wp:group {"metadata":{"name":"KWV Archives"},"align":"full","className":"is-style-light-page-section","style":{"spacing":{"padding":{"top":"var:preset|spacing|90","bottom":"var:preset|spacing|90"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull is-style-light-page-section" style="padding-top:var(--wp--preset--spacing--90);padding-bottom:var(--wp--preset--spacing--90)"><!-- wp:group {"align":"wide","className":"is-style-section-header","layout":{"type":"default"}} -->
