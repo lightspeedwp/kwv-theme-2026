@@ -2,7 +2,7 @@
 /**
  * Title: Brand Archive
  * Slug: kwv/woo-brand-archive
- * Description: Brand page (/brand/…) — the per-brand banner hero, WooCommerce breadcrumbs, the brand logo, introduction and awards row from the Brand's fields, a one-product-at-a-time slider of the brand's products (each slide is the editable "Brand Product Slide" template part), thumbnails, and the brand's social icons and website link. Fields left blank on the Brand are not shown.
+ * Description: Brand page (/brand/…) — the per-brand banner hero, WooCommerce breadcrumbs, the brand logo, introduction and awards row from the Brand's fields, a "Back to Home" link, a one-product-at-a-time slider of the brand's products (each slide is the editable "Brand Product Slide" template part), thumbnails, the brand's social icons and website link, and a "Continue to Shop" button. Fields left blank on the Brand are not shown.
  * Categories: kwv/woocommerce
  * Keywords: brand, archive, slider, products, awards, woocommerce
  * Template Types: taxonomy-product_brand
@@ -38,7 +38,13 @@
 <!-- /wp:group -->
 
 <!-- wp:group {"metadata":{"name":"Brand Products"},"align":"full","className":"is-style-light-page-section","style":{"spacing":{"padding":{"top":"0","bottom":"var:preset|spacing|80"},"blockGap":"var:preset|spacing|40"}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignfull is-style-light-page-section" style="padding-top:0;padding-bottom:var(--wp--preset--spacing--80)"><!-- wp:group {"metadata":{"name":"Store Notices Container"},"align":"wide","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull is-style-light-page-section" style="padding-top:0;padding-bottom:var(--wp--preset--spacing--80)"><!-- wp:buttons {"metadata":{"name":"Back To Home"},"align":"wide","layout":{"type":"flex","justifyContent":"left"}} -->
+<div class="wp-block-buttons alignwide"><!-- wp:button {"className":"is-style-text-link"} -->
+<div class="wp-block-button is-style-text-link"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( '/' ); ?>">&lt; <?php esc_html_e( 'Back to Home', 'kwv' ); ?></a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons -->
+
+<!-- wp:group {"metadata":{"name":"Store Notices Container"},"align":"wide","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignwide" style="margin-top:0;margin-bottom:0"><!-- wp:woocommerce/store-notices /--></div>
 <!-- /wp:group -->
 
@@ -80,6 +86,12 @@
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:column --></div>
-<!-- /wp:columns --></div>
+<!-- /wp:columns -->
+
+<!-- wp:buttons {"metadata":{"name":"Continue To Shop"},"align":"wide","layout":{"type":"flex","justifyContent":"right"}} -->
+<div class="wp-block-buttons alignwide"><!-- wp:button {"className":"is-style-outline-dark"} -->
+<div class="wp-block-button is-style-outline-dark"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( '/shop/' ); ?>"><?php esc_html_e( 'Continue to Shop', 'kwv' ); ?></a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons --></div>
 <!-- /wp:group --></main>
 <!-- /wp:group -->

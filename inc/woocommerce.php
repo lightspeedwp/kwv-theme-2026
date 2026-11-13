@@ -22,6 +22,7 @@ if ( class_exists( 'WooCommerce' ) ) {
 	add_action( 'init', __NAMESPACE__ . '\unregister_woocommerce_block_patterns', 999 );
 	add_filter( 'woocommerce_admin_features', __NAMESPACE__ . '\disable_pattern_toolkit' );
 	add_filter( 'loop_shop_per_page', __NAMESPACE__ . '\shop_products_per_page' );
+	add_filter( 'woocommerce_breadcrumb_defaults', __NAMESPACE__ . '\breadcrumb_back_to_prefix' );
 
 } else {
 
@@ -183,6 +184,27 @@ function enqueue_product_grid_block_style() {
  */
 function shop_products_per_page() {
 	return 15;
+}
+
+
+/**
+ * Lead every WooCommerce breadcrumb trail with "Back to".
+ *
+ * The client found the breadcrumbs too easy to miss, so they now read
+ * "Back to Home / Shop / Brandy". The words go inside the trail's own
+ * `<nav>` wrapper, so they take whatever font, size, colour and case each
+ * Breadcrumbs block sets — no separate styling. The Breadcrumbs block renders
+ * through `woocommerce_breadcrumb()`, so this reaches every breadcrumb on the
+ * site, including templates saved in the Site Editor.
+ *
+ * @param array $defaults Breadcrumb arguments (`wrap_before`, `delimiter`, …).
+ * @return array The arguments with the prefix appended to `wrap_before`.
+ */
+function breadcrumb_back_to_prefix( $defaults ) {
+	$defaults['wrap_before'] = ( $defaults['wrap_before'] ?? '' )
+		. '<span class="kwv-breadcrumb-prefix">' . esc_html__( 'Back to', 'kwv' ) . '</span> ';
+
+	return $defaults;
 }
 
 

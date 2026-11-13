@@ -103,6 +103,7 @@ final class ThemeHooks {
 			array( 'action', 'init', 'Kwv\unregister_woocommerce_block_patterns', 999, 1 ),
 			array( 'filter', 'woocommerce_admin_features', 'Kwv\disable_pattern_toolkit', 10, 1 ),
 			array( 'filter', 'loop_shop_per_page', 'Kwv\shop_products_per_page', 10, 1 ),
+			array( 'filter', 'woocommerce_breadcrumb_defaults', 'Kwv\breadcrumb_back_to_prefix', 10, 1 ),
 		);
 	}
 

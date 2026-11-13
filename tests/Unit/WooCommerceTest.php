@@ -14,6 +14,7 @@ use Brain\Monkey\Functions;
  * @covers ::Kwv\filter_woocommerce_templates
  * @covers ::Kwv\disable_pattern_toolkit
  * @covers ::Kwv\shop_products_per_page
+ * @covers ::Kwv\breadcrumb_back_to_prefix
  * @covers ::Kwv\register_mini_cart_block_styles
  */
 final class WooCommerceTest extends TestCase {
@@ -64,6 +65,28 @@ final class WooCommerceTest extends TestCase {
 
 	public function test_shop_shows_fifteen_products_per_page(): void {
 		$this->assertSame( 15, \Kwv\shop_products_per_page() );
+	}
+
+	public function test_breadcrumbs_open_with_back_to_inside_the_wrapper(): void {
+		$defaults = array(
+			'wrap_before' => '<nav class="woocommerce-breadcrumb" aria-label="Breadcrumb">',
+			'delimiter'   => '&nbsp;&#47;&nbsp;',
+		);
+
+		$result = \Kwv\breadcrumb_back_to_prefix( $defaults );
+
+		$this->assertSame(
+			'<nav class="woocommerce-breadcrumb" aria-label="Breadcrumb"><span class="kwv-breadcrumb-prefix">Back to</span> ',
+			$result['wrap_before']
+		);
+		$this->assertSame( $defaults['delimiter'], $result['delimiter'] );
+	}
+
+	public function test_breadcrumb_prefix_survives_a_missing_wrapper(): void {
+		$this->assertSame(
+			'<span class="kwv-breadcrumb-prefix">Back to</span> ',
+			\Kwv\breadcrumb_back_to_prefix( array() )['wrap_before']
+		);
 	}
 
 	public function test_both_mini_cart_styles_are_registered(): void {
