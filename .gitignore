@@ -1,3 +1,22 @@
-# Node tooling (unit tests, lint). The e2e suite keeps its own ignores.
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Dependencies
+/vendor/
 /node_modules/
+
+# Build / logs
+*.log
+
+# PHP test tooling (composer.json is dev-only)
+/build/
+/.phpunit.result.cache
+/.phpunit.cache/
+/.phpcs-cache
+/.ci-plugins/
+
+# JS tooling (unit tests, lint). The e2e suite keeps its own ignores.
 /coverage/

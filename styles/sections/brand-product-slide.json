@@ -1,0 +1,43 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Brand Product Slide",
+	"slug": "brand-product-slide",
+	"blockTypes": [ "core/group" ],
+	"description": "One product in the brand page slider: packshot beside the brand name, product name, short description, product details, price and Add to Cart.",
+	"styles": {
+		"spacing": {
+			"margin": {
+				"top": "0"
+			}
+		},
+		"blocks": {
+			"core/post-title": {
+				"typography": {
+					"fontFamily": "var:preset|font-family|heading",
+					"fontSize": "var:preset|font-size|400",
+					"fontWeight": "var:custom|font-weight|regular",
+					"lineHeight": "var:custom|line-height|heading",
+					"textTransform": "uppercase"
+				}
+			},
+			"core/read-more": {
+				"color": {
+					"text": "var:preset|color|brand-600"
+				},
+				"typography": {
+					"fontSize": "var:preset|font-size|200",
+					"fontWeight": "var:custom|font-weight|semi-bold",
+					"textTransform": "uppercase",
+					"textDecoration": "none"
+				}
+			},
+			"woocommerce/product-price": {
+				"typography": {
+					"fontSize": "calc((var(--wp--preset--font-size--400) + var(--wp--preset--font-size--500)) / 2)",
+					"fontWeight": "var:custom|font-weight|bold"
+				}
+			}
+		}
+	}
+}

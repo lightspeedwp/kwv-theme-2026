@@ -11,7 +11,13 @@ import globals from 'globals';
 
 export default [
 	{
-		ignores: [ 'node_modules/**', 'coverage/**', 'tests/e2e/**' ],
+		ignores: [
+			'node_modules/**',
+			'coverage/**',
+			'tests/e2e/**',
+			'vendor/**',
+			'build/**',
+		],
 	},
 	...wordpress.configs.recommended,
 	{

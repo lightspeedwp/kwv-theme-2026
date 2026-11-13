@@ -121,6 +121,7 @@ and a test card are present — they must never run against production.
 | KBD-TC1, KBD-TC3–KBD-TC7 | KBD-01 keyboard journeys (mega menu, search, drawer, filters, brand slider, careers modal) | `global/keyboard.spec.ts` | passing; TC6/TC7 skip without a brand slider / jobs |
 | KBD-TC2 | KBD-01 Escape returns focus to the mega menu toggle | `global/keyboard.spec.ts` | expected failure (`test.fail`) — finding A11Y-F1, Ollie Menu Designer |
 | VIS-TC1, VIS-TC2 | VIS-01 visual regression, desktop/phone | `quality/visual.spec.ts` | passing locally — baselines in `quality/visual.spec.ts-snapshots/` |
+| BRAND-TC1–TC10 | Estimate 3439 brand page | `brand/brand-page.spec.ts` | passing (local, 2026-11-12) — set `KWV_BRAND_SLUG` (brand with content, 2+ products; default `kwv-brandy`) and `KWV_EMPTY_BRAND_SLUG` (brand with no content; default `wild-africa-cream`) |
 
 Cases from the later full-site round (smoke, global, shop, account, content, forms,
 wine club, visit, careers, errors, responsive, emails) are traced in

@@ -59,6 +59,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Flaky E2E checkout steps:** wait for the PayFast sandbox and its return redirect, empty the account cart reliably, and re-fill the street address if a late Store API response clears it. (#25)
 - **E2E locators that no longer matched the site:** Shop and About mega menus, the mobile drawer, the Wine Club price and the Shop search. (#25)
+### Added (PHP test tooling)
+
+- PHPUnit unit (Brain Monkey) and integration (real WordPress, WooCommerce, SCF, Gravity Forms when present) suites for `functions.php` and `inc/`, with an 80% line-coverage gate on `inc/` (`composer test:coverage`).
+- Smoke tests: every pattern registers, has `Title`/`Slug` headers (namespaced `kwv/`) and renders; every template and part parses and every pattern/part it references exists.
+- `phpcs.xml.dist` (WordPress standard), `phpstan.neon.dist` with a baseline for existing findings, and the `composer lint` / `analyse` / `wpcs:scan` scripts.
+- GitHub Actions workflow `.github/workflows/php-tests.yml` and `tests/README.md`.
+- Mutation testing with Infection (`composer test:mutation`), run in a generated copy of the theme because Infection cannot mutate procedural code; tests sharpened from its escaped mutants; CI job for the unit run.
+- Dev tooling only; no theme behaviour changed.
+
+### Fixed (PHP test tooling)
+
+- Order-dependent integration tests: the `woo-cart`/`woo-checkout` patterns now render in a separate process, so WooCommerce's cart/checkout constants no longer leak into later asset tests. (#26)
+- The WooCommerce hook-registration unit test runs on PHP 8.2: it loads a stub `WooCommerce` class instead of aliasing `stdClass`, which PHP before 8.3 rejects. (#29)
+- After merging `develop`: the WooCommerce integration tests no longer expect the removed Payflex relocation script, `assets/js/brand-slider.js` passes the new ESLint rules (shorthand properties, variables declared after the early returns; no behaviour change), and ESLint ignores `vendor/` and `build/`. (#29)
+
+### Fixed
+
+- **Careers hero Scroll button** (`patterns/careers-hero.php`, so also `page-careers`, `template-careers` and `template-single-career`): dropped the redundant `"text"` attribute from the button's block comment. WordPress 7.1 validated it against the attribute schema and logged a `_doing_it_wrong` notice on every render. Found by the new pattern smoke test. The button's label comes from its markup, so the output is unchanged.
+
+### Removed
+
+- **Page (With Sidebar) template** (`templates/page-with-sidebar.html` and its `customTemplates` entry in `theme.json`). Unused, and it referenced a `sidebar` template part that doesn't exist.
+- **Sidebar template part area** (`Kwv\template_part_areas()` in `functions.php`) and the matching `sidebar` entry in `theme.json` `templateParts`. Only the removed template used them, and no `parts/sidebar.html` exists.
+- **`kwv/template-page-right-sidebar` pattern** — the body of the removed template; nothing else used it.
+
+### Added (Brand page redesign — Estimate 3439, 2026-11-12)
+
+- **Brand pages (`/brand/…`) have a new layout.** `templates/taxonomy-product_brand.html` now uses the new `kwv/woo-brand-archive` pattern instead of the shared shop archive: the existing per-brand banner, then the brand logo, introduction and awards row, then a product slider in place of the grid, then the brand's social icons and "Visit brand website" link. Filters, results count, breadcrumbs and pagination are gone from brand pages only. Shop and category pages are unchanged.
+- **Brand content comes from the Brand's fields** (KWV Enhancements plugin, same branch name): the `kwv/brand` block binding for the name, introduction, logo, website and each social link, and the `kwv/brand-awards` block. A field left blank is not shown.
+- **Product slider.** A normal Product Collection that inherits the brand query; `assets/js/brand-slider.js` turns its list into a one-product-at-a-time slider with previous/next arrows, swipe, arrow keys and a thumbnail strip built from each slide's own image. Off-screen products are `inert`. Reduced-motion users get instant changes. Swiper is the full bundle that ships inside the Carousel Block plugin, loaded on brand pages only (`inc/brand-page.php`). Without JavaScript, or without that plugin, the products stay a stacked list. A brand with one product shows it without a slider; a brand with none shows the banner and brand content only.
+- **Editable slide.** Each product is the new **Brand Product Slide** template part (`parts/brand-product-slide.html`, section style `styles/sections/brand-product-slide.json`): image, brand name, product name, short description, "Product detail" (attributes marked visible on the product page; the heading hides when there are none), the site's Add to Cart button with the price beside it, and a "View product" link. Editing the part in the Site Editor changes every brand page.
+- **Add to Cart** is WooCommerce's own product button with the existing `is-style-add-to-cart` look (`woocommerce-product-grid.css` now scopes that look to the slide as well as the product card). It shows for in-stock simple products; out-of-stock products show "Out of stock", and other product types keep only "View product".
+- **Brand pages show the whole range**: `loop_shop_per_page` returns 100 on brand archives (15 elsewhere). The shop-filter stylesheet and script no longer load on brand pages.
+- **New button style "Text Link"** (`styles/blocks/button/text-link.json`) for the website link, in `brand-600` so it meets AA contrast on white.
+- **Tested locally only** (Chrome, 1440 and 390 wide): arrows, keys, thumbnails, Add to Cart with mini-cart count, blank fields, out of stock, single-product brand. Not yet tested: the Site Editor, other browsers, WP Rocket, the dev site.
+- **Deploy note:** dev renders brand archives from DB template 182616, which shadows this file. It has to be deleted (or replaced) for the new layout to show.
+- **Review round 1 (2026-11-12):** WooCommerce breadcrumbs under the hero. The price moves above Add to Cart. The slide's Add to Cart button gets `spacing|50` side padding (the shop grid keeps `spacing|10`). Short description goes up to font size 300, with a `spacing|30` gap under "Product detail". "In stock" is hidden (only "Out of stock" shows). The intro section and its divider hide when a brand has no logo, intro or awards.
+- **Review round 2 (2026-11-12):** the slider loops endlessly (Swiper `loop` for 3+ products, `rewind` for 2; quick repeated clicks are no longer dropped). "View product" moves onto the Add to Cart row, pushed to the far side and centred; it is underlined only on hover/focus. Price is a little larger (halfway between font sizes 400 and 500) with a `spacing|30` gap above the button. The gap under "Product detail" now matches the gap between its rows (`spacing|5`). BRAND-TC4 also covers wrapping round.
+- **Fixed: pasted short descriptions broke out of their slide.** KWV 10 Year Old Brandy's short description is a pasted `<table width="1876">` with inline centring, and it spilled into neighbouring slides. `inc/brand-page.php` now strips `style`/`width`/`height`/`align`/`data-*` inside the Product Summary on brand pages only, the stylesheet flows table cells as text, and slides clip their overflow. Product data and the single product page are unchanged.
+- **Tests:** `tests/e2e/brand/brand-page.spec.ts` (BRAND-TC1–TC10). 10/10 pass on the local preview; on dev's previous build the 4 cases covering this round's fixes fail as expected.
+- **Docs:** technical notes in `kwv-enhancements/docs/brand-pages.md`; client guide in the workspace at `reports/brand-page/kwv-brand-pages-guide.md`.
+- **Dev content:** KWV Brandy (term 255) now has its introduction, three award images cropped from the mockup (184137–184139, low resolution, to be replaced by KWV's artwork), and Facebook and X links taken from the current kwv.co.za brandy page. Instagram and the brand website are left blank: no brand Instagram was found, and the only brand "website" is the old kwv.co.za page.
 
 ### Changed (Client review — site-wide side gutter, homepage brand carousels, 2026-10-22)
 

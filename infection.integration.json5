@@ -1,0 +1,33 @@
+{
+	// Mutation testing against the integration suite. Each thread has its own
+	// database (tests/bin/mutation-databases.php); `composer test:mutation`
+	// prepares them and sets WP_TESTS_SKIP_INSTALL=1. Keep "threads" in step
+	// with the count passed to mutation-databases.php there.
+	"$schema": "vendor/infection/infection/resources/schema.json",
+	// Lets Infection itself load the Composer autoloader.
+	"bootstrap": "tests/Unit/bootstrap.php",
+	// Infection takes directories, not files: the theme root, minus everything
+	// that is not PHP under test, so functions.php and inc/ are mutated.
+	"source": {
+		"directories": ["."],
+		"excludes": ["vendor", "build", "node_modules", "tests", "patterns", "templates", "parts", "assets", "styles", "index.php"]
+	},
+	"timeout": 300,
+	"threads": 6,
+	"tmpDir": "build/infection-tmp-integration",
+	"logs": {
+		"text": "build/infection/integration.log",
+		"summary": "build/infection/integration-summary.log",
+		"json": "build/infection/integration.json"
+	},
+	"phpUnit": {
+		"configDir": "tests/Integration/mutation"
+	},
+	"initialTestsPhpOptions": "-d pcov.enabled=1",
+	"mutators": {
+		"@default": true,
+		// Narrowing a method's visibility can't be observed by a test that
+		// calls the public API; these mutants are noise.
+		"@function_signature": false
+	}
+}

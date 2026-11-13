@@ -133,49 +133,49 @@ add_action( 'init', __NAMESPACE__ . '\enqueue_custom_block_styles' );
 function pattern_categories() {
 
 	$block_pattern_categories = array(
-		'kwv/card'           => array(
+		'kwv/card'            => array(
 			'label' => __( 'Cards', 'kwv' ),
 		),
-		'kwv/product-card'   => array(
+		'kwv/product-card'    => array(
 			'label' => __( 'Product Cards', 'kwv' ),
 		),
-		'kwv/call-to-action' => array(
+		'kwv/call-to-action'  => array(
 			'label' => __( 'Call To Action', 'kwv' ),
 		),
-		'kwv/features'       => array(
+		'kwv/features'        => array(
 			'label' => __( 'Features', 'kwv' ),
 		),
-		'kwv/hero'           => array(
+		'kwv/hero'            => array(
 			'label' => __( 'Hero', 'kwv' ),
 		),
-		'kwv/pages'          => array(
+		'kwv/pages'           => array(
 			'label' => __( 'Pages', 'kwv' ),
 		),
-		'kwv/posts'          => array(
+		'kwv/posts'           => array(
 			'label' => __( 'Posts', 'kwv' ),
 		),
-		'kwv/pricing'        => array(
+		'kwv/pricing'         => array(
 			'label' => __( 'Pricing', 'kwv' ),
 		),
-		'kwv/testimonial'    => array(
+		'kwv/testimonial'     => array(
 			'label' => __( 'Testimonials', 'kwv' ),
 		),
-		'kwv/menu'    => array(
+		'kwv/menu'            => array(
 			'label' => __( 'Menu', 'kwv' ),
 		),
-		'kwv/about'          => array(
+		'kwv/about'           => array(
 			'label' => __( 'About Page', 'kwv' ),
 		),
-		'kwv/history'        => array(
+		'kwv/history'         => array(
 			'label' => __( 'History Page', 'kwv' ),
 		),
-		'kwv/visit'          => array(
+		'kwv/visit'           => array(
 			'label' => __( 'Visit Us Page', 'kwv' ),
 		),
 		'kwv/winemakers-club' => array(
 			'label' => __( 'Winemaker’s Club', 'kwv' ),
 		),
-		'kwv/woocommerce'    => array(
+		'kwv/woocommerce'     => array(
 			'label' => __( 'WooCommerce', 'kwv' ),
 		),
 	);
@@ -198,25 +198,6 @@ function is_paginated() {
 }
 add_action( 'wp_head', __NAMESPACE__ . '\is_paginated' );
 
-
-/**
- * Add a Sidebar template part area
- *
- * @param array $areas Registered template part areas.
- * @return array Areas including the sidebar.
- */
-function template_part_areas( array $areas ) {
-	$areas[] = array(
-		'area'        => 'sidebar',
-		'area_tag'    => 'section',
-		'label'       => __( 'Sidebar', 'kwv' ),
-		'description' => __( 'The Sidebar template defines a page area that can be found on the Page (With Sidebar) template.', 'kwv' ),
-		'icon'        => 'sidebar',
-	);
-
-	return $areas;
-}
-add_filter( 'default_wp_template_part_areas', __NAMESPACE__ . '\template_part_areas' );
 
 /**
  * Load user job titles (job_title user meta + author-role block binding).
@@ -252,6 +233,12 @@ require_once get_template_directory() . '/inc/mobile-menu.php';
  * Load the carousel block (cb/carousel-v2) nav-arrow styling.
  */
 require_once get_template_directory() . '/inc/carousel.php';
+
+
+/**
+ * Load the brand page (/brand/…) product slider.
+ */
+require_once get_template_directory() . '/inc/brand-page.php';
 
 /**
  * Load the lazy-loaded Cover background video (poster + deferred src).
