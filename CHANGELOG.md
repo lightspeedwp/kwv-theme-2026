@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed (E2E checked against dev, 2026-11-13)
+
+- **Accessibility and visual baselines are recorded on dev**, the deploy target, not the local site. Adds four findings: an unnamed header logo link, unnamed homepage links, and contrast in the Careers modal and cart suggestions.
+
+### Fixed (E2E checked against dev, 2026-11-13)
+
+- **Keyboard cases no longer depend on how many links the mega menus hold:** `tabTo` checks the target is a Tab stop from its neighbour instead of walking from the top of the page.
+- **Cross-browser false failures:** the age-gate test waits for its cookie, Add to cart line counts allow sub-pixel offsets, the sticky-header test accepts Firefox's shorter scroll, and the category crawl gets more time.
+- **Visual cases wait for lazy images** to load and decode before the screenshot, so the bottom rows of long pages are no longer captured half-painted.
+
+### Added (JS test foundation, 2026-11-12)
+
+- **Unit tests for every script in `assets/js`** with Vitest and jsdom: 141 cases against real markup captured from the site, about 99.8% coverage, and the run fails below 80%. Tests only; the scripts ship unchanged. See `tests/js/README.md`.
+- **ESLint** with the WordPress recommended rules and the WordPress Prettier fork. Formatting and a few older findings in the shipped scripts are warnings in a reviewed baseline.
+- **A `package.json` for dev tooling** (`npm test`, `npm run lint`, `npm run format`). The front end still has no build step. The unused pattern-watcher packages left in the old lockfile are gone.
+- **Wider E2E suite**: Firefox, WebKit and iPhone 13 projects for the read-only specs; axe-core accessibility scans of 14 templates at desktop and phone width, with a reviewed baseline; keyboard journeys for the menus, search, drawer, filters, brand slider and careers modal; and visual regression baselines for 7 templates.
+- **CI**: lint and unit tests with coverage on pull requests to `develop` and `main`, and a manual or nightly Playwright workflow that uploads its report.
+
+### Changed (JS test foundation, 2026-11-12)
+
+- **JSDoc only** in `assets/js/aws-search.js` (a `@return` description) and `assets/js/term-banner-admin.js` (the `$` parameter). No behaviour change.
+- **E2E**: the Chrome channel now applies to the Chromium projects only, so Firefox and WebKit can run.
+
 ### Added (E2E launch coverage, 2026-11-12)
 
 - **New E2E specs** for the shop catalogue, single product and internal links on the scoped pages. Tests only, no theme code. (#25)

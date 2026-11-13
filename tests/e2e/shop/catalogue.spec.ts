@@ -12,6 +12,8 @@ import { test, expect, BRAND, storeCategories } from '../fixtures';
 test.describe('Catalogue @shop', () => {
   // CAT-TC1 — category tree + every populated category archive loads
   test('CAT-TC1 the category tree has no Brands category and every category archive loads', async ({ page, request }) => {
+    // The archive crawl is serial (dev rate-limits bursts) and takes over 90s on dev.
+    test.slow();
     const cats = await storeCategories(request);
     const names = cats.map((c) => c.name.toLowerCase());
     expect(names, 'brand is product_brand only — no Brands category').not.toContain('brands');
@@ -91,8 +93,12 @@ test.describe('Catalogue @shop', () => {
         buttons.slice(0, 8).map((b) => {
           const range = document.createRange();
           range.selectNodeContents(b);
-          const rows = new Set([...range.getClientRects()].filter((r) => r.width > 0).map((r) => Math.round(r.top)));
-          return rows.size;
+          // Count line boxes, treating rects whose tops are within half a line of
+          // each other as one line. WebKit reports text and inline-child rects a
+          // few sub-pixels apart, which exact rounding counted as two lines.
+          const half = parseFloat(getComputedStyle(b).lineHeight) / 2 || 8;
+          const tops = [...range.getClientRects()].filter((r) => r.width > 0).map((r) => r.top).sort((x, y) => x - y);
+          return tops.filter((t, i) => i === 0 || t - tops[i - 1] > half).length;
         }),
       );
     expect(lines.every((n) => n === 1), `line counts ${lines}`).toBeTruthy();
@@ -109,7 +115,9 @@ test.describe('Catalogue @shop', () => {
       const nav = page.getByRole('navigation', { name: 'Navigation', exact: true }).first();
       await expect(nav).toBeVisible();
       await page.mouse.wheel(0, 2000);
-      await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(1000);
+      // Firefox scrolls less per wheel delta than Chromium (864px for 2000), so
+      // check for "well past the header" rather than an exact distance.
+      await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(600);
       await expect(nav).toBeInViewport();
     });
   }
