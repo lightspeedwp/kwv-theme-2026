@@ -9,13 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed (E2E checked against dev, 2026-11-13)
 
-- **Accessibility and visual baselines are recorded on dev**, the deploy target, not the local site. Adds four findings: an unnamed header logo link, unnamed homepage links, and contrast in the Careers modal and cart suggestions.
+- **Accessibility and visual baselines are recorded on dev**, the deploy target, not the local site. Adds four findings: an unnamed header logo link, unnamed homepage links, and contrast in the Careers modal and cart suggestions. (#27)
 
 ### Fixed (E2E checked against dev, 2026-11-13)
 
-- **Keyboard cases no longer depend on how many links the mega menus hold:** `tabTo` checks the target is a Tab stop from its neighbour instead of walking from the top of the page.
-- **Cross-browser false failures:** the age-gate test waits for its cookie, Add to cart line counts allow sub-pixel offsets, the sticky-header test accepts Firefox's shorter scroll, and the category crawl gets more time.
-- **Visual cases wait for lazy images** to load and decode before the screenshot, so the bottom rows of long pages are no longer captured half-painted.
+- **Keyboard cases no longer depend on how many links the mega menus hold:** `tabTo` checks the target is a Tab stop from its neighbour instead of walking from the top of the page. (#27)
+- **Cross-browser false failures:** the age-gate test waits for its cookie, Add to cart line counts allow sub-pixel offsets, the sticky-header test accepts Firefox's shorter scroll, and the category crawl gets more time. (#27)
+- **Visual cases wait for lazy images** to load and decode before the screenshot, so the bottom rows of long pages are no longer captured half-painted. (#27)
 
 ### Added (JS test foundation, 2026-11-12)
 
