@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed (dev findings, 2026-11-13)
+
+- **Career cards show the closing date.** The "Closing date" column in `patterns/career-card.php` was a plain Post Date block, so it showed when the job was posted. It now binds the block's `datetime` to the `kwv_career_closing_date` meta through `kwv/meta-date` (kwv-enhancements). The same fix is applied on dev to page 36807 and DB template 182319.
+
+### Changed (dev findings, 2026-11-13)
+
+- **PDP-TC1 no longer expects Payflex on the product page.** The widget moved to checkout, where TC-009 checks the Payflex payment method. The README traceability table and the launch pack are updated.
+- **HIST-TC1 finds the milestone image even when its alt text is empty.** An image with `alt=""` has the presentation role, so `getByRole('img')` missed it. The test now uses a plain `img` locator.
+
 ### Changed (E2E checked against dev, 2026-11-13)
 
 - **Accessibility and visual baselines are recorded on dev**, the deploy target, not the local site. Adds four findings: an unnamed header logo link, unnamed homepage links, and contrast in the Careers modal and cart suggestions. (#27)

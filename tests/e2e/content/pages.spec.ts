@@ -48,7 +48,9 @@ test.describe('Content pages @content', () => {
       expect(years[i], `slide ${i + 1} (${years[i]}) is not newer than slide ${i}`).toBeLessThanOrEqual(years[i - 1]);
     }
 
-    const firstImage = slides.first().getByRole('img').first();
+    // A plain <img> locator: milestone images may have alt="" (role "presentation"),
+    // which getByRole('img') skips, and then picked up an element with no src.
+    const firstImage = slides.first().locator('img').first();
     const src = await firstImage.getAttribute('src');
     await slides.first().getByRole('button', { name: /enlarge/i }).click();
     const lightbox = page.getByRole('dialog').filter({ visible: true });

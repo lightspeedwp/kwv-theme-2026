@@ -1,7 +1,9 @@
 import { test, expect, addSeededProductToCart } from '../fixtures';
 
 /**
- * RQ-005 — Payflex is available and selectable at checkout.
+ * RQ-005 — Payflex is available and selectable at checkout. This is where the
+ *          PRD's "verify Payflex" is checked: the product-page calculator widget
+ *          was removed (2026-11), so PDP-TC1 no longer looks for it.
  * RQ-010 — Payment gateway configuration is deliberate (PayFast + Payflex present).
  *          F2: both PayFast and Payflex currently co-exist — this records that and
  *          is the explicit check for the consolidation decision.

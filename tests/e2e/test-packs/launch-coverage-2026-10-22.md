@@ -76,7 +76,7 @@ All locators are accessible-first. Data-dependent cases discover their data at r
 | CAT-TC3 | P2 | Shop filter sections are collapsed by default and toggle via `aria-expanded`. No empty filter section is rendered. | CHANGELOG (shop filters hide-empty) |
 | CAT-TC4 | P2 | Product grid at 1440: 4 cards per row, and every "Add to cart" label sits on one line (button height ≈ icon height). Checked with bounding boxes, not pixels. | CHANGELOG 2026-10-21/22 |
 | CAT-TC5 | P2 | Category, brand and Shop pages show the promo bar. The header stays at the top of the viewport after scrolling (sticky). | CHANGELOG 2026-10-12, Phase 2 audit |
-| PDP-TC1 | P1 | Single product: the Payflex widget renders inside the add-to-cart form. Add to cart updates the cart count. | PRD (verify Payflex), `kwv-single-product-payflex-and-db-template` |
+| PDP-TC1 | P1 | Single product: add to cart updates the cart count. (Updated 2026-11-13: Payflex is no longer on the product page; it is verified at checkout by TC-009.) | PRD (verify Payflex), `kwv-single-product-payflex-and-db-template` |
 | PDP-TC2 | P1 | Single product: the Related products section renders with ≥1 product card. This guards against the WebToffee regression. | `kwv-related-products-empty` |
 
 ### Global navigation
