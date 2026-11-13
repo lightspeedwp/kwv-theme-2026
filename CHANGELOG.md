@@ -7,15 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed (dev findings follow-up, 2026-11-13)
+
+- **Payflex product-page relocation.** Payflex is no longer shown on the product page (it is a payment method at checkout), so `assets/js/payflex-relocate.js`, its enqueue in `inc/woocommerce.php`, its CSS in `assets/styles/woocommerce-single-product.css` and its unit test are gone.
+
+### Fixed (dev findings, 2026-11-13)
+
+- **Career cards show the closing date.** The "Closing date" column in `patterns/career-card.php` was a plain Post Date block, so it showed when the job was posted. It now binds the block's `datetime` to the `kwv_career_closing_date` meta through `kwv/meta-date` (kwv-enhancements). The same fix is applied on dev to page 36807 and DB template 182319.
+
+### Changed (dev findings, 2026-11-13)
+
+- **PDP-TC1 no longer expects Payflex on the product page.** The widget moved to checkout, where TC-009 checks the Payflex payment method. The README traceability table and the launch pack are updated.
+- **NEWS-TC1 no longer skips.** It looked for category links on the single post, which the design doesn't show, so it skipped every run. It now opens a year from the category filter on `/news/` and checks the archive.
+- **HIST-TC1 finds the milestone image even when its alt text is empty.** An image with `alt=""` has the presentation role, so `getByRole('img')` missed it. The test now uses a plain `img` locator.
+
 ### Changed (E2E checked against dev, 2026-11-13)
 
-- **Accessibility and visual baselines are recorded on dev**, the deploy target, not the local site. Adds four findings: an unnamed header logo link, unnamed homepage links, and contrast in the Careers modal and cart suggestions.
+- **Accessibility and visual baselines are recorded on dev**, the deploy target, not the local site. Adds four findings: an unnamed header logo link, unnamed homepage links, and contrast in the Careers modal and cart suggestions. (#27)
 
 ### Fixed (E2E checked against dev, 2026-11-13)
 
-- **Keyboard cases no longer depend on how many links the mega menus hold:** `tabTo` checks the target is a Tab stop from its neighbour instead of walking from the top of the page.
-- **Cross-browser false failures:** the age-gate test waits for its cookie, Add to cart line counts allow sub-pixel offsets, the sticky-header test accepts Firefox's shorter scroll, and the category crawl gets more time.
-- **Visual cases wait for lazy images** to load and decode before the screenshot, so the bottom rows of long pages are no longer captured half-painted.
+- **Keyboard cases no longer depend on how many links the mega menus hold:** `tabTo` checks the target is a Tab stop from its neighbour instead of walking from the top of the page. (#27)
+- **Cross-browser false failures:** the age-gate test waits for its cookie, Add to cart line counts allow sub-pixel offsets, the sticky-header test accepts Firefox's shorter scroll, and the category crawl gets more time. (#27)
+- **Visual cases wait for lazy images** to load and decode before the screenshot, so the bottom rows of long pages are no longer captured half-painted. (#27)
 
 ### Added (JS test foundation, 2026-11-12)
 

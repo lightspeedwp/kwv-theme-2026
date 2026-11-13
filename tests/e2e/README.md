@@ -113,7 +113,8 @@ and a test card are present — they must never run against production.
 | TC-005, TC-007 | RQ-004, RQ-007 | `checkout/checkout.spec.ts` | ready (mechanics-only VAT — G1) |
 | TC-006 | RQ-006 shipping | `checkout/shipping.spec.ts` | ready (mechanics-only — G1) |
 | TC-008 | RQ-008 coupon | `checkout/coupon.spec.ts` | skips until `KWV_COUPON_CODE` set (G3) |
-| TC-009 | RQ-005, RQ-010 | `checkout/payment.spec.ts` | ready |
+| TC-009 | RQ-005, RQ-010 — Payflex is shown at checkout as a payment method (the only Payflex check since 2026-11) | `checkout/payment.spec.ts` | ready |
+| PDP-TC1 | Add to cart from the product page. No longer expects the Payflex widget there (moved to checkout, see TC-009) | `shop/product.spec.ts` | ready |
 | TC-010, TC-011 | RQ-004/005/009 | `checkout/place-order.spec.ts` | `@stateful` — passing (PayFast sandbox, card-free) |
 | TC-QG1 | QG-R1 console budget | `quality/console-errors.spec.ts` | passing — baseline in `fixtures.ts` |
 | A11Y-TC1 | A11Y-01 axe scan, 14 templates × desktop/phone | `quality/a11y.spec.ts` | passing locally — `A11Y_BASELINE` in `fixtures.ts` |
