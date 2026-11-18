@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Shop and category banners now reach the right edge, like the brand page.** `patterns/woo-product-archive.php` had its own copy of the hero, which kept the site gutter on the right. It now uses the shared `kwv/term-banner-hero` pattern, the same one the brand page uses, so the shop, category and brand heroes are identical. On tablet and mobile the hero stacks: the title on its cream panel, then the banner across the full width. Before this, the shop page squeezed the banner into a thin strip beside the title.
 - **The hero title lines up with the page content.** The title column's left padding in `patterns/term-banner-hero.php` is now the site gutter (`custom.spacing.gutter`) instead of `spacing|60`. The title's left edge matches the breadcrumbs and product grid at every width.
+- **Even spacing above and below the hero title on tablet and mobile.** When the hero stacks, the columns' default block gap (about 37px on dev) added cream space under the title before the banner. On the KWV Brandy brand page there was 26px above the title and about 63px below it. The columns' vertical gap in `patterns/term-banner-hero.php` is now `0`, so there is 26px on both sides. Desktop was already even and is unchanged.
 
 ### Removed (shop/category banner matches brand page, 2026-11-18)
 
