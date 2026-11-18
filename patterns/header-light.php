@@ -2,7 +2,7 @@
 /**
  * Title: Header Light
  * Slug: kwv/header-light
- * Description: Light header with logo, navigation, account and cart — for shop, category and product pages. The promo bar is a separate `promo-bar` part composed above this header in the templates; the hidden "Promo Bar" group inside this pattern is kept switched off.
+ * Description: Light header with logo, navigation, account and cart — for shop, category and product pages. The promo bar is not part of this pattern: it is the separate `promo-bar` template part, placed above the header in the templates.
  * Categories: header
  * Keywords: header, nav, promo, shop, cart, account
  * Viewport Width: 1500
@@ -14,12 +14,6 @@
  */
 
 ?>
-
-<!-- wp:group {"metadata":{"name":"Promo Bar","blockVisibility":false},"align":"full","className":"is-style-header-promo-bar","layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignfull is-style-header-promo-bar"><!-- wp:paragraph {"style":{"typography":{"fontStyle":"normal","fontWeight":"500","textAlign":"center","letterSpacing":"0.02em"}},"fontSize":"200"} -->
-<p class="has-text-align-center has-200-font-size" style="font-style:normal;font-weight:500;letter-spacing:0.02em">15% Off All Wine Orders Of R500+ | Use Code: PINOTAGE100</p>
-<!-- /wp:paragraph --></div>
-<!-- /wp:group -->
 
 <!-- wp:group {"metadata":{"name":"Header Row"},"align":"full","className":"is-style-header-row","style":{"position":{"type":""},"spacing":{"margin":{"top":"var:preset|spacing|0"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull is-style-header-row" style="margin-top:var(--wp--preset--spacing--0)"><!-- wp:group {"align":"wide","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between","verticalAlignment":"center"}} -->

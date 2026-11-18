@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed (promo bar on/off, 2026-11-18)
+
+- **The promo bar is hidden until the client turns it on.** The client only wants the band above the shop header while a promotion is running. The "Promo Bar" group in `parts/promo-bar.html` now carries Block Visibility's `hideBlock` setting, so a fresh deploy shows no band and no expired code. The client edits the text in the Site Editor (Patterns → Template Parts → Promo Bar), then switches the band on with Block Visibility's "Hide block" toggle, or sets a start and end date with its Date & Time schedule. The same part is used in all 12 shop templates, so one edit changes every page. When hidden, the part outputs nothing.
+
+### Removed (promo bar on/off, 2026-11-18)
+
+- **Duplicate promo bar in the Header Light pattern.** `patterns/header-light.php` held a second, switched-off copy of the promo bar with the same text and a raw `500` font weight. The client could have edited it by mistake. The `promo-bar` template part is now the only promo bar.
+
 ### Changed (brand page client feedback, 2026-11-18)
 
 - **Brand page content is 75% of its old size.** The brand introduction's divider and the products section (Back to Home, slider, thumbnails, brand links, Continue to Shop) are 75% of the site's wide width (1520px → 1140px), through `wideSize` on those groups' layout. The packshot area is 75% as tall (`--kwv-brand-media-height`, up to 456px instead of 608px). The introduction text stays at the content width.
