@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed (shop/category banner matches brand page, 2026-11-18)
+
+- **Shop and category banners now reach the right edge, like the brand page.** `patterns/woo-product-archive.php` had its own copy of the hero, which kept the site gutter on the right. It now uses the shared `kwv/term-banner-hero` pattern, the same one the brand page uses, so the shop, category and brand heroes are identical. On tablet and mobile the hero stacks: the title on its cream panel, then the banner across the full width. Before this, the shop page squeezed the banner into a thin strip beside the title.
+- **The hero title lines up with the page content.** The title column's left padding in `patterns/term-banner-hero.php` is now the site gutter (`custom.spacing.gutter`) instead of `spacing|60`. The title's left edge matches the breadcrumbs and product grid at every width.
+
+### Removed (shop/category banner matches brand page, 2026-11-18)
+
+- **Breadcrumbs on the brand page.** The brand page already has a "Back to Home" link, and the client wants the products higher on the screen. The Woo Breadcrumbs group has been removed from `patterns/woo-brand-archive.php`. Shop and category pages keep their breadcrumbs.
+- **Side-by-side archive hero CSS.** `assets/styles/core-columns.css` had two rules that kept the shop hero's title and image side by side on phones. No hero uses that layout now, so the rules have been deleted.
+
 ### Fixed (shop grid last row, 2026-11-18)
 
 - **Shop pages no longer end on a part-filled row.** The shop, category and search grids are 4 columns wide but showed 15 products a page, leaving 3 on the last row. `shop_products_per_page()` in `inc/woocommerce.php` now returns 12, which fills every row whether the grid is showing 4, 3, 2 or 1 columns. Brand pages still show every product in their slider.
