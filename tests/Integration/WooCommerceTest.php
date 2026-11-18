@@ -204,10 +204,10 @@ final class WooCommerceTest extends TestCase {
 		$this->assertFalse( has_filter( 'get_block_templates', 'Kwv\filter_woocommerce_templates' ), 'The inactive-WooCommerce filter is not registered.' );
 	}
 
-	public function test_the_shop_per_page_count_is_fifteen_outside_brand_pages(): void {
+	public function test_the_shop_per_page_count_is_twelve_outside_brand_pages(): void {
 		$this->go_to( get_post_type_archive_link( 'product' ) );
 
-		$this->assertSame( 15, apply_filters( 'loop_shop_per_page', 16 ) );
+		$this->assertSame( 12, apply_filters( 'loop_shop_per_page', 16 ) );
 	}
 
 	public function test_mini_cart_block_styles_are_registered_once_the_block_exists(): void {
@@ -461,8 +461,8 @@ final class WooCommerceTest extends TestCase {
 	}
 
 	public function test_shop_per_page_ignores_the_incoming_value(): void {
-		$this->assertSame( 15, \Kwv\shop_products_per_page( 3 ) );
-		$this->assertSame( 15, apply_filters( 'loop_shop_per_page', 100 ) );
+		$this->assertSame( 12, \Kwv\shop_products_per_page( 3 ) );
+		$this->assertSame( 12, apply_filters( 'loop_shop_per_page', 100 ) );
 	}
 
 	public function test_the_shared_stylesheet_has_the_exact_source_and_no_dependencies(): void {

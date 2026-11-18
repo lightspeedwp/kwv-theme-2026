@@ -63,8 +63,8 @@ final class WooCommerceTest extends TestCase {
 		$this->assertSame( array( 'analytics' ), \Kwv\disable_pattern_toolkit( array( 'analytics' ) ) );
 	}
 
-	public function test_shop_shows_fifteen_products_per_page(): void {
-		$this->assertSame( 15, \Kwv\shop_products_per_page() );
+	public function test_shop_shows_twelve_products_per_page(): void {
+		$this->assertSame( 12, \Kwv\shop_products_per_page() );
 	}
 
 	public function test_breadcrumbs_open_with_back_to_inside_the_wrapper(): void {

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed (shop grid last row, 2026-11-18)
+
+- **Shop pages no longer end on a part-filled row.** The shop, category and search grids are 4 columns wide but showed 15 products a page, leaving 3 on the last row. `shop_products_per_page()` in `inc/woocommerce.php` now returns 12, which fills every row whether the grid is showing 4, 3, 2 or 1 columns. Brand pages still show every product in their slider.
+
 ### Changed (promo bar on/off, 2026-11-18)
 
 - **The promo bar is hidden until the client turns it on.** The client only wants the band above the shop header while a promotion is running. The "Promo Bar" group in `parts/promo-bar.html` now carries Block Visibility's `hideBlock` setting, so a fresh deploy shows no band and no expired code. The client edits the text in the Site Editor (Patterns → Template Parts → Promo Bar), then switches the band on with Block Visibility's "Hide block" toggle, or sets a start and end date with its Date & Time schedule. The same part is used in all 12 shop templates, so one edit changes every page. When hidden, the part outputs nothing.

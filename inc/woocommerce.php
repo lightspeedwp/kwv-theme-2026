@@ -179,11 +179,12 @@ function enqueue_product_grid_block_style() {
  * Products per shop / archive page.
  *
  * The Product Collection on the archive inherits the main query, so its count
- * comes from this filter (not the block's `perPage`). 15 = 5 full rows on the
- * 3-wide grid; WooCommerce's default 16 leaves an orphan on the last row.
+ * comes from this filter (not the block's `perPage`). The grid is 4-up on
+ * desktop and drops to 3, 2 and 1 columns as the screen narrows, so 12 fills
+ * the last row at every width (15 left 3 products on a 4-wide row).
  */
 function shop_products_per_page() {
-	return 15;
+	return 12;
 }
 
 

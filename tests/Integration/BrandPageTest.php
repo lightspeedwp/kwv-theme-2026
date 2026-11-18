@@ -54,7 +54,7 @@ final class BrandPageTest extends TestCase {
 	public function test_other_archives_keep_the_shop_per_page_value(): void {
 		$this->go_to( get_term_link( $this->makeTerm( 'product_cat' ) ) );
 
-		$this->assertSame( 15, apply_filters( 'loop_shop_per_page', 16 ) );
+		$this->assertSame( 12, apply_filters( 'loop_shop_per_page', 16 ) );
 	}
 
 	public function test_the_js_flag_is_printed_only_on_brand_pages(): void {
