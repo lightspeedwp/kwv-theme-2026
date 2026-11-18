@@ -41,6 +41,13 @@
 	display: none;
 }
 
+/* ...and with it hidden, the products section starts straight under the
+   banner. Space "Back to Home" off the banner (the section's own top padding
+   is an inline 0, so the gap goes on its first child). */
+.kwv-brand-intro:not(:has(> :not(.wp-block-separator))) + .wp-block-group > :first-child {
+	margin-block-start: var(--wp--preset--spacing--40);
+}
+
 .kwv-brand-awards__item img {
 	display: block;
 	width: auto;

@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Even spacing above and below the hero title on tablet and mobile.** When the hero stacks, the columns' default block gap (about 37px on dev) added cream space under the title before the banner. On the KWV Brandy brand page there was 26px above the title and about 63px below it. The columns' vertical gap in `patterns/term-banner-hero.php` is now `0`, so there is 26px on both sides. Desktop was already even and is unchanged.
 
 - **Brand awards sit above the divider, right-aligned, smaller and closer together.** In `patterns/woo-brand-archive.php` the `kwv/brand-awards` block now comes before the gold divider in the Brand Links column, instead of under the social icons. In `assets/styles/woocommerce-brand-page.css` the row is right-aligned, the gap between medals is `spacing|10` (about 8–10px, was `spacing|30`) and the medals are about 15% smaller (`clamp(3rem, 4vw, 3.75rem)`, was `clamp(3.5rem, 5vw, 4.5rem)`).
+- **"Back to Home" no longer touches the banner on brands without an introduction.** Brands like Cruxland Gin have no logo or introduction, so that section is hidden, and the products section's top padding is 0. With the breadcrumbs gone, "Back to Home" sat right against the banner. A rule in `assets/styles/woocommerce-brand-page.css` now adds `spacing|40` above it when the introduction is hidden. Brands with an introduction are unchanged.
 
 ### Removed (shop/category banner matches brand page, 2026-11-18)
 
