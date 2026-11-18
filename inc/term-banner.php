@@ -7,7 +7,10 @@
  * editable via a media uploader on the term add/edit screens. The
  * `kwv/term-banner-hero` pattern reads the current archive's term banner through
  * {@see get_queried_term_banner()} so a category or brand archive can show its own
- * hero visual, falling back to a shared default when none is set.
+ * hero visual. Without one it falls back to the default shop banner: the Shop
+ * page's featured image (Pages → Shop → Featured image), which the client can
+ * change without touching templates. When that is unset too, the image baked
+ * into the pattern stays.
  *
  * This is separate from WooCommerce's small category/brand thumbnail: the banner
  * is a wide hero image with a different purpose and aspect ratio.
@@ -149,7 +152,7 @@ function render_banner_controls( $banner_id ) {
 			<button type="button" class="button kwv-banner-select"><?php esc_html_e( 'Select image', 'kwv' ); ?></button>
 			<button type="button" class="button kwv-banner-remove"<?php echo $banner_id ? '' : ' style="display:none;"'; ?>><?php esc_html_e( 'Remove image', 'kwv' ); ?></button>
 		</p>
-		<p class="description"><?php esc_html_e( 'Wide image shown in the hero of this term’s archive page.', 'kwv' ); ?></p>
+		<p class="description"><?php esc_html_e( 'Wide image shown in the hero of this term’s archive page. Leave empty to use the default shop banner (the Shop page’s featured image).', 'kwv' ); ?></p>
 	</div>
 	<?php
 }
@@ -222,9 +225,9 @@ function save_banner_field( $term_id ) {
  * `url`:
  * `{"metadata":{"bindings":{"url":{"source":"kwv/term-banner"}}}}`.
  *
- * Returns null when the term has no banner (or on non-term views), which tells
- * core to leave the image's baked `src` in place — that is the shared fallback
- * image, so no per-request fallback lookup is needed here.
+ * Order: the term's own banner, then the default shop banner (the Shop page's
+ * featured image, see {@see get_shop_banner()}), and when neither is set, null,
+ * which tells core to leave the image's baked `src` in place.
  */
 function register_term_banner_binding() {
 	if ( ! function_exists( 'register_block_bindings_source' ) ) {
@@ -258,7 +261,51 @@ function get_term_banner_binding( $source_args, $block_instance, $attribute_name
 
 	$banner = get_queried_term_banner( 'large' );
 
+	if ( ! $banner['url'] ) {
+		$banner = get_shop_banner( 'large' );
+	}
+
 	return $banner['url'] ? $banner['url'] : null;
+}
+
+
+/**
+ * Resolve the default shop banner: the featured image of the WooCommerce Shop page.
+ *
+ * Used on the shop itself and on any category or brand without its own banner,
+ * so the client changes the default under Pages → Shop → Featured image.
+ *
+ * @param string $size Image size slug. Default 'large'.
+ * @return array{id:int,url:string} Empty values when WooCommerce is inactive, no
+ *                                  Shop page is set, or it has no featured image.
+ */
+function get_shop_banner( $size = 'large' ) {
+	$empty = array(
+		'id'  => 0,
+		'url' => '',
+	);
+
+	if ( ! function_exists( 'wc_get_page_id' ) ) {
+		return $empty;
+	}
+
+	$shop_id = (int) wc_get_page_id( 'shop' );
+
+	if ( $shop_id <= 0 ) {
+		return $empty;
+	}
+
+	$image_id = (int) get_post_thumbnail_id( $shop_id );
+	$url      = $image_id ? wp_get_attachment_image_url( $image_id, $size ) : '';
+
+	if ( ! $url ) {
+		return $empty;
+	}
+
+	return array(
+		'id'  => $image_id,
+		'url' => (string) $url,
+	);
 }
 
 

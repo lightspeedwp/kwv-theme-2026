@@ -18,6 +18,7 @@ namespace Kwv\Tests\Integration;
  * @covers ::Kwv\register_term_banner_binding
  * @covers ::Kwv\get_term_banner_binding
  * @covers ::Kwv\get_queried_term_banner
+ * @covers ::Kwv\get_shop_banner
  * @covers ::Kwv\can_manage_banner
  */
 final class TermBannerTest extends TestCase {
@@ -209,6 +210,118 @@ final class TermBannerTest extends TestCase {
 
 		$this->assertStringContainsString( '2026/01/banner.jpg', $html );
 		$this->assertStringNotContainsString( 'fallback.jpg', $html );
+	}
+
+	/**
+	 * Make a Shop page, optionally with a featured image, and register it with WooCommerce.
+	 *
+	 * @param bool $with_image Whether to give it a featured image.
+	 * @return int The featured image attachment ID (0 without one).
+	 */
+	private function makeShopPage( bool $with_image ): int {
+		$page = self::factory()->post->create( array( 'post_type' => 'page' ) );
+		update_option( 'woocommerce_shop_page_id', $page );
+
+		if ( ! $with_image ) {
+			return 0;
+		}
+
+		$image = $this->makeImageAttachment();
+		set_post_thumbnail( $page, $image );
+
+		return $image;
+	}
+
+	public function test_a_term_without_a_banner_uses_the_shop_page_featured_image(): void {
+		$this->makeShopPage( true );
+		$term = $this->makeTerm( 'product_brand' );
+		$this->go_to( get_term_link( $term ) );
+
+		$html = $this->render( self::IMAGE_BLOCK );
+
+		$this->assertStringContainsString( '2026/01/banner.jpg', $html );
+		$this->assertStringNotContainsString( 'fallback.jpg', $html );
+	}
+
+	public function test_the_shop_banner_shows_off_a_term_archive_too(): void {
+		$this->makeShopPage( true );
+		$this->go_to( home_url( '/' ) );
+
+		$this->assertStringContainsString( '2026/01/banner.jpg', $this->render( self::IMAGE_BLOCK ) );
+	}
+
+	public function test_a_term_banner_wins_over_the_shop_banner(): void {
+		$this->makeShopPage( true );
+		$own = self::factory()->attachment->create( array( 'post_mime_type' => 'image/jpeg' ) );
+		update_post_meta( $own, '_wp_attached_file', '2026/01/own-banner.jpg' );
+		$term = $this->makeTerm( 'product_cat' );
+		update_term_meta( $term->term_id, 'kwv_banner_image_id', $own );
+		$this->go_to( get_term_link( $term ) );
+
+		$this->assertStringContainsString( 'own-banner.jpg', $this->render( self::IMAGE_BLOCK ) );
+	}
+
+	public function test_a_shop_page_without_a_featured_image_leaves_the_baked_fallback(): void {
+		$this->makeShopPage( false );
+		$term = $this->makeTerm( 'product_cat' );
+		$this->go_to( get_term_link( $term ) );
+
+		$this->assertStringContainsString( 'fallback.jpg', $this->render( self::IMAGE_BLOCK ) );
+		$this->assertSame(
+			array(
+				'id'  => 0,
+				'url' => '',
+			),
+			\Kwv\get_shop_banner()
+		);
+	}
+
+	public function test_no_shop_page_gives_an_empty_shop_banner(): void {
+		update_option( 'woocommerce_shop_page_id', 0 );
+
+		$this->assertSame(
+			array(
+				'id'  => 0,
+				'url' => '',
+			),
+			\Kwv\get_shop_banner()
+		);
+	}
+
+	public function test_the_shop_banner_returns_the_id_and_requested_size(): void {
+		$image = $this->makeShopPage( true );
+		$sizes = array();
+		add_filter(
+			'wp_get_attachment_image_src',
+			static function ( $src, $attachment_id, $size ) use ( &$sizes ) {
+				$sizes[] = $size;
+
+				return $src;
+			},
+			10,
+			3
+		);
+
+		$banner = \Kwv\get_shop_banner( 'medium' );
+		\Kwv\get_shop_banner();
+
+		$this->assertSame( $image, $banner['id'] );
+		$this->assertStringContainsString( '2026/01/banner.jpg', $banner['url'] );
+		$this->assertSame( array( 'medium', 'large' ), $sizes );
+	}
+
+	public function test_a_shop_featured_image_whose_file_is_gone_gives_an_empty_shop_banner(): void {
+		$page = self::factory()->post->create( array( 'post_type' => 'page' ) );
+		update_option( 'woocommerce_shop_page_id', $page );
+		update_post_meta( $page, '_thumbnail_id', 999999 );
+
+		$this->assertSame(
+			array(
+				'id'  => 0,
+				'url' => '',
+			),
+			\Kwv\get_shop_banner()
+		);
 	}
 
 	public function test_binding_ignores_other_attributes(): void {

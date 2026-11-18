@@ -141,7 +141,7 @@ test.describe('Brand page @brand', () => {
   });
 
   // BRAND-TC5 — slide content and order: price above Add to Cart.
-  test('BRAND-TC5 each slide shows the brand and product name, price above Add to Cart, and a View product link', async ({ page }) => {
+  test('BRAND-TC5 each slide shows the brand and product name, price above Add to Cart, and no View product link', async ({ page }) => {
     await openBrand(page, BRAND);
     await waitForSlider(page);
 
@@ -153,8 +153,8 @@ test.describe('Brand page @brand', () => {
     const price = slide.locator('.wc-block-components-product-price');
     await expect(price).toContainText(/R\s?\d/);
 
-    const viewProduct = slide.getByRole('link', { name: /view product/i });
-    await expect(viewProduct).toHaveAttribute('href', /\/product\//);
+    // Removed at the client's request (Neo, 2026-11-18).
+    await expect(slide.getByRole('link', { name: /view product/i })).toHaveCount(0);
 
     const button = slide.locator('.wc-block-components-product-button .wp-block-button__link');
     if (await button.isVisible()) {

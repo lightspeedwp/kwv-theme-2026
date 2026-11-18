@@ -16,7 +16,7 @@
 .kwv-brand-slider,
 .kwv-brand-slide {
 	/* Height of the packshot area; the arrows centre on it. */
-	--kwv-brand-media-height: clamp(20rem, 46vw, 38rem);
+	--kwv-brand-media-height: clamp(15rem, 34.5vw, 28.5rem);
 	/* Must match the slide's column gap (spacing-80 in the template part). */
 	--kwv-brand-column-gap: var(--wp--preset--spacing--80);
 }
@@ -181,11 +181,11 @@
 	margin-block: 0;
 }
 
-/* Add to Cart is for in-stock simple products only. Anything else — out of
-   stock, or a product with options, a subscription, a grouped or an external
-   product — keeps just the "View product" link (and "Out of stock", which
-   WooCommerce's stock indicator prints by itself). */
-.kwv-brand-slider .wc-block-product:is(.outofstock, :not(.product-type-simple)) .wc-block-components-product-button {
+/* Out of stock: no button, just WooCommerce's own "Out of stock" from the
+   stock indicator. A product with options (or a subscription, grouped or
+   external product) keeps WooCommerce's button — "Select options" and the
+   like, linking to the product — as the slide has no other link to it. */
+.kwv-brand-slider .wc-block-product.outofstock .wc-block-components-product-button {
 	display: none;
 }
 
@@ -197,19 +197,6 @@
    backorder"); an in-stock product shows nothing, as in the design. */
 .kwv-brand-slider .wc-block-product.instock .wc-block-components-product-stock-indicator {
 	display: none;
-}
-
-/* "View product" sits on the Add to Cart row, pushed to the far side. With no
-   button (out of stock, or a product with options) it still holds that side. */
-.kwv-brand-slide__actions .kwv-brand-slide__view {
-	margin-inline-start: auto;
-}
-
-/* Underlined only on hover/focus — a pseudo-state, so it lives here (AGENTS.md
-   → "Styling lives in JSON"); the resting look is in the section style. */
-.kwv-brand-slide__view:is(:hover, :focus-visible) {
-	color: var(--wp--preset--color--contrast);
-	text-decoration: underline;
 }
 
 /* --- Arrows (created by brand-slider.js) -------------------------------- */
@@ -325,6 +312,16 @@
 .kwv-brand-links .wp-block-separator {
 	width: 100%;
 	max-width: 100%;
+}
+
+/* Awards sit beside the social icons here, so the plugin's centred row is
+   left-aligned with them and the medals are smaller than a hero row. */
+.kwv-brand-links .kwv-brand-awards > .wp-block-group {
+	justify-content: flex-start;
+}
+
+.kwv-brand-links .kwv-brand-awards__item img {
+	height: clamp(3.5rem, 5vw, 4.5rem);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -21,17 +21,6 @@
 					"textTransform": "uppercase"
 				}
 			},
-			"core/read-more": {
-				"color": {
-					"text": "var:preset|color|brand-600"
-				},
-				"typography": {
-					"fontSize": "var:preset|font-size|200",
-					"fontWeight": "var:custom|font-weight|semi-bold",
-					"textTransform": "uppercase",
-					"textDecoration": "none"
-				}
-			},
 			"woocommerce/product-price": {
 				"typography": {
 					"fontSize": "calc((var(--wp--preset--font-size--400) + var(--wp--preset--font-size--500)) / 2)",

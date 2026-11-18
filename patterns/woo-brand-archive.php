@@ -2,7 +2,7 @@
 /**
  * Title: Brand Archive
  * Slug: kwv/woo-brand-archive
- * Description: Brand page (/brand/…) — the per-brand banner hero, WooCommerce breadcrumbs, the brand logo, introduction and awards row from the Brand's fields, a "Back to Home" link, a one-product-at-a-time slider of the brand's products (each slide is the editable "Brand Product Slide" template part), thumbnails, the brand's social icons and website link, and a "Continue to Shop" button. Fields left blank on the Brand are not shown.
+ * Description: Brand page (/brand/…) — the per-brand banner hero, WooCommerce breadcrumbs, the brand logo and introduction from the Brand's fields, a "Back to Home" link, a one-product-at-a-time slider of the brand's products (each slide is the editable "Brand Product Slide" template part), thumbnails, the brand's social icons, awards and website link, and a "Continue to Shop" button. Fields left blank on the Brand are not shown.
  * Categories: kwv/woocommerce
  * Keywords: brand, archive, slider, products, awards, woocommerce
  * Template Types: taxonomy-product_brand
@@ -21,7 +21,7 @@
 <div class="wp-block-group alignfull is-style-light-page-section" style="padding-top:var(--wp--preset--spacing--20);padding-bottom:0"><!-- wp:woocommerce/breadcrumbs {"align":"wide","fontSize":"200","textColor":"neutral-800","style":{"elements":{"link":{"color":{"text":"var:preset|color|neutral-800"}}},"spacing":{"margin":{"bottom":"0"}},"typography":{"textTransform":"uppercase","fontStyle":"normal","fontWeight":"var:custom|font-weight|regular"}}} /--></div>
 <!-- /wp:group -->
 
-<!-- wp:group {"metadata":{"name":"Brand Introduction"},"align":"full","className":"is-style-light-page-section kwv-brand-intro","style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|40"},"blockGap":"var:preset|spacing|40"}},"layout":{"type":"constrained"}} -->
+<!-- wp:group {"metadata":{"name":"Brand Introduction"},"align":"full","className":"is-style-light-page-section kwv-brand-intro","style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|40"},"blockGap":"var:preset|spacing|40"}},"layout":{"type":"constrained","contentSize":"var(\u002d\u002dwp\u002d\u002dstyle\u002d\u002dglobal\u002d\u002dcontent-size)","wideSize":"calc(var(\u002d\u002dwp\u002d\u002dstyle\u002d\u002dglobal\u002d\u002dwide-size) * 0.75)"}} -->
 <div class="wp-block-group alignfull is-style-light-page-section kwv-brand-intro" style="padding-top:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--40)"><!-- wp:image {"metadata":{"name":"Brand Logo","bindings":{"url":{"source":"kwv/brand","args":{"key":"logo"}},"alt":{"source":"kwv/brand","args":{"key":"logo"}}}},"align":"center","className":"kwv-brand-intro__logo"} -->
 <figure class="wp-block-image aligncenter kwv-brand-intro__logo"><img alt=""/></figure>
 <!-- /wp:image -->
@@ -30,14 +30,12 @@
 <p class="has-200-font-size"><?php esc_html_e( 'The brand introduction appears here. It is entered on the Brand under Products → Brands.', 'kwv' ); ?></p>
 <!-- /wp:paragraph -->
 
-<!-- wp:kwv/brand-awards /-->
-
 <!-- wp:separator {"align":"wide","className":"is-style-separator-thin kwv-rule-brand"} -->
 <hr class="wp-block-separator alignwide has-alpha-channel-opacity is-style-separator-thin kwv-rule-brand"/>
 <!-- /wp:separator --></div>
 <!-- /wp:group -->
 
-<!-- wp:group {"metadata":{"name":"Brand Products"},"align":"full","className":"is-style-light-page-section","style":{"spacing":{"padding":{"top":"0","bottom":"var:preset|spacing|80"},"blockGap":"var:preset|spacing|40"}},"layout":{"type":"constrained"}} -->
+<!-- wp:group {"metadata":{"name":"Brand Products"},"align":"full","className":"is-style-light-page-section","style":{"spacing":{"padding":{"top":"0","bottom":"var:preset|spacing|80"},"blockGap":"var:preset|spacing|40"}},"layout":{"type":"constrained","contentSize":"var(\u002d\u002dwp\u002d\u002dstyle\u002d\u002dglobal\u002d\u002dcontent-size)","wideSize":"calc(var(\u002d\u002dwp\u002d\u002dstyle\u002d\u002dglobal\u002d\u002dwide-size) * 0.75)"}} -->
 <div class="wp-block-group alignfull is-style-light-page-section" style="padding-top:0;padding-bottom:var(--wp--preset--spacing--80)"><!-- wp:buttons {"metadata":{"name":"Back To Home"},"align":"wide","layout":{"type":"flex","justifyContent":"left"}} -->
 <div class="wp-block-buttons alignwide"><!-- wp:button {"className":"is-style-text-link","style":{"typography":{"textDecoration":"none"}}} -->
 <div class="wp-block-button is-style-text-link"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( '/' ); ?>" style="text-decoration:none">&lt; <?php esc_html_e( 'Back to Home', 'kwv' ); ?></a></div>
@@ -79,6 +77,8 @@
 
 <!-- wp:social-link {"url":"#","service":"linkedin","metadata":{"bindings":{"url":{"source":"kwv/brand","args":{"key":"linkedin"}}}}} /--></ul>
 <!-- /wp:social-links -->
+
+<!-- wp:kwv/brand-awards {"className":"kwv-brand-links__awards"} /-->
 
 <!-- wp:buttons -->
 <div class="wp-block-buttons"><!-- wp:button {"metadata":{"name":"Brand Website Link","bindings":{"url":{"source":"kwv/brand","args":{"key":"website"}}}},"linkTarget":"_blank","rel":"noreferrer noopener","className":"is-style-text-link"} -->

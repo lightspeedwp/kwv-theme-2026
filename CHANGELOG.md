@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed (brand page client feedback, 2026-11-18)
+
+- **Brand page content is 75% of its old size.** The brand introduction's divider and the products section (Back to Home, slider, thumbnails, brand links, Continue to Shop) are 75% of the site's wide width (1520px → 1140px), through `wideSize` on those groups' layout. The packshot area is 75% as tall (`--kwv-brand-media-height`, up to 456px instead of 608px). The introduction text stays at the content width.
+- **Brand awards sit with the social links.** The `kwv/brand-awards` block moved from the introduction to the bottom-right Brand Links column, under the social icons. It is left-aligned there, with smaller medals.
+- **No "View product" link on the slides.** Removed from `parts/brand-product-slide.html`, with its styles. Products with options (and subscription, grouped or external products) now show WooCommerce's own button ("Select options" and similar) so they still link to their product page. Out-of-stock products show only "Out of stock".
+
+### Added (default shop banner, 2026-11-18)
+
+- **The client can change the default shop banner.** The `kwv/term-banner` binding now falls back to the Shop page's featured image (Pages → Shop → Featured image) when a category or brand has no banner of its own, and uses it on the Shop page too. With no featured image set, the image built into the template still shows. The new function is `Kwv\get_shop_banner()` in `inc/term-banner.php`. The banner field on categories and brands now explains this.
+
 ### Added (brand page and breadcrumb adjustments, 2026-11-13)
 
 - **Breadcrumbs start with "Back to".** The client found the breadcrumbs too easy to miss, so every trail now reads "Back to Home / Shop / …". `Kwv\breadcrumb_back_to_prefix()` in `inc/woocommerce.php` (on `woocommerce_breadcrumb_defaults`) adds the words inside the breadcrumb's own `<nav>`, so they use the same font, size, colour and case as the links on every page, including templates saved in the Site Editor.
