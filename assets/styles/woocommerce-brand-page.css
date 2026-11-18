@@ -314,14 +314,16 @@
 	max-width: 100%;
 }
 
-/* Awards sit beside the social icons here, so the plugin's centred row is
-   left-aligned with them and the medals are smaller than a hero row. */
+/* Awards sit above the divider in the Brand Links column: the plugin's
+   centred row is right-aligned, with a tighter gap and smaller medals than a
+   hero row. The selector outranks core's generated layout gap (0,1,0). */
 .kwv-brand-links .kwv-brand-awards > .wp-block-group {
-	justify-content: flex-start;
+	justify-content: flex-end;
+	gap: var(--wp--preset--spacing--10);
 }
 
 .kwv-brand-links .kwv-brand-awards__item img {
-	height: clamp(3.5rem, 5vw, 4.5rem);
+	height: clamp(3rem, 4vw, 3.75rem);
 }
 
 @media (prefers-reduced-motion: reduce) {

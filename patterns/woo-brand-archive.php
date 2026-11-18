@@ -2,7 +2,7 @@
 /**
  * Title: Brand Archive
  * Slug: kwv/woo-brand-archive
- * Description: Brand page (/brand/…) — the per-brand banner hero, the brand logo and introduction from the Brand's fields, a "Back to Home" link, a one-product-at-a-time slider of the brand's products (each slide is the editable "Brand Product Slide" template part), thumbnails, the brand's social icons, awards and website link, and a "Continue to Shop" button. Fields left blank on the Brand are not shown.
+ * Description: Brand page (/brand/…) — the per-brand banner hero, the brand logo and introduction from the Brand's fields, a "Back to Home" link, a one-product-at-a-time slider of the brand's products (each slide is the editable "Brand Product Slide" template part), thumbnails, the brand's awards, social icons and website link, and a "Continue to Shop" button. Fields left blank on the Brand are not shown.
  * Categories: kwv/woocommerce
  * Keywords: brand, archive, slider, products, awards, woocommerce
  * Template Types: taxonomy-product_brand
@@ -56,7 +56,9 @@
 <!-- /wp:column -->
 
 <!-- wp:column {"width":"50%","metadata":{"name":"Brand Links"},"className":"kwv-brand-links","style":{"spacing":{"blockGap":"var:preset|spacing|20"}}} -->
-<div class="wp-block-column kwv-brand-links" style="flex-basis:50%"><!-- wp:separator {"className":"is-style-separator-thin kwv-rule-brand"} -->
+<div class="wp-block-column kwv-brand-links" style="flex-basis:50%"><!-- wp:kwv/brand-awards {"className":"kwv-brand-links__awards"} /-->
+
+<!-- wp:separator {"className":"is-style-separator-thin kwv-rule-brand"} -->
 <hr class="wp-block-separator has-alpha-channel-opacity is-style-separator-thin kwv-rule-brand"/>
 <!-- /wp:separator -->
 
@@ -73,8 +75,6 @@
 
 <!-- wp:social-link {"url":"#","service":"linkedin","metadata":{"bindings":{"url":{"source":"kwv/brand","args":{"key":"linkedin"}}}}} /--></ul>
 <!-- /wp:social-links -->
-
-<!-- wp:kwv/brand-awards {"className":"kwv-brand-links__awards"} /-->
 
 <!-- wp:buttons -->
 <div class="wp-block-buttons"><!-- wp:button {"metadata":{"name":"Brand Website Link","bindings":{"url":{"source":"kwv/brand","args":{"key":"website"}}}},"linkTarget":"_blank","rel":"noreferrer noopener","className":"is-style-text-link"} -->
