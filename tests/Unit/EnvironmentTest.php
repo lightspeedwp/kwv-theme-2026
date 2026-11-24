@@ -128,6 +128,7 @@ final class EnvironmentTest extends TestCase {
 
 		$this->loadThemeFile( 'inc/brand-page.php' );
 		Functions\when( 'is_tax' )->justReturn( true );
+		Functions\when( 'get_query_var' )->justReturn( 'showcase' );
 		Functions\when( 'plugins_url' )->alias( static fn( $path ) => 'https://example.test/plugins/' . $path );
 		Functions\when( 'get_theme_file_uri' )->alias( static fn( $path ) => 'https://example.test/theme/' . $path );
 		Functions\when( 'Kwv\asset_version' )->justReturn( '42' );

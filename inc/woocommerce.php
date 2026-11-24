@@ -105,9 +105,11 @@ function enqueue_woocommerce_styles() {
 		);
 	}
 
-	// Collapsible Product Filters sidebar — only where the filters render. Brand
-	// pages show a product slider instead of the filtered grid (inc/brand-page.php).
-	if ( function_exists( 'is_shop' ) && ( is_shop() || is_product_taxonomy() ) && ! is_tax( 'product_brand' ) ) {
+	// Collapsible Product Filters sidebar — only where the filters render. The
+	// brand shop (/brand/…/) has them; the brand showcase (/brand/…/showcase/)
+	// shows a product slider instead (inc/brand-page.php).
+	$is_showcase = function_exists( 'Kwv\BrandPage\is_brand_page' ) && BrandPage\is_brand_page();
+	if ( function_exists( 'is_shop' ) && ( is_shop() || is_product_taxonomy() ) && ! $is_showcase ) {
 		// Filter sidebar styling — split out of the shared sheet (Stage 3 CP3).
 		wp_enqueue_style(
 			'theme-woocommerce-shop-filters-style',

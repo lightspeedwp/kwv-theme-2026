@@ -11,7 +11,10 @@
  * - a strip of product thumbnails, built from each slide's own product image,
  *   in the "Product Thumbnails" group that follows the slider;
  * - products that are not on screen are made inert, so their links and Add to
- *   Cart buttons are out of the tab order and hidden from assistive tech.
+ *   Cart buttons are out of the tab order and hidden from assistive tech;
+ * - a `#product-{ID}` hash selects that product on load and scrolls the
+ *   slider into view. Every product page redirects here with one
+ *   (inc/brand-page.php), so a product clicked anywhere opens on its slide.
  *
  * Swiper (full bundle, from the Carousel Block plugin) is a declared dependency;
  * without it, or without JavaScript, the products stay a stacked list. Markup
@@ -136,6 +139,55 @@
 	}
 
 	/**
+	 * The slide a `#product-{ID}` hash asks for.
+	 *
+	 * @param {Element[]} slides The product list items.
+	 * @param {string}    hash   `location.hash`.
+	 * @return {number} Its index, or -1 when the hash names no slide here.
+	 */
+	function requestedIndex( slides, hash ) {
+		var match = /^#product-(\d+)$/.exec( hash || '' );
+
+		if ( ! match ) {
+			return -1;
+		}
+
+		for ( var i = 0; i < slides.length; i++ ) {
+			// WooCommerce puts `post-{ID}` on every product list item.
+			if ( slides[ i ].classList.contains( 'post-' + match[ 1 ] ) ) {
+				return i;
+			}
+		}
+
+		return -1;
+	}
+
+	/**
+	 * Bring the slider into view under the sticky header.
+	 *
+	 * Only on a fresh visit: on Back/Forward or reload the browser restores the
+	 * visitor's own scroll position instead.
+	 *
+	 * @param {Element} root The slider.
+	 */
+	function scrollToSlider( root ) {
+		var nav = window.performance && performance.getEntriesByType ? performance.getEntriesByType( 'navigation' )[ 0 ] : null;
+
+		if ( nav && 'navigate' !== nav.type ) {
+			return;
+		}
+
+		// Start from "Back to Home" above the slider when it is there.
+		var section = root.closest( '.wp-block-group' );
+		var target = ( section && section.firstElementChild ) || root;
+		var header = document.querySelector( '.site-header' );
+		var offset = header ? header.getBoundingClientRect().height : 0;
+		var top = target.getBoundingClientRect().top + window.scrollY - offset - 16;
+
+		window.scrollTo( { top: Math.max( 0, top ), behavior: 'instant' } );
+	}
+
+	/**
 	 * Turn one Product Collection into a slider.
 	 *
 	 * @param {Element} root The `.kwv-brand-slider` Product Collection.
@@ -150,9 +202,14 @@
 			return;
 		}
 
+		var requested = requestedIndex( slides, window.location.hash );
+
 		// A single product needs no slider: leave it as it is.
 		if ( slides.length < 2 ) {
 			root.classList.add( 'kwv-brand-slider--single' );
+			if ( requested > -1 ) {
+				scrollToSlider( root );
+			}
 			return;
 		}
 
@@ -198,6 +255,8 @@
 			slidesPerView: 1,
 			spaceBetween: 32,
 			speed,
+			// The product named in the URL (a real index; Swiper maps it in loop mode).
+			initialSlide: Math.max( 0, requested ),
 			autoHeight: true,
 			// Endless in both directions. Loop mode needs three or more products
 			// (Swiper reorders the slides around the visible one); with exactly two
@@ -233,6 +292,18 @@
 					syncInert( swiper );
 				},
 			},
+		} );
+
+		if ( requested > -1 ) {
+			scrollToSlider( root );
+		}
+
+		// A `#product-{ID}` link on the page itself changes only the hash.
+		window.addEventListener( 'hashchange', function () {
+			var index = requestedIndex( slides, window.location.hash );
+			if ( index > -1 ) {
+				main.slideToLoop( index );
+			}
 		} );
 
 		// Swiper's thumbnail module only answers pointer taps. A click handler

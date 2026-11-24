@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added (brand shop + brand showcase, 2026-11-24)
+
+- **Each brand now has two pages: a brand shop and a brand showcase.** Agreed with KWV on 2026-11-23.
+  - `/brand/{brand}/` is the **brand shop** again: the banner and the filtered product grid, the same as a category page. `templates/taxonomy-product_brand.html` uses `kwv/woo-product-archive` again. Menus, shop filters and any other link WordPress builds to a brand land here.
+  - `/brand/{brand}/showcase/` is the **brand showcase**: the logo, introduction and product slider built for Estimate 3439. It has its own template, `templates/brand-showcase.html` (Site Editor: "Brand Showcase"), which uses `kwv/woo-brand-archive`. `inc/brand-page.php` registers the route. It rebuilds the rewrite rules once if the rule is missing, so no "Save permalinks" step is needed after a deploy.
+- **Product pages open on the brand showcase.** A visible simple product with a brand now redirects (302) from its own page to `/brand/{brand}/showcase/#product-{ID}`. `assets/js/brand-slider.js` opens the slider on that product and scrolls it into view under the sticky header. Products with options, products hidden from the catalogue and products without a brand (for example Lifestyle merchandise) keep the single product page. So do previews and Add to Cart requests. For a product in several brands, the first brand by name is used. The filters `kwv_product_showcase_brand` and `kwv_product_redirect_status` can change the brand or make the redirect permanent.
+
+### Changed (brand shop + brand showcase, 2026-11-24)
+
+- **Home page brand carousels link to the brand showcase.** The 34 `/brand/{brand}/` links in `templates/front-page.html` now end in `/showcase/`. The Bug tile linked to `/shop/?brands=bug`. It now links to `/brand/bug/showcase/`, and its image has the alt text "Bug" so the link has a name.
+- **The product description on the showcase is the same size as the brand introduction.** The Product Summary in `parts/brand-product-slide.html` is now `font-size|200` (it was `300`), the same as the introduction and the Product Detail list.
+- **The brand shop loads the shop filter assets again.** `inc/woocommerce.php` now leaves them out only on the showcase.
+
 ### Changed (shop/category banner matches brand page, 2026-11-18)
 
 - **Shop and category banners now reach the right edge, like the brand page.** `patterns/woo-product-archive.php` had its own copy of the hero, which kept the site gutter on the right. It now uses the shared `kwv/term-banner-hero` pattern, the same one the brand page uses, so the shop, category and brand heroes are identical. On tablet and mobile the hero stacks: the title on its cream panel, then the banner across the full width. Before this, the shop page squeezed the banner into a thin strip beside the title.

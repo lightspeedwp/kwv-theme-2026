@@ -15,6 +15,15 @@ use Kwv\BrandPage as B;
  * @covers ::Kwv\BrandPage\print_js_flag
  * @covers ::Kwv\BrandPage\enqueue_assets
  * @covers ::Kwv\BrandPage\clean_product_summary
+ * @covers ::Kwv\BrandPage\brand_base
+ * @covers ::Kwv\BrandPage\showcase_rule
+ * @covers ::Kwv\BrandPage\register_showcase_route
+ * @covers ::Kwv\BrandPage\add_query_var
+ * @covers ::Kwv\BrandPage\showcase_url
+ * @covers ::Kwv\BrandPage\showcase_template_hierarchy
+ * @covers ::Kwv\BrandPage\register_showcase_template_type
+ * @covers ::Kwv\BrandPage\product_showcase_brand
+ * @covers ::Kwv\BrandPage\product_redirect_url
  */
 final class BrandPageTest extends TestCase {
 
@@ -22,9 +31,29 @@ final class BrandPageTest extends TestCase {
 		. '<table style="width:1876px" width="1876" height="40" align="center" data-start="1" data-end="9"><tbody><tr><td style="text-align:center" data-col="2">Aged</td></tr></tbody></table>'
 		. '<p style="margin:0" data-pasted="x" class="keep">Text</p></div></div>';
 
+	/**
+	 * Visit a brand's showcase (the slider page).
+	 */
 	private function goToBrand(): void {
 		$brand = $this->makeTerm( 'product_brand', 'Brand' );
-		$this->go_to( get_term_link( $brand ) );
+		$this->go_to( B\showcase_url( $brand ) );
+	}
+
+	/**
+	 * A published simple product in the given brands.
+	 *
+	 * @param \WP_Term[] $brands Brands.
+	 * @return int
+	 */
+	private function makeBrandedProduct( array $brands ): int {
+		$id = $this->makeProduct();
+		wp_set_object_terms( $id, wp_list_pluck( $brands, 'term_id' ), 'product_brand' );
+		return $id;
+	}
+
+	public function tear_down(): void {
+		unset( $_GET['add-to-cart'], $_SERVER['REQUEST_METHOD'] );
+		parent::tear_down();
 	}
 
 	private function swiperBundleExists(): bool {
@@ -35,6 +64,14 @@ final class BrandPageTest extends TestCase {
 	public function test_a_brand_archive_is_a_brand_page(): void {
 		$this->goToBrand();
 		$this->assertTrue( B\is_brand_page() );
+	}
+
+	public function test_the_brand_shop_is_not_the_showcase(): void {
+		$this->go_to( get_term_link( $this->makeTerm( 'product_brand' ) ) );
+
+		$this->assertTrue( is_tax( 'product_brand' ) );
+		$this->assertFalse( B\is_brand_page() );
+		$this->assertSame( 12, apply_filters( 'loop_shop_per_page', 16 ), 'The brand shop pages its grid like the shop.' );
 	}
 
 	public function test_a_category_archive_and_the_home_page_are_not_brand_pages(): void {
@@ -281,5 +318,196 @@ final class BrandPageTest extends TestCase {
 		$out = apply_filters( 'render_block_woocommerce/product-summary', self::SUMMARY, array( 'blockName' => 'woocommerce/product-summary' ) );
 
 		$this->assertStringNotContainsString( '1876px', $out );
+	}
+
+	/* --- Showcase URL, route and template -------------------------------- */
+
+	public function test_the_showcase_rule_matches_brand_slug_showcase(): void {
+		$this->assertSame( 'brand', B\brand_base() );
+		$this->assertSame( '^brand/([^/]+)/showcase/?$', B\showcase_rule() );
+		$this->assertSame( 1, preg_match( '#' . B\showcase_rule() . '#', 'brand/kwv-brandy/showcase/' ) );
+		$this->assertSame( 0, preg_match( '#' . B\showcase_rule() . '#', 'brand/kwv-brandy/' ) );
+	}
+
+	public function test_the_query_var_is_public(): void {
+		$this->assertContains( B\VIEW_QUERY_VAR, apply_filters( 'query_vars', array() ) );
+	}
+
+	/**
+	 * Switch to pretty permalinks, with WooCommerce's brand base rebuilt.
+	 *
+	 * `set_permalink_structure()` re-registers only core's taxonomies, so the
+	 * brand's `/brand/%product_brand%` permastruct is added back by hand.
+	 */
+	private function usePrettyPermalinks(): void {
+		$this->set_permalink_structure( '/%postname%/' );
+		get_taxonomy( 'product_brand' )->add_rewrite_rules();
+		B\register_showcase_route();
+		flush_rewrite_rules( false );
+	}
+
+	public function test_pretty_showcase_urls_route_to_the_showcase(): void {
+		$this->usePrettyPermalinks();
+		$brand = $this->makeTerm( 'product_brand', 'Pretty Brand' );
+
+		$url = B\showcase_url( $brand );
+		$this->assertSame( home_url( '/brand/pretty-brand/showcase/' ), $url );
+
+		$this->go_to( $url );
+		$this->assertTrue( B\is_brand_page() );
+		$this->assertSame( $brand->term_id, get_queried_object_id() );
+	}
+
+	public function test_a_missing_rule_is_added_and_the_rules_rebuilt_once(): void {
+		$this->usePrettyPermalinks();
+		$rules = get_option( 'rewrite_rules' );
+		unset( $rules[ B\showcase_rule() ] );
+		update_option( 'rewrite_rules', $rules );
+
+		B\register_showcase_route();
+
+		$this->assertArrayHasKey( B\showcase_rule(), get_option( 'rewrite_rules' ) );
+		$this->assertSame( 'index.php?product_brand=$matches[1]&kwv_brand_view=showcase', get_option( 'rewrite_rules' )[ B\showcase_rule() ] );
+	}
+
+	public function test_plain_permalinks_use_the_query_var(): void {
+		$this->set_permalink_structure( '' );
+		$brand = $this->makeTerm( 'product_brand', 'Plain' );
+
+		$url = B\showcase_url( $brand );
+		$this->assertStringContainsString( 'kwv_brand_view=showcase', $url );
+
+		$this->go_to( $url );
+		$this->assertTrue( B\is_brand_page() );
+	}
+
+	public function test_a_showcase_url_can_select_a_product(): void {
+		$brand = $this->makeTerm( 'product_brand' );
+
+		$this->assertStringEndsWith( '#product-42', B\showcase_url( $brand, 42 ) );
+		$this->assertStringNotContainsString( '#', B\showcase_url( $brand ) );
+		$this->assertSame( B\showcase_url( $brand ), B\showcase_url( $brand->term_id ) );
+	}
+
+	public function test_an_unknown_brand_has_no_showcase_url(): void {
+		$this->assertSame( '', B\showcase_url( 999999 ) );
+	}
+
+	public function test_the_showcase_template_comes_first_only_on_the_showcase(): void {
+		$this->goToBrand();
+		$this->assertSame( array( 'brand-showcase', 'taxonomy-product_brand' ), B\showcase_template_hierarchy( array( 'taxonomy-product_brand' ) ) );
+
+		$this->go_to( get_term_link( $this->makeTerm( 'product_brand' ) ) );
+		$this->assertSame( array( 'taxonomy-product_brand' ), B\showcase_template_hierarchy( array( 'taxonomy-product_brand' ) ) );
+	}
+
+	public function test_the_showcase_resolves_to_the_brand_showcase_block_template(): void {
+		$this->goToBrand();
+
+		$template = resolve_block_template( 'taxonomy', B\showcase_template_hierarchy( array( 'taxonomy-product_brand', 'taxonomy' ) ), '' );
+
+		$this->assertInstanceOf( \WP_Block_Template::class, $template );
+		$this->assertSame( 'brand-showcase', $template->slug );
+	}
+
+	public function test_the_showcase_template_is_named_for_the_site_editor(): void {
+		$types = get_default_block_template_types();
+
+		$this->assertSame( 'Brand Showcase', $types['brand-showcase']['title'] );
+	}
+
+	public function test_the_template_files_point_at_the_right_patterns(): void {
+		$dir = $this->themeDir() . '/templates/';
+
+		$this->assertStringContainsString( '"kwv/woo-brand-archive"', file_get_contents( $dir . 'brand-showcase.html' ) );
+		$this->assertStringContainsString( '"kwv/woo-product-archive"', file_get_contents( $dir . 'taxonomy-product_brand.html' ) );
+	}
+
+	/* --- Product pages → brand showcase ---------------------------------- */
+
+	public function test_a_branded_product_page_redirects_to_its_brand_showcase(): void {
+		$brand = $this->makeTerm( 'product_brand', 'Cruxland' );
+		$id    = $this->makeBrandedProduct( array( $brand ) );
+
+		$this->go_to( get_permalink( $id ) );
+
+		$this->assertSame( B\showcase_url( $brand, $id ), B\product_redirect_url() );
+	}
+
+	public function test_a_product_in_two_brands_goes_to_the_first_by_name(): void {
+		$zulu  = $this->makeTerm( 'product_brand', 'Zulu' );
+		$alpha = $this->makeTerm( 'product_brand', 'alpha' );
+		$id    = $this->makeBrandedProduct( array( $zulu, $alpha ) );
+
+		$this->go_to( get_permalink( $id ) );
+
+		$this->assertSame( B\showcase_url( $alpha, $id ), B\product_redirect_url() );
+	}
+
+	public function test_a_product_without_a_brand_keeps_its_page(): void {
+		$this->go_to( get_permalink( $this->makeProduct() ) );
+
+		$this->assertSame( '', B\product_redirect_url() );
+	}
+
+	public function test_a_variable_or_hidden_product_keeps_its_page(): void {
+		$brand = $this->makeTerm( 'product_brand' );
+
+		$variable = new \WC_Product_Variable();
+		$variable->set_name( 'Variable' );
+		$variable->set_status( 'publish' );
+		$variable_id = $variable->save();
+		wp_set_object_terms( $variable_id, $brand->term_id, 'product_brand' );
+		$this->assertNull( B\product_showcase_brand( wc_get_product( $variable_id ) ) );
+
+		$hidden_id = $this->makeBrandedProduct( array( $brand ) );
+		$hidden    = wc_get_product( $hidden_id );
+		$hidden->set_catalog_visibility( 'hidden' );
+		$hidden->save();
+		$this->assertNull( B\product_showcase_brand( wc_get_product( $hidden_id ) ) );
+	}
+
+	public function test_the_brand_choice_can_be_filtered(): void {
+		$brand = $this->makeTerm( 'product_brand' );
+		$id    = $this->makeBrandedProduct( array( $brand ) );
+		$other = $this->makeTerm( 'product_brand', 'Other' );
+
+		add_filter( 'kwv_product_showcase_brand', fn() => $other );
+		$this->assertSame( $other->term_id, B\product_showcase_brand( wc_get_product( $id ) )->term_id );
+
+		add_filter( 'kwv_product_showcase_brand', '__return_null', 20 );
+		$this->assertNull( B\product_showcase_brand( wc_get_product( $id ) ) );
+
+		add_filter( 'kwv_product_showcase_brand', fn() => 'not a term', 30 );
+		$this->assertNull( B\product_showcase_brand( wc_get_product( $id ) ) );
+	}
+
+	public function test_add_to_cart_posts_and_links_are_left_alone(): void {
+		$id = $this->makeBrandedProduct( array( $this->makeTerm( 'product_brand' ) ) );
+		$this->go_to( get_permalink( $id ) );
+
+		$_SERVER['REQUEST_METHOD'] = 'POST';
+		$this->assertSame( '', B\product_redirect_url() );
+
+		$_SERVER['REQUEST_METHOD'] = 'GET';
+		$_GET['add-to-cart']       = (string) $id;
+		$this->assertSame( '', B\product_redirect_url() );
+	}
+
+	public function test_previews_and_other_pages_are_left_alone(): void {
+		$id = $this->makeBrandedProduct( array( $this->makeTerm( 'product_brand' ) ) );
+
+		$this->go_to( add_query_arg( 'preview', 'true', get_permalink( $id ) ) );
+		$this->assertSame( '', B\product_redirect_url() );
+
+		$this->go_to( home_url( '/' ) );
+		$this->assertSame( '', B\product_redirect_url() );
+	}
+
+	public function test_the_redirect_and_route_hooks_are_registered(): void {
+		$this->assertSame( 5, has_action( 'template_redirect', 'Kwv\BrandPage\redirect_product_to_showcase' ) );
+		$this->assertSame( 20, has_action( 'init', 'Kwv\BrandPage\register_showcase_route' ) );
+		$this->assertNotFalse( has_filter( 'taxonomy_template_hierarchy', 'Kwv\BrandPage\showcase_template_hierarchy' ) );
+		$this->assertNotFalse( has_filter( 'default_template_types', 'Kwv\BrandPage\register_showcase_template_type' ) );
 	}
 }

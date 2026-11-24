@@ -144,8 +144,16 @@ final class WooCommerceTest extends TestCase {
 		$this->assertScript( 'theme-shop-filters', true );
 	}
 
-	public function test_a_brand_page_gets_none_of_the_shop_filter_assets(): void {
+	public function test_the_brand_shop_gets_the_shop_filter_assets(): void {
 		$this->go_to( get_term_link( $this->makeTerm( 'product_brand' ) ) );
+		$this->runEnqueue();
+
+		$this->assertStyle( 'theme-woocommerce-shop-filters-style', true );
+		$this->assertScript( 'theme-shop-filters', true );
+	}
+
+	public function test_the_brand_showcase_gets_none_of_the_shop_filter_assets(): void {
+		$this->go_to( \Kwv\BrandPage\showcase_url( $this->makeTerm( 'product_brand' ) ) );
 		$this->runEnqueue();
 
 		$this->assertStyle( 'theme-woocommerce-shop-filters-style', false );

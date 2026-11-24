@@ -1,8 +1,7 @@
 /**
  * assets/js/brand-slider.js — brand page product slider.
  *
- * The script ships on feat/brand-page-redesign. Until that merges, this suite
- * skips itself on branches that don't have the file.
+ * The suite skips itself on a branch that doesn't have the file.
  *
  * Swiper is a recording fake: it keeps the options each instance was built
  * with and lets the test fire the `on` callbacks, so the script's own wiring
@@ -10,7 +9,7 @@
  * gets asserted. Swiper's own sliding is the vendor's concern.
  */
 import { existsSync } from 'node:fs';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import {
 	deferReady,
 	fixture,
@@ -299,6 +298,75 @@ describe.skipIf( ! PRESENT )( 'brand-slider', () => {
 
 		ready();
 		expect( instances.length ).toBeGreaterThan( 0 );
+	} );
+
+	describe( 'a #product-{ID} hash (product pages redirect here with one)', () => {
+		let scrollTo;
+
+		beforeEach( () => {
+			scrollTo = vi.spyOn( window, 'scrollTo' ).mockImplementation( () => {} );
+		} );
+
+		afterEach( () => {
+			window.history.replaceState( null, '', window.location.pathname );
+			vi.restoreAllMocks();
+		} );
+
+		it( 'starts on the first product and stays put without one', async () => {
+			const { main } = await setup();
+
+			expect( main.options.initialSlide ).toBe( 0 );
+			expect( scrollTo ).not.toHaveBeenCalled();
+		} );
+
+		it( 'starts on the named product and scrolls the slider into view', async () => {
+			window.location.hash = '#product-102';
+			const { main } = await setup();
+
+			expect( main.options.initialSlide ).toBe( 1 );
+			expect( scrollTo ).toHaveBeenCalledTimes( 1 );
+			expect( scrollTo.mock.calls[ 0 ][ 0 ] ).toMatchObject( { behavior: 'instant' } );
+		} );
+
+		it( 'ignores a product that is not in this brand, and other hashes', async () => {
+			for ( const hash of [ '#product-999', '#product-', '#reviews', '#product-102x' ] ) {
+				instances = [];
+				window.location.hash = hash;
+				const { main } = await setup();
+				expect( main.options.initialSlide, hash ).toBe( 0 );
+			}
+			expect( scrollTo ).not.toHaveBeenCalled();
+		} );
+
+		it( 'leaves the scroll position alone on reload or Back/Forward', async () => {
+			vi.spyOn( performance, 'getEntriesByType' ).mockReturnValue( [ { type: 'back_forward' } ] );
+			window.location.hash = '#product-103';
+			const { main } = await setup();
+
+			expect( main.options.initialSlide ).toBe( 2 );
+			expect( scrollTo ).not.toHaveBeenCalled();
+		} );
+
+		it( 'scrolls to a lone product too', async () => {
+			window.location.hash = '#product-101';
+			await setup( { slides: 1 } );
+
+			expect( instances ).toHaveLength( 0 );
+			expect( scrollTo ).toHaveBeenCalledTimes( 1 );
+		} );
+
+		it( 'follows a hash change on the page', async () => {
+			const { main } = await setup();
+
+			window.location.hash = '#product-103';
+			window.dispatchEvent( new HashChangeEvent( 'hashchange' ) );
+			expect( main.slideToLoop ).toHaveBeenLastCalledWith( 2 );
+
+			main.slideToLoop.mockClear();
+			window.location.hash = '#product-999';
+			window.dispatchEvent( new HashChangeEvent( 'hashchange' ) );
+			expect( main.slideToLoop ).not.toHaveBeenCalled();
+		} );
 	} );
 
 	// BUG (report #2): the script reads window.matchMedia unguarded at load, so in

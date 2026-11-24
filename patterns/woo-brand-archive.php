@@ -2,10 +2,10 @@
 /**
  * Title: Brand Archive
  * Slug: kwv/woo-brand-archive
- * Description: Brand page (/brand/…) — the per-brand banner hero, the brand logo and introduction from the Brand's fields, a "Back to Home" link, a one-product-at-a-time slider of the brand's products (each slide is the editable "Brand Product Slide" template part), thumbnails, the brand's awards, social icons and website link, and a "Continue to Shop" button. Fields left blank on the Brand are not shown.
+ * Description: Brand showcase (/brand/…/showcase/; the home page brand carousels and every product link here) — the per-brand banner hero, the brand logo and introduction from the Brand's fields, a "Back to Home" link, a one-product-at-a-time slider of the brand's products (each slide is the editable "Brand Product Slide" template part), thumbnails, the brand's awards, social icons and website link, and a "Continue to Shop" button. Fields left blank on the Brand are not shown.
  * Categories: kwv/woocommerce
  * Keywords: brand, archive, slider, products, awards, woocommerce
- * Template Types: taxonomy-product_brand
+ * Template Types: brand-showcase
  * Inserter: false
  * Viewport Width: 1500
  *

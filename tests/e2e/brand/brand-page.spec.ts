@@ -2,9 +2,9 @@ import { test, expect, waitForStoreApi } from '../fixtures';
 import type { Locator, Page } from '@playwright/test';
 
 /**
- * BRAND — redesigned brand page (/brand/…), Estimate 3439.
+ * BRAND — brand showcase (/brand/…/showcase/), Estimate 3439.
  *
- * Template: templates/taxonomy-product_brand.html → patterns/woo-brand-archive.php
+ * Template: templates/brand-showcase.html → patterns/woo-brand-archive.php
  * Slide:    parts/brand-product-slide.html, slider: assets/js/brand-slider.js
  * Content:  KWV Enhancements → modules/brands.php (Brand Page Content fields)
  *
@@ -25,7 +25,7 @@ const thumbs = (page: Page) => page.locator('.kwv-brand-slider__thumb');
 const activeSlide = (page: Page) => page.locator('.kwv-brand-slider .wc-block-product:not([inert])');
 
 async function openBrand(page: Page, slug: string): Promise<void> {
-  await page.goto(`/brand/${slug}/`);
+  await page.goto(`/brand/${slug}/showcase/`);
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
 }
 

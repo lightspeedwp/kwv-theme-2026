@@ -2,7 +2,7 @@
 /**
  * Title: Product Archive
  * Slug: kwv/woo-product-archive
- * Description: Shop / product archive — dynamic per-term hero, WooCommerce breadcrumbs, a filters sidebar (Brand, Price Range, Type, Volume), a three-column product grid using the Product Card, a "Join Wine Club" button under the filters on the Wine category only (Block Visibility URL rule), and separate desktop / mobile pagination. Serves the shop and product category archives (brand archives use kwv/woo-brand-archive).
+ * Description: Shop / product archive — dynamic per-term hero, WooCommerce breadcrumbs, a filters sidebar (Brand, Price Range, Type, Volume), a three-column product grid using the Product Card, a "Join Wine Club" button under the filters on the Wine category only (Block Visibility URL rule), and separate desktop / mobile pagination. Serves the shop, product category and brand shop archives (/brand/…/; the brand showcase at /brand/…/showcase/ uses kwv/woo-brand-archive).
  * Categories: kwv/woocommerce
  * Keywords: product, archive, shop, woocommerce, grid, filters
  * Template Types: archive-product, taxonomy-product_cat, taxonomy-product_brand
