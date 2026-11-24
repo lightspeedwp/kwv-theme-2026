@@ -13,7 +13,7 @@
  * @package kwv
  */
 
-$kwv_hero    = get_posts(
+$kwv_hero     = get_posts(
 	array(
 		'post_type'        => 'attachment',
 		'name'             => 'shop-hero-image',

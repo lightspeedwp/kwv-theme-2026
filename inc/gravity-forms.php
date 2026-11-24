@@ -2,7 +2,7 @@
 /**
  * Gravity Forms integration: newsletter and "Book Experience" form styling.
  *
- * assets/styles/gravity-forms.css styles the newsletter form (`#gform_wrapper_2`,
+ * The stylesheet assets/styles/gravity-forms.css styles the newsletter form (`#gform_wrapper_2`,
  * the same form id on local + dev) and the three venue booking forms (matched by
  * the `kwv-booking-form` class set in each form's "Form CSS Class Name" setting,
  * since their form ids differ per environment). Tied to the `gravityforms/form`

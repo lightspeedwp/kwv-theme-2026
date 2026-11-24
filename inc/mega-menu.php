@@ -25,8 +25,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-const STORE       = 'kwv/megamenu';
-const MODULE_ID   = 'kwv-mega-menu';
+const STORE        = 'kwv/megamenu';
+const MODULE_ID    = 'kwv-mega-menu';
 const STYLE_HANDLE = 'kwv-mega-menu';
 const PANEL_HANDLE = 'kwv-mega-menu-panel';
 const HOVER_HANDLE = 'kwv-mega-menu-hover';
@@ -206,10 +206,12 @@ function render( $atts ) {
 		$children = get_children( $p->term_id );
 		foreach ( $children as $c ) {
 			if ( '' === $default_child ) {
-				$default_child = $c->slug; // first child fallback.
+				// First child fallback.
+				$default_child = $c->slug;
 			}
 			if ( get_children( $c->term_id ) ) {
-				$default_child = $c->slug; // prefer first child with grandchildren.
+				// Prefer the first child with grandchildren.
+				$default_child = $c->slug;
 				break;
 			}
 		}
@@ -232,12 +234,12 @@ function render( $atts ) {
 		data-wp-interactive="<?php echo esc_attr( STORE ); ?>"
 		data-wp-context="<?php echo esc_attr( $root_context ); ?>"
 	>
-		<?php // Column 1 — parents. ?>
+		<?php /* Column 1 — parents. */ ?>
 		<ul class="kwv-mega-menu__col kwv-mega-menu__parents" role="list">
 			<?php foreach ( $parents as $parent ) : ?>
 				<?php
-				$children      = get_children( $parent->term_id );
-				$first_child   = '';
+				$children    = get_children( $parent->term_id );
+				$first_child = '';
 				foreach ( $children as $c ) {
 					if ( '' === $first_child ) {
 						$first_child = $c->slug;
@@ -270,7 +272,7 @@ function render( $atts ) {
 			<?php endforeach; ?>
 		</ul>
 
-		<?php // Column 2 — children (one list per parent, only the active one shown). ?>
+		<?php /* Column 2 — children (one list per parent, only the active one shown). */ ?>
 		<div class="kwv-mega-menu__col kwv-mega-menu__children">
 			<?php foreach ( $parents as $parent ) : ?>
 				<?php $children = get_children( $parent->term_id ); ?>
@@ -303,7 +305,7 @@ function render( $atts ) {
 			<?php endforeach; ?>
 		</div>
 
-		<?php // Column 3 — grandchildren (one list per child, only the active one shown). ?>
+		<?php /* Column 3 — grandchildren (one list per child, only the active one shown). */ ?>
 		<div class="kwv-mega-menu__col kwv-mega-menu__grandchildren">
 			<?php foreach ( $parents as $parent ) : ?>
 				<?php foreach ( get_children( $parent->term_id ) as $child ) : ?>
@@ -311,10 +313,18 @@ function render( $atts ) {
 					<?php if ( ! $grandchildren ) : ?>
 						<?php continue; ?>
 					<?php endif; ?>
+					<?php
+					$list_context = wp_json_encode(
+						array(
+							'parentSlug' => $parent->slug,
+							'childSlug'  => $child->slug,
+						)
+					);
+					?>
 					<ul
 						class="kwv-mega-menu__list"
 						role="list"
-						data-wp-context="<?php echo esc_attr( wp_json_encode( array( 'parentSlug' => $parent->slug, 'childSlug' => $child->slug ) ) ); ?>"
+						data-wp-context="<?php echo esc_attr( $list_context ); ?>"
 						data-wp-bind--hidden="!state.isGrandchildVisible"
 					>
 						<?php foreach ( $grandchildren as $grandchild ) : ?>

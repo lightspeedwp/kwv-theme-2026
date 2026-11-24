@@ -213,6 +213,11 @@ function breadcrumb_back_to_prefix( $defaults ) {
 
 /**
  * Filter out WooCommerce templates when WooCommerce is not active.
+ *
+ * @param \WP_Block_Template[] $query_result  Templates found by the query.
+ * @param array                $query         The template query arguments.
+ * @param string               $template_type `wp_template` or `wp_template_part`.
+ * @return \WP_Block_Template[] The templates, without WooCommerce's.
  */
 function filter_woocommerce_templates( $query_result, $query, $template_type ) {
 
@@ -271,9 +276,12 @@ function unregister_woocommerce_block_patterns() {
 
 /**
  * Disables the WooCommerce Pattern Toolkit Full Composability feature.
+ *
+ * @param string[] $features Enabled WooCommerce admin features.
+ * @return string[] The features, without the pattern toolkit.
  */
 function disable_pattern_toolkit( $features ) {
-	$key = array_search( 'pattern-toolkit-full-composability', $features );
+	$key = array_search( 'pattern-toolkit-full-composability', $features, true );
 
 	if ( false !== $key ) {
 		unset( $features[ $key ] );

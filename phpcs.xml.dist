@@ -80,6 +80,14 @@
 	<rule ref="Universal.NamingConventions.NoReservedKeywordParameterNames">
 		<exclude-pattern>*/tests/*</exclude-pattern>
 	</rule>
+	<!-- WooCommerce registers these capabilities on its own roles. -->
+	<rule ref="WordPress.WP.Capabilities">
+		<properties>
+			<property name="custom_capabilities" type="array">
+				<element value="manage_product_terms"/>
+			</property>
+		</properties>
+	</rule>
 	<rule ref="WordPress.WP.Capabilities">
 		<exclude-pattern>*/tests/*</exclude-pattern>
 	</rule>
