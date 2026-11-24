@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Home page brand carousels link to the brand showcase.** The 34 `/brand/{brand}/` links in `templates/front-page.html` now end in `/showcase/`. The Bug tile linked to `/shop/?brands=bug`. It now links to `/brand/bug/showcase/`, and its image has the alt text "Bug" so the link has a name.
 - **The product description on the showcase is the same size as the brand introduction.** The Product Summary in `parts/brand-product-slide.html` is now `font-size|200` (it was `300`), the same as the introduction and the Product Detail list.
+- **The showcase slide shows the main Product description, not the short description.** KWV edit the main "Product description" field. The slide used the Product Summary block, which only shows the short description, so their edits never appeared. `parts/brand-product-slide.html` now uses the WooCommerce Product Description block (`font-size|200`). The pasted-HTML cleaner in `inc/brand-page.php` is now `clean_product_description` on `render_block_woocommerce/product-description`. It keeps the block's single wrapper and strips the inner `style`/`width`/`height`/`align`/`data-*` attributes as before. The selectors in `assets/styles/woocommerce-brand-page.css` and the BRAND-TC6 e2e check now target `.wc-block-product-description`.
 - **The brand shop loads the shop filter assets again.** `inc/woocommerce.php` now leaves them out only on the showcase.
 
 ### Changed (shop/category banner matches brand page, 2026-11-18)

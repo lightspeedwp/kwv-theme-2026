@@ -4,7 +4,7 @@
 	"title": "Brand Product Slide",
 	"slug": "brand-product-slide",
 	"blockTypes": [ "core/group" ],
-	"description": "One product in the brand page slider: packshot beside the brand name, product name, short description, product details, price and Add to Cart.",
+	"description": "One product in the brand page slider: packshot beside the brand name, product name, product description, product details, price and Add to Cart.",
 	"styles": {
 		"spacing": {
 			"margin": {

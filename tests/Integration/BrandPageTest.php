@@ -14,7 +14,7 @@ use Kwv\BrandPage as B;
  * @covers ::Kwv\BrandPage\products_per_page
  * @covers ::Kwv\BrandPage\print_js_flag
  * @covers ::Kwv\BrandPage\enqueue_assets
- * @covers ::Kwv\BrandPage\clean_product_summary
+ * @covers ::Kwv\BrandPage\clean_product_description
  * @covers ::Kwv\BrandPage\brand_base
  * @covers ::Kwv\BrandPage\showcase_rule
  * @covers ::Kwv\BrandPage\register_showcase_route
@@ -27,9 +27,9 @@ use Kwv\BrandPage as B;
  */
 final class BrandPageTest extends TestCase {
 
-	private const SUMMARY = '<div class="wp-block-woocommerce-product-summary has-small-font-size"><div class="wp-block-woocommerce-product-summary__content" style="color:red">'
+	private const DESCRIPTION = '<div class="wc-block-product-description wp-block-woocommerce-product-description has-200-font-size" style="color:red">'
 		. '<table style="width:1876px" width="1876" height="40" align="center" data-start="1" data-end="9"><tbody><tr><td style="text-align:center" data-col="2">Aged</td></tr></tbody></table>'
-		. '<p style="margin:0" data-pasted="x" class="keep">Text</p></div></div>';
+		. '<p style="margin:0" data-pasted="x" class="keep">Text</p></div>';
 
 	/**
 	 * Visit a brand's showcase (the slider page).
@@ -186,14 +186,13 @@ final class BrandPageTest extends TestCase {
 		$this->assertStringContainsString( '"slide":"Product {{index}} of {{slidesLength}}"', $data );
 	}
 
-	public function test_summary_attributes_are_stripped_but_the_wrappers_are_kept(): void {
+	public function test_description_attributes_are_stripped_but_the_wrapper_is_kept(): void {
 		$this->goToBrand();
 
-		$out = B\clean_product_summary( self::SUMMARY );
+		$out = B\clean_product_description( self::DESCRIPTION );
 
-		// The block's own two wrappers keep their attributes.
-		$this->assertStringContainsString( 'class="wp-block-woocommerce-product-summary has-small-font-size"', $out );
-		$this->assertStringContainsString( 'class="wp-block-woocommerce-product-summary__content" style="color:red"', $out );
+		// The block's own wrapper keeps its attributes.
+		$this->assertStringContainsString( 'class="wc-block-product-description wp-block-woocommerce-product-description has-200-font-size" style="color:red"', $out );
 
 		// Everything inside is cleaned.
 		foreach ( array( 'width=', 'height=', 'align=', 'data-start', 'data-end', 'data-col', 'data-pasted', 'margin:0', 'text-align', '1876px' ) as $needle ) {
@@ -203,20 +202,20 @@ final class BrandPageTest extends TestCase {
 		$this->assertStringContainsString( 'Aged', $out );
 	}
 
-	public function test_the_summary_is_untouched_off_brand_pages(): void {
+	public function test_the_description_is_untouched_off_brand_pages(): void {
 		$this->go_to( home_url( '/' ) );
 
-		$this->assertSame( self::SUMMARY, B\clean_product_summary( self::SUMMARY ) );
+		$this->assertSame( self::DESCRIPTION, B\clean_product_description( self::DESCRIPTION ) );
 	}
 
-	public function test_an_empty_summary_is_returned_as_is(): void {
+	public function test_an_empty_description_is_returned_as_is(): void {
 		$this->goToBrand();
 
-		$this->assertSame( '', B\clean_product_summary( '' ) );
+		$this->assertSame( '', B\clean_product_description( '' ) );
 	}
 
-	public function test_the_summary_filter_is_hooked_to_the_product_summary_block(): void {
-		$this->assertNotFalse( has_filter( 'render_block_woocommerce/product-summary', 'Kwv\BrandPage\clean_product_summary' ) );
+	public function test_the_description_filter_is_hooked_to_the_product_description_block(): void {
+		$this->assertNotFalse( has_filter( 'render_block_woocommerce/product-description', 'Kwv\BrandPage\clean_product_description' ) );
 	}
 
 	public function test_the_slider_ceiling_is_one_hundred_products(): void {
@@ -282,10 +281,10 @@ final class BrandPageTest extends TestCase {
 		$this->assertFalse( $this->isQueued( 'style', B\STYLE_HANDLE ) );
 	}
 
-	public function test_the_summary_keeps_the_text_and_structure_of_a_pasted_table(): void {
+	public function test_the_description_keeps_the_text_and_structure_of_a_pasted_table(): void {
 		$this->goToBrand();
 
-		$out = B\clean_product_summary( self::SUMMARY );
+		$out = B\clean_product_description( self::DESCRIPTION );
 
 		$this->assertSame( 1, substr_count( $out, '<table' ) );
 		$this->assertSame( 1, substr_count( $out, '<td' ) );
@@ -294,9 +293,9 @@ final class BrandPageTest extends TestCase {
 
 	public function test_a_third_element_with_hostile_attributes_is_cleaned(): void {
 		$this->goToBrand();
-		$html = '<div class="a"><div class="b"><img src="x.jpg" width="500" height="9" style="x:y" align="left" data-x="1" onerror="alert(1)" alt="ok"></div></div>';
+		$html = '<div class="a"><p class="b"><img src="x.jpg" width="500" height="9" style="x:y" align="left" data-x="1" onerror="alert(1)" alt="ok"></p></div>';
 
-		$out = B\clean_product_summary( $html );
+		$out = B\clean_product_description( $html );
 
 		$this->assertStringContainsString( 'src="x.jpg"', $out );
 		$this->assertStringContainsString( 'alt="ok"', $out );
@@ -305,17 +304,17 @@ final class BrandPageTest extends TestCase {
 		}
 	}
 
-	public function test_summary_markup_with_only_the_two_wrappers_is_unchanged(): void {
+	public function test_description_markup_with_only_the_wrapper_is_unchanged(): void {
 		$this->goToBrand();
-		$html = '<div class="a" style="color:red" data-k="1"><div class="b" style="margin:0">text</div></div>';
+		$html = '<div class="a" style="color:red" data-k="1">text</div>';
 
-		$this->assertSame( $html, B\clean_product_summary( $html ) );
+		$this->assertSame( $html, B\clean_product_description( $html ) );
 	}
 
-	public function test_the_summary_filter_cleans_through_the_real_block_hook(): void {
+	public function test_the_description_filter_cleans_through_the_real_block_hook(): void {
 		$this->goToBrand();
 
-		$out = apply_filters( 'render_block_woocommerce/product-summary', self::SUMMARY, array( 'blockName' => 'woocommerce/product-summary' ) );
+		$out = apply_filters( 'render_block_woocommerce/product-description', self::DESCRIPTION, array( 'blockName' => 'woocommerce/product-description' ) );
 
 		$this->assertStringNotContainsString( '1876px', $out );
 	}

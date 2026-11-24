@@ -396,34 +396,35 @@ function enqueue_assets() {
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_assets', 20 );
 
 /**
- * Tidy a product's short description inside a brand page slide.
+ * Tidy a product's description inside a brand page slide.
  *
- * Short descriptions are often pasted from other sites and carry inline
- * styles, fixed widths and centring (KWV 10 Year Old Brandy's is a
- * 1876px-wide table), which broke out of the slide into its neighbours.
- * On brand pages only, this strips `style`, `width`, `height`, `align` and
- * pasted `data-*` attributes from everything inside the summary, so the text
- * takes the slide's own typography. The product data itself is unchanged, and
- * the single product page still shows it as entered. Table cells are flowed
- * as plain text by assets/styles/woocommerce-brand-page.css.
+ * The slide shows the main Product description (the field KWV edits).
+ * Descriptions are often pasted from other sites and carry inline styles,
+ * fixed widths and centring (a pasted 1876px-wide table, for example), which
+ * would break out of the slide into its neighbours. On brand pages only, this
+ * strips `style`, `width`, `height`, `align` and pasted `data-*` attributes
+ * from everything inside the Product Description block, so the text takes
+ * the slide's own typography. The product data itself is unchanged, and the
+ * single product page still shows it as entered. Table cells are flowed as
+ * plain text by assets/styles/woocommerce-brand-page.css.
  *
- * @param string $block_content Rendered Product Summary block.
+ * @param string $block_content Rendered Product Description block.
  * @return string
  */
-function clean_product_summary( $block_content ) {
+function clean_product_description( $block_content ) {
 
 	if ( ! is_brand_page() || '' === (string) $block_content ) {
 		return $block_content;
 	}
 
 	$html  = new \WP_HTML_Tag_Processor( $block_content );
-	$depth = 0;
+	$first = true;
 
 	while ( $html->next_tag() ) {
 
-		// Leave the block's own two wrappers (and their font-size class) alone.
-		if ( $depth < 2 ) {
-			++$depth;
+		// Leave the block's own wrapper (and its font-size class) alone.
+		if ( $first ) {
+			$first = false;
 			continue;
 		}
 
@@ -438,4 +439,4 @@ function clean_product_summary( $block_content ) {
 
 	return $html->get_updated_html();
 }
-add_filter( 'render_block_woocommerce/product-summary', __NAMESPACE__ . '\clean_product_summary' );
+add_filter( 'render_block_woocommerce/product-description', __NAMESPACE__ . '\clean_product_description' );

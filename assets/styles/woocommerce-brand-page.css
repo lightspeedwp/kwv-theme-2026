@@ -103,18 +103,18 @@
 	object-fit: contain;
 }
 
-.kwv-brand-slide .wc-block-components-product-summary > :first-child {
+.kwv-brand-slide .wc-block-product-description > :first-child {
 	margin-top: 0;
 }
 
-.kwv-brand-slide .wc-block-components-product-summary > :last-child {
+.kwv-brand-slide .wc-block-product-description > :last-child {
 	margin-bottom: 0;
 }
 
-/* Short descriptions pasted from elsewhere sometimes arrive as a fixed-width
+/* Descriptions pasted from elsewhere sometimes arrive as a fixed-width
    table (KWV 10 Year Old: <table width="1876">). inc/brand-page.php strips the
    inline styles and size attributes; this lets the cells flow as plain text. */
-.kwv-brand-slide .wc-block-components-product-summary :is(table, thead, tbody, tfoot, tr, th, td) {
+.kwv-brand-slide .wc-block-product-description :is(table, thead, tbody, tfoot, tr, th, td) {
 	display: block;
 	width: auto;
 	max-width: 100%;
@@ -125,7 +125,7 @@
 	text-align: inherit;
 }
 
-.kwv-brand-slide .wc-block-components-product-summary {
+.kwv-brand-slide .wc-block-product-description {
 	overflow-wrap: break-word;
 }
 

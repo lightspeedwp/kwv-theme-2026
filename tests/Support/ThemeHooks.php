@@ -41,7 +41,7 @@ final class ThemeHooks {
 				array( 'filter', 'loop_shop_per_page', 'Kwv\BrandPage\products_per_page', 20, 1 ),
 				array( 'action', 'wp_head', 'Kwv\BrandPage\print_js_flag', 1, 1 ),
 				array( 'action', 'wp_enqueue_scripts', 'Kwv\BrandPage\enqueue_assets', 20, 1 ),
-				array( 'filter', 'render_block_woocommerce/product-summary', 'Kwv\BrandPage\clean_product_summary', 10, 1 ),
+				array( 'filter', 'render_block_woocommerce/product-description', 'Kwv\BrandPage\clean_product_description', 10, 1 ),
 			),
 			'inc/carousel.php'         => array(
 				array( 'action', 'init', 'Kwv\Carousel\register_assets', 10, 1 ),

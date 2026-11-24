@@ -169,7 +169,7 @@ test.describe('Brand page @brand', () => {
     await openBrand(page, BRAND);
     await waitForSlider(page);
 
-    const overflowing = await page.locator('.kwv-brand-slide .wc-block-components-product-summary').evaluateAll((nodes) =>
+    const overflowing = await page.locator('.kwv-brand-slide .wc-block-product-description').evaluateAll((nodes) =>
       nodes
         .filter((n) => n.scrollWidth > n.clientWidth + 1 || n.querySelector('[style], [width]'))
         .map((n) => n.closest('.wc-block-product')?.querySelector('.wp-block-post-title')?.textContent?.trim()),
